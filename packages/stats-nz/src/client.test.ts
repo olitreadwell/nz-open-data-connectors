@@ -4,6 +4,11 @@ import { AddressInfo } from "node:net";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { createStatsNzClient } from "./client";
+
+const HTTP_OK = 200;
+const HTTP_UNAUTHORIZED = 401;
+const HTTP_NOT_FOUND = 404;
+const OBSERVED_VALUE = 7;
 import { StatsNzApiError } from "./errors";
 
 const CATALOGUE_FIXTURE = readFileSync(
@@ -159,7 +164,11 @@ describe("createStatsNzClient", () => {
       return new Response(
         JSON.stringify({
           data: {
-            dataSets: [{ series: { "0:0": { observations: { "0": [7] } } } }],
+            dataSets: [
+              {
+                series: { "0:0": { observations: { "0": [OBSERVED_VALUE] } } },
+              },
+            ],
             structure: {
               dimensions: {
                 dataSet: [],
@@ -249,12 +258,14 @@ describe("stats-nz integration against a local HTTP server", () => {
         url.startsWith("/rest/data/STATSNZ,AGR_AGR_003,1.0/all") &&
         url.includes("format=csv")
       ) {
-        res.writeHead(200, { "content-type": "text/csv" });
+        res.writeHead(HTTP_OK, { "content-type": "text/csv" });
         res.end(LIVESTOCK_FIXTURE);
         return;
       }
       if (url.startsWith("/rest/data/STATSNZ,PRIVATE_TABLE,1.0/all")) {
-        res.writeHead(401, { "content-type": "application/json" });
+        res.writeHead(HTTP_UNAUTHORIZED, {
+          "content-type": "application/json",
+        });
         res.end(
           JSON.stringify({
             message: "Access denied due to missing subscription key.",
@@ -263,11 +274,11 @@ describe("stats-nz integration against a local HTTP server", () => {
         return;
       }
       if (url.startsWith("/rest/dataflow/STATSNZ/all")) {
-        res.writeHead(200, { "content-type": "application/xml" });
+        res.writeHead(HTTP_OK, { "content-type": "application/xml" });
         res.end(CATALOGUE_FIXTURE);
         return;
       }
-      res.writeHead(404, { "content-type": "text/plain" });
+      res.writeHead(HTTP_NOT_FOUND, { "content-type": "text/plain" });
       res.end("not found");
     });
     await new Promise<void>((resolve) =>

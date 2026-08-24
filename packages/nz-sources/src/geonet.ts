@@ -70,10 +70,16 @@ export function parseGeoNetQuakes(payload: unknown): GeoNetQuake[] {
 export function summarizeGeoNetQuakes(
   quakes: GeoNetQuake[],
 ): GeoNetQuakeSummary {
+  const majorMagnitude = 5;
+  const moderateMagnitude = 4;
   const byMagnitudeBand: Record<string, number> = {};
   for (const quake of quakes) {
     const band =
-      quake.magnitude >= 5 ? "5+" : quake.magnitude >= 4 ? "4-5" : "3-4";
+      quake.magnitude >= majorMagnitude
+        ? "5+"
+        : quake.magnitude >= moderateMagnitude
+          ? "4-5"
+          : "3-4";
     byMagnitudeBand[band] = (byMagnitudeBand[band] ?? 0) + 1;
   }
   const strongest = quakes.reduce<GeoNetQuake | undefined>(

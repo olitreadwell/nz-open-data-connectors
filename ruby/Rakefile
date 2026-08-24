@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 require 'rake/testtask'
-require 'rubocop/rake_task'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << 'lib' << 'spec'
   t.pattern = 'spec/**/*_spec.rb'
 end
 
-RuboCop::RakeTask.new(:lint)
+desc 'Run rubocop lint'
+task :lint do
+  sh 'bundle exec rubocop'
+end
 
 task check: %i[lint test]
 task default: :check

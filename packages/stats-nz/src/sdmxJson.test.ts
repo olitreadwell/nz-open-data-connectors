@@ -3,13 +3,16 @@ import { describe, expect, it } from "vitest";
 import { StatsNzParseError } from "./errors";
 import { parseSdmxJsonResponse } from "./sdmxJson";
 
+const SHEEP_POPULATION = 23583001;
+const DAIRY_POPULATION = 123.5;
+
 const SPEC_FIXTURE = JSON.stringify({
   data: {
     dataSets: [
       {
         series: {
-          "0:0:0": { observations: { "0": [23583001] } },
-          "0:1:0": { observations: { "0": [123.5, [1]] } },
+          "0:0:0": { observations: { "0": [SHEEP_POPULATION] } },
+          "0:1:0": { observations: { "0": [DAIRY_POPULATION, [1]] } },
         },
       },
     ],

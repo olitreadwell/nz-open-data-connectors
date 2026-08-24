@@ -29,6 +29,7 @@ const VALID_FORMATS: StatsNzDataFormat[] = [
 /**
  * Creates a Stats NZ (ADE) API client.
  * @param options - optional base URL, subscription key, fetch impl, and timeout
+ * @returns A client with catalogue, data, and codelist methods
  */
 export function createStatsNzClient(
   options: StatsNzClientOptions = {},

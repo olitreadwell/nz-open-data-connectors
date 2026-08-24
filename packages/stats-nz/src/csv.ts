@@ -1,7 +1,10 @@
 import { StatsNzParseError } from "./errors";
 import type { StatsNzObservation } from "./types";
 
-/** Parses ADE CSV text into rows of column-name to value mappings. */
+/** Parses ADE CSV text into rows of column-name to value mappings.
+ * @param text - raw CSV payload
+ * @returns rows keyed by column name
+ */
 export function parseCsv(text: string): Array<Record<string, string>> {
   const normalized = text.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
   if (normalized.trim() === "") {
