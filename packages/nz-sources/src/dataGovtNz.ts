@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from './errors';
-import { readFixtureJson } from './fixtures';
-import type { NzDataAdapter } from './types';
+import { NzSourceApiError, NzSourceParseError } from "./errors";
+import { readFixtureJson } from "./fixtures";
+import type { NzDataAdapter } from "./types";
 
 /** One dataset in the data.govt.nz catalogue. */
 export interface DataGovtNzDataset {
@@ -23,9 +23,9 @@ export interface DataGovtNzSearchResult {
 const DATA_GOVT_NZ_DATASET_SCHEMA = z.object({
   name: z.string(),
   title: z.string(),
-  notes: z.string().optional().default(''),
+  notes: z.string().optional().default(""),
   metadata_modified: z.string(),
-  url: z.string().optional().default(''),
+  url: z.string().optional().default(""),
   organization: z
     .object({ title: z.string() })
     .optional()
@@ -41,10 +41,12 @@ const DATA_GOVT_NZ_RESPONSE_SCHEMA = z.object({
 });
 
 /** Parses a data.govt.nz CKAN package_search payload into datasets. */
-export function parseDataGovtNzDatasets(payload: unknown): DataGovtNzSearchResult {
+export function parseDataGovtNzDatasets(
+  payload: unknown,
+): DataGovtNzSearchResult {
   const parsed = DATA_GOVT_NZ_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError('data.govt.nz', parsed.error.message);
+    throw new NzSourceParseError("data.govt.nz", parsed.error.message);
   }
   return {
     count: parsed.data.result.count,
@@ -70,18 +72,19 @@ export async function searchDataGovtNzDatasets(
   const url = `https://catalogue.data.govt.nz/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=20`;
   const response = await fetchImpl(url);
   if (!response.ok) {
-    throw new NzSourceApiError('data.govt.nz', `HTTP ${response.status}`);
+    throw new NzSourceApiError("data.govt.nz", `HTTP ${response.status}`);
   }
   return parseDataGovtNzDatasets(await response.json());
 }
 
 /** data.govt.nz adapter: catalogue search, keyless. */
 export const dataGovtNzAdapter: NzDataAdapter<DataGovtNzSearchResult> = {
-  id: 'data-govt-nz',
-  name: 'data.govt.nz catalogue',
-  auth: 'none',
-  description: 'CKAN package_search over the national open data catalogue.',
-  fetchLive: (options) => searchDataGovtNzDatasets('sheep', options?.fetchImpl),
+  id: "data-govt-nz",
+  name: "data.govt.nz catalogue",
+  auth: "none",
+  description: "CKAN package_search over the national open data catalogue.",
+  fetchLive: (options) => searchDataGovtNzDatasets("sheep", options?.fetchImpl),
   parse: parseDataGovtNzDatasets,
-  loadFixture: () => parseDataGovtNzDatasets(readFixtureJson('data-govt-nz-search-sheep.json')),
+  loadFixture: () =>
+    parseDataGovtNzDatasets(readFixtureJson("data-govt-nz-search-sheep.json")),
 };

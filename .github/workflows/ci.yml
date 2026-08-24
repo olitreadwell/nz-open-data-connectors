@@ -26,6 +26,18 @@ jobs:
       - run: npm ci
       - run: npm run lint
 
+  format:
+    name: Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run format:check
+
   # Inline PR comments on new ESLint findings. Doesn't block.
   lint-review:
     name: Lint review (PR comments)
@@ -109,9 +121,11 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-      - run: python -m venv .venv
-      - run: .venv/bin/pip install -e 'python/[dev]'
-      - run: .venv/bin/pytest python/tests
+      - run: python -m venv python/.venv
+      - run: python/.venv/bin/pip install -e 'python/[dev]'
+      - run: cd python && .venv/bin/ruff check src tests
+      - run: cd python && .venv/bin/mypy
+      - run: cd python && .venv/bin/pytest
 
   # Blocks — the Ruby port must stay green.
   ruby-test:
@@ -123,7 +137,9 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - run: cd ruby && bundle exec rake test
+          working-directory: ruby
+      - run: bundle exec rake check
+        working-directory: ruby
 
   codeql:
     name: CodeQL Security Scan

@@ -9,11 +9,11 @@ from __future__ import annotations
 import json
 import urllib.parse
 import xml.etree.ElementTree as ET
-
-import httpx
 from dataclasses import dataclass, field
 from importlib.resources import files
 from typing import Any, Callable, Dict, List, Optional
+
+import httpx
 
 from .errors import NzSourceApiError, NzSourceParseError
 
@@ -146,12 +146,14 @@ class TradeMeCategory:
 
 def read_fixture_json(filename: str) -> Any:
     """Reads a committed fixture as parsed JSON."""
-    return json.loads(files("nzdata").joinpath("fixtures", filename).read_text(encoding="utf-8"))
+    return json.loads(
+    files("nzdata").joinpath("fixtures").joinpath(filename).read_text(encoding="utf-8")
+)
 
 
 def read_fixture_text(filename: str) -> str:
     """Reads a committed fixture as raw text."""
-    return files("nzdata").joinpath("fixtures", filename).read_text(encoding="utf-8")
+    return files("nzdata").joinpath("fixtures").joinpath(filename).read_text(encoding="utf-8")
 
 
 def _get_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:

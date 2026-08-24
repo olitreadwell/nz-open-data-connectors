@@ -20,14 +20,28 @@
       "version": "1.0",
       "agencyId": "STATSNZ",
       "name": "Table 5.1: Main earnings source, by average firm size",
-      "dimensions": ["Tax year", "Main income", "Firm size", "Sex", "Age", "Measure"]
+      "dimensions": [
+        "Tax year",
+        "Main income",
+        "Firm size",
+        "Sex",
+        "Age",
+        "Measure"
+      ]
     },
     {
       "dataflowId": "LEED_AP4_001",
       "version": "1.0",
       "agencyId": "STATSNZ",
       "name": "Table 4.1: Number of jobs held and earnings",
-      "dimensions": ["Quarter", "Number of jobs", "Age", "Sex", "Region", "Measure"]
+      "dimensions": [
+        "Quarter",
+        "Number of jobs",
+        "Age",
+        "Sex",
+        "Region",
+        "Measure"
+      ]
     },
     {
       "dataflowId": "LEED_AP1_007",
@@ -41,7 +55,15 @@
       "version": "1.0",
       "agencyId": "STATSNZ",
       "name": "Table 1.5: Main earnings source, by industry (ANZSIC06)",
-      "dimensions": ["Tax year", "Main income", "Industry", "Age", "Sex", "Region", "Measure"]
+      "dimensions": [
+        "Tax year",
+        "Main income",
+        "Industry",
+        "Age",
+        "Sex",
+        "Region",
+        "Measure"
+      ]
     },
     {
       "dataflowId": "LEED_AP5_002",

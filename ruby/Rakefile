@@ -7,4 +7,10 @@ Rake::TestTask.new(:test) do |t|
   t.pattern = 'spec/**/*_spec.rb'
 end
 
-task default: :test
+desc 'Run rubocop lint'
+task :lint do
+  sh 'bundle exec rubocop'
+end
+
+task check: %i[lint test]
+task default: :check

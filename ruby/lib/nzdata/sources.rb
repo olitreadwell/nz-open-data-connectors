@@ -15,7 +15,8 @@ module Nzdata
   DataGovtNzSearchResult = Struct.new(:count, :datasets)
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
   DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url)
-  GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality, :latitude, :longitude)
+  GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
+                           :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
   LinzLayer = Struct.new(:id, :title, :url)
   NzorName = Struct.new(:name_id, :class_name, :full_name)
@@ -96,8 +97,14 @@ module Nzdata
   # --- data.govt.nz catalogue --------------------------------------------
 
   def parse_data_govt_nz_datasets(payload)
-    raise NzSourceParseError.new('data.govt.nz', 'invalid search payload') unless payload.is_a?(Hash)
-    raise NzSourceParseError.new('data.govt.nz', 'invalid search payload') unless payload['result'].is_a?(Hash)
+    unless payload.is_a?(Hash)
+      raise NzSourceParseError.new('data.govt.nz',
+                                   'invalid search payload')
+    end
+    unless payload['result'].is_a?(Hash)
+      raise NzSourceParseError.new('data.govt.nz',
+                                   'invalid search payload')
+    end
 
     result = payload['result']
     DataGovtNzSearchResult.new(
@@ -134,8 +141,14 @@ module Nzdata
   # --- data.govt.nz datastore --------------------------------------------
 
   def parse_data_govt_datastore_rows(payload)
-    raise NzSourceParseError.new('data.govt.nz datastore', 'invalid datastore payload') unless payload.is_a?(Hash)
-    raise NzSourceParseError.new('data.govt.nz datastore', 'invalid datastore payload') unless payload['result'].is_a?(Hash)
+    unless payload.is_a?(Hash)
+      raise NzSourceParseError.new('data.govt.nz datastore',
+                                   'invalid datastore payload')
+    end
+    unless payload['result'].is_a?(Hash)
+      raise NzSourceParseError.new('data.govt.nz datastore',
+                                   'invalid datastore payload')
+    end
 
     result = payload['result']
     DataGovtDatastoreResult.new(
@@ -157,14 +170,19 @@ module Nzdata
     'CKAN datastore_search rows, defaulting to national MSD benefit data.',
     ->(_api_key) { fetch_data_govt_datastore_rows(MSD_BENEFIT_RESOURCE_ID) },
     ->(payload) { parse_data_govt_datastore_rows(payload) },
-    -> { parse_data_govt_datastore_rows(read_fixture_json('data-govt-datastore-msd-benefits.json')) }
+    lambda {
+      parse_data_govt_datastore_rows(read_fixture_json('data-govt-datastore-msd-benefits.json'))
+    }
   )
 
   # --- DigitalNZ ---------------------------------------------------------
 
   def parse_digital_nz_records(payload)
     raise NzSourceParseError.new('DigitalNZ', 'invalid search payload') unless payload.is_a?(Hash)
-    raise NzSourceParseError.new('DigitalNZ', 'invalid search payload') unless payload['search'].is_a?(Hash)
+    unless payload['search'].is_a?(Hash)
+      raise NzSourceParseError.new('DigitalNZ',
+                                   'invalid search payload')
+    end
 
     payload['search'].fetch('results', []).map do |record|
       DigitalNzRecord.new(
@@ -179,7 +197,7 @@ module Nzdata
   end
 
   def search_digital_nz_records(query, api_key: nil)
-    params = [['text', query], ['per_page', '20']]
+    params = [['text', query], %w[per_page 20]]
     params << ['api_key', api_key] unless api_key.nil?
     url = "https://api.digitalnz.org/v3/records.json?#{URI.encode_www_form(params)}"
     parse_digital_nz_records(get_json(url))
@@ -198,7 +216,9 @@ module Nzdata
   # --- GeoNet ------------------------------------------------------------
 
   def parse_geonet_quakes(payload)
-    unless payload.is_a?(Hash) && payload['type'] == 'FeatureCollection' && payload['features'].is_a?(Array)
+    unless payload.is_a?(Hash) &&
+           payload['type'] == 'FeatureCollection' &&
+           payload['features'].is_a?(Array)
       raise NzSourceParseError.new('GeoNet', 'invalid GeoJSON payload')
     end
 
@@ -287,7 +307,10 @@ module Nzdata
   def parse_nzor_names(payload)
     doc = REXML::Document.new(payload)
     total_node = REXML::XPath.first(doc, '//Total')
-    raise NzSourceParseError.new('NZOR', 'missing Response/Total in XML payload') if total_node.nil? || total_node.text.nil?
+    if total_node.nil? || total_node.text.nil?
+      raise NzSourceParseError.new('NZOR',
+                                   'missing Response/Total in XML payload')
+    end
 
     total = Integer(total_node.text)
     names = REXML::XPath.match(doc, '//Name').map do |name_node|
@@ -370,7 +393,9 @@ module Nzdata
   def to_jsonable(value)
     case value
     when Struct
-      value.members.each_with_object({}) { |member, hash| hash[member] = to_jsonable(value[member]) }
+      value.members.to_h do |member|
+        [member, to_jsonable(value[member])]
+      end
     when Array
       value.map { |item| to_jsonable(item) }
     when Hash
@@ -382,7 +407,8 @@ module Nzdata
 
   def probe_nz_data_source(adapter, api_key = nil)
     data = adapter.fetch_live.call(api_key)
-    Probe.new(adapter.id, adapter.name, adapter.auth, true, 'ok', JSON.generate(to_jsonable(data))[0, 120])
+    Probe.new(adapter.id, adapter.name, adapter.auth, true, 'ok',
+              JSON.generate(to_jsonable(data))[0, 120])
   rescue StandardError => e
     Probe.new(adapter.id, adapter.name, adapter.auth, false, e.message)
   end

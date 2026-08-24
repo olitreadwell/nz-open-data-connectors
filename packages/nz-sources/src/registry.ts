@@ -1,12 +1,12 @@
-import { adeSearchAdapter } from './adeSearch';
-import { dataGovtDatastoreAdapter } from './dataGovtDatastore';
-import { dataGovtNzAdapter } from './dataGovtNz';
-import { digitalNzAdapter } from './digitalNz';
-import { geonetAdapter } from './geonet';
-import { linzAdapter } from './linz';
-import { nzorAdapter } from './nzor';
-import { tradeMeAdapter } from './tradeMe';
-import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from './types';
+import { adeSearchAdapter } from "./adeSearch";
+import { dataGovtDatastoreAdapter } from "./dataGovtDatastore";
+import { dataGovtNzAdapter } from "./dataGovtNz";
+import { digitalNzAdapter } from "./digitalNz";
+import { geonetAdapter } from "./geonet";
+import { linzAdapter } from "./linz";
+import { nzorAdapter } from "./nzor";
+import { tradeMeAdapter } from "./tradeMe";
+import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types";
 
 /** Every NZ data source behind the uniform adapter interface. */
 export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
@@ -22,7 +22,8 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
 
 /** Looks up a source adapter by id. */
 export function getNzDataSource<T>(id: string): NzDataAdapter<T> | undefined {
-  return NZ_DATA_SOURCES.find((source) => source.id === id) as NzDataAdapter<T> | undefined;
+  return NZ_DATA_SOURCES.find((source) => source.id === id) as
+    NzDataAdapter<T> | undefined;
 }
 
 /** Probes one source with a live fetch and reports the outcome. */
@@ -39,7 +40,7 @@ export async function probeNzDataSource<T>(
       name: adapter.name,
       auth: adapter.auth,
       ok: true,
-      status: 'ok',
+      status: "ok",
       sample: JSON.stringify(data).slice(0, 120),
     };
   } catch (error) {
@@ -62,7 +63,10 @@ export async function probeAllNzDataSources(options?: {
   return Promise.all(
     NZ_DATA_SOURCES.map((source) => {
       const key = apiKeys?.[source.id] ?? apiKey;
-      return probeNzDataSource(source, key === undefined ? {} : { apiKey: key });
+      return probeNzDataSource(
+        source,
+        key === undefined ? {} : { apiKey: key },
+      );
     }),
   );
 }

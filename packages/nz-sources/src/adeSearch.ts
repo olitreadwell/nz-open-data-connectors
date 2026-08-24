@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from './errors';
-import { readFixtureJson } from './fixtures';
-import type { NzDataAdapter } from './types';
+import { NzSourceApiError, NzSourceParseError } from "./errors";
+import { readFixtureJson } from "./fixtures";
+import type { NzDataAdapter } from "./types";
 
 /** One ADE table found by the Aotearoa Data Explorer search index. */
 export interface AdeDataflow {
@@ -21,9 +21,9 @@ export interface AdeSearchResult {
 
 const ADE_DATAFLOW_SCHEMA = z.object({
   dataflowId: z.string(),
-  version: z.string().optional().default(''),
-  agencyId: z.string().optional().default(''),
-  name: z.string().optional().default(''),
+  version: z.string().optional().default(""),
+  agencyId: z.string().optional().default(""),
+  name: z.string().optional().default(""),
   dimensions: z.array(z.string()).optional().default([]),
 });
 
@@ -36,7 +36,7 @@ const ADE_SEARCH_RESPONSE_SCHEMA = z.object({
 export function parseAdeSearchResults(payload: unknown): AdeSearchResult {
   const parsed = ADE_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError('ADE search', parsed.error.message);
+    throw new NzSourceParseError("ADE search", parsed.error.message);
   }
   return {
     numFound: parsed.data.numFound,
@@ -64,7 +64,7 @@ export async function searchAdeTables(
     `&q=${encodeURIComponent(query)}&limit=${limit}`;
   const response = await (options.fetchImpl ?? globalThis.fetch)(url);
   if (!response.ok) {
-    throw new NzSourceApiError('ADE search', `HTTP ${response.status}`);
+    throw new NzSourceApiError("ADE search", `HTTP ${response.status}`);
   }
   return parseAdeSearchResults(await response.json());
 }
@@ -74,15 +74,18 @@ export async function searchAdeTables(
  * Keyless. The live probe searches for median annual earnings (LEED).
  */
 export const adeSearchAdapter: NzDataAdapter<AdeSearchResult> = {
-  id: 'ade-search',
-  name: 'Aotearoa Data Explorer search index',
-  auth: 'none',
-  description: 'Searches ADE table IDs and titles by keyword.',
+  id: "ade-search",
+  name: "Aotearoa Data Explorer search index",
+  auth: "none",
+  description: "Searches ADE table IDs and titles by keyword.",
   fetchLive: (options) =>
-    searchAdeTables('median annual earnings', {
+    searchAdeTables("median annual earnings", {
       limit: 5,
-      ...(options?.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl }),
+      ...(options?.fetchImpl === undefined
+        ? {}
+        : { fetchImpl: options.fetchImpl }),
     }),
   parse: parseAdeSearchResults,
-  loadFixture: () => parseAdeSearchResults(readFixtureJson('ade-search-earnings.json')),
+  loadFixture: () =>
+    parseAdeSearchResults(readFixtureJson("ade-search-earnings.json")),
 };

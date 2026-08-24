@@ -12,7 +12,7 @@ export interface StatsNzObservation {
   status?: string;
 }
 
-export type StatsNzDataFormat = 'csv' | 'csvfilewithlabels' | 'jsondata';
+export type StatsNzDataFormat = "csv" | "csvfilewithlabels" | "jsondata";
 
 export interface StatsNzCodelistItem {
   id: string;
@@ -43,5 +43,8 @@ export interface StatsNzClientOptions {
 export interface StatsNzClient {
   getDataflowCatalogue(): Promise<StatsNzDataflow[]>;
   getData(request: StatsNzGetDataRequest): Promise<StatsNzObservation[]>;
-  getCodelist(codelistId: string, options?: { version?: string }): Promise<StatsNzCodelist>;
+  getCodelist(
+    codelistId: string,
+    options?: { version?: string },
+  ): Promise<StatsNzCodelist>;
 }

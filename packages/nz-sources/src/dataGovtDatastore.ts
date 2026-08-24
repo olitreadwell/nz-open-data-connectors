@@ -1,11 +1,14 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from './errors';
-import { readFixtureJson } from './fixtures';
-import type { NzDataAdapter } from './types';
+import { NzSourceApiError, NzSourceParseError } from "./errors";
+import { readFixtureJson } from "./fixtures";
+import type { NzDataAdapter } from "./types";
 
 /** One row from a data.govt.nz CKAN datastore resource. */
-export type DataGovtDatastoreRow = Record<string, string | number | boolean | null>;
+export type DataGovtDatastoreRow = Record<
+  string,
+  string | number | boolean | null
+>;
 
 /** Rows from a data.govt.nz CKAN datastore resource. */
 export interface DataGovtDatastoreResult {
@@ -15,9 +18,11 @@ export interface DataGovtDatastoreResult {
 }
 
 /** The default resource the adapter probes: MSD national-level main benefit data. */
-export const MSD_BENEFIT_RESOURCE_ID = '9144a616-9ab1-4475-972b-ac42c1f891b7';
+export const MSD_BENEFIT_RESOURCE_ID = "9144a616-9ab1-4475-972b-ac42c1f891b7";
 
-const DATA_GOVT_NZ_ROW_SCHEMA = z.record(z.union([z.string(), z.number(), z.boolean(), z.null()]));
+const DATA_GOVT_NZ_ROW_SCHEMA = z.record(
+  z.union([z.string(), z.number(), z.boolean(), z.null()]),
+);
 
 const DATA_GOVT_NZ_DATASTORE_SCHEMA = z.object({
   success: z.literal(true),
@@ -29,10 +34,15 @@ const DATA_GOVT_NZ_DATASTORE_SCHEMA = z.object({
 });
 
 /** Parses a data.govt.nz CKAN datastore_search payload into rows. */
-export function parseDataGovtDatastoreRows(payload: unknown): DataGovtDatastoreResult {
+export function parseDataGovtDatastoreRows(
+  payload: unknown,
+): DataGovtDatastoreResult {
   const parsed = DATA_GOVT_NZ_DATASTORE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError('data.govt.nz datastore', parsed.error.message);
+    throw new NzSourceParseError(
+      "data.govt.nz datastore",
+      parsed.error.message,
+    );
   }
   return {
     resourceId: parsed.data.result.resource_id,
@@ -55,7 +65,10 @@ export async function fetchDataGovtDatastoreRows(
     `?resource_id=${encodeURIComponent(resourceId)}&limit=${limit}`;
   const response = await (options.fetchImpl ?? globalThis.fetch)(url);
   if (!response.ok) {
-    throw new NzSourceApiError('data.govt.nz datastore', `HTTP ${response.status}`);
+    throw new NzSourceApiError(
+      "data.govt.nz datastore",
+      `HTTP ${response.status}`,
+    );
   }
   return parseDataGovtDatastoreRows(await response.json());
 }
@@ -65,17 +78,23 @@ export async function fetchDataGovtDatastoreRows(
  * open data catalogue. Keyless. The live probe reads the MSD national
  * benefit table, a long monthly series.
  */
-export const dataGovtDatastoreAdapter: NzDataAdapter<DataGovtDatastoreResult> = {
-  id: 'data-govt-datastore',
-  name: 'data.govt.nz datastore (MSD benefits)',
-  auth: 'none',
-  description: 'CKAN datastore_search rows, defaulting to national MSD benefit data.',
-  fetchLive: (options) =>
-    fetchDataGovtDatastoreRows(
-      MSD_BENEFIT_RESOURCE_ID,
-      options?.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl },
-    ),
-  parse: parseDataGovtDatastoreRows,
-  loadFixture: () =>
-    parseDataGovtDatastoreRows(readFixtureJson('data-govt-datastore-msd-benefits.json')),
-};
+export const dataGovtDatastoreAdapter: NzDataAdapter<DataGovtDatastoreResult> =
+  {
+    id: "data-govt-datastore",
+    name: "data.govt.nz datastore (MSD benefits)",
+    auth: "none",
+    description:
+      "CKAN datastore_search rows, defaulting to national MSD benefit data.",
+    fetchLive: (options) =>
+      fetchDataGovtDatastoreRows(
+        MSD_BENEFIT_RESOURCE_ID,
+        options?.fetchImpl === undefined
+          ? {}
+          : { fetchImpl: options.fetchImpl },
+      ),
+    parse: parseDataGovtDatastoreRows,
+    loadFixture: () =>
+      parseDataGovtDatastoreRows(
+        readFixtureJson("data-govt-datastore-msd-benefits.json"),
+      ),
+  };

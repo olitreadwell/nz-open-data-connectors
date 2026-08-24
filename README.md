@@ -94,7 +94,7 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 - `python/` - Python package, publishable to PyPI as `nzdata` (tag `python-v*`).
 - `ruby/` - Ruby gem, publishable to RubyGems as `nzdata` (tag `ruby-v*`).
 
-Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. See each directory's README for quickstarts and publishing steps.
+Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. Each port has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See each directory's README for quickstarts and publishing steps.
 
 ## License
 

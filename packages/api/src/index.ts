@@ -1,14 +1,14 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
-import { swaggerUI } from '@hono/swagger-ui';
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import { swaggerUI } from "@hono/swagger-ui";
 
-import { probeNzDataSource } from '@nzlab/nz-sources';
-import { createStatsNzClient } from '@nzlab/stats-nz';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import { probeNzDataSource } from "@nzlab/nz-sources";
+import { createStatsNzClient } from "@nzlab/stats-nz";
+import type { StatsNzClient } from "@nzlab/stats-nz";
 
-import { OPEN_API_DOCUMENT } from './openapi';
-import { createSourcesRoutes } from './routes/sources';
-import { createStatsNzRoutes } from './routes/statsNz';
+import { OPEN_API_DOCUMENT } from "./openapi";
+import { createSourcesRoutes } from "./routes/sources";
+import { createStatsNzRoutes } from "./routes/statsNz";
 
 export interface ConnectorsAppOptions {
   statsNzSubscriptionKey?: string;
@@ -28,18 +28,23 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
     );
 
   const app = new Hono();
-  app.use('/api/*', cors());
-  app.get('/health', (c) => c.json({ ok: true, name: 'nz-open-data-connectors' }));
-  app.get('/openapi.json', (c) => c.json(OPEN_API_DOCUMENT));
-  app.get('/docs', swaggerUI({ url: '/openapi.json' }));
-  const sourcesOptions: { apiKeys?: Record<string, string>; probeFn?: typeof probeNzDataSource } = {};
+  app.use("/api/*", cors());
+  app.get("/health", (c) =>
+    c.json({ ok: true, name: "nz-open-data-connectors" }),
+  );
+  app.get("/openapi.json", (c) => c.json(OPEN_API_DOCUMENT));
+  app.get("/docs", swaggerUI({ url: "/openapi.json" }));
+  const sourcesOptions: {
+    apiKeys?: Record<string, string>;
+    probeFn?: typeof probeNzDataSource;
+  } = {};
   if (options.apiKeys !== undefined) {
     sourcesOptions.apiKeys = options.apiKeys;
   }
   if (options.probeFn !== undefined) {
     sourcesOptions.probeFn = options.probeFn;
   }
-  app.route('/api', createSourcesRoutes(sourcesOptions));
-  app.route('/api', createStatsNzRoutes({ client }));
+  app.route("/api", createSourcesRoutes(sourcesOptions));
+  app.route("/api", createStatsNzRoutes({ client }));
   return app;
 }

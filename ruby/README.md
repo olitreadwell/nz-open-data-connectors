@@ -41,6 +41,12 @@ rows = client.get_data('AGR_AGR_003')       # keyless for AGR_* tables
 | `nzor` | NZ Organisms Register | none | Species name search |
 | `linz` | LINZ Data Service | key | Layer search (key optional) |
 
+## Check
+
+```sh
+bundle exec rake check    # rubocop lint + tests with a 60% coverage gate
+```
+
 ## Tests
 
 ```sh

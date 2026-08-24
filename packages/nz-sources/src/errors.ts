@@ -2,7 +2,7 @@
 export class NzSourceError extends Error {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);
-    this.name = 'NzSourceError';
+    this.name = "NzSourceError";
   }
 }
 
@@ -14,7 +14,7 @@ export class NzSourceApiError extends NzSourceError {
     options?: ErrorOptions,
   ) {
     super(`${source}: ${message}`, options);
-    this.name = 'NzSourceApiError';
+    this.name = "NzSourceApiError";
   }
 }
 
@@ -26,6 +26,6 @@ export class NzSourceParseError extends NzSourceError {
     options?: ErrorOptions,
   ) {
     super(`${source}: ${message}`, options);
-    this.name = 'NzSourceParseError';
+    this.name = "NzSourceParseError";
   }
 }
