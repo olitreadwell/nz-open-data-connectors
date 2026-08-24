@@ -52,6 +52,18 @@ RUN_SMOKE=1 pytest tests/test_smoke.py   # live smoke tests against the real API
 Fixtures in `src/nzdata/fixtures/` are real snapshots from the live APIs.
 Smoke tests are skipped by default and must be run explicitly.
 
+## Check
+
+```sh
+ruff check src tests   # lint
+mypy                   # type check
+pytest                 # tests + 60% coverage gate
+```
+
+Dependencies are pinned and locked (`uv.lock`). Install the locked dev
+environment with `uv sync --locked --extra dev`, or `pip install -e '.[dev]'`
+for the pinned versions from `pyproject.toml`.
+
 ## License
 
 MIT

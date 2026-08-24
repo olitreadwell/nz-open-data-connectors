@@ -8,6 +8,8 @@ TypeScript connectors for New Zealand public data. npm workspaces, one package p
 - No `any` escape hatches
 - Every exported function has an explicit return type
 - 60% coverage threshold per package
+- Python port: `ruff` + `mypy` + pytest coverage gate, deps pinned and locked in `uv.lock`
+- Ruby port: `rubocop` + SimpleCov gate via `bundle exec rake check`
 - Never fabricate a data source, a stat, or a "this worked" claim
 - Fixtures are real snapshots from the live APIs, dated in their filenames
 

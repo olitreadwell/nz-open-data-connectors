@@ -12,10 +12,10 @@ import json
 import math
 import urllib.parse
 import xml.etree.ElementTree as ET
+from dataclasses import dataclass
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import httpx
-from dataclasses import dataclass, field
-from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from .errors import StatsNzApiError, StatsNzError, StatsNzParseError
 
@@ -90,14 +90,14 @@ def parse_stats_nz_csv(text: str, dataflow_id: str) -> List[StatsNzObservation]:
     for record in reader:
         dimensions: Dict[str, str] = {}
         labels: Dict[str, str] = {}
-        for key, value in record.items():
+        for key, cell_value in record.items():
             if key in ("DATAFLOW", "OBS_VALUE", "OBS_STATUS"):
                 continue
             if key.endswith(label_suffix):
-                labels[key[: -len(label_suffix)]] = value or ""
+                labels[key[: -len(label_suffix)]] = cell_value or ""
                 continue
             if key.endswith(suffix):
-                dimensions[key[: -len(suffix)]] = value or ""
+                dimensions[key[: -len(suffix)]] = cell_value or ""
         raw_value = record.get("OBS_VALUE") or ""
         value: Optional[float] = None if raw_value == "" else float(raw_value)
         if value is not None and not math.isfinite(value):
@@ -184,7 +184,7 @@ def parse_dataflow_catalogue_xml(xml: str) -> List[StatsNzDataflow]:
     except ET.ParseError as exc:
         raise StatsNzParseError("Failed to parse Stats NZ dataflow catalogue XML") from exc
     doc = {_local_name(root.tag): _simplify(root)}
-    structure = _as_record(_as_record(doc).get("Structure"))
+    structure = _as_record((_as_record(doc) or {}).get("Structure"))
     if structure is None:
         raise StatsNzParseError("Stats NZ dataflow catalogue XML has no Structure element")
     structures = _as_record(structure.get("Structures"))
@@ -199,10 +199,10 @@ def parse_dataflow_catalogue_xml(xml: str) -> List[StatsNzDataflow]:
     )
     return [
         StatsNzDataflow(
-            id=_as_string(_as_record(flow).get("@_id")),
-            agency_id=_as_string(_as_record(flow).get("@_agencyID")),
-            version=_as_string(_as_record(flow).get("@_version")),
-            title=_as_string(_as_record(_as_record(flow).get("Name")).get("#text")),
+            id=_as_string((_as_record(flow) or {}).get("@_id")),
+            agency_id=_as_string((_as_record(flow) or {}).get("@_agencyID")),
+            version=_as_string((_as_record(flow) or {}).get("@_version")),
+            title=_as_string((_as_record((_as_record(flow) or {}).get("Name")) or {}).get("#text")),
         )
         for flow in dataflows
     ]
@@ -218,8 +218,8 @@ def _to_codelist_items(codes_value: Any) -> List[StatsNzCodelistItem]:
     )
     return [
         StatsNzCodelistItem(
-            id=_as_string(_as_record(code).get("@_id")),
-            name=_as_string(_as_record(_as_record(code).get("Name")).get("#text")),
+            id=_as_string((_as_record(code) or {}).get("@_id")),
+            name=_as_string((_as_record((_as_record(code) or {}).get("Name")) or {}).get("#text")),
         )
         for code in codes
     ]
@@ -232,7 +232,7 @@ def parse_codelist_xml(xml: str) -> StatsNzCodelist:
     except ET.ParseError as exc:
         raise StatsNzParseError("Failed to parse Stats NZ codelist XML") from exc
     doc = {_local_name(root.tag): _simplify(root)}
-    structure = _as_record(_as_record(doc).get("Structure"))
+    structure = _as_record((_as_record(doc) or {}).get("Structure"))
     structures = _as_record(structure.get("Structures")) if structure else None
     codelists = _as_record(structures.get("Codelists")) if structures else None
     codelists_value = codelists.get("Codelist") if codelists else None

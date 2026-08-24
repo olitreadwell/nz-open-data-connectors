@@ -8,7 +8,6 @@ import pytest
 from nzdata import (
     NZ_DATA_SOURCES,
     get_nz_data_source,
-    probe_all_nz_data_sources,
     probe_nz_data_source,
 )
 from nzdata.errors import NzSourceParseError

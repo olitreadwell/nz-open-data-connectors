@@ -1,7 +1,7 @@
-import { serve } from '@hono/node-server';
+import { serve } from "@hono/node-server";
 
-import { createConnectorsApp } from './index';
-import type { ConnectorsAppOptions } from './index';
+import { createConnectorsApp } from "./index";
+import type { ConnectorsAppOptions } from "./index";
 
 const port = Number(process.env.PORT ?? 8787);
 
@@ -23,5 +23,7 @@ if (Object.keys(apiKeys).length > 0) {
 const app = createConnectorsApp(options);
 
 serve({ fetch: app.fetch, port }, (info) => {
-  process.stdout.write(`NZ open data connectors listening on http://localhost:${info.port}\n`);
+  process.stdout.write(
+    `NZ open data connectors listening on http://localhost:${info.port}\n`,
+  );
 });

@@ -27,7 +27,10 @@ module Nzdata
     return [] if rows.nil? || rows.empty?
 
     headers = rows.headers
-    raise StatsNzParseError, 'Stats NZ CSV is missing the OBS_VALUE column' unless headers.include?('OBS_VALUE')
+    unless headers.include?('OBS_VALUE')
+      raise StatsNzParseError,
+            'Stats NZ CSV is missing the OBS_VALUE column'
+    end
 
     suffix = "_#{dataflow_id}"
     label_suffix = "_LABEL#{suffix}"
@@ -89,7 +92,10 @@ module Nzdata
   def parse_dataflow_catalogue_xml(xml)
     doc = REXML::Document.new(xml)
     structure = REXML::XPath.first(doc, '//*[local-name()="Structure"]')
-    raise StatsNzParseError, 'Stats NZ dataflow catalogue XML has no Structure element' if structure.nil?
+    if structure.nil?
+      raise StatsNzParseError,
+            'Stats NZ dataflow catalogue XML has no Structure element'
+    end
 
     REXML::XPath.match(doc, '//*[local-name()="Dataflow"]').map do |flow|
       name = REXML::XPath.first(flow, './/*[local-name()="Name"]')
@@ -124,7 +130,8 @@ module Nzdata
   end
 
   class StatsNzClient
-    def initialize(subscription_key: nil, base_url: DEFAULT_BASE_URL, timeout_ms: DEFAULT_TIMEOUT_MS, fetch_impl: nil)
+    def initialize(subscription_key: nil, base_url: DEFAULT_BASE_URL,
+                   timeout_ms: DEFAULT_TIMEOUT_MS, fetch_impl: nil)
       @base_url = base_url.sub(%r{/+$}, '')
       @subscription_key = subscription_key
       @timeout_ms = timeout_ms
@@ -132,11 +139,18 @@ module Nzdata
     end
 
     def get_data(dataflow_id, key: 'all', version: nil, format: 'csv')
-      raise StatsNzError, "Unsupported Stats NZ response format: #{format}" unless VALID_FORMATS.include?(format)
-      raise StatsNzError, 'jsondata format is not implemented in the Ruby port' if format == 'jsondata'
+      unless VALID_FORMATS.include?(format)
+        raise StatsNzError,
+              "Unsupported Stats NZ response format: #{format}"
+      end
+      if format == 'jsondata'
+        raise StatsNzError,
+              'jsondata format is not implemented in the Ruby port'
+      end
 
       version ||= DEFAULT_VERSION
-      path = "/data/STATSNZ,#{encode(dataflow_id)},#{encode(version)}/#{encode(key)}?format=#{format}"
+      path = "/data/STATSNZ,#{encode(dataflow_id)},#{encode(version)}/" \
+             "#{encode(key)}?format=#{format}"
       body = send_request(path, 'text/csv')
       Nzdata.parse_stats_nz_csv(body, dataflow_id)
     end
@@ -172,7 +186,8 @@ module Nzdata
         rescue JSON::ParserError
           # keep the default message
         end
-        raise StatsNzApiError.new(message, status: status, retryable: status == 429 || status >= 500, url: url)
+        raise StatsNzApiError.new(message, status: status,
+                                           retryable: status == 429 || status >= 500, url: url)
       end
       body
     end
@@ -188,11 +203,13 @@ module Nzdata
       response = http.request(request)
       [response.code.to_i, response.body.to_s]
     rescue StandardError => e
-      raise StatsNzApiError.new("Stats NZ request failed: #{e.message}", status: 0, retryable: true, url: url)
+      raise StatsNzApiError.new("Stats NZ request failed: #{e.message}", status: 0,
+                                                                         retryable: true, url: url)
     end
   end
 
-  def create_stats_nz_client(subscription_key: nil, base_url: DEFAULT_BASE_URL, timeout_ms: DEFAULT_TIMEOUT_MS, fetch_impl: nil)
+  def create_stats_nz_client(subscription_key: nil, base_url: DEFAULT_BASE_URL,
+                             timeout_ms: DEFAULT_TIMEOUT_MS, fetch_impl: nil)
     StatsNzClient.new(
       subscription_key: subscription_key,
       base_url: base_url,

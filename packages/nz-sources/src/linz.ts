@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from './errors';
-import { readFixtureJson } from './fixtures';
-import type { NzDataAdapter } from './types';
+import { NzSourceApiError, NzSourceParseError } from "./errors";
+import { readFixtureJson } from "./fixtures";
+import type { NzDataAdapter } from "./types";
 
 /** One layer found by the LINZ Data Service catalogue search. */
 export interface LinzLayer {
@@ -14,7 +14,7 @@ export interface LinzLayer {
 const LINZ_LAYER_SCHEMA = z.object({
   id: z.number(),
   title: z.string(),
-  url: z.string().optional().default(''),
+  url: z.string().optional().default(""),
 });
 
 const LINZ_SEARCH_RESPONSE_SCHEMA = z.array(LINZ_LAYER_SCHEMA);
@@ -23,7 +23,7 @@ const LINZ_SEARCH_RESPONSE_SCHEMA = z.array(LINZ_LAYER_SCHEMA);
 export function parseLinzLayers(payload: unknown): LinzLayer[] {
   const parsed = LINZ_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError('LINZ', parsed.error.message);
+    throw new NzSourceParseError("LINZ", parsed.error.message);
   }
   return parsed.data.map((layer) => ({
     id: layer.id,
@@ -43,24 +43,28 @@ export async function searchLinzLayers(
 ): Promise<LinzLayer[]> {
   const url = `https://data.linz.govt.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
   const response = await (options.fetchImpl ?? globalThis.fetch)(url, {
-    ...(options.apiKey === undefined ? {} : { headers: { 'x-api-key': options.apiKey } }),
+    ...(options.apiKey === undefined
+      ? {}
+      : { headers: { "x-api-key": options.apiKey } }),
   });
   if (!response.ok) {
-    throw new NzSourceApiError('LINZ', `HTTP ${response.status}`);
+    throw new NzSourceApiError("LINZ", `HTTP ${response.status}`);
   }
   return parseLinzLayers(await response.json());
 }
 
 /** LINZ adapter: catalogue layer search, keyless. */
 export const linzAdapter: NzDataAdapter<LinzLayer[]> = {
-  id: 'linz',
-  name: 'LINZ Data Service catalogue',
-  auth: 'none',
-  description: 'Searches LINZ layers (property titles, parcels, boundaries).',
+  id: "linz",
+  name: "LINZ Data Service catalogue",
+  auth: "none",
+  description: "Searches LINZ layers (property titles, parcels, boundaries).",
   fetchLive: (options) =>
-    searchLinzLayers('property', {
-      ...(options?.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl }),
+    searchLinzLayers("property", {
+      ...(options?.fetchImpl === undefined
+        ? {}
+        : { fetchImpl: options.fetchImpl }),
     }),
   parse: parseLinzLayers,
-  loadFixture: () => parseLinzLayers(readFixtureJson('linz-layer-search.json')),
+  loadFixture: () => parseLinzLayers(readFixtureJson("linz-layer-search.json")),
 };

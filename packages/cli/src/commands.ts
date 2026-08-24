@@ -1,8 +1,15 @@
-import { parseArgs } from 'node:util';
+import { parseArgs } from "node:util";
 
-import { NZ_DATA_SOURCES, getNzDataSource, probeNzDataSource } from '@nzlab/nz-sources';
-import { createStatsNzClient, serializeStatsNzRowsToCsv } from '@nzlab/stats-nz';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import {
+  NZ_DATA_SOURCES,
+  getNzDataSource,
+  probeNzDataSource,
+} from "@nzlab/nz-sources";
+import {
+  createStatsNzClient,
+  serializeStatsNzRowsToCsv,
+} from "@nzlab/stats-nz";
+import type { StatsNzClient } from "@nzlab/stats-nz";
 
 export interface CliOutput {
   writeOut(line: string): void;
@@ -43,10 +50,10 @@ function createCliStatsNzClient(): StatsNzClient {
 }
 
 function getApiKeyForSource(id: string): string | undefined {
-  if (id === 'linz') {
+  if (id === "linz") {
     return process.env.LINZ_API_KEY;
   }
-  if (id === 'digitalnz') {
+  if (id === "digitalnz") {
     return process.env.DIGITAL_NZ_API_KEY;
   }
   return undefined;
@@ -62,15 +69,19 @@ export async function runCli(
     const { values, positionals } = parseArgs({
       args,
       options: {
-        dataflow: { type: 'string', short: 'd' },
-        format: { type: 'string', short: 'f' },
-        codelist: { type: 'string', short: 'c' },
-        help: { type: 'boolean', short: 'h' },
+        dataflow: { type: "string", short: "d" },
+        format: { type: "string", short: "f" },
+        codelist: { type: "string", short: "c" },
+        help: { type: "boolean", short: "h" },
       },
       allowPositionals: true,
     });
 
-    if (values.help === true || positionals[0] === undefined || positionals[0] === 'help') {
+    if (
+      values.help === true ||
+      positionals[0] === undefined ||
+      positionals[0] === "help"
+    ) {
       output.writeOut(HELP_TEXT);
       return 0;
     }
@@ -79,7 +90,7 @@ export async function runCli(
     const probeSource = deps.probeSource ?? probeNzDataSource;
     const client = deps.statsNzClient ?? createCliStatsNzClient();
 
-    if (command === 'sources') {
+    if (command === "sources") {
       const sources = NZ_DATA_SOURCES.map((source) => ({
         id: source.id,
         name: source.name,
@@ -90,10 +101,10 @@ export async function runCli(
       return 0;
     }
 
-    if (command === 'probe') {
+    if (command === "probe") {
       const id = positionals[1];
       if (id === undefined) {
-        output.writeErr('Usage: nzdata probe <id>');
+        output.writeErr("Usage: nzdata probe <id>");
         return 1;
       }
       const adapter = getNzDataSource(id);
@@ -102,30 +113,35 @@ export async function runCli(
         return 1;
       }
       const apiKey = getApiKeyForSource(id);
-      const probe = await probeSource(adapter, apiKey === undefined ? {} : { apiKey });
+      const probe = await probeSource(
+        adapter,
+        apiKey === undefined ? {} : { apiKey },
+      );
       output.writeOut(JSON.stringify(probe, null, 2));
       return probe.ok ? 0 : 1;
     }
 
-    if (command === 'catalogue') {
+    if (command === "catalogue") {
       const dataflows = await client.getDataflowCatalogue();
       output.writeOut(JSON.stringify(dataflows, null, 2));
       return 0;
     }
 
-    if (command === 'data') {
+    if (command === "data") {
       const dataflowId = values.dataflow;
-      if (typeof dataflowId !== 'string' || dataflowId.length === 0) {
-        output.writeErr('Usage: nzdata data --dataflow <id> [--format json|csv]');
+      if (typeof dataflowId !== "string" || dataflowId.length === 0) {
+        output.writeErr(
+          "Usage: nzdata data --dataflow <id> [--format json|csv]",
+        );
         return 1;
       }
       const format = values.format;
-      if (format !== undefined && format !== 'json' && format !== 'csv') {
+      if (format !== undefined && format !== "json" && format !== "csv") {
         output.writeErr(`Unknown format: ${format} (use json or csv)`);
         return 1;
       }
-      const rows = await client.getData({ dataflowId, format: 'csv' });
-      if (format === 'csv') {
+      const rows = await client.getData({ dataflowId, format: "csv" });
+      if (format === "csv") {
         output.writeOut(serializeStatsNzRowsToCsv(rows));
       } else {
         output.writeOut(JSON.stringify(rows, null, 2));
@@ -133,10 +149,10 @@ export async function runCli(
       return 0;
     }
 
-    if (command === 'codelist') {
+    if (command === "codelist") {
       const codelistId = values.codelist;
-      if (typeof codelistId !== 'string' || codelistId.length === 0) {
-        output.writeErr('Usage: nzdata codelist --codelist <id>');
+      if (typeof codelistId !== "string" || codelistId.length === 0) {
+        output.writeErr("Usage: nzdata codelist --codelist <id>");
         return 1;
       }
       const codelist = await client.getCodelist(codelistId);

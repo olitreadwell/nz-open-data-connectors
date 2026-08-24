@@ -1,6 +1,6 @@
-import { Hono } from 'hono';
+import { Hono } from "hono";
 
-import { NZ_DATA_SOURCES, probeNzDataSource } from '@nzlab/nz-sources';
+import { NZ_DATA_SOURCES, probeNzDataSource } from "@nzlab/nz-sources";
 
 export interface SourcesRouteOptions {
   apiKeys?: Record<string, string>;
@@ -12,7 +12,7 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
   const app = new Hono();
   const probeFn = options.probeFn ?? probeNzDataSource;
 
-  app.get('/sources', (c) => {
+  app.get("/sources", (c) => {
     const sources = NZ_DATA_SOURCES.map((source) => ({
       id: source.id,
       name: source.name,
@@ -22,14 +22,17 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
     return c.json(sources);
   });
 
-  app.get('/sources/:id/probe', async (c) => {
-    const id = c.req.param('id');
+  app.get("/sources/:id/probe", async (c) => {
+    const id = c.req.param("id");
     const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
     if (adapter === undefined) {
       return c.json({ error: `Unknown source: ${id}` }, 404);
     }
     const apiKey = options.apiKeys?.[adapter.id];
-    const probe = await probeFn(adapter, apiKey === undefined ? {} : { apiKey });
+    const probe = await probeFn(
+      adapter,
+      apiKey === undefined ? {} : { apiKey },
+    );
     return c.json(probe);
   });
 

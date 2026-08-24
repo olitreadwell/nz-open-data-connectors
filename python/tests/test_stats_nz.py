@@ -2,7 +2,6 @@
 
 import csv
 import io
-import json
 from importlib.resources import files
 
 import pytest
