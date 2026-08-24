@@ -1,0 +1,42 @@
+{
+  "name": "@nzlab/connectors-api",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src/**"
+  ],
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "tsx src/server.ts",
+    "lint": "eslint .",
+    "format": "prettier --write \"src/**/*.{ts,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,json}\"",
+    "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts",
+    "clean": "rm -rf tsconfig.tsbuildinfo coverage",
+    "clean:all": "rm -rf tsconfig.tsbuildinfo coverage node_modules"
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.1",
+    "@hono/swagger-ui": "^0.6.1",
+    "@nzlab/nz-sources": "*",
+    "@nzlab/stats-nz": "*",
+    "hono": "^4.13.3",
+    "zod": "^3.25.76",
+    "@hono/zod-validator": "^0.9.0"
+  },
+  "devDependencies": {
+    "@nzlab/config-eslint": "*",
+    "@nzlab/config-typescript": "*",
+    "@types/node": "^22.20.1",
+    "eslint": "^9.39.5",
+    "tsx": "^4.23.12",
+    "typescript": "^6.0.3",
+    "vitest": "^3.2.7"
+  }
+}
