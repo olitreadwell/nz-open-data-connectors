@@ -1,20 +1,140 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  check:
+  # Advisory — never blocks. PR reviewers see lint findings as inline
+  # comments via reviewdog (see lint-review job).
+  lint:
+    name: Lint (advisory)
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 22
-          cache: npm
+          node-version-file: '.nvmrc'
+          cache: 'npm'
       - run: npm ci
       - run: npm run lint
+
+  # Inline PR comments on new ESLint findings. Doesn't block.
+  lint-review:
+    name: Lint review (PR comments)
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - uses: reviewdog/action-eslint@556a3fdaf8b4201d4d74d406013386aa4f7dab96 # v1.34.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          reporter: github-pr-review
+          eslint_flags: '.'
+          level: warning
+          fail_on_error: false
+
+  type-check:
+    name: Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
       - run: npm run type-check
-      - run: npm run test
+
+  # Blocks on critical/high npm audit findings.
+  audit:
+    name: npm audit (critical/high gate)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm audit --audit-level=high
+
+  # Blocks — a failing unit test must not merge. Coverage is uploaded as an
+  # artifact for humans to review.
+  test:
+    name: Unit & Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run test:coverage
+      - name: Upload coverage
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: always()
+        with:
+          name: coverage
+          path: |
+            packages/nz-sources/coverage/
+            packages/stats-nz/coverage/
+            packages/api/coverage/
+            packages/cli/coverage/
+
+  # Blocks — the Python port must stay green.
+  python-test:
+    name: Python Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      - run: python -m venv .venv
+      - run: .venv/bin/pip install -e 'python/[dev]'
+      - run: .venv/bin/pytest python/tests
+
+  # Blocks — the Ruby port must stay green.
+  ruby-test:
+    name: Ruby Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - run: cd ruby && bundle exec rake test
+
+  codeql:
+    name: CodeQL Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@f3712979fa5f215279b101dd0a2e3bdfb4353324 # v3.37.7
+        with:
+          languages: javascript-typescript, python, ruby
+      - name: Run CodeQL analysis
+        uses: github/codeql-action/analyze@f3712979fa5f215279b101dd0a2e3bdfb4353324 # v3.37.7

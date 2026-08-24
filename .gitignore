@@ -19,3 +19,16 @@ Thumbs.db
 
 # IDE
 .idea/
+
+# Python build artifacts
+python/.venv/
+python/build/
+python/dist/
+python/**/*.egg-info/
+
+# Ruby build artifacts
+ruby/*.gem
+
+# Python caches
+__pycache__/
+*.pyc

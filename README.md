@@ -12,6 +12,8 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 | `@nzlab/stats-nz` | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
 | `@nzlab/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
 | `@nzlab/connectors-cli` | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
+| `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
+| `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
 
 ## Language-agnostic access
 
@@ -86,6 +88,13 @@ npm run test:smoke     # live smoke tests against the real APIs (needs keys in e
 ```
 
 Unit tests use committed fixture snapshots pulled from the live APIs, so they run offline. Smoke tests are opt-in via `RUN_SMOKE=1` and hit the real endpoints.
+
+## Language ports
+
+- `python/` - Python package, publishable to PyPI as `nzdata` (tag `python-v*`).
+- `ruby/` - Ruby gem, publishable to RubyGems as `nzdata` (tag `ruby-v*`).
+
+Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. See each directory's README for quickstarts and publishing steps.
 
 ## License
 
