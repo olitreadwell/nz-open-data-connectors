@@ -6,6 +6,7 @@ AllCops:
     - 'lib/nzdata/fixtures/**/*'
     - 'spec/**/*'
     - 'nzdata.gemspec'
+    - 'vendor/**/*'
 
 Layout/LineLength:
   Max: 100

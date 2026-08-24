@@ -28,6 +28,7 @@ python/**/*.egg-info/
 
 # Ruby build artifacts
 ruby/*.gem
+ruby/vendor/
 
 # Python caches
 __pycache__/
