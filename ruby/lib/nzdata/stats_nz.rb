@@ -132,7 +132,8 @@ module Nzdata
   class StatsNzClient
     def initialize(subscription_key: nil, base_url: DEFAULT_BASE_URL,
                    timeout_ms: DEFAULT_TIMEOUT_MS, fetch_impl: nil)
-      @base_url = base_url.sub(%r{/+$}, '')
+      @base_url = base_url.dup
+      @base_url = @base_url[0...-1] while @base_url.end_with?('/')
       @subscription_key = subscription_key
       @timeout_ms = timeout_ms
       @fetch = fetch_impl || method(:default_fetch)

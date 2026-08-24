@@ -121,8 +121,8 @@ jobs:
         with:
           python-version: '3.12'
           cache: 'pip'
-      - run: python -m venv .venv
-      - run: .venv/bin/pip install -e 'python/[dev]'
+      - run: python -m venv python/.venv
+      - run: python/.venv/bin/pip install -e 'python/[dev]'
       - run: cd python && .venv/bin/ruff check src tests
       - run: cd python && .venv/bin/mypy
       - run: cd python && .venv/bin/pytest
@@ -137,7 +137,9 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - run: cd ruby && bundle exec rake check
+          working-directory: ruby
+      - run: bundle exec rake check
+        working-directory: ruby
 
   codeql:
     name: CodeQL Security Scan

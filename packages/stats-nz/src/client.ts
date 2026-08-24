@@ -26,10 +26,17 @@ const VALID_FORMATS: StatsNzDataFormat[] = [
   "jsondata",
 ];
 
+/**
+ * Creates a Stats NZ (ADE) API client.
+ * @param options - optional base URL, subscription key, fetch impl, and timeout
+ */
 export function createStatsNzClient(
   options: StatsNzClientOptions = {},
 ): StatsNzClient {
-  const baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
+  let baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
+  while (baseUrl.endsWith("/")) {
+    baseUrl = baseUrl.slice(0, -1);
+  }
   const subscriptionKey = options.subscriptionKey;
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
