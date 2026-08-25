@@ -9,6 +9,9 @@ const options: ConnectorsAppOptions = {};
 if (process.env.STATS_NZ_SUBSCRIPTION_KEY !== undefined) {
   options.statsNzSubscriptionKey = process.env.STATS_NZ_SUBSCRIPTION_KEY;
 }
+if (process.env.SENTRY_DSN !== undefined) {
+  options.sentryDsn = process.env.SENTRY_DSN;
+}
 const apiKeys: Record<string, string> = {};
 if (process.env.LINZ_API_KEY !== undefined) {
   apiKeys.linz = process.env.LINZ_API_KEY;
