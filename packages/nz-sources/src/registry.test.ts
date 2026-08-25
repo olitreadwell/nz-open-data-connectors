@@ -94,6 +94,33 @@ describe("registry", () => {
         if (url.includes("linz")) {
           return jsonResponse(readFixtureJson("linz-layer-search.json"));
         }
+        if (url.includes("arcgis.com")) {
+          return jsonResponse(
+            readFixtureJson(
+              "arcgis-hub-data-aucklandcouncil.opendata.arcgis.com-collections-2026-08-25.json",
+            ),
+          );
+        }
+        if (url.includes("lawa.org.nz")) {
+          return jsonResponse(
+            readFixtureJson("lawa-river-quality-sites-2026-08-25.json"),
+          );
+        }
+        if (url.includes("data.mfe.govt.nz")) {
+          return jsonResponse(
+            readFixtureJson("mfe-layer-search-water-2026-08-25.json"),
+          );
+        }
+        if (url.includes("lris.scinfo.org.nz")) {
+          return jsonResponse(
+            readFixtureJson("lris-layer-search-soil-2026-08-25.json"),
+          );
+        }
+        if (url.includes("journeys.nzta.govt.nz")) {
+          return jsonResponse(
+            readFixtureJson("nzta-holiday-hotspots-2026-08-25.json"),
+          );
+        }
         return new Response("unexpected url", { status: 404 });
       }),
     );
