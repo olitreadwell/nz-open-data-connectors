@@ -131,14 +131,21 @@ jobs:
   ruby-test:
     name: Ruby Tests
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['3.0', '3.3']
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:
-          ruby-version: '3.3'
+          ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
           working-directory: ruby
       - run: bundle exec rake check
+        working-directory: ruby
+      - name: Validate gem build
+        run: gem build nzdata.gemspec
         working-directory: ruby
 
   codeql:
