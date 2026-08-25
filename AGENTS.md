@@ -63,6 +63,7 @@ Ruby changes run their own gates.
 - `docs/SECURITY.md` - key handling and security checklist
 - `docs/GLOSSARY.md` - plain-language terms
 - `docs/RELEASING.md` - versioning and tags
+- `docs/AGENT_CONTEXT.md` - handoff context for new agent threads
 
 Write docs in plain language. Short sentences. Define acronyms on first
 use. The audience includes ESL readers and neurodivergent readers.
