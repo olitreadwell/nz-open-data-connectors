@@ -1,0 +1,59 @@
+name: Live smoke tests
+
+# Hits the real NZ public APIs nightly. Unit tests use fixtures and never
+# touch the network; these jobs prove the fixtures have not drifted.
+on:
+  schedule:
+    - cron: "5 5 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  STATS_NZ_SUBSCRIPTION_KEY: ${{ secrets.STATS_NZ_SUBSCRIPTION_KEY }}
+  LINZ_API_KEY: ${{ secrets.LINZ_API_KEY }}
+  DIGITAL_NZ_API_KEY: ${{ secrets.DIGITAL_NZ_API_KEY }}
+
+jobs:
+  typescript:
+    name: TypeScript smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+      - run: npm ci
+      - run: npm run test:smoke
+
+  python:
+    name: Python smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - run: python -m venv python/.venv
+      - run: python/.venv/bin/pip install -e "python/[dev]"
+      - run: cd python && .venv/bin/pytest tests/test_smoke.py
+        env:
+          RUN_SMOKE: "1"
+
+  ruby:
+    name: Ruby smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: ruby
+      - run: bundle exec rake check
+        working-directory: ruby
+        env:
+          RUN_SMOKE: "1"
