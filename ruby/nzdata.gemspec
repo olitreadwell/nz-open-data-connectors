@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
     'changelog_uri' => 'https://github.com/olitreadwell/nz-open-data-connectors/blob/main/CHANGELOG.md',
     'rubygems_mfa_required' => 'true'
   }
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 3.0'
   spec.files = Dir['lib/**/*.rb'] + Dir['lib/nzdata/fixtures/**/*']
   spec.require_paths = ['lib']
   spec.add_dependency 'csv', '~> 3.2'
