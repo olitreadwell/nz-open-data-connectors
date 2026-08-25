@@ -11,6 +11,8 @@ for the plain-language map, `docs/GLOSSARY.md` for terms.
 - `packages/stats-nz` - Aotearoa Data Explorer (ADE) client
 - `packages/api` - HTTP wrapper (Hono), OpenAPI spec, Swagger UI
 - `packages/cli` - `nzdata` command line tool
+- `packages/memorial` - static Dolly Parton memorial SPA, deployed to
+  GitHub Pages (see `.github/workflows/pages.yml`)
 - `packages/config-eslint`, `packages/config-typescript` - shared config
 - `python/` - Python port (`nzdata` on PyPI)
 - `ruby/` - Ruby port (`nzdata` gem)

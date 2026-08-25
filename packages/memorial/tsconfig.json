@@ -1,0 +1,10 @@
+{
+  "extends": "@nzlab/config-typescript/library.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "types": ["vitest/globals", "node", "@testing-library/jest-dom"],
+    "noEmit": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "vitest.setup.ts", "eslint.config.mjs"],
+  "exclude": ["node_modules", "coverage", "dist"]
+}
