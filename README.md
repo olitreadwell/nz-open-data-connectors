@@ -116,6 +116,11 @@ Optional keys come from the environment only. Without a `.env` file every keyles
 - `docs/GLOSSARY.md` - plain-language definitions of every term
 - `docs/RELEASING.md` - how versions, tags, and publishing work
 
+## Contributing
+
+See `CONTRIBUTING.md` for how to set up the repo, run the checks, and
+open a pull request.
+
 ## License
 
 MIT
