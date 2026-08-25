@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": false,
   "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
   "files": [
-    "src/**"
+    "dist"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,json}\"",
@@ -17,8 +24,8 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest --watch",
-    "clean": "rm -rf tsconfig.tsbuildinfo coverage",
-    "clean:all": "rm -rf tsconfig.tsbuildinfo coverage node_modules",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage",
+    "clean:all": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage node_modules",
     "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts"
   },
   "devDependencies": {

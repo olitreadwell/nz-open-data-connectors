@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-import { parseDataflowCatalogueXml } from "./catalogue";
-import { StatsNzParseError } from "./errors";
+import { parseDataflowCatalogueXml } from "./catalogue.js";
+import { StatsNzParseError } from "./errors.js";
 
 const FIXTURE = readFileSync(
   new URL("./fixtures/dataflow-catalogue-subset.xml", import.meta.url),

@@ -24,7 +24,8 @@ git push origin v0.2.0
 ```
 
 The `v*` tag also triggers `.github/workflows/release.yml`, which creates
-a GitHub Release with notes.
+a GitHub Release with notes, and `.github/workflows/publish-npm.yml`,
+which publishes the TypeScript packages to npm.
 
 ## Python (`python/`)
 

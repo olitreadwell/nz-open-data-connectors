@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createStatsNzClient } from "./client";
+import { createStatsNzClient } from "./client.js";
 
 const runSmoke = process.env.RUN_SMOKE === "1";
 

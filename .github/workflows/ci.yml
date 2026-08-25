@@ -72,6 +72,7 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
       - run: npm ci
+      - run: npm run build
       - run: npm run type-check
 
   # Blocks on critical/high npm audit findings.

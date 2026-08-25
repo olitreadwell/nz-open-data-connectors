@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { parseCodelistXml } from "./codelist";
-import { StatsNzParseError } from "./errors";
+import { parseCodelistXml } from "./codelist.js";
+import { StatsNzParseError } from "./errors.js";
 
 describe("parseCodelistXml", () => {
   it("parses a codelist XML document into items", () => {

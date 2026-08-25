@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { probeAllNzDataSources } from "./registry";
+import { probeAllNzDataSources } from "./registry.js";
 
 const RUN_SMOKE = process.env.RUN_SMOKE === "1";
 

@@ -3,13 +3,13 @@ import { createServer, type Server } from "node:http";
 import { AddressInfo } from "node:net";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { createStatsNzClient } from "./client";
+import { createStatsNzClient } from "./client.js";
 
 const HTTP_OK = 200;
 const HTTP_UNAUTHORIZED = 401;
 const HTTP_NOT_FOUND = 404;
 const OBSERVED_VALUE = 7;
-import { StatsNzApiError } from "./errors";
+import { StatsNzApiError } from "./errors.js";
 
 const CATALOGUE_FIXTURE = readFileSync(
   new URL("./fixtures/dataflow-catalogue-subset.xml", import.meta.url),

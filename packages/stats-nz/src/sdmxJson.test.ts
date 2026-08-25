@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { StatsNzParseError } from "./errors";
-import { parseSdmxJsonResponse } from "./sdmxJson";
+import { StatsNzParseError } from "./errors.js";
+import { parseSdmxJsonResponse } from "./sdmxJson.js";
 
 const SHEEP_POPULATION = 23583001;
 const DAIRY_POPULATION = 123.5;

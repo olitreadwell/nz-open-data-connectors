@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 
-import { parseDataflowCatalogueXml } from "./catalogue";
-import { createStatsNzClient } from "./client";
-import { parseStatsNzCsv } from "./csv";
-import { StatsNzError } from "./errors";
+import { parseDataflowCatalogueXml } from "./catalogue.js";
+import { createStatsNzClient } from "./client.js";
+import { parseStatsNzCsv } from "./csv.js";
+import { StatsNzError } from "./errors.js";
 
 const CODELIST_XML =
   '<message:Structure><message:Structures><structure:Codelists><structure:Codelist id="CL_X" agencyID="STATSNZ" version="1.0"><structure:Code id="A"><common:Name xml:lang="en">Alpha</common:Name></structure:Code></structure:Codelist></structure:Codelists></message:Structures></message:Structure>';

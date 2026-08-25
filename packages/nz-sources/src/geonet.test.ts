@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { NzSourceParseError } from "./errors";
-import { parseGeoNetQuakes, summarizeGeoNetQuakes } from "./geonet";
+import { NzSourceParseError } from "./errors.js";
+import { parseGeoNetQuakes, summarizeGeoNetQuakes } from "./geonet.js";
 
 const FIXTURE = JSON.parse(
   readFileSync(

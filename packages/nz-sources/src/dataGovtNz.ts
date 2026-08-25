@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureJson } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureJson } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** One dataset in the data.govt.nz catalogue. */
 export interface DataGovtNzDataset {

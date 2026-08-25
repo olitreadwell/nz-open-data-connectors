@@ -1,12 +1,12 @@
-import { adeSearchAdapter } from "./adeSearch";
-import { dataGovtDatastoreAdapter } from "./dataGovtDatastore";
-import { dataGovtNzAdapter } from "./dataGovtNz";
-import { digitalNzAdapter } from "./digitalNz";
-import { geonetAdapter } from "./geonet";
-import { linzAdapter } from "./linz";
-import { nzorAdapter } from "./nzor";
-import { tradeMeAdapter } from "./tradeMe";
-import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types";
+import { adeSearchAdapter } from "./adeSearch.js";
+import { dataGovtDatastoreAdapter } from "./dataGovtDatastore.js";
+import { dataGovtNzAdapter } from "./dataGovtNz.js";
+import { digitalNzAdapter } from "./digitalNz.js";
+import { geonetAdapter } from "./geonet.js";
+import { linzAdapter } from "./linz.js";
+import { nzorAdapter } from "./nzor.js";
+import { tradeMeAdapter } from "./tradeMe.js";
+import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types.js";
 
 /** Every NZ data source behind the uniform adapter interface. */
 export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [

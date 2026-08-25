@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { parseDataGovtDatastoreRows } from "./dataGovtDatastore";
-import { NzSourceParseError } from "./errors";
+import { parseDataGovtDatastoreRows } from "./dataGovtDatastore.js";
+import { NzSourceParseError } from "./errors.js";
 
 const FIXTURE = JSON.parse(
   readFileSync(

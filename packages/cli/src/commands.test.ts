@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import { probeNzDataSource } from "@nzlab/nz-sources";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
-import { runCli } from "./commands";
-import type { CliOutput } from "./commands";
+import { runCli } from "./commands.js";
+import type { CliOutput } from "./commands.js";
 
 function createCapture(): { out: string[]; err: string[]; output: CliOutput } {
   const out: string[] = [];

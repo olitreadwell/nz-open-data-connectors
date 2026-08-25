@@ -1,8 +1,8 @@
-import { parseDataflowCatalogueXml } from "./catalogue";
-import { parseCodelistXml } from "./codelist";
-import { parseStatsNzCsv } from "./csv";
-import { StatsNzApiError, StatsNzError } from "./errors";
-import { parseSdmxJsonResponse } from "./sdmxJson";
+import { parseDataflowCatalogueXml } from "./catalogue.js";
+import { parseCodelistXml } from "./codelist.js";
+import { parseStatsNzCsv } from "./csv.js";
+import { StatsNzApiError, StatsNzError } from "./errors.js";
+import { parseSdmxJsonResponse } from "./sdmxJson.js";
 import type {
   StatsNzClient,
   StatsNzClientOptions,
@@ -11,7 +11,7 @@ import type {
   StatsNzDataFormat,
   StatsNzGetDataRequest,
   StatsNzObservation,
-} from "./types";
+} from "./types.js";
 
 const DEFAULT_BASE_URL = "https://api.data.stats.govt.nz/rest";
 // Every dataflow in the current ADE catalogue is published at version 1.0

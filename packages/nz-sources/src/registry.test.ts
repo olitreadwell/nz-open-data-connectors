@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { readFixtureJson, readFixtureText } from "./fixtures";
+import { readFixtureJson, readFixtureText } from "./fixtures.js";
 import {
   getNzDataSource,
   probeAllNzDataSources,
   probeNzDataSource,
-} from "./registry";
-import { NZ_DATA_SOURCES } from "./registry";
-import type { NzDataAdapter } from "./types";
+} from "./registry.js";
+import { NZ_DATA_SOURCES } from "./registry.js";
+import type { NzDataAdapter } from "./types.js";
 
 function jsonResponse(payload: unknown): Response {
   return new Response(JSON.stringify(payload), { status: 200 });
