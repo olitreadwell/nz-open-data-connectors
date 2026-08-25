@@ -74,7 +74,7 @@ describe("createConnectorsApp", () => {
   it("registers every documented path", () => {
     const app = createTestApp();
     const registered = [...new Set(app.routes.map((route) => route.path))]
-      .filter((path) => path !== "/api/*")
+      .filter((path) => path !== "/api/*" && path !== "/*")
       .map((path) => path.replaceAll(":id", "{id}"))
       .sort();
     const documented = Object.keys(OPEN_API_DOCUMENT.paths).sort();

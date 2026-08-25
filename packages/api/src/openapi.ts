@@ -27,6 +27,14 @@ export const OPEN_API_DOCUMENT = {
         responses: { "200": { description: "Service is up" } },
       },
     },
+    "/metrics": {
+      get: {
+        summary: "Prometheus metrics",
+        responses: {
+          "200": { description: "Request counters in Prometheus text format" },
+        },
+      },
+    },
     "/api/sources": {
       get: {
         summary: "List every data source adapter",
