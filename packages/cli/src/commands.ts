@@ -11,16 +11,19 @@ import {
 } from "@nzlab/stats-nz";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
+/** Where the CLI writes its output. Injectable for tests. */
 export interface CliOutput {
   writeOut(line: string): void;
   writeErr(line: string): void;
 }
 
+/** Optional overrides so tests can stub network calls. */
 export interface CliDependencies {
   probeSource?: typeof probeNzDataSource;
   statsNzClient?: StatsNzClient;
 }
 
+/** Help text shown by `nzdata help` and on unknown commands. */
 export const HELP_TEXT = `nzdata - NZ open data connectors
 
 Usage:

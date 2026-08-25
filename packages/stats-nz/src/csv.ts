@@ -84,10 +84,12 @@ export function parseCsv(text: string): Array<Record<string, string>> {
   });
 }
 
+/** Options for parsing Stats NZ CSV into observations. */
 export interface StatsNzCsvParseOptions {
   dataflowId: string;
 }
 
+/** Parses Stats NZ CSV text into observations for one dataflow. */
 export function parseStatsNzCsv(
   text: string,
   options: StatsNzCsvParseOptions,
