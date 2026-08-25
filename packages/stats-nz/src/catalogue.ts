@@ -13,6 +13,7 @@ function asString(value: unknown): string {
   return typeof value === "string" ? value : "";
 }
 
+/** Parses the Stats NZ dataflow catalogue XML into typed dataflows. */
 export function parseDataflowCatalogueXml(xml: string): StatsNzDataflow[] {
   const parser = new XMLParser({
     ignoreAttributes: false,

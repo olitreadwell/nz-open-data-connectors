@@ -1,3 +1,4 @@
+/** Base error for every Stats NZ client failure. */
 export class StatsNzError extends Error {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);
@@ -5,6 +6,7 @@ export class StatsNzError extends Error {
   }
 }
 
+/** Raised when a Stats NZ response cannot be parsed. */
 export class StatsNzParseError extends StatsNzError {
   constructor(message: string, options?: ErrorOptions) {
     super(message, options);
@@ -12,6 +14,7 @@ export class StatsNzParseError extends StatsNzError {
   }
 }
 
+/** Raised when the Stats NZ API answers with an HTTP error. */
 export class StatsNzApiError extends StatsNzError {
   readonly status: number;
   readonly retryable: boolean;

@@ -22,14 +22,14 @@
   "dependencies": {
     "@nzlab/nz-sources": "*",
     "@nzlab/stats-nz": "*",
-    "tsx": "^4.23.12"
+    "tsx": "4.23.12"
   },
   "devDependencies": {
     "@nzlab/config-eslint": "*",
     "@nzlab/config-typescript": "*",
-    "@types/node": "^22.20.1",
-    "eslint": "^9.39.5",
-    "typescript": "^6.0.3",
-    "vitest": "^3.2.7"
+    "@types/node": "22.20.1",
+    "eslint": "9.39.5",
+    "typescript": "6.0.3",
+    "vitest": "3.2.7"
   }
 }

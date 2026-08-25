@@ -2,6 +2,7 @@ import { Hono } from "hono";
 
 import { NZ_DATA_SOURCES, probeNzDataSource } from "@nzlab/nz-sources";
 
+/** Options for the source listing and probe routes. */
 export interface SourcesRouteOptions {
   apiKeys?: Record<string, string>;
   probeFn?: typeof probeNzDataSource;

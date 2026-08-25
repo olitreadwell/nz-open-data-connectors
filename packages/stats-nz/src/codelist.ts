@@ -29,6 +29,7 @@ function toItems(codesValue: unknown): StatsNzCodelistItem[] {
   });
 }
 
+/** Parses Stats NZ codelist XML into a typed codelist. */
 export function parseCodelistXml(xml: string): StatsNzCodelist {
   const parser = new XMLParser({
     ignoreAttributes: false,
