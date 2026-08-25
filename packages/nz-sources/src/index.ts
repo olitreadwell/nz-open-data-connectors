@@ -3,9 +3,9 @@ export {
   searchAdeTables,
   parseAdeSearchResults,
   adeSearchAdapter,
-} from "./adeSearch";
+} from "./adeSearch.js";
 /** ADE search types. */
-export type { AdeDataflow, AdeSearchResult } from "./adeSearch";
+export type { AdeDataflow, AdeSearchResult } from "./adeSearch.js";
 /** ArcGIS Hub open data catalogue and dataset search (keyless). */
 export {
   parseArcgisHubCollections,
@@ -14,96 +14,103 @@ export {
   normalizeArcgisHubHost,
   arcgisHubAdapter,
   DEFAULT_ARCGIS_HUB_HOST,
-} from "./arcgisHub";
+} from "./arcgisHub.js";
 /** ArcGIS Hub types. */
 export type {
   ArcgisHubCollection,
   ArcgisHubDataset,
   ArcgisHubFetchOptions,
   ArcgisHubResult,
-} from "./arcgisHub";
+} from "./arcgisHub.js";
 /** data.govt.nz dataset search. */
 export {
   searchDataGovtNzDatasets,
   parseDataGovtNzDatasets,
   dataGovtNzAdapter,
-} from "./dataGovtNz";
+} from "./dataGovtNz.js";
 /** data.govt.nz dataset search types. */
-export type { DataGovtNzDataset, DataGovtNzSearchResult } from "./dataGovtNz";
+export type {
+  DataGovtNzDataset,
+  DataGovtNzSearchResult,
+} from "./dataGovtNz.js";
 /** data.govt.nz datastore rows (MSD benefits). */
 export {
   fetchDataGovtDatastoreRows,
   parseDataGovtDatastoreRows,
   dataGovtDatastoreAdapter,
   MSD_BENEFIT_RESOURCE_ID,
-} from "./dataGovtDatastore";
+} from "./dataGovtDatastore.js";
 /** Datastore row types. */
 export type {
   DataGovtDatastoreResult,
   DataGovtDatastoreRow,
-} from "./dataGovtDatastore";
+} from "./dataGovtDatastore.js";
 /** DigitalNZ record search. */
 export {
   searchDigitalNzRecords,
   parseDigitalNzRecords,
   digitalNzAdapter,
-} from "./digitalNz";
+} from "./digitalNz.js";
 /** DigitalNZ record types. */
-export type { DigitalNzRecord } from "./digitalNz";
+export type { DigitalNzRecord } from "./digitalNz.js";
 /** Errors shared by every source adapter. */
-export { NzSourceApiError, NzSourceError, NzSourceParseError } from "./errors";
+export {
+  NzSourceApiError,
+  NzSourceError,
+  NzSourceParseError,
+} from "./errors.js";
 /** GeoNet felt earthquake data. */
 export {
   fetchGeoNetFeltQuakes,
   parseGeoNetQuakes,
   summarizeGeoNetQuakes,
   geonetAdapter,
-} from "./geonet";
+} from "./geonet.js";
 /** GeoNet types. */
-export type { GeoNetQuake, GeoNetQuakeSummary } from "./geonet";
+export type { GeoNetQuake, GeoNetQuakeSummary } from "./geonet.js";
 /** LINZ layer search. */
-export { searchLinzLayers, parseLinzLayers, linzAdapter } from "./linz";
+export { searchLinzLayers, parseLinzLayers, linzAdapter } from "./linz.js";
 /** LINZ types. */
-export type { LinzLayer } from "./linz";
+export type { LinzLayer } from "./linz.js";
 /** LAWA river quality monitoring sites. */
-export { parseLawaRiverQualitySites, lawaAdapter } from "./lawa";
+export { parseLawaRiverQualitySites, lawaAdapter } from "./lawa.js";
 /** LAWA types. */
-export type { LawaRiverQualitySite } from "./lawa";
+export type { LawaRiverQualitySite } from "./lawa.js";
 /** LRIS land and soil layer search. */
-export { parseLrisLayers, lrisAdapter } from "./lris";
+export { parseLrisLayers, lrisAdapter } from "./lris.js";
 /** LRIS types. */
-export type { LrisLayer } from "./lris";
+export type { LrisLayer } from "./lris.js";
 /** MfE Data Service layer catalogue. */
-export { parseMfeLayers, mfeAdapter } from "./mfe";
+export { parseMfeLayers, mfeAdapter } from "./mfe.js";
 /** MfE types. */
-export type { MfeLayer } from "./mfe";
+export type { MfeLayer } from "./mfe.js";
 /** NZOR (New Zealand Organisms Register) name search. */
-export { searchNzorNames, parseNzorNames, nzorAdapter } from "./nzor";
+export { searchNzorNames, parseNzorNames, nzorAdapter } from "./nzor.js";
 /** NZOR types. */
-export type { NzorName, NzorSearchResult } from "./nzor";
+export type { NzorName, NzorSearchResult } from "./nzor.js";
 /** Waka Kotahi holiday journey hotspots. */
-export { parseNztaHolidayHotspots, nztaAdapter } from "./nzta";
+export { parseNztaHolidayHotspots, nztaAdapter } from "./nzta.js";
 /** Waka Kotahi types. */
-export type { NztaHolidayHotspot } from "./nzta";
+export type { NztaHolidayHotspot } from "./nzta.js";
 /** The uniform adapter registry and probe helpers. */
 export {
   NZ_DATA_SOURCES,
   getNzDataSource,
   probeAllNzDataSources,
   probeNzDataSource,
-} from "./registry";
+} from "./registry.js";
 /** Trade Me category data. */
 export {
   fetchTradeMeCategories,
   parseTradeMeCategories,
   tradeMeAdapter,
-} from "./tradeMe";
+} from "./tradeMe.js";
 /** Trade Me types. */
-export type { TradeMeCategory } from "./tradeMe";
+export type { TradeMeCategory } from "./tradeMe.js";
 /** Shared adapter contract types. */
 export type {
   NzDataAdapter,
   NzFetchOptions,
   NzSourceAuth,
   NzSourceProbe,
-} from "./types";
+} from "./types.js";

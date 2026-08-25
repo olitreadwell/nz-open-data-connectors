@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { StatsNzParseError } from "./errors";
-import type { StatsNzObservation } from "./types";
+import { StatsNzParseError } from "./errors.js";
+import type { StatsNzObservation } from "./types.js";
 
 const sdmxJsonResponseSchema = z.object({
   data: z.object({

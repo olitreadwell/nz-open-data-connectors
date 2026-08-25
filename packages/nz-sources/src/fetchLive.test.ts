@@ -1,14 +1,14 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { adeSearchAdapter } from "./adeSearch";
-import { dataGovtDatastoreAdapter } from "./dataGovtDatastore";
-import { dataGovtNzAdapter } from "./dataGovtNz";
-import { digitalNzAdapter } from "./digitalNz";
-import { readFixtureJson, readFixtureText } from "./fixtures";
-import { geonetAdapter } from "./geonet";
-import { linzAdapter } from "./linz";
-import { nzorAdapter } from "./nzor";
-import { tradeMeAdapter } from "./tradeMe";
+import { adeSearchAdapter } from "./adeSearch.js";
+import { dataGovtDatastoreAdapter } from "./dataGovtDatastore.js";
+import { dataGovtNzAdapter } from "./dataGovtNz.js";
+import { digitalNzAdapter } from "./digitalNz.js";
+import { readFixtureJson, readFixtureText } from "./fixtures.js";
+import { geonetAdapter } from "./geonet.js";
+import { linzAdapter } from "./linz.js";
+import { nzorAdapter } from "./nzor.js";
+import { tradeMeAdapter } from "./tradeMe.js";
 
 function jsonResponse(payload: unknown): Response {
   return new Response(JSON.stringify(payload), { status: 200 });

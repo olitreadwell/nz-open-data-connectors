@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 
-import { NzSourceParseError } from "./errors";
-import { parseNzorNames } from "./nzor";
+import { NzSourceParseError } from "./errors.js";
+import { parseNzorNames } from "./nzor.js";
 
 const FIXTURE = readFileSync(
   path.join(process.cwd(), "src/fixtures/nzor-names-kiwi.xml"),

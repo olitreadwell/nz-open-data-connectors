@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureJson } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureJson } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** Default ArcGIS Hub host: Auckland Council open data. */
 export const DEFAULT_ARCGIS_HUB_HOST =

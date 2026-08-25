@@ -1,17 +1,17 @@
-import { adeSearchAdapter } from "./adeSearch";
-import { arcgisHubAdapter } from "./arcgisHub";
-import { dataGovtDatastoreAdapter } from "./dataGovtDatastore";
-import { dataGovtNzAdapter } from "./dataGovtNz";
-import { digitalNzAdapter } from "./digitalNz";
-import { geonetAdapter } from "./geonet";
-import { lawaAdapter } from "./lawa";
-import { linzAdapter } from "./linz";
-import { lrisAdapter } from "./lris";
-import { mfeAdapter } from "./mfe";
-import { nzorAdapter } from "./nzor";
-import { nztaAdapter } from "./nzta";
-import { tradeMeAdapter } from "./tradeMe";
-import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types";
+import { adeSearchAdapter } from "./adeSearch.js";
+import { arcgisHubAdapter } from "./arcgisHub.js";
+import { dataGovtDatastoreAdapter } from "./dataGovtDatastore.js";
+import { dataGovtNzAdapter } from "./dataGovtNz.js";
+import { digitalNzAdapter } from "./digitalNz.js";
+import { geonetAdapter } from "./geonet.js";
+import { lawaAdapter } from "./lawa.js";
+import { linzAdapter } from "./linz.js";
+import { lrisAdapter } from "./lris.js";
+import { mfeAdapter } from "./mfe.js";
+import { nzorAdapter } from "./nzor.js";
+import { nztaAdapter } from "./nzta.js";
+import { tradeMeAdapter } from "./tradeMe.js";
+import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types.js";
 
 /** Every NZ data source behind the uniform adapter interface. */
 export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [

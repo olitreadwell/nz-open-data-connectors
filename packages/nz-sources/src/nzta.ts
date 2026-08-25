@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureJson } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureJson } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** One holiday journey hotspot reported by Waka Kotahi (NZTA). */
 export interface NztaHolidayHotspot {

@@ -1,8 +1,8 @@
 import { XMLParser } from "fast-xml-parser";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureText } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureText } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** One name in the NZ Organisms Register. */
 export interface NzorName {

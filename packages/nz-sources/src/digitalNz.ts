@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureJson } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureJson } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** One record from the DigitalNZ (National Library) search API. */
 export interface DigitalNzRecord {

@@ -1,7 +1,7 @@
 import { XMLParser } from "fast-xml-parser";
 
-import { StatsNzParseError } from "./errors";
-import type { StatsNzDataflow } from "./types";
+import { StatsNzParseError } from "./errors.js";
+import type { StatsNzDataflow } from "./types.js";
 
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return typeof value === "object" && value !== null && !Array.isArray(value)
