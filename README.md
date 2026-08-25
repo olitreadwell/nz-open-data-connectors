@@ -25,6 +25,7 @@ npm run dev:api        # http://localhost:8787
 ```
 
 - `GET /health` - health check
+- `GET /metrics` - request counts in Prometheus format
 - `GET /openapi.json` - machine-readable OpenAPI spec (generate clients in any language from this)
 - `GET /docs` - Swagger UI
 - `GET /api/sources` - list every adapter
@@ -77,6 +78,7 @@ console.log(dataflows.length); // 911
 | `STATS_NZ_SUBSCRIPTION_KEY` | Stats NZ codelists and non-agriculture tables | Free signup at portal.apis.stats.govt.nz |
 | `LINZ_API_KEY` | LINZ layer search (optional) | data.linz.govt.nz |
 | `DIGITAL_NZ_API_KEY` | DigitalNZ search (optional) | digitalnz.org |
+| `SENTRY_DSN` | Error tracking (optional, off by default) | sentry.io |
 
 Copy `.env.example` to `.env` and fill in your own keys. Real keys are gitignored and never committed.
 
@@ -95,6 +97,13 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 - `ruby/` - Ruby gem, publishable to RubyGems as `nzdata` (tag `ruby-v*`).
 
 Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. Each port has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See each directory's README for quickstarts and publishing steps.
+
+## Documentation
+
+- `docs/ARCHITECTURE.md` - how the pieces fit together, in plain language
+- `docs/SECURITY.md` - key handling and the security checklist
+- `docs/GLOSSARY.md` - plain-language definitions of every term
+- `docs/RELEASING.md` - how versions, tags, and publishing work
 
 ## License
 

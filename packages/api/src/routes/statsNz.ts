@@ -14,6 +14,7 @@ const codelistQuerySchema = z.object({
   codelistId: z.string().min(1),
 });
 
+/** Options for the Stats NZ routes. */
 export interface StatsNzRouteOptions {
   client: StatsNzClient;
 }

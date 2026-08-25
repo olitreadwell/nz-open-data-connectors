@@ -10,6 +10,7 @@ import { OPEN_API_DOCUMENT } from "./openapi";
 import { createSourcesRoutes } from "./routes/sources";
 import { createStatsNzRoutes } from "./routes/statsNz";
 
+/** Options for building the connectors app. */
 export interface ConnectorsAppOptions {
   statsNzSubscriptionKey?: string;
   apiKeys?: Record<string, string>;

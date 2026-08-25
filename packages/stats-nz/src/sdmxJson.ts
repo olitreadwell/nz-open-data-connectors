@@ -53,6 +53,7 @@ const sdmxJsonResponseSchema = z.object({
   }),
 });
 
+/** Parses a Stats NZ jsondata response into observations. */
 export function parseSdmxJsonResponse(json: string): StatsNzObservation[] {
   let raw: unknown;
   try {
