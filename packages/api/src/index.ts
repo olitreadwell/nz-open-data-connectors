@@ -20,6 +20,11 @@ import {
   renderPrometheusMetrics,
   type RequestMetrics,
 } from "./metrics";
+import {
+  createRateLimiter,
+  DEFAULT_RATE_LIMIT_OPTIONS,
+  type RateLimiterOptions,
+} from "./rateLimiter";
 import { createSourcesRoutes } from "./routes/sources";
 import { createStatsNzRoutes } from "./routes/statsNz";
 
@@ -32,6 +37,10 @@ export interface ConnectorsAppOptions {
   sentryDsn?: string;
   logWrite?: LogWrite;
   metrics?: RequestMetrics;
+  /** Allowed cross-origin origin for /api routes. Defaults to "*". */
+  corsOrigin?: string;
+  /** Per-IP request budget for /api routes. Defaults to 60 requests/minute. */
+  rateLimit?: RateLimiterOptions;
 }
 
 /**
@@ -56,7 +65,11 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
 
   app.use("*", createRequestLogger(logWrite));
   app.use("*", createMetricsMiddleware(metrics));
-  app.use("/api/*", cors());
+  app.use("/api/*", cors({ origin: options.corsOrigin ?? "*" }));
+  app.use(
+    "/api/*",
+    createRateLimiter(options.rateLimit ?? DEFAULT_RATE_LIMIT_OPTIONS),
+  );
   app.get("/health", (c) =>
     c.json({ ok: true, name: "nz-open-data-connectors" }),
   );

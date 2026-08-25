@@ -1,6 +1,15 @@
 import { Hono } from "hono";
+import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
 
 import { NZ_DATA_SOURCES, probeNzDataSource } from "@nzlab/nz-sources";
+
+const probeParamSchema = z.object({
+  id: z
+    .string()
+    .min(1)
+    .regex(/^[a-z0-9-]+$/),
+});
 
 /** Options for the source listing and probe routes. */
 export interface SourcesRouteOptions {
@@ -23,19 +32,23 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
     return c.json(sources);
   });
 
-  app.get("/sources/:id/probe", async (c) => {
-    const id = c.req.param("id");
-    const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
-    if (adapter === undefined) {
-      return c.json({ error: `Unknown source: ${id}` }, 404);
-    }
-    const apiKey = options.apiKeys?.[adapter.id];
-    const probe = await probeFn(
-      adapter,
-      apiKey === undefined ? {} : { apiKey },
-    );
-    return c.json(probe);
-  });
+  app.get(
+    "/sources/:id/probe",
+    zValidator("param", probeParamSchema),
+    async (c) => {
+      const { id } = c.req.valid("param");
+      const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
+      if (adapter === undefined) {
+        return c.json({ error: `Unknown source: ${id}` }, 404);
+      }
+      const apiKey = options.apiKeys?.[adapter.id];
+      const probe = await probeFn(
+        adapter,
+        apiKey === undefined ? {} : { apiKey },
+      );
+      return c.json(probe);
+    },
+  );
 
   return app;
 }

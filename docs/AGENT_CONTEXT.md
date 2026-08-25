@@ -12,12 +12,22 @@ concern.
 
 ## Current state
 
-- Working branch: `chore/ports/quality_gates`
-- Branch is 10 commits ahead of `origin/chore/ports/quality_gates`
-- Nothing pushed since the last merge; no PR open
+- `development` is the only integration branch. PRs merge into
+  `development`; a blocked draft PR keeps `development` in sync with `main`
 - Working tree clean; all checks green
 
 ## What was just completed
+
+- API hardening: CORS, per-IP rate limiting, zod validation on the probe
+  route, OpenAPI contract test
+- Five new keyless connectors: ArcGIS Hub (`arcgis`), LAWA (`lawa`), MfE
+  Data Service (`mfe`), LRIS (`lris`), Waka Kotahi holiday hotspots
+  (`nzta`) - fixtures are real snapshots dated 2026-08-25
+- Ops: `CONTRIBUTING.md`, README connector reference, `npm run audit`,
+  advisory audit CI job
+
+Earlier: `chore/ports/quality_gates` merged to `main` via PR #3 (five
+feature branches).
 
 Five feature branches, each developed in its own git worktree, merged into
 `chore/ports/quality_gates`:
@@ -76,13 +86,17 @@ cd ruby && bundle exec rake check
 
 ## Open items
 
-1. Push `chore/ports/quality_gates` and open a PR to `main`
+1. Keep the blocked `development` → `main` draft PR updated as features
+   land; merge it to `main` when ready
 2. Add GitHub secrets for the smoke workflow: `STATS_NZ_SUBSCRIPTION_KEY`,
    `LINZ_API_KEY`, `DIGITAL_NZ_API_KEY`
 3. Decide whether to cut a release (`v0.2.0`); see `docs/RELEASING.md`
 4. Watch the first nightly smoke run after merge
 5. TS versioning is manual (no changesets); documented in
    `docs/RELEASING.md`
+6. Keyed connector backlog (need API keys before live verification):
+   NZBN / Companies Office, NIWA tide-UV-solar, Auckland Transport,
+   RBNZ, Koordinates - see `docs/CONNECTOR_DISCOVERY.md`
 
 ## Docs index
 

@@ -6,6 +6,22 @@ export {
 } from "./adeSearch";
 /** ADE search types. */
 export type { AdeDataflow, AdeSearchResult } from "./adeSearch";
+/** ArcGIS Hub open data catalogue and dataset search (keyless). */
+export {
+  parseArcgisHubCollections,
+  parseArcgisHubDatasets,
+  parseArcgisHubResult,
+  normalizeArcgisHubHost,
+  arcgisHubAdapter,
+  DEFAULT_ARCGIS_HUB_HOST,
+} from "./arcgisHub";
+/** ArcGIS Hub types. */
+export type {
+  ArcgisHubCollection,
+  ArcgisHubDataset,
+  ArcgisHubFetchOptions,
+  ArcgisHubResult,
+} from "./arcgisHub";
 /** data.govt.nz dataset search. */
 export {
   searchDataGovtNzDatasets,
@@ -49,10 +65,26 @@ export type { GeoNetQuake, GeoNetQuakeSummary } from "./geonet";
 export { searchLinzLayers, parseLinzLayers, linzAdapter } from "./linz";
 /** LINZ types. */
 export type { LinzLayer } from "./linz";
+/** LAWA river quality monitoring sites. */
+export { parseLawaRiverQualitySites, lawaAdapter } from "./lawa";
+/** LAWA types. */
+export type { LawaRiverQualitySite } from "./lawa";
+/** LRIS land and soil layer search. */
+export { parseLrisLayers, lrisAdapter } from "./lris";
+/** LRIS types. */
+export type { LrisLayer } from "./lris";
+/** MfE Data Service layer catalogue. */
+export { parseMfeLayers, mfeAdapter } from "./mfe";
+/** MfE types. */
+export type { MfeLayer } from "./mfe";
 /** NZOR (New Zealand Organisms Register) name search. */
 export { searchNzorNames, parseNzorNames, nzorAdapter } from "./nzor";
 /** NZOR types. */
 export type { NzorName, NzorSearchResult } from "./nzor";
+/** Waka Kotahi holiday journey hotspots. */
+export { parseNztaHolidayHotspots, nztaAdapter } from "./nzta";
+/** Waka Kotahi types. */
+export type { NztaHolidayHotspot } from "./nzta";
 /** The uniform adapter registry and probe helpers. */
 export {
   NZ_DATA_SOURCES,
