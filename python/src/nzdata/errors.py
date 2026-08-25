@@ -1,5 +1,7 @@
 """Error types shared by every connector."""
 
+from __future__ import annotations
+
 
 class NzSourceError(Exception):
     """Base error for the NZ data source adapters."""
