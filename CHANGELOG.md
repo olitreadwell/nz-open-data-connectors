@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- TS: publishable npm build pipeline (`npm run build`, `tsconfig.build.json`,
+  `publish-npm.yml`) - merged from `chore/ts/npm_build_pipeline/5`
+- Ruby: CI matrix across Ruby 3.0 and 3.3 with gem build validation -
+  merged from `chore/ruby/ci_matrix/7`
+- Renovate: `renovate.json` with `config:recommended`
 - Connectors: five new keyless adapters - ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA), LAWA river quality sites, MfE Data Service, LRIS land and soil layers, Waka Kotahi holiday hotspots
 - API: CORS enabled by default (`CORS_ORIGIN` override), per-IP rate limiting (`RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`), zod validation on the probe route, and an OpenAPI contract test that keeps routes and the spec in sync
 - Ops: `CONTRIBUTING.md`, per-source connector reference in the README, `npm run audit`, and an advisory dependency audit job in CI
