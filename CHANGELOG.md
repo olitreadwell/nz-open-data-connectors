@@ -8,6 +8,7 @@
 - API: e2e test boots the real server over HTTP; error responses are clean JSON
 - Docs: plain-language architecture, security, glossary, and releasing guides; `AGENTS.md` rewritten for LLM agents; JSDoc added to every public export
 - CI: `v*` tags now create a GitHub Release with auto-generated notes
+- Dependencies pinned to exact versions in every `package.json`; `npm run check` now enforces the coverage gate locally
 - Python port: pinned deps + `uv.lock`, `ruff` lint, `mypy` type check, coverage gate in CI
 - Ruby port: `rubocop` lint, SimpleCov coverage gate in CI (`bundle exec rake check`)
 - `npm run check` now includes `format:check`; CI gained a format check job

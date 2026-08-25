@@ -29,6 +29,7 @@ python/**/*.egg-info/
 # Ruby build artifacts
 ruby/*.gem
 ruby/vendor/
+ruby/coverage/
 
 # Python caches
 __pycache__/
