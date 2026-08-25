@@ -1,10 +1,15 @@
 import { adeSearchAdapter } from "./adeSearch";
+import { arcgisHubAdapter } from "./arcgisHub";
 import { dataGovtDatastoreAdapter } from "./dataGovtDatastore";
 import { dataGovtNzAdapter } from "./dataGovtNz";
 import { digitalNzAdapter } from "./digitalNz";
 import { geonetAdapter } from "./geonet";
+import { lawaAdapter } from "./lawa";
 import { linzAdapter } from "./linz";
+import { lrisAdapter } from "./lris";
+import { mfeAdapter } from "./mfe";
 import { nzorAdapter } from "./nzor";
+import { nztaAdapter } from "./nzta";
 import { tradeMeAdapter } from "./tradeMe";
 import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from "./types";
 
@@ -18,6 +23,11 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   tradeMeAdapter,
   nzorAdapter,
   linzAdapter,
+  arcgisHubAdapter,
+  lawaAdapter,
+  mfeAdapter,
+  lrisAdapter,
+  nztaAdapter,
 ];
 
 /** Looks up a source adapter by id. */

@@ -17,7 +17,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Eight source adapters, all in `@nzlab/nz-sources`. Every one works
+Thirteen source adapters, all in `@nzlab/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
@@ -31,6 +31,11 @@ DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 | `trademe` | Trade Me categories | Yes | - | `npx tsx packages/cli/src/cli.ts probe trademe` |
 | `nzor` | NZ Organisms Register | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzor` |
 | `linz` | LINZ Data Service catalogue | Yes | `LINZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe linz` |
+| `arcgis` | ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe arcgis` |
+| `lawa` | LAWA river quality monitoring sites | Yes | - | `npx tsx packages/cli/src/cli.ts probe lawa` |
+| `mfe` | MfE Data Service layer catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mfe` |
+| `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
+| `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
 
 ### Adapter examples
 
@@ -75,6 +80,31 @@ npx tsx packages/cli/src/cli.ts probe nzor
 ```sh
 # LINZ - layers matching "property" (property titles, parcels, boundaries)
 npx tsx packages/cli/src/cli.ts probe linz
+```
+
+```sh
+# ArcGIS Hub - open data collections from Auckland Council (default host)
+npx tsx packages/cli/src/cli.ts probe arcgis
+```
+
+```sh
+# LAWA - river quality monitoring sites across New Zealand
+npx tsx packages/cli/src/cli.ts probe lawa
+```
+
+```sh
+# MfE Data Service - layers matching "water" from the Ministry for the Environment
+npx tsx packages/cli/src/cli.ts probe mfe
+```
+
+```sh
+# LRIS - land and soil layers matching "soil" from Landcare Research
+npx tsx packages/cli/src/cli.ts probe lris
+```
+
+```sh
+# Waka Kotahi - predicted busy holiday journey hotspots
+npx tsx packages/cli/src/cli.ts probe nzta
 ```
 
 ## Language-agnostic access

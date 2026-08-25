@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Connectors: five new keyless adapters - ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA), LAWA river quality sites, MfE Data Service, LRIS land and soil layers, Waka Kotahi holiday hotspots
+- API: CORS enabled by default (`CORS_ORIGIN` override), per-IP rate limiting (`RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`), zod validation on the probe route, and an OpenAPI contract test that keeps routes and the spec in sync
+- Ops: `CONTRIBUTING.md`, per-source connector reference in the README, `npm run audit`, and an advisory dependency audit job in CI
 - CI: scheduled nightly live smoke workflow (`smoke.yml`) against the real NZ APIs, plus manual `workflow_dispatch`
 - Dockerfile: containerized API with non-root user, health check, and run steps in the README
 - API: structured JSON request logs, `/metrics` in Prometheus format, and optional Sentry error tracking (`SENTRY_DSN`, off by default)
