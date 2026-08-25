@@ -96,6 +96,17 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 
 Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. Each port has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See each directory's README for quickstarts and publishing steps.
 
+## Run the API in Docker
+
+The `Dockerfile` at the repo root runs the HTTP API on port `8787` with a non-root user and a health check.
+
+```sh
+docker build -t nz-connectors .
+docker run -p 8787:8787 --env-file .env nz-connectors
+```
+
+Optional keys come from the environment only. Without a `.env` file every keyless endpoint still works.
+
 ## License
 
 MIT
