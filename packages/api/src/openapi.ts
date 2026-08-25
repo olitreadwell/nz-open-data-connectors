@@ -38,7 +38,10 @@ export const OPEN_API_DOCUMENT = {
     "/api/sources": {
       get: {
         summary: "List every data source adapter",
-        responses: { "200": { description: "Adapter list" } },
+        responses: {
+          "200": { description: "Adapter list" },
+          "429": { description: "Rate limit exceeded" },
+        },
       },
     },
     "/api/sources/{id}/probe": {
@@ -54,14 +57,19 @@ export const OPEN_API_DOCUMENT = {
         ],
         responses: {
           "200": { description: "Probe result" },
+          "400": { description: "Missing or invalid source id" },
           "404": { description: "Unknown source id" },
+          "429": { description: "Rate limit exceeded" },
         },
       },
     },
     "/api/stats-nz/catalogue": {
       get: {
         summary: "List every Aotearoa Data Explorer dataflow",
-        responses: { "200": { description: "Dataflow list" } },
+        responses: {
+          "200": { description: "Dataflow list" },
+          "429": { description: "Rate limit exceeded" },
+        },
       },
     },
     "/api/stats-nz/data": {
@@ -83,6 +91,7 @@ export const OPEN_API_DOCUMENT = {
         responses: {
           "200": { description: "Rows as JSON or CSV" },
           "400": { description: "Missing or invalid dataflowId" },
+          "429": { description: "Rate limit exceeded" },
         },
       },
     },
@@ -99,7 +108,9 @@ export const OPEN_API_DOCUMENT = {
         ],
         responses: {
           "200": { description: "Codelist items" },
+          "400": { description: "Missing or invalid codelistId" },
           "401": { description: "Subscription key required" },
+          "429": { description: "Rate limit exceeded" },
         },
       },
     },
