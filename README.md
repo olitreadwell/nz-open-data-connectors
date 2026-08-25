@@ -15,6 +15,68 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 | `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
 | `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
 
+## Connectors
+
+Eight source adapters, all in `@nzlab/nz-sources`. Every one works
+keyless. Two accept an optional key from the environment to unlock more:
+DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
+
+| id | Source | Keyless? | Key env var | Example command |
+| --- | --- | --- | --- | --- |
+| `geonet` | GeoNet (GNS Science) | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet` |
+| `data-govt-nz` | data.govt.nz catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-nz` |
+| `data-govt-datastore` | data.govt.nz datastore (MSD benefits) | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-datastore` |
+| `ade-search` | Aotearoa Data Explorer search index | Yes | - | `npx tsx packages/cli/src/cli.ts probe ade-search` |
+| `digitalnz` | DigitalNZ (National Library) | Yes | `DIGITAL_NZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe digitalnz` |
+| `trademe` | Trade Me categories | Yes | - | `npx tsx packages/cli/src/cli.ts probe trademe` |
+| `nzor` | NZ Organisms Register | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzor` |
+| `linz` | LINZ Data Service catalogue | Yes | `LINZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe linz` |
+
+### Adapter examples
+
+Each probe prints a JSON summary with the probe `id`, `name`, `auth`, an
+`ok` or `status` line, and a `sample` of the live data.
+
+```sh
+# GeoNet - recent felt earthquakes (magnitude 3+)
+npx tsx packages/cli/src/cli.ts probe geonet
+```
+
+```sh
+# data.govt.nz - datasets matching "sheep" from the national catalogue
+npx tsx packages/cli/src/cli.ts probe data-govt-nz
+```
+
+```sh
+# data.govt.nz datastore - national MSD benefit rows
+npx tsx packages/cli/src/cli.ts probe data-govt-datastore
+```
+
+```sh
+# ADE search - tables matching "median annual earnings"
+npx tsx packages/cli/src/cli.ts probe ade-search
+```
+
+```sh
+# DigitalNZ - digitised records matching "sheep"
+npx tsx packages/cli/src/cli.ts probe digitalnz
+```
+
+```sh
+# Trade Me - the public category tree
+npx tsx packages/cli/src/cli.ts probe trademe
+```
+
+```sh
+# NZOR - organism names matching "kiwi"
+npx tsx packages/cli/src/cli.ts probe nzor
+```
+
+```sh
+# LINZ - layers matching "property" (property titles, parcels, boundaries)
+npx tsx packages/cli/src/cli.ts probe linz
+```
+
 ## Language-agnostic access
 
 ### HTTP API
