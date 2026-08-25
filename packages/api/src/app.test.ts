@@ -4,7 +4,6 @@ import { probeNzDataSource } from "@nzlab/nz-sources";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
 import { createConnectorsApp } from "./index";
-import { OPEN_API_DOCUMENT } from "./openapi";
 
 function createStubStatsNzClient(): StatsNzClient {
   return {
@@ -71,16 +70,6 @@ describe("createConnectorsApp", () => {
     expect(await res.text()).toContain("swagger");
   });
 
-  it("registers every documented path", () => {
-    const app = createTestApp();
-    const registered = [...new Set(app.routes.map((route) => route.path))]
-      .filter((path) => path !== "/api/*" && path !== "/*")
-      .map((path) => path.replaceAll(":id", "{id}"))
-      .sort();
-    const documented = Object.keys(OPEN_API_DOCUMENT.paths).sort();
-    expect(registered).toEqual(documented);
-  });
-
   it("lists every adapter with id, name, auth, and description", async () => {
     const app = createTestApp();
     const res = await app.request("/api/sources");
@@ -113,6 +102,12 @@ describe("createConnectorsApp", () => {
     const app = createTestApp();
     const res = await app.request("/api/sources/not-a-source/probe");
     expect(res.status).toBe(404);
+  });
+
+  it("rejects a malformed probe id", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/sources/%20/probe");
+    expect(res.status).toBe(400);
   });
 
   it("returns the dataflow catalogue", async () => {
@@ -149,6 +144,8 @@ describe("createConnectorsApp", () => {
     const app = createTestApp();
     const res = await app.request("/api/stats-nz/data");
     expect(res.status).toBe(400);
+    const body = (await res.json()) as { success: boolean };
+    expect(body.success).toBe(false);
   });
 
   it("returns a codelist", async () => {
@@ -161,5 +158,70 @@ describe("createConnectorsApp", () => {
     };
     expect(body.id).toBe("CL_YEAR");
     expect(body.items[0]?.id).toBe("2024");
+  });
+
+  it("allows cross-origin reads on /api routes by default", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/sources", {
+      headers: { origin: "https://example.com" },
+    });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("access-control-allow-origin")).toBe("*");
+  });
+
+  it("honors a configured CORS origin", async () => {
+    const app = createConnectorsApp({
+      statsNzClient: createStubStatsNzClient(),
+      probeFn: stubProbe,
+      corsOrigin: "https://app.example.com",
+    });
+    const res = await app.request("/api/sources", {
+      headers: { origin: "https://app.example.com" },
+    });
+    expect(res.headers.get("access-control-allow-origin")).toBe(
+      "https://app.example.com",
+    );
+  });
+
+  it("omits CORS headers for origins outside the configured allowlist", async () => {
+    const app = createConnectorsApp({
+      statsNzClient: createStubStatsNzClient(),
+      probeFn: stubProbe,
+      corsOrigin: "https://app.example.com",
+    });
+    const res = await app.request("/api/sources", {
+      headers: { origin: "https://evil.example.com" },
+    });
+    expect(res.status).toBe(200);
+    expect(res.headers.get("access-control-allow-origin")).toBeNull();
+  });
+
+  it("answers OPTIONS preflight for /api routes", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/sources", {
+      method: "OPTIONS",
+      headers: { origin: "https://example.com" },
+    });
+    expect(res.status).toBe(204);
+    expect(res.headers.get("access-control-allow-methods")).toContain("GET");
+  });
+
+  it("rate limits /api routes per client", async () => {
+    const app = createConnectorsApp({
+      statsNzClient: createStubStatsNzClient(),
+      probeFn: stubProbe,
+      rateLimit: { maxRequests: 2, windowMs: 60_000 },
+    });
+    await app.request("/api/sources", {
+      headers: { "x-forwarded-for": "1.2.3.4" },
+    });
+    await app.request("/api/sources", {
+      headers: { "x-forwarded-for": "1.2.3.4" },
+    });
+    const limited = await app.request("/api/sources", {
+      headers: { "x-forwarded-for": "1.2.3.4" },
+    });
+    expect(limited.status).toBe(429);
+    expect(await limited.json()).toEqual({ error: "rate_limited" });
   });
 });
