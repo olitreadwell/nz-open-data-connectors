@@ -32,6 +32,10 @@ Plain-language definitions. Terms used in this repo, in alphabetical order.
 
 - **DigitalNZ** - a search index of NZ digital cultural content.
 
+- **Media search** - a DigitalNZ search filtered by media type (images,
+  newspapers, videos, audio, literature, artwork). Records include preview
+  image URLs where the source supplies them.
+
 ## E
 
 - **E2E (end-to-end)** - a test that runs the real app over a real

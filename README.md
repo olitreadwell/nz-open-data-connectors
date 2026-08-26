@@ -30,6 +30,7 @@ npm run dev:api        # http://localhost:8787
 - `GET /docs` - Swagger UI
 - `GET /api/sources` - list every adapter
 - `GET /api/sources/:id/probe` - live probe one source
+- `GET /api/digitalnz/media?q=kiwi&type=images` - DigitalNZ media search (images, newspapers, videos, audio, literature, artwork)
 - `GET /api/stats-nz/catalogue` - every ADE dataflow
 - `GET /api/stats-nz/data?dataflowId=AGR_AGR_003` - data rows as JSON
 - `GET /api/stats-nz/data?dataflowId=AGR_AGR_003&format=csv` - data rows as CSV
@@ -44,6 +45,7 @@ curl 'http://localhost:8787/api/stats-nz/data?dataflowId=AGR_AGR_003'
 ```sh
 npx tsx packages/cli/src/cli.ts sources
 npx tsx packages/cli/src/cli.ts probe linz
+npx tsx packages/cli/src/cli.ts media --query kiwi --type images
 npx tsx packages/cli/src/cli.ts catalogue
 npx tsx packages/cli/src/cli.ts data --dataflow AGR_AGR_003 --format csv
 npx tsx packages/cli/src/cli.ts codelist --codelist CL_LIVESTOCK_AGR_AGR_003

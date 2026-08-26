@@ -26,14 +26,17 @@ export type {
   DataGovtDatastoreResult,
   DataGovtDatastoreRow,
 } from "./dataGovtDatastore";
-/** DigitalNZ record search. */
+/** DigitalNZ record and media search. */
 export {
   searchDigitalNzRecords,
+  searchDigitalNzMedia,
+  getDigitalNzCategoryFilter,
+  DIGITAL_NZ_MEDIA_TYPES,
   parseDigitalNzRecords,
   digitalNzAdapter,
 } from "./digitalNz";
-/** DigitalNZ record types. */
-export type { DigitalNzRecord } from "./digitalNz";
+/** DigitalNZ record and media types. */
+export type { DigitalNzRecord, DigitalNzMediaType } from "./digitalNz";
 /** Errors shared by every source adapter. */
 export { NzSourceApiError, NzSourceError, NzSourceParseError } from "./errors";
 /** GeoNet felt earthquake data. */
