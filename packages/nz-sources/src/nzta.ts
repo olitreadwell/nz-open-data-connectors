@@ -36,6 +36,9 @@ const NZTA_RESPONSE_SCHEMA = z.record(z.string(), NZTA_HOLIDAY_SCHEMA);
 /**
  * Parses a Waka Kotahi holiday hotspots payload into hotspot records.
  * Geometry coordinates are [longitude, latitude] GeoJSON order.
+ *
+ * @param payload - Raw Waka Kotahi holiday hotspots JSON.
+ * @returns Holiday hotspot records with holiday, region, and coordinates.
  */
 export function parseNztaHolidayHotspots(
   payload: unknown,
@@ -63,6 +66,9 @@ export function parseNztaHolidayHotspots(
  * Fetches holiday journey hotspots from the Waka Kotahi journeys API.
  * Keyless; needs an Accept: application/json header. Falls back to a
  * committed fixture when the API is unreachable.
+ *
+ * @param fetchImpl - Fetch implementation override for tests.
+ * @returns Holiday hotspot records with holiday, region, and coordinates.
  */
 export async function fetchNztaHolidayHotspots(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch,

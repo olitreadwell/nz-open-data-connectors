@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "template": "https://github.com/olitreadwell/template.git",
+  "policies": {
+    "copy": [
+      { "path": ".codespellrc", "if": "package.json" },
+      { "path": ".yamllint.yml", "if": "package.json" },
+      { "path": ".github/ISSUE_TEMPLATE/bug_report.yml" },
+      { "path": ".github/ISSUE_TEMPLATE/feature_request.yml" },
+      { "path": ".github/workflows/release.yml", "if": "package.json" },
+      { "path": ".github/workflows/template-sync.yml" },
+      { "path": "scripts/security-checks.sh" }
+    ],
+    "copyIfAbsent": [
+      { "path": ".env.example", "if": "package.json" },
+      { "path": ".nvmrc", "if": "package.json" },
+      { "path": "AGENTS.md" }
+    ],
+    "merge": []
+  }
+}

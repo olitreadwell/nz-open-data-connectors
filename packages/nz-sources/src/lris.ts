@@ -21,7 +21,12 @@ const LRIS_LAYER_SCHEMA = z.object({
 
 const LRIS_SEARCH_RESPONSE_SCHEMA = z.array(LRIS_LAYER_SCHEMA);
 
-/** Parses an LRIS layer search payload into layers. */
+/**
+ * Parses an LRIS layer search payload into layers.
+ *
+ * @param payload - Raw LRIS layer search JSON.
+ * @returns Layer records with id, title, url, and public access.
+ */
 export function parseLrisLayers(payload: unknown): LrisLayer[] {
   const parsed = LRIS_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
@@ -38,6 +43,10 @@ export function parseLrisLayers(payload: unknown): LrisLayer[] {
 /**
  * Searches the LRIS (Landcare Research) catalogue for layers (e.g. "soil").
  * Keyless; falls back to a committed fixture when the API is unreachable.
+ *
+ * @param query - Layer search text, e.g. "soil".
+ * @param fetchImpl - Fetch implementation override for tests.
+ * @returns Layer records matching the query.
  */
 export async function searchLrisLayers(
   query: string,

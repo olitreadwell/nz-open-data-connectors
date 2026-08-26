@@ -15,14 +15,17 @@ const FIXTURE = JSON.parse(
   ),
 ) as unknown;
 
+const MIN_LAYER_COUNT = 50;
+const FIRST_LAYER_ID = 117733;
+
 describe("parseMfeLayers", () => {
   it("parses the MfE layer search fixture into layers", () => {
     const layers = parseMfeLayers(FIXTURE);
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
     const first = layers[0];
-    expect(first?.id).toBe(117733);
+    expect(first?.id).toBe(FIRST_LAYER_ID);
     expect(first?.title).toContain("LUCAS");
-    expect(first?.url).toContain("117733");
+    expect(first?.url).toContain(String(FIRST_LAYER_ID));
     expect(first?.publicAccess).toBe("download");
   });
 
@@ -38,7 +41,7 @@ describe("searchMfeLayers", () => {
     const fetchImpl = (async () =>
       new Response(JSON.stringify(FIXTURE), { status: 200 })) as typeof fetch;
     const layers = await searchMfeLayers("water", fetchImpl);
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
   });
 
   it("throws an API error on a non-ok response", async () => {
@@ -53,6 +56,6 @@ describe("searchMfeLayers", () => {
 describe("mfeAdapter", () => {
   it("loads the committed fixture", () => {
     const layers = mfeAdapter.loadFixture();
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
   });
 });

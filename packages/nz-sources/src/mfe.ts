@@ -21,7 +21,12 @@ const MFE_LAYER_SCHEMA = z.object({
 
 const MFE_SEARCH_RESPONSE_SCHEMA = z.array(MFE_LAYER_SCHEMA);
 
-/** Parses an MfE Data Service layer search payload into layers. */
+/**
+ * Parses an MfE Data Service layer search payload into layers.
+ *
+ * @param payload - Raw MfE Data Service layer search JSON.
+ * @returns Layer records with id, title, url, and public access.
+ */
 export function parseMfeLayers(payload: unknown): MfeLayer[] {
   const parsed = MFE_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
@@ -38,6 +43,10 @@ export function parseMfeLayers(payload: unknown): MfeLayer[] {
 /**
  * Searches the MfE Data Service catalogue for layers (e.g. "water").
  * Keyless; falls back to a committed fixture when the API is unreachable.
+ *
+ * @param query - Layer search text, e.g. "water".
+ * @param fetchImpl - Fetch implementation override for tests.
+ * @returns Layer records matching the query.
  */
 export async function searchMfeLayers(
   query: string,

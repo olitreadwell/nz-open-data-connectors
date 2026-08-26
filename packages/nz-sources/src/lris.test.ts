@@ -15,14 +15,17 @@ const FIXTURE = JSON.parse(
   ),
 ) as unknown;
 
+const MIN_LAYER_COUNT = 50;
+const FIRST_LAYER_ID = 123148;
+
 describe("parseLrisLayers", () => {
   it("parses the LRIS layer search fixture into layers", () => {
     const layers = parseLrisLayers(FIXTURE);
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
     const first = layers[0];
-    expect(first?.id).toBe(123148);
+    expect(first?.id).toBe(FIRST_LAYER_ID);
     expect(first?.title).toContain("LCDB");
-    expect(first?.url).toContain("123148");
+    expect(first?.url).toContain(String(FIRST_LAYER_ID));
     expect(first?.publicAccess).toBe("download");
   });
 
@@ -38,7 +41,7 @@ describe("searchLrisLayers", () => {
     const fetchImpl = (async () =>
       new Response(JSON.stringify(FIXTURE), { status: 200 })) as typeof fetch;
     const layers = await searchLrisLayers("soil", fetchImpl);
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
   });
 
   it("throws an API error on a non-ok response", async () => {
@@ -53,6 +56,6 @@ describe("searchLrisLayers", () => {
 describe("lrisAdapter", () => {
   it("loads the committed fixture", () => {
     const layers = lrisAdapter.loadFixture();
-    expect(layers.length).toBeGreaterThan(50);
+    expect(layers.length).toBeGreaterThan(MIN_LAYER_COUNT);
   });
 });

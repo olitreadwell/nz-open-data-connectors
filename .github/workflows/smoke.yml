@@ -14,7 +14,6 @@ concurrency:
 env:
   STATS_NZ_SUBSCRIPTION_KEY: ${{ secrets.STATS_NZ_SUBSCRIPTION_KEY }}
   LINZ_API_KEY: ${{ secrets.LINZ_API_KEY }}
-  DIGITAL_NZ_API_KEY: ${{ secrets.DIGITAL_NZ_API_KEY }}
 
 jobs:
   typescript:

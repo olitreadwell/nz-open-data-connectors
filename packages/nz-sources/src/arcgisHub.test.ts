@@ -24,6 +24,9 @@ const COLLECTION_FIXTURES = [
 const DATASETS_FIXTURE =
   "arcgis-hub-data-aucklandcouncil.opendata.arcgis.com-datasets-parks-2026-08-25.json";
 
+const UNAUTHORIZED_STATUS = 401;
+const NOT_FOUND_STATUS = 404;
+
 function readFixture(filename: string): unknown {
   return JSON.parse(readFileSync(path.join(FIXTURES_DIR, filename), "utf8"));
 }
@@ -95,7 +98,7 @@ describe("fetchArcgisHubCollections", () => {
   it("throws NzSourceApiError on a 401 response", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn(async () => jsonResponse({}, 401)),
+      vi.fn(async () => jsonResponse({}, UNAUTHORIZED_STATUS)),
     );
     await expect(
       fetchArcgisHubCollections({ host: "https://invalid.example.com" }),
@@ -116,7 +119,7 @@ describe("searchArcgisHubDatasets", () => {
   it("throws NzSourceApiError on a 404 response", async () => {
     vi.stubGlobal(
       "fetch",
-      vi.fn(async () => jsonResponse({}, 404)),
+      vi.fn(async () => jsonResponse({}, NOT_FOUND_STATUS)),
     );
     await expect(searchArcgisHubDatasets("parks")).rejects.toThrow(
       NzSourceApiError,

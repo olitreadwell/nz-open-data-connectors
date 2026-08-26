@@ -35,6 +35,9 @@ const LAWA_RESPONSE_SCHEMA = z.array(LAWA_SITE_SCHEMA);
 /**
  * Parses a LAWA river quality sites payload into site records. Region
  * boundary rows (IsBackground) are dropped so only monitoring sites remain.
+ *
+ * @param payload - Raw LAWA river quality sites JSON.
+ * @returns Monitoring site records, excluding region boundary rows.
  */
 export function parseLawaRiverQualitySites(
   payload: unknown,
@@ -61,6 +64,9 @@ export function parseLawaRiverQualitySites(
 /**
  * Fetches river quality monitoring sites from the LAWA map service.
  * Keyless; falls back to a committed fixture when the API is unreachable.
+ *
+ * @param fetchImpl - Fetch implementation override for tests.
+ * @returns Monitoring site records, excluding region boundary rows.
  */
 export async function fetchLawaRiverQualitySites(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch,

@@ -19,10 +19,12 @@ const FIXTURE = JSON.parse(
   ),
 ) as unknown;
 
+const MIN_HOTSPOT_COUNT = 50;
+
 describe("parseNztaHolidayHotspots", () => {
   it("parses the Waka Kotahi fixture into hotspots", () => {
     const hotspots = parseNztaHolidayHotspots(FIXTURE);
-    expect(hotspots.length).toBeGreaterThan(50);
+    expect(hotspots.length).toBeGreaterThan(MIN_HOTSPOT_COUNT);
     const first = hotspots[0];
     expect(first?.holidayName).toContain("Waitangi");
     expect(first?.regionTitle).toBe("Auckland");
@@ -43,7 +45,7 @@ describe("fetchNztaHolidayHotspots", () => {
     const fetchImpl = (async () =>
       new Response(JSON.stringify(FIXTURE), { status: 200 })) as typeof fetch;
     const hotspots = await fetchNztaHolidayHotspots(fetchImpl);
-    expect(hotspots.length).toBeGreaterThan(50);
+    expect(hotspots.length).toBeGreaterThan(MIN_HOTSPOT_COUNT);
   });
 
   it("throws an API error on a non-ok response", async () => {
@@ -58,6 +60,6 @@ describe("fetchNztaHolidayHotspots", () => {
 describe("nztaAdapter", () => {
   it("loads the committed fixture", () => {
     const hotspots = nztaAdapter.loadFixture();
-    expect(hotspots.length).toBeGreaterThan(50);
+    expect(hotspots.length).toBeGreaterThan(MIN_HOTSPOT_COUNT);
   });
 });

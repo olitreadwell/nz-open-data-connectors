@@ -15,8 +15,6 @@ def test_probes_every_source_with_optional_keys():
     api_keys = {}
     if os.environ.get("LINZ_API_KEY"):
         api_keys["linz"] = os.environ["LINZ_API_KEY"]
-    if os.environ.get("DIGITAL_NZ_API_KEY"):
-        api_keys["digitalnz"] = os.environ["DIGITAL_NZ_API_KEY"]
     probes = probe_all_nz_data_sources(api_keys)
     assert len(probes) == 8
     for probe in probes:

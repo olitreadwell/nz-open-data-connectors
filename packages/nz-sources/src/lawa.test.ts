@@ -19,12 +19,15 @@ const FIXTURE = JSON.parse(
   ),
 ) as unknown;
 
+const MIN_SITE_COUNT = 1000;
+const FIRST_SITE_ID = 7787;
+
 describe("parseLawaRiverQualitySites", () => {
   it("parses the LAWA fixture into monitoring sites", () => {
     const sites = parseLawaRiverQualitySites(FIXTURE);
-    expect(sites.length).toBeGreaterThan(1000);
+    expect(sites.length).toBeGreaterThan(MIN_SITE_COUNT);
     const first = sites[0];
-    expect(first?.id).toBe(7787);
+    expect(first?.id).toBe(FIRST_SITE_ID);
     expect(first?.name).toBe("Awanui at FNDC");
     expect(first?.code).toBe("NRC-00016");
     expect(first?.latitude).toBeLessThan(0);
@@ -49,7 +52,7 @@ describe("fetchLawaRiverQualitySites", () => {
     const fetchImpl = (async () =>
       new Response(JSON.stringify(FIXTURE), { status: 200 })) as typeof fetch;
     const sites = await fetchLawaRiverQualitySites(fetchImpl);
-    expect(sites.length).toBeGreaterThan(1000);
+    expect(sites.length).toBeGreaterThan(MIN_SITE_COUNT);
   });
 
   it("throws an API error on a non-ok response", async () => {
@@ -64,6 +67,6 @@ describe("fetchLawaRiverQualitySites", () => {
 describe("lawaAdapter", () => {
   it("loads the committed fixture", () => {
     const sites = lawaAdapter.loadFixture();
-    expect(sites.length).toBeGreaterThan(1000);
+    expect(sites.length).toBeGreaterThan(MIN_SITE_COUNT);
   });
 });

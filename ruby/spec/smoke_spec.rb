@@ -10,7 +10,6 @@ describe 'live smoke tests' do
   it 'probes every source with optional keys' do
     api_keys = {}
     api_keys['linz'] = ENV['LINZ_API_KEY'] unless ENV['LINZ_API_KEY'].nil?
-    api_keys['digitalnz'] = ENV['DIGITAL_NZ_API_KEY'] unless ENV['DIGITAL_NZ_API_KEY'].nil?
     probes = Nzdata.probe_all_nz_data_sources(api_keys)
     _(probes.length).must_equal 8
     probes.each do |probe|

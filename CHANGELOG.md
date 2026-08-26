@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- DigitalNZ media search: `nzdata media --query <q> --type <type>` and
+  `GET /api/digitalnz/media?q=<q>&type=<type>` for images, newspapers,
+  videos, audio, literature, and artwork, with preview image URLs. Mirrored
+  in the Python and Ruby ports (`search_digital_nz_media`)
+- Template sync: `scripts/sync-from-template.mjs` + local
+  `template-manifest.json` pull relevant quality-gate files from
+  `olitreadwell/template` (issue templates, security checks, code review,
+  audit docs) without importing the Next.js/pnpm stack
+- CI: smoke tests probe DigitalNZ keyless (the stored key is rejected with
+  HTTP 403); code review job runs only when an LLM key is configured
 - TS: publishable npm build pipeline (`npm run build`, `tsconfig.build.json`,
   `publish-npm.yml`) - merged from `chore/ts/npm_build_pipeline/5`
 - Ruby: CI matrix across Ruby 3.0 and 3.3 with gem build validation -
