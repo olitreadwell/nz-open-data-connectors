@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 
 import { probeNzDataSource } from "@nzlab/nz-sources";
+import { searchDigitalNzMedia } from "@nzlab/nz-sources";
+import type { DigitalNzRecord } from "@nzlab/nz-sources";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
 import { createConnectorsApp } from "./index";
@@ -36,10 +38,32 @@ const stubProbe: typeof probeNzDataSource = async (adapter) => ({
   status: "ok",
 });
 
+const stubSearchMedia: typeof searchDigitalNzMedia = async (
+  query,
+  mediaType,
+) => {
+  const record: DigitalNzRecord = {
+    id: 1,
+    title: `A ${mediaType} result for ${query}`,
+    description: "stub",
+    contentPartner: "stub",
+    collection: "stub",
+    url: "https://example.com/record",
+    categories: [mediaType],
+    thumbnailUrl: "https://example.com/thumb.jpg",
+    largeThumbnailUrl: "https://example.com/large.jpg",
+    objectUrl: "",
+    sourceUrl: "",
+    displayDate: "",
+  };
+  return [record];
+};
+
 function createTestApp(): ReturnType<typeof createConnectorsApp> {
   return createConnectorsApp({
     statsNzClient: createStubStatsNzClient(),
     probeFn: stubProbe,
+    digitalNzSearchMedia: stubSearchMedia,
   });
 }
 
@@ -107,6 +131,34 @@ describe("createConnectorsApp", () => {
   it("rejects a malformed probe id", async () => {
     const app = createTestApp();
     const res = await app.request("/api/sources/%20/probe");
+    expect(res.status).toBe(400);
+  });
+
+  it("searches DigitalNZ media with a type filter", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/digitalnz/media?q=kiwi&type=videos");
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as {
+      query: string;
+      mediaType: string;
+      records: Array<{ thumbnailUrl: string }>;
+    };
+    expect(body.query).toBe("kiwi");
+    expect(body.mediaType).toBe("videos");
+    expect(body.records[0]?.thumbnailUrl).toContain("example.com");
+  });
+
+  it("defaults media searches to images", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/digitalnz/media?q=kiwi");
+    expect(res.status).toBe(200);
+    const body = (await res.json()) as { mediaType: string };
+    expect(body.mediaType).toBe("images");
+  });
+
+  it("rejects an empty media query", async () => {
+    const app = createTestApp();
+    const res = await app.request("/api/digitalnz/media?q=");
     expect(res.status).toBe(400);
   });
 

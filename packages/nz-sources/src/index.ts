@@ -45,14 +45,17 @@ export type {
   DataGovtDatastoreResult,
   DataGovtDatastoreRow,
 } from "./dataGovtDatastore.js";
-/** DigitalNZ record search. */
+/** DigitalNZ record and media search. */
 export {
   searchDigitalNzRecords,
+  searchDigitalNzMedia,
+  getDigitalNzCategoryFilter,
+  DIGITAL_NZ_MEDIA_TYPES,
   parseDigitalNzRecords,
   digitalNzAdapter,
 } from "./digitalNz.js";
-/** DigitalNZ record types. */
-export type { DigitalNzRecord } from "./digitalNz.js";
+/** DigitalNZ record and media types. */
+export type { DigitalNzRecord, DigitalNzMediaType } from "./digitalNz.js";
 /** Errors shared by every source adapter. */
 export {
   NzSourceApiError,

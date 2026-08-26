@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { probeNzDataSource } from "@nzlab/nz-sources";
+import { probeNzDataSource, searchDigitalNzMedia } from "@nzlab/nz-sources";
+import type { DigitalNzRecord } from "@nzlab/nz-sources";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
 import { runCli } from "./commands.js";
@@ -23,6 +24,27 @@ const stubProbe: typeof probeNzDataSource = async (adapter) => ({
   ok: true,
   status: "ok",
 });
+
+const stubSearchMedia: typeof searchDigitalNzMedia = async (
+  query,
+  mediaType,
+) => {
+  const record: DigitalNzRecord = {
+    id: 1,
+    title: `A ${mediaType} result for ${query}`,
+    description: "stub",
+    contentPartner: "stub",
+    collection: "stub",
+    url: "https://example.com/record",
+    categories: [mediaType],
+    thumbnailUrl: "https://example.com/thumb.jpg",
+    largeThumbnailUrl: "https://example.com/large.jpg",
+    objectUrl: "",
+    sourceUrl: "",
+    displayDate: "",
+  };
+  return [record];
+};
 
 function createStubStatsNzClient(): StatsNzClient {
   return {
@@ -49,9 +71,14 @@ function createStubStatsNzClient(): StatsNzClient {
 
 function createDeps(): {
   probeSource: typeof stubProbe;
+  searchMedia: typeof stubSearchMedia;
   statsNzClient: StatsNzClient;
 } {
-  return { probeSource: stubProbe, statsNzClient: createStubStatsNzClient() };
+  return {
+    probeSource: stubProbe,
+    searchMedia: stubSearchMedia,
+    statsNzClient: createStubStatsNzClient(),
+  };
 }
 
 describe("runCli", () => {
@@ -92,6 +119,54 @@ describe("runCli", () => {
     const exitCode = await runCli(["probe", "nope"], output, createDeps());
     expect(exitCode).toBe(1);
     expect(err.join("\n")).toContain("Unknown source: nope");
+  });
+
+  it("searches media as JSON with images by default", async () => {
+    const { out, output } = createCapture();
+    const exitCode = await runCli(
+      ["media", "--query", "kiwi"],
+      output,
+      createDeps(),
+    );
+    expect(exitCode).toBe(0);
+    const result = JSON.parse(out.join("\n")) as {
+      query: string;
+      mediaType: string;
+      records: Array<{ thumbnailUrl: string }>;
+    };
+    expect(result.query).toBe("kiwi");
+    expect(result.mediaType).toBe("images");
+    expect(result.records[0]?.thumbnailUrl).toContain("example.com");
+  });
+
+  it("searches media with an explicit type", async () => {
+    const { out, output } = createCapture();
+    const exitCode = await runCli(
+      ["media", "--query", "kiwi", "--type", "newspapers"],
+      output,
+      createDeps(),
+    );
+    expect(exitCode).toBe(0);
+    const result = JSON.parse(out.join("\n")) as { mediaType: string };
+    expect(result.mediaType).toBe("newspapers");
+  });
+
+  it("errors when the media query is missing", async () => {
+    const { err, output } = createCapture();
+    const exitCode = await runCli(["media"], output, createDeps());
+    expect(exitCode).toBe(1);
+    expect(err.join("\n")).toContain("--query");
+  });
+
+  it("errors on an unknown media type", async () => {
+    const { err, output } = createCapture();
+    const exitCode = await runCli(
+      ["media", "--query", "kiwi", "--type", "paintings"],
+      output,
+      createDeps(),
+    );
+    expect(exitCode).toBe(1);
+    expect(err.join("\n")).toContain("Unknown media type: paintings");
   });
 
   it("prints the catalogue as JSON", async () => {

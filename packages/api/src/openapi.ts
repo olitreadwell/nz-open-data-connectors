@@ -63,6 +63,39 @@ export const OPEN_API_DOCUMENT = {
         },
       },
     },
+    "/api/digitalnz/media": {
+      get: {
+        summary:
+          "Search DigitalNZ media (images, newspapers, videos, audio, literature, artwork)",
+        parameters: [
+          {
+            name: "q",
+            in: "query",
+            required: true,
+            schema: { type: "string" },
+          },
+          {
+            name: "type",
+            in: "query",
+            schema: {
+              type: "string",
+              enum: [
+                "images",
+                "newspapers",
+                "videos",
+                "audio",
+                "literature",
+                "artwork",
+              ],
+            },
+          },
+        ],
+        responses: {
+          "200": { description: "Media records with preview image URLs" },
+          "400": { description: "Missing or empty q" },
+        },
+      },
+    },
     "/api/stats-nz/catalogue": {
       get: {
         summary: "List every Aotearoa Data Explorer dataflow",

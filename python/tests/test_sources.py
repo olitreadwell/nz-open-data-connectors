@@ -12,6 +12,7 @@ from nzdata import (
 )
 from nzdata.errors import NzSourceParseError
 from nzdata.sources import (
+    DIGITAL_NZ_CATEGORY_FILTERS,
     NzDataAdapter,
     parse_ade_search_results,
     parse_data_govt_datastore_rows,
@@ -21,6 +22,7 @@ from nzdata.sources import (
     parse_linz_layers,
     parse_nzor_names,
     parse_trademe_categories,
+    search_digital_nz_media,
     summarize_geonet_quakes,
 )
 
@@ -100,6 +102,39 @@ def test_digital_nz_fixture_parses():
     records = parse_digital_nz_records(read_fixture_json("digitalnz-search-sheep.json"))
     assert len(records) == 2
     assert records[0].title
+
+
+def test_digital_nz_media_fixture_parses():
+    records = parse_digital_nz_records(
+        read_fixture_json("digitalnz-media-images-kiwi-20260827.json")
+    )
+    assert records[0].categories == ["Images"]
+    assert records[0].thumbnail_url
+
+
+def test_digital_nz_media_type_filters():
+    assert DIGITAL_NZ_CATEGORY_FILTERS["images"] == "Images"
+    assert DIGITAL_NZ_CATEGORY_FILTERS["newspapers"] == "Newspapers"
+    assert DIGITAL_NZ_CATEGORY_FILTERS["literature"] == "Books"
+    assert DIGITAL_NZ_CATEGORY_FILTERS["artwork"] == "Images"
+
+
+def test_digital_nz_media_rejects_unknown_type():
+    with pytest.raises(ValueError):
+        search_digital_nz_media("kiwi", "paintings")
+
+
+def test_digital_nz_media_builds_category_filter(monkeypatch):
+    captured = {}
+
+    def fake_get_json(url):
+        captured["url"] = url
+        return read_fixture_json("digitalnz-media-newspapers-kiwi-20260827.json")
+
+    monkeypatch.setattr("nzdata.sources._get_json", fake_get_json)
+    records = search_digital_nz_media("kiwi", "newspapers")
+    assert "and%5Bcategory%5D%5B%5D=Newspapers" in captured["url"]
+    assert records[0].categories == ["Newspapers"]
 
 
 def test_geonet_fixture_parses_and_summarizes():

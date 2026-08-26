@@ -63,6 +63,36 @@ describe Nzdata do
       _(records.first.title).wont_be_empty
     end
 
+    it 'parses the DigitalNZ media fixture with preview URLs' do
+      records = Nzdata.parse_digital_nz_records(
+        Nzdata.read_fixture_json('digitalnz-media-images-kiwi-20260827.json')
+      )
+      _(records.first.categories).must_equal ['Images']
+      _(records.first.thumbnail_url).wont_be_empty
+    end
+
+    it 'maps every media type to a DigitalNZ category' do
+      _(Nzdata::DIGITAL_NZ_CATEGORY_FILTERS['images']).must_equal 'Images'
+      _(Nzdata::DIGITAL_NZ_CATEGORY_FILTERS['newspapers']).must_equal 'Newspapers'
+      _(Nzdata::DIGITAL_NZ_CATEGORY_FILTERS['literature']).must_equal 'Books'
+      _(Nzdata::DIGITAL_NZ_CATEGORY_FILTERS['artwork']).must_equal 'Images'
+    end
+
+    it 'rejects an unknown media type' do
+      error = -> { Nzdata.search_digital_nz_media('kiwi', 'paintings') }
+      _(error).must_raise ArgumentError
+    end
+
+    it 'builds the category filter for a media search' do
+      captured = []
+      fixture = Nzdata.read_fixture_json('digitalnz-media-newspapers-kiwi-20260827.json')
+      Nzdata.stub(:get_json, ->(url) { captured << url; fixture }) do
+        records = Nzdata.search_digital_nz_media('kiwi', 'newspapers')
+        _(records.first.categories).must_equal ['Newspapers']
+      end
+      _(captured.first).must_include 'and%5Bcategory%5D%5B%5D=Newspapers'
+    end
+
     it 'parses and summarizes the GeoNet fixture' do
       quakes = Nzdata.parse_geonet_quakes(Nzdata.read_fixture_json('geonet-quakes-mmi3.json'))
       _(quakes.length).must_equal 100

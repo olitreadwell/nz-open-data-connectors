@@ -3,6 +3,7 @@ import { cors } from "hono/cors";
 import { swaggerUI } from "@hono/swagger-ui";
 
 import { probeNzDataSource } from "@nzlab/nz-sources";
+import { searchDigitalNzMedia } from "@nzlab/nz-sources";
 import { createStatsNzClient } from "@nzlab/stats-nz";
 import type { StatsNzClient } from "@nzlab/stats-nz";
 
@@ -27,6 +28,7 @@ import {
 } from "./rateLimiter";
 import { createSourcesRoutes } from "./routes/sources";
 import { createStatsNzRoutes } from "./routes/statsNz";
+import { createDigitalNzRoutes } from "./routes/digitalNz";
 
 /** Options for building the connectors app. */
 export interface ConnectorsAppOptions {
@@ -34,6 +36,7 @@ export interface ConnectorsAppOptions {
   apiKeys?: Record<string, string>;
   statsNzClient?: StatsNzClient;
   probeFn?: typeof probeNzDataSource;
+  digitalNzSearchMedia?: typeof searchDigitalNzMedia;
   sentryDsn?: string;
   logWrite?: LogWrite;
   metrics?: RequestMetrics;
@@ -88,6 +91,13 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   }
   app.route("/api", createSourcesRoutes(sourcesOptions));
   app.route("/api", createStatsNzRoutes({ client }));
+  app.route(
+    "/api",
+    createDigitalNzRoutes({
+      apiKey: options.apiKeys?.digitalnz,
+      searchMedia: options.digitalNzSearchMedia,
+    }),
+  );
   app.notFound((c) => c.json({ error: "not_found" }, 404));
   app.onError((error, c) => {
     const message = error instanceof Error ? error.message : String(error);
