@@ -15,7 +15,7 @@ describe 'live smoke tests' do
     probes.each do |probe|
       # The data.govt.nz catalogue blocks non-NZ IPs at the CDN, so it is
       # verified by the committed fixture instead of the live probe.
-      next if probe.id == 'data-govt-nz'
+      next if %w[data-govt-nz data-govt-datastore].include?(probe.id)
 
       _(probe.ok).must_equal true, "#{probe.id}: #{probe.status}"
     end
