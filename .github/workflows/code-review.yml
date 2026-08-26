@@ -1,0 +1,33 @@
+name: Code Review
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: code-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  alibaba-open-code-review:
+    name: Alibaba open-code-review
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      LLM_KEY: ${{ secrets.LLM_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run open-code-review
+        # Deterministic rules run when an LLM key is configured; skip
+        # otherwise so CI stays green without secrets.
+        if: ${{ env.LLM_KEY != '' }}
+        uses: alibaba/open-code-review@v1.10.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          llm_url: ${{ secrets.LLM_BASE_URL }}
+          llm_auth_token: ${{ secrets.LLM_API_KEY }}
+          llm_model: ${{ secrets.LLM_MODEL }}
+          llm_use_anthropic: "false"

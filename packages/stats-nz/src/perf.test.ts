@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
-import { parseStatsNzCsv } from "./csv";
+import { parseStatsNzCsv } from "./csv.js";
 
 const LIVESTOCK_FIXTURE = readFileSync(
   new URL(

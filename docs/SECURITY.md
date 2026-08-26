@@ -29,8 +29,34 @@ push.
 
 The HTTP API rejects bad input at the boundary:
 - Query parameters go through zod schemas
+- Route parameters go through zod schemas
 - Unknown sources answer 404
 - Malformed input answers 400
+
+## CORS
+
+The read-only GET endpoints under `/api` answer cross-origin browser
+requests. By default any origin is allowed (`Access-Control-Allow-Origin:
+*`). Set `CORS_ORIGIN` to a single origin (for example
+`https://app.example.com`) to allow only that origin. The API is read-only
+and keyless, so a permissive default exposes no credentials or write
+endpoints.
+
+## Rate limiting
+
+The `/api` routes are rate limited per client IP with an in-memory fixed
+window. Defaults: 60 requests per minute. Configure with `RATE_LIMIT_MAX`
+and `RATE_LIMIT_WINDOW_MS` (milliseconds). Counters live in process memory,
+so the limit applies per app instance. Multi-instance deployments must
+enforce request limits at a shared proxy or gateway, and the proxy should
+overwrite `X-Forwarded-For` so clients cannot spoof it.
+
+## Metrics exposure
+
+`/metrics` serves request counters in Prometheus text format. Metrics help
+operators but can leak traffic details, so do not expose `/metrics`
+publicly. Put it behind an internal network, a proxy ACL, or a load
+balancer rule in production.
 
 ## Security checklist
 
@@ -40,6 +66,8 @@ Before merging a change:
 - [ ] New keys come from the environment, never from callers
 - [ ] New dependencies pass `npm audit`
 - [ ] No `console.log` in committed code
+- [ ] `/metrics` is not publicly exposed
+- [ ] Rate limit settings use sane values for the deployment
 
 ## Report a problem
 

@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-import { NzSourceApiError, NzSourceParseError } from "./errors";
-import { readFixtureJson } from "./fixtures";
-import type { NzDataAdapter } from "./types";
+import { NzSourceApiError, NzSourceParseError } from "./errors.js";
+import { readFixtureJson } from "./fixtures.js";
+import type { NzDataAdapter } from "./types.js";
 
 /** One record from the DigitalNZ (National Library) search API. */
 export interface DigitalNzRecord {
@@ -12,6 +12,12 @@ export interface DigitalNzRecord {
   contentPartner: string;
   collection: string;
   url: string;
+  categories: string[];
+  thumbnailUrl: string;
+  largeThumbnailUrl: string;
+  objectUrl: string;
+  sourceUrl: string;
+  displayDate: string;
 }
 
 const DIGITAL_NZ_RECORD_SCHEMA = z.object({
@@ -33,6 +39,32 @@ const DIGITAL_NZ_RECORD_SCHEMA = z.object({
     .optional()
     .transform((value) => value ?? ""),
   landing_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ""),
+  category: z.array(z.string()).optional().default([]),
+  thumbnail_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ""),
+  large_thumbnail_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ""),
+  object_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ""),
+  source_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ""),
+  display_date: z
     .string()
     .nullable()
     .optional()
@@ -59,7 +91,45 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
     contentPartner: record.display_content_partner,
     collection: record.display_collection,
     url: record.landing_url,
+    categories: record.category,
+    thumbnailUrl: record.thumbnail_url,
+    largeThumbnailUrl: record.large_thumbnail_url,
+    objectUrl: record.object_url,
+    sourceUrl: record.source_url,
+    displayDate: record.display_date,
   }));
+}
+
+/**
+ * Every supported media type, in CLI help and validation order. Artwork
+ * shares the Images category because DigitalNZ has no separate artwork
+ * category.
+ */
+export const DIGITAL_NZ_MEDIA_TYPES = [
+  "images",
+  "newspapers",
+  "videos",
+  "audio",
+  "literature",
+  "artwork",
+] as const;
+
+/** A media type for DigitalNZ searches. */
+export type DigitalNzMediaType = (typeof DIGITAL_NZ_MEDIA_TYPES)[number];
+
+/** Maps each media type to the DigitalNZ category filter value. */
+export function getDigitalNzCategoryFilter(
+  mediaType: DigitalNzMediaType,
+): string {
+  const CATEGORY_FILTERS: Record<DigitalNzMediaType, string> = {
+    images: "Images",
+    newspapers: "Newspapers",
+    videos: "Videos",
+    audio: "Audio",
+    literature: "Books",
+    artwork: "Images",
+  };
+  return CATEGORY_FILTERS[mediaType];
 }
 
 /** Options for a DigitalNZ search: optional API key and fetch override. */
@@ -80,6 +150,39 @@ export async function searchDigitalNzRecords(
   const url = new URL("https://api.digitalnz.org/v3/records.json");
   url.searchParams.set("text", query);
   url.searchParams.set("per_page", "20");
+  if (options.apiKey !== undefined) {
+    url.searchParams.set("api_key", options.apiKey);
+  }
+  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
+  if (!response.ok) {
+    throw new NzSourceApiError("DigitalNZ", `HTTP ${response.status}`);
+  }
+  return parseDigitalNzRecords(await response.json());
+}
+
+/** Options for a DigitalNZ media search: optional API key and fetch override. */
+export interface DigitalNzMediaSearchOptions {
+  apiKey?: string;
+  fetchImpl?: typeof globalThis.fetch;
+}
+
+/**
+ * Searches DigitalNZ for one media type (images, newspapers, videos, audio,
+ * literature, or artwork). Records include preview image URLs where the
+ * source supplies them. Keyless by default; an API key raises the rate limit.
+ */
+export async function searchDigitalNzMedia(
+  query: string,
+  mediaType: DigitalNzMediaType,
+  options: DigitalNzMediaSearchOptions = {},
+): Promise<DigitalNzRecord[]> {
+  const url = new URL("https://api.digitalnz.org/v3/records.json");
+  url.searchParams.set("text", query);
+  url.searchParams.set("per_page", "20");
+  url.searchParams.set(
+    "and[category][]",
+    getDigitalNzCategoryFilter(mediaType),
+  );
   if (options.apiKey !== undefined) {
     url.searchParams.set("api_key", options.apiKey);
   }

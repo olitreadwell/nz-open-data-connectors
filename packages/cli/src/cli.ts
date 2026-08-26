@@ -1,5 +1,5 @@
-#!/usr/bin/env tsx
-import { runCli } from "./commands";
+#!/usr/bin/env node
+import { runCli } from "./commands.js";
 
 // Piping to tools like `head` closes stdout early; exit cleanly instead of crashing.
 process.stdout.on("error", (error: NodeJS.ErrnoException) => {

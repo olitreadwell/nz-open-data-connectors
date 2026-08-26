@@ -28,9 +28,6 @@ describe.skipIf(!RUN_SMOKE)("live API smoke test", () => {
     if (process.env.LINZ_API_KEY !== undefined) {
       apiKeys.linz = process.env.LINZ_API_KEY;
     }
-    if (process.env.DIGITAL_NZ_API_KEY !== undefined) {
-      apiKeys.digitalnz = process.env.DIGITAL_NZ_API_KEY;
-    }
     const app = createConnectorsApp({ apiKeys });
     for (const id of Object.keys(apiKeys)) {
       const res = await app.request(`/api/sources/${id}/probe`);

@@ -64,6 +64,7 @@ Ruby changes run their own gates.
 - `docs/GLOSSARY.md` - plain-language terms
 - `docs/RELEASING.md` - versioning and tags
 - `docs/AGENT_CONTEXT.md` - handoff context for new agent threads
+- `CONTRIBUTING.md` - how to contribute, set up, and open a PR
 
 Write docs in plain language. Short sentences. Define acronyms on first
 use. The audience includes ESL readers and neurodivergent readers.

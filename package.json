@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "scripts": {
+    "build": "npm run build -w @nzlab/nz-sources -w @nzlab/stats-nz && npm run build -w @nzlab/connectors-cli",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
     "format:check": "npm run format:check --workspaces --if-present",
@@ -17,7 +18,8 @@
     "test": "npm run test --workspaces --if-present",
     "test:coverage": "npm run test:coverage --workspaces --if-present",
     "test:smoke": "npm run test:smoke --workspaces --if-present",
-    "check": "npm run format:check && npm run lint && npm run type-check && npm run test:coverage",
+    "audit": "npm audit",
+    "check": "npm run format:check && npm run build && npm run lint && npm run type-check && npm run test:coverage",
     "dev:api": "npm run dev -w @nzlab/connectors-api",
     "start:api": "npm run start -w @nzlab/connectors-api"
   },

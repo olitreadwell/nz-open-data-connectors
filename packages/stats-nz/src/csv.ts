@@ -1,5 +1,5 @@
-import { StatsNzParseError } from "./errors";
-import type { StatsNzObservation } from "./types";
+import { StatsNzParseError } from "./errors.js";
+import type { StatsNzObservation } from "./types.js";
 
 /** Parses ADE CSV text into rows of column-name to value mappings.
  * @param text - raw CSV payload

@@ -14,7 +14,9 @@ module Nzdata
   DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization)
   DataGovtNzSearchResult = Struct.new(:count, :datasets)
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
-  DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url)
+  DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url,
+                               :categories, :thumbnail_url, :large_thumbnail_url,
+                               :object_url, :source_url, :display_date)
   GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
                            :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
@@ -30,11 +32,11 @@ module Nzdata
   module_function
 
   def read_fixture_json(filename)
-    JSON.parse(File.read(File.join(FIXTURES_DIR, filename)))
+    JSON.parse(File.read(File.join(FIXTURES_DIR, filename), encoding: 'UTF-8'))
   end
 
   def read_fixture_text(filename)
-    File.read(File.join(FIXTURES_DIR, filename))
+    File.read(File.join(FIXTURES_DIR, filename), encoding: 'UTF-8')
   end
 
   def http_get(url, headers = {}, timeout_ms = DEFAULT_TIMEOUT_MS)
@@ -191,13 +193,45 @@ module Nzdata
         record.fetch('description', nil).to_s,
         record.fetch('display_content_partner', nil).to_s,
         record.fetch('display_collection', nil).to_s,
-        record.fetch('landing_url', nil).to_s
+        record.fetch('landing_url', nil).to_s,
+        record.fetch('category', []).to_a,
+        record.fetch('thumbnail_url', nil).to_s,
+        record.fetch('large_thumbnail_url', nil).to_s,
+        record.fetch('object_url', nil).to_s,
+        record.fetch('source_url', nil).to_s,
+        record.fetch('display_date', nil).to_s
       )
     end
   end
 
   def search_digital_nz_records(query, api_key: nil)
     params = [['text', query], %w[per_page 20]]
+    params << ['api_key', api_key] unless api_key.nil?
+    url = "https://api.digitalnz.org/v3/records.json?#{URI.encode_www_form(params)}"
+    parse_digital_nz_records(get_json(url))
+  end
+
+  DIGITAL_NZ_MEDIA_TYPES = %w[images newspapers videos audio literature artwork].freeze
+
+  # Maps each media type to the DigitalNZ category filter value. Artwork shares
+  # the Images category because DigitalNZ has no separate artwork category.
+  DIGITAL_NZ_CATEGORY_FILTERS = {
+    'images' => 'Images',
+    'newspapers' => 'Newspapers',
+    'videos' => 'Videos',
+    'audio' => 'Audio',
+    'literature' => 'Books',
+    'artwork' => 'Images'
+  }.freeze
+
+  def search_digital_nz_media(query, media_type, api_key: nil)
+    category = DIGITAL_NZ_CATEGORY_FILTERS[media_type]
+    if category.nil?
+      raise ArgumentError,
+            "Unknown media type: #{media_type}. Choose one of: #{DIGITAL_NZ_MEDIA_TYPES.join(', ')}"
+    end
+
+    params = [['text', query], %w[per_page 20], ['and[category][]', category]]
     params << ['api_key', api_key] unless api_key.nil?
     url = "https://api.digitalnz.org/v3/records.json?#{URI.encode_www_form(params)}"
     parse_digital_nz_records(get_json(url))

@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- DigitalNZ media search: `nzdata media --query <q> --type <type>` and
+  `GET /api/digitalnz/media?q=<q>&type=<type>` for images, newspapers,
+  videos, audio, literature, and artwork, with preview image URLs. Mirrored
+  in the Python and Ruby ports (`search_digital_nz_media`)
+- Template sync: `scripts/sync-from-template.mjs` + local
+  `template-manifest.json` pull relevant quality-gate files from
+  `olitreadwell/template` (issue templates, security checks, code review,
+  audit docs) without importing the Next.js/pnpm stack
+- CI: smoke tests probe DigitalNZ keyless (the stored key is rejected with
+  HTTP 403); code review job runs only when an LLM key is configured
+- TS: publishable npm build pipeline (`npm run build`, `tsconfig.build.json`,
+  `publish-npm.yml`) - merged from `chore/ts/npm_build_pipeline/5`
+- Ruby: CI matrix across Ruby 3.0 and 3.3 with gem build validation -
+  merged from `chore/ruby/ci_matrix/7`
+- Renovate: `renovate.json` with `config:recommended`
+- Connectors: five new keyless adapters - ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA), LAWA river quality sites, MfE Data Service, LRIS land and soil layers, Waka Kotahi holiday hotspots
+- API: CORS enabled by default (`CORS_ORIGIN` override), per-IP rate limiting (`RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_MS`), zod validation on the probe route, and an OpenAPI contract test that keeps routes and the spec in sync
+- Ops: `CONTRIBUTING.md`, per-source connector reference in the README, `npm run audit`, and an advisory dependency audit job in CI
 - CI: scheduled nightly live smoke workflow (`smoke.yml`) against the real NZ APIs, plus manual `workflow_dispatch`
 - Dockerfile: containerized API with non-root user, health check, and run steps in the README
 - API: structured JSON request logs, `/metrics` in Prometheus format, and optional Sentry error tracking (`SENTRY_DSN`, off by default)

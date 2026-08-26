@@ -2,13 +2,23 @@
   "name": "@nzlab/connectors-cli",
   "version": "0.1.0",
   "type": "module",
+  "main": "./dist/cli.js",
+  "types": "./dist/cli.d.ts",
   "bin": {
-    "nzdata": "./src/cli.ts"
+    "nzdata": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/cli.d.ts",
+      "import": "./dist/cli.js"
+    }
   },
   "files": [
-    "src/**"
+    "dist"
   ],
   "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepublishOnly": "npm run build",
     "lint": "eslint .",
     "format": "prettier --write \"src/**/*.{ts,json}\"",
     "format:check": "prettier --check \"src/**/*.{ts,json}\"",
@@ -16,20 +26,23 @@
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts",
-    "clean": "rm -rf tsconfig.tsbuildinfo coverage",
-    "clean:all": "rm -rf tsconfig.tsbuildinfo coverage node_modules"
+    "clean": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage",
+    "clean:all": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage node_modules"
   },
   "dependencies": {
     "@nzlab/nz-sources": "*",
-    "@nzlab/stats-nz": "*",
-    "tsx": "4.23.12"
+    "@nzlab/stats-nz": "*"
   },
   "devDependencies": {
     "@nzlab/config-eslint": "*",
     "@nzlab/config-typescript": "*",
     "@types/node": "22.20.1",
     "eslint": "9.39.5",
+    "tsx": "4.23.12",
     "typescript": "6.0.3",
     "vitest": "3.2.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

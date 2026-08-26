@@ -1,13 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { probeAllNzDataSources } from "./registry";
+import { probeAllNzDataSources } from "./registry.js";
 
 const RUN_SMOKE = process.env.RUN_SMOKE === "1";
 
 /** Maps an env var to the adapter id that accepts it as an optional key. */
 const OPTIONAL_KEY_SOURCE_ENV: Record<string, string> = {
   LINZ_API_KEY: "linz",
-  DIGITAL_NZ_API_KEY: "digitalnz",
 };
 
 describe.skipIf(!RUN_SMOKE)("live access smoke test", () => {

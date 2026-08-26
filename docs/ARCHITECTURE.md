@@ -36,6 +36,18 @@ Every adapter speaks one interface (`NzDataAdapter`). It knows how to:
 The HTTP API and the CLI call the same adapters. They never call the
 endpoints directly. This is what "one design" means.
 
+## Media search
+
+The DigitalNZ adapter also answers media searches: images, newspaper
+articles, videos, audio, literature (books), and artwork. Each media type
+maps to a DigitalNZ category filter, and records carry preview image URLs
+where the source supplies them. Artwork shares the Images category because
+DigitalNZ has no separate artwork category.
+
+The CLI exposes it as `nzdata media --query <q> --type <type>` and the API
+as `GET /api/digitalnz/media?q=<q>&type=<type>`. The same function exists
+in the Python and Ruby ports (`search_digital_nz_media`).
+
 ## Keyless first
 
 Every source works without an API key. Keys unlock more:

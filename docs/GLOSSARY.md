@@ -18,6 +18,9 @@ Plain-language definitions. Terms used in this repo, in alphabetical order.
 - **Codelist** - a list of codes and their human-readable labels. Data can
   use codes like "ANIMALS" where the label is "Livestock".
 
+- **CORS (Cross-Origin Resource Sharing)** - a browser rule that decides
+  whether a page from one site may call an API on another site.
+
 - **Coverage** - the share of code exercised by tests. 60% threshold means
   at least 60% of lines run during tests.
 
@@ -31,6 +34,10 @@ Plain-language definitions. Terms used in this repo, in alphabetical order.
 - **Data.govt.nz** - the NZ government's open data catalogue.
 
 - **DigitalNZ** - a search index of NZ digital cultural content.
+
+- **Media search** - a DigitalNZ search filtered by media type (images,
+  newspapers, videos, audio, literature, artwork). Records include preview
+  image URLs where the source supplies them.
 
 ## E
 

@@ -15,6 +15,98 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 | `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
 | `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
 
+## Connectors
+
+Thirteen source adapters, all in `@nzlab/nz-sources`. Every one works
+keyless. Two accept an optional key from the environment to unlock more:
+DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
+
+| id | Source | Keyless? | Key env var | Example command |
+| --- | --- | --- | --- | --- |
+| `geonet` | GeoNet (GNS Science) | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet` |
+| `data-govt-nz` | data.govt.nz catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-nz` |
+| `data-govt-datastore` | data.govt.nz datastore (MSD benefits) | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-datastore` |
+| `ade-search` | Aotearoa Data Explorer search index | Yes | - | `npx tsx packages/cli/src/cli.ts probe ade-search` |
+| `digitalnz` | DigitalNZ (National Library) | Yes | `DIGITAL_NZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe digitalnz` |
+| `trademe` | Trade Me categories | Yes | - | `npx tsx packages/cli/src/cli.ts probe trademe` |
+| `nzor` | NZ Organisms Register | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzor` |
+| `linz` | LINZ Data Service catalogue | Yes | `LINZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe linz` |
+| `arcgis` | ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe arcgis` |
+| `lawa` | LAWA river quality monitoring sites | Yes | - | `npx tsx packages/cli/src/cli.ts probe lawa` |
+| `mfe` | MfE Data Service layer catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mfe` |
+| `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
+| `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
+
+### Adapter examples
+
+Each probe prints a JSON summary with the probe `id`, `name`, `auth`, an
+`ok` or `status` line, and a `sample` of the live data.
+
+```sh
+# GeoNet - recent felt earthquakes (magnitude 3+)
+npx tsx packages/cli/src/cli.ts probe geonet
+```
+
+```sh
+# data.govt.nz - datasets matching "sheep" from the national catalogue
+npx tsx packages/cli/src/cli.ts probe data-govt-nz
+```
+
+```sh
+# data.govt.nz datastore - national MSD benefit rows
+npx tsx packages/cli/src/cli.ts probe data-govt-datastore
+```
+
+```sh
+# ADE search - tables matching "median annual earnings"
+npx tsx packages/cli/src/cli.ts probe ade-search
+```
+
+```sh
+# DigitalNZ - digitised records matching "sheep"
+npx tsx packages/cli/src/cli.ts probe digitalnz
+```
+
+```sh
+# Trade Me - the public category tree
+npx tsx packages/cli/src/cli.ts probe trademe
+```
+
+```sh
+# NZOR - organism names matching "kiwi"
+npx tsx packages/cli/src/cli.ts probe nzor
+```
+
+```sh
+# LINZ - layers matching "property" (property titles, parcels, boundaries)
+npx tsx packages/cli/src/cli.ts probe linz
+```
+
+```sh
+# ArcGIS Hub - open data collections from Auckland Council (default host)
+npx tsx packages/cli/src/cli.ts probe arcgis
+```
+
+```sh
+# LAWA - river quality monitoring sites across New Zealand
+npx tsx packages/cli/src/cli.ts probe lawa
+```
+
+```sh
+# MfE Data Service - layers matching "water" from the Ministry for the Environment
+npx tsx packages/cli/src/cli.ts probe mfe
+```
+
+```sh
+# LRIS - land and soil layers matching "soil" from Landcare Research
+npx tsx packages/cli/src/cli.ts probe lris
+```
+
+```sh
+# Waka Kotahi - predicted busy holiday journey hotspots
+npx tsx packages/cli/src/cli.ts probe nzta
+```
+
 ## Language-agnostic access
 
 ### HTTP API
@@ -30,6 +122,7 @@ npm run dev:api        # http://localhost:8787
 - `GET /docs` - Swagger UI
 - `GET /api/sources` - list every adapter
 - `GET /api/sources/:id/probe` - live probe one source
+- `GET /api/digitalnz/media?q=kiwi&type=images` - DigitalNZ media search (images, newspapers, videos, audio, literature, artwork)
 - `GET /api/stats-nz/catalogue` - every ADE dataflow
 - `GET /api/stats-nz/data?dataflowId=AGR_AGR_003` - data rows as JSON
 - `GET /api/stats-nz/data?dataflowId=AGR_AGR_003&format=csv` - data rows as CSV
@@ -44,6 +137,7 @@ curl 'http://localhost:8787/api/stats-nz/data?dataflowId=AGR_AGR_003'
 ```sh
 npx tsx packages/cli/src/cli.ts sources
 npx tsx packages/cli/src/cli.ts probe linz
+npx tsx packages/cli/src/cli.ts media --query kiwi --type images
 npx tsx packages/cli/src/cli.ts catalogue
 npx tsx packages/cli/src/cli.ts data --dataflow AGR_AGR_003 --format csv
 npx tsx packages/cli/src/cli.ts codelist --codelist CL_LIVESTOCK_AGR_AGR_003
@@ -115,6 +209,11 @@ Optional keys come from the environment only. Without a `.env` file every keyles
 - `docs/SECURITY.md` - key handling and the security checklist
 - `docs/GLOSSARY.md` - plain-language definitions of every term
 - `docs/RELEASING.md` - how versions, tags, and publishing work
+
+## Contributing
+
+See `CONTRIBUTING.md` for how to set up the repo, run the checks, and
+open a pull request.
 
 ## License
 

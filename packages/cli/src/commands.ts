@@ -1,10 +1,13 @@
 import { parseArgs } from "node:util";
 
 import {
+  DIGITAL_NZ_MEDIA_TYPES,
   NZ_DATA_SOURCES,
   getNzDataSource,
   probeNzDataSource,
+  searchDigitalNzMedia,
 } from "@nzlab/nz-sources";
+import type { DigitalNzMediaType } from "@nzlab/nz-sources";
 import {
   createStatsNzClient,
   serializeStatsNzRowsToCsv,
@@ -20,6 +23,7 @@ export interface CliOutput {
 /** Optional overrides so tests can stub network calls. */
 export interface CliDependencies {
   probeSource?: typeof probeNzDataSource;
+  searchMedia?: typeof searchDigitalNzMedia;
   statsNzClient?: StatsNzClient;
 }
 
@@ -29,6 +33,10 @@ export const HELP_TEXT = `nzdata - NZ open data connectors
 Usage:
   nzdata sources                          List every data source adapter
   nzdata probe <id>                       Live probe one source (e.g. linz)
+  nzdata media --query <q> [--type <type>]
+                                          Search DigitalNZ media (images,
+                                          newspapers, videos, audio,
+                                          literature, artwork)
   nzdata catalogue                        List every Stats NZ dataflow
   nzdata data --dataflow <id> [--format json|csv]
                                           Pull data rows for a dataflow
@@ -39,6 +47,9 @@ Options:
   -d, --dataflow <id>   Stats NZ dataflow id (e.g. AGR_AGR_003)
   -f, --format <fmt>    Output format: json (default) or csv
   -c, --codelist <id>   Stats NZ codelist id (e.g. CL_LIVESTOCK_AGR_AGR_003)
+  -q, --query <q>       DigitalNZ media search text
+  -t, --type <type>     Media type: images (default), newspapers, videos,
+                        audio, literature, artwork
   -h, --help            Show help
 
 Keys are read from the environment (STATS_NZ_SUBSCRIPTION_KEY, LINZ_API_KEY,
@@ -75,6 +86,8 @@ export async function runCli(
         dataflow: { type: "string", short: "d" },
         format: { type: "string", short: "f" },
         codelist: { type: "string", short: "c" },
+        query: { type: "string", short: "q" },
+        type: { type: "string", short: "t" },
         help: { type: "boolean", short: "h" },
       },
       allowPositionals: true,
@@ -91,6 +104,7 @@ export async function runCli(
 
     const command = positionals[0];
     const probeSource = deps.probeSource ?? probeNzDataSource;
+    const searchMedia = deps.searchMedia ?? searchDigitalNzMedia;
     const client = deps.statsNzClient ?? createCliStatsNzClient();
 
     if (command === "sources") {
@@ -122,6 +136,30 @@ export async function runCli(
       );
       output.writeOut(JSON.stringify(probe, null, 2));
       return probe.ok ? 0 : 1;
+    }
+
+    if (command === "media") {
+      const query = values.query;
+      if (typeof query !== "string" || query.length === 0) {
+        output.writeErr("Usage: nzdata media --query <q> [--type <type>]");
+        return 1;
+      }
+      const rawType = values.type ?? "images";
+      if (!DIGITAL_NZ_MEDIA_TYPES.includes(rawType as DigitalNzMediaType)) {
+        output.writeErr(
+          `Unknown media type: ${rawType}. Choose one of: ${DIGITAL_NZ_MEDIA_TYPES.join(", ")}`,
+        );
+        return 1;
+      }
+      const mediaType = rawType as DigitalNzMediaType;
+      const apiKey = getApiKeyForSource("digitalnz");
+      const records = await searchMedia(
+        query,
+        mediaType,
+        apiKey === undefined ? {} : { apiKey },
+      );
+      output.writeOut(JSON.stringify({ query, mediaType, records }, null, 2));
+      return 0;
     }
 
     if (command === "catalogue") {

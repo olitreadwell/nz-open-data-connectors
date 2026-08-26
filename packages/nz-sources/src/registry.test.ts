@@ -1,13 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 
-import { readFixtureJson, readFixtureText } from "./fixtures";
+import { readFixtureJson, readFixtureText } from "./fixtures.js";
 import {
   getNzDataSource,
   probeAllNzDataSources,
   probeNzDataSource,
-} from "./registry";
-import { NZ_DATA_SOURCES } from "./registry";
-import type { NzDataAdapter } from "./types";
+} from "./registry.js";
+import { NZ_DATA_SOURCES } from "./registry.js";
+import type { NzDataAdapter } from "./types.js";
 
 function jsonResponse(payload: unknown): Response {
   return new Response(JSON.stringify(payload), { status: 200 });
@@ -64,7 +64,8 @@ describe("registry", () => {
             : input instanceof URL
               ? input.href
               : input.url;
-        if (url.includes("geonet")) {
+        const hostname = new URL(url).hostname;
+        if (hostname === "api.geonet.org.nz") {
           return jsonResponse(readFixtureJson("geonet-quakes-mmi3.json"));
         }
         if (url.includes("sfs/api/search")) {
@@ -75,24 +76,51 @@ describe("registry", () => {
             readFixtureJson("data-govt-datastore-msd-benefits.json"),
           );
         }
-        if (url.includes("catalogue.data.govt.nz")) {
+        if (hostname === "catalogue.data.govt.nz") {
           return jsonResponse(
             readFixtureJson("data-govt-nz-search-sheep.json"),
           );
         }
-        if (url.includes("digitalnz")) {
+        if (hostname === "api.digitalnz.org") {
           return jsonResponse(readFixtureJson("digitalnz-search-sheep.json"));
         }
-        if (url.includes("trademe")) {
+        if (hostname === "api.trademe.co.nz") {
           return jsonResponse(readFixtureJson("trademe-categories.json"));
         }
-        if (url.includes("nzor")) {
+        if (hostname === "data.nzor.org.nz") {
           return new Response(readFixtureText("nzor-names-kiwi.xml"), {
             status: 200,
           });
         }
-        if (url.includes("linz")) {
+        if (hostname === "data.linz.govt.nz") {
           return jsonResponse(readFixtureJson("linz-layer-search.json"));
+        }
+        if (hostname === "data-aucklandcouncil.opendata.arcgis.com") {
+          return jsonResponse(
+            readFixtureJson(
+              "arcgis-hub-data-aucklandcouncil.opendata.arcgis.com-collections-2026-08-25.json",
+            ),
+          );
+        }
+        if (hostname === "www.lawa.org.nz") {
+          return jsonResponse(
+            readFixtureJson("lawa-river-quality-sites-2026-08-25.json"),
+          );
+        }
+        if (hostname === "data.mfe.govt.nz") {
+          return jsonResponse(
+            readFixtureJson("mfe-layer-search-water-2026-08-25.json"),
+          );
+        }
+        if (hostname === "lris.scinfo.org.nz") {
+          return jsonResponse(
+            readFixtureJson("lris-layer-search-soil-2026-08-25.json"),
+          );
+        }
+        if (hostname === "www.journeys.nzta.govt.nz") {
+          return jsonResponse(
+            readFixtureJson("nzta-holiday-hotspots-2026-08-25.json"),
+          );
         }
         return new Response("unexpected url", { status: 404 });
       }),

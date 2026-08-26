@@ -92,6 +92,12 @@ class DigitalNzRecord:
     content_partner: str
     collection: str
     url: str
+    categories: List[str] = field(default_factory=list)
+    thumbnail_url: str = ""
+    large_thumbnail_url: str = ""
+    object_url: str = ""
+    source_url: str = ""
+    display_date: str = ""
 
 
 @dataclass
@@ -319,6 +325,12 @@ def parse_digital_nz_records(payload: Any) -> List[DigitalNzRecord]:
             content_partner=record.get("display_content_partner") or "",
             collection=record.get("display_collection") or "",
             url=record.get("landing_url") or "",
+            categories=list(record.get("category") or []),
+            thumbnail_url=record.get("thumbnail_url") or "",
+            large_thumbnail_url=record.get("large_thumbnail_url") or "",
+            object_url=record.get("object_url") or "",
+            source_url=record.get("source_url") or "",
+            display_date=record.get("display_date") or "",
         )
         for record in search.get("results", [])
     ]
@@ -326,6 +338,47 @@ def parse_digital_nz_records(payload: Any) -> List[DigitalNzRecord]:
 
 def search_digital_nz_records(query: str, api_key: Optional[str] = None) -> List[DigitalNzRecord]:
     params = [("text", query), ("per_page", "20")]
+    if api_key is not None:
+        params.append(("api_key", api_key))
+    url = "https://api.digitalnz.org/v3/records.json?" + urllib.parse.urlencode(params)
+    return parse_digital_nz_records(_get_json(url))
+
+
+# DigitalNZ media types, mirroring the TypeScript package.
+DIGITAL_NZ_MEDIA_TYPES = (
+    "images",
+    "newspapers",
+    "videos",
+    "audio",
+    "literature",
+    "artwork",
+)
+
+# Maps each media type to the DigitalNZ category filter value. Artwork shares
+# the Images category because DigitalNZ has no separate artwork category.
+DIGITAL_NZ_CATEGORY_FILTERS = {
+    "images": "Images",
+    "newspapers": "Newspapers",
+    "videos": "Videos",
+    "audio": "Audio",
+    "literature": "Books",
+    "artwork": "Images",
+}
+
+
+def search_digital_nz_media(
+    query: str, media_type: str, api_key: Optional[str] = None
+) -> List[DigitalNzRecord]:
+    """Searches DigitalNZ for one media type with preview image URLs."""
+    if media_type not in DIGITAL_NZ_CATEGORY_FILTERS:
+        raise ValueError(
+            f"Unknown media type: {media_type}. Choose one of: {', '.join(DIGITAL_NZ_MEDIA_TYPES)}"
+        )
+    params = [
+        ("text", query),
+        ("per_page", "20"),
+        ("and[category][]", DIGITAL_NZ_CATEGORY_FILTERS[media_type]),
+    ]
     if api_key is not None:
         params.append(("api_key", api_key))
     url = "https://api.digitalnz.org/v3/records.json?" + urllib.parse.urlencode(params)
