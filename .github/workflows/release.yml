@@ -1,18 +1,20 @@
-name: Create GitHub Release
+name: Release
 
 on:
   push:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   release:
-    name: Create release
+    name: Create GitHub release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/checkout@v4
       - name: Create release
         run: gh release create "$GITHUB_REF_NAME" --generate-notes
         env:
