@@ -18,7 +18,9 @@ jobs:
     timeout-minutes: 15
     # Deterministic rules run when an LLM key is configured; skip otherwise
     # so CI stays green without secrets.
-    if: ${{ secrets.LLM_API_KEY != '' }}
+    env:
+      LLM_KEY: ${{ secrets.LLM_API_KEY }}
+    if: ${{ env.LLM_KEY != '' }}
     steps:
       - uses: actions/checkout@v4
       - name: Run open-code-review
