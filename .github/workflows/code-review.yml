@@ -16,14 +16,14 @@ jobs:
     name: Alibaba open-code-review
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # Deterministic rules run when an LLM key is configured; skip otherwise
-    # so CI stays green without secrets.
     env:
       LLM_KEY: ${{ secrets.LLM_API_KEY }}
-    if: ${{ env.LLM_KEY != '' }}
     steps:
       - uses: actions/checkout@v4
       - name: Run open-code-review
+        # Deterministic rules run when an LLM key is configured; skip
+        # otherwise so CI stays green without secrets.
+        if: ${{ env.LLM_KEY != '' }}
         uses: alibaba/open-code-review@v1.10.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
