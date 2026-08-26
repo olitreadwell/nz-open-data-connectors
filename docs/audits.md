@@ -23,4 +23,5 @@ green CI.
 
 - `npm run check` — format, lint, type-check, and tests with coverage.
 - `npm run test:smoke` — live tests against the real NZ APIs (needs
-  `RUN_SMOKE=1`).
+  `RUN_SMOKE=1`). The data.govt.nz catalogue blocks non-NZ IPs at the CDN,
+  so the live probe skips it; the committed fixture still covers it.
