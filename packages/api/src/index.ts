@@ -101,10 +101,7 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   if (options.digitalNzSearchMedia !== undefined) {
     digitalNzOptions.searchMedia = options.digitalNzSearchMedia;
   }
-  app.route(
-    "/api",
-    createDigitalNzRoutes(digitalNzOptions),
-  );
+  app.route("/api", createDigitalNzRoutes(digitalNzOptions));
   app.notFound((c) => c.json({ error: "not_found" }, 404));
   app.onError((error, c) => {
     const message = error instanceof Error ? error.message : String(error);
