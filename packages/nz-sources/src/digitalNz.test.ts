@@ -59,7 +59,13 @@ describe("media search", () => {
     const captured: string[] = [];
     const records = await searchDigitalNzMedia("kiwi", "newspapers", {
       fetchImpl: async (input) => {
-        captured.push(String(input));
+        const url =
+          input instanceof URL
+            ? input.href
+            : typeof input === "string"
+              ? input
+              : input.url;
+        captured.push(url);
         return new Response(JSON.stringify(FIXTURE), {
           status: 200,
           headers: { "content-type": "application/json" },

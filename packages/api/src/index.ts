@@ -91,12 +91,19 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   }
   app.route("/api", createSourcesRoutes(sourcesOptions));
   app.route("/api", createStatsNzRoutes({ client }));
+  const digitalNzOptions: {
+    apiKey?: string;
+    searchMedia?: typeof searchDigitalNzMedia;
+  } = {};
+  if (options.apiKeys?.digitalnz !== undefined) {
+    digitalNzOptions.apiKey = options.apiKeys.digitalnz;
+  }
+  if (options.digitalNzSearchMedia !== undefined) {
+    digitalNzOptions.searchMedia = options.digitalNzSearchMedia;
+  }
   app.route(
     "/api",
-    createDigitalNzRoutes({
-      apiKey: options.apiKeys?.digitalnz,
-      searchMedia: options.digitalNzSearchMedia,
-    }),
+    createDigitalNzRoutes(digitalNzOptions),
   );
   app.notFound((c) => c.json({ error: "not_found" }, 404));
   app.onError((error, c) => {

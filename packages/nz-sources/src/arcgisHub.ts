@@ -105,8 +105,22 @@ const ARCGIS_HUB_DATASETS_RESPONSE_SCHEMA = z.object({
  * @returns The normalized base URL.
  */
 export function normalizeArcgisHubHost(host: string): string {
-  const trimmed = host.trim().replace(/\/+$/, "");
+  const trimmed = stripTrailingSlashes(host.trim());
   return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+}
+
+/**
+ * Removes trailing slashes without a regex, so host input stays linear.
+ *
+ * @param value - A host string that may end in slashes.
+ * @returns The host without trailing slashes.
+ */
+function stripTrailingSlashes(value: string): string {
+  let end = value.length;
+  while (end > 0 && value[end - 1] === "/") {
+    end -= 1;
+  }
+  return value.slice(0, end);
 }
 
 /**

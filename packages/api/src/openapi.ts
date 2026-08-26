@@ -93,6 +93,7 @@ export const OPEN_API_DOCUMENT = {
         responses: {
           "200": { description: "Media records with preview image URLs" },
           "400": { description: "Missing or empty q" },
+          "429": { description: "Rate limit exceeded" },
         },
       },
     },

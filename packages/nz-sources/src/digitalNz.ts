@@ -101,22 +101,21 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
 }
 
 /**
- * A media type for DigitalNZ searches: images, newspaper articles, videos,
- * audio, literature (books), or artwork. Artwork shares the Images category
- * because DigitalNZ has no separate artwork category.
+ * Every supported media type, in CLI help and validation order. Artwork
+ * shares the Images category because DigitalNZ has no separate artwork
+ * category.
  */
-export type DigitalNzMediaType =
-  "images" | "newspapers" | "videos" | "audio" | "literature" | "artwork";
-
-/** Every supported media type, in CLI help and validation order. */
-export const DIGITAL_NZ_MEDIA_TYPES: readonly DigitalNzMediaType[] = [
+export const DIGITAL_NZ_MEDIA_TYPES = [
   "images",
   "newspapers",
   "videos",
   "audio",
   "literature",
   "artwork",
-];
+] as const;
+
+/** A media type for DigitalNZ searches. */
+export type DigitalNzMediaType = (typeof DIGITAL_NZ_MEDIA_TYPES)[number];
 
 /** Maps each media type to the DigitalNZ category filter value. */
 export function getDigitalNzCategoryFilter(
