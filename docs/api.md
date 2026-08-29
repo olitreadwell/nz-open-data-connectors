@@ -35,7 +35,7 @@ drift.
 | `/docs` | GET | Swagger UI |
 
 `/api/auth/*` is managed by Better Auth and is not hand-documented here;
-see [docs/auth.md](auth.md).
+see the repo's auth documentation when auth is enabled.
 
 ## Why not JSON:API?
 
