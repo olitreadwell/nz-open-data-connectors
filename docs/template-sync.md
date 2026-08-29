@@ -1,25 +1,20 @@
-# Keeping this repo in sync with the template
+# Keeping projects in sync with the template
 
-`scripts/sync-from-template.mjs` pulls template-owned files from
-`olitreadwell/template` so quality gates and docs never drift. It never
-touches app code.
+`scripts/sync-from-template.mjs` pulls template-owned files into a project
+so the quality gates and docs never drift. It never touches app code.
 
 ## What syncs
 
-Policies live in `template-manifest.json` **in this repo** — the local
-manifest wins over the template's, so each repo controls what syncs in:
+Policies live in `template-manifest.json` (in the template repo, so they can
+evolve with the template):
 
-- `copy` — replaced verbatim: CI configs, audit docs, issue templates,
-  security checks, the sync machinery itself.
-- `copyIfAbsent` — added only when missing: `AGENTS.md`, `.nvmrc`,
-  `.env.example`.
-- `merge` — package.json merges are disabled here. The template targets a
-  Next.js + pnpm stack; this repo is npm workspaces, so Next.js-only files
-  (eslint config, Lighthouse, `CLAUDE.md`, a11y docs) are excluded and the
-  package.json is never merged.
-
-Everything else (`src/**`, `packages/**`, `python/`, `ruby/`, `README.md`,
-tests) is left alone.
+- `copy` — replaced verbatim: lint/format/CI configs, a11y + audit docs,
+  issue templates, security checks.
+- `copyIfAbsent` — added only when missing: `AGENTS.md`, `CLAUDE.md`,
+  `.nvmrc`, `.env.example`, contact/FAQ docs, the weekly sync workflow.
+- `merge` — `package.json`: union of `scripts`, `dependencies`, and
+  `devDependencies`, local values winning on conflict.
+- Everything else (`src/**`, `app/**`, `README.md`, tests) is left alone.
 
 ## Run it
 
@@ -27,6 +22,7 @@ tests) is left alone.
 node scripts/sync-from-template.mjs            # dry-run: what would change
 node scripts/sync-from-template.mjs --apply    # write + commit on chore/template-sync
 node scripts/sync-from-template.mjs --apply --push  # + push + open a PR
+node scripts/sync-from-template.mjs --repo ../my-repo --apply --push
 ```
 
 `TEMPLATE_URL` env var overrides the template remote.
@@ -37,4 +33,15 @@ node scripts/sync-from-template.mjs --apply --push  # + push + open a PR
 demand (`workflow_dispatch`). It opens a PR named "chore: sync template
 files" when anything changed. To let the workflow clone the (private)
 template, add a PAT with repo read access as `TEMPLATE_SYNC_TOKEN`; without
-it the workflow falls back to the default `GITHUB_TOKEN`.
+it the workflow uses `GITHUB_TOKEN` and only works for public templates.
+
+## Adopting on an existing repo
+
+1. `gh repo clone <repo>` and run the dry-run above.
+2. Run with `--apply --push` — this adds the sync script, manifest,
+   workflow, and configs, and opens the first PR.
+3. After merge, the repo is on the weekly cadence.
+
+Run `pnpm install` after a merge that touched `package.json` (the PR
+includes `pnpm-lock.yaml` updates only if the lockfile policy allows it —
+regenerate locally and commit when required).

@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 // Pulls template-owned files into this repo so quality gates and docs stay
-// in sync without touching app code. Policies live in template-manifest.json.
-// The repo's own template-manifest.json wins over the template's, so each
-// repo controls what syncs in (e.g. npm vs pnpm, no Next.js files).
+// in sync without touching app code. Policies live in template-manifest.json
+// (in the TEMPLATE repo, so they can evolve with the template).
 //
 // Usage:
 //   node scripts/sync-from-template.mjs                # dry-run report
@@ -89,15 +88,7 @@ async function main() {
       stdio: 'inherit',
     });
     const tmpl = join(cacheDir, 'tmpl');
-    let manifest;
-    const localManifestPath = join(repoDir, 'template-manifest.json');
-    try {
-      manifest = readJson(localManifestPath);
-      console.log('using local template-manifest.json (repo policy wins)');
-    } catch {
-      manifest = readJson(join(tmpl, 'template-manifest.json'));
-      console.log('using template template-manifest.json');
-    }
+    const manifest = readJson(join(tmpl, 'template-manifest.json'));
 
     const changes = [];
     for (const policy of ['copy', 'copyIfAbsent']) {
@@ -149,7 +140,9 @@ async function main() {
       const merged = structuredClone(localPkg);
       merged.scripts = { ...tmplPkg.scripts, ...(localPkg.scripts ?? {}) };
       merged.devDependencies = { ...tmplPkg.devDependencies, ...(localPkg.devDependencies ?? {}) };
-      merged.dependencies = { ...tmplPkg.dependencies, ...(localPkg.dependencies ?? {}) };
+      // Runtime deps stay local: template app deps (Radix, nodemailer, …)
+      // are opt-in per repo, not forced by a sync.
+      merged.dependencies = localPkg.dependencies ?? {};
       merged.packageManager = localPkg.packageManager ?? tmplPkg.packageManager;
       if (JSON.stringify(merged) !== JSON.stringify(localPkg)) {
         changes.push({ rel: 'package.json', action: 'MERGE' });

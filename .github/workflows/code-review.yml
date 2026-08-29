@@ -16,18 +16,14 @@ jobs:
     name: Alibaba open-code-review
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      LLM_KEY: ${{ secrets.LLM_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Run open-code-review
-        # Deterministic rules run when an LLM key is configured; skip
-        # otherwise so CI stays green without secrets.
-        if: ${{ env.LLM_KEY != '' }}
-        uses: alibaba/open-code-review@v1.10.1
+        uses: alibaba/open-code-review@main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          llm_url: ${{ secrets.LLM_BASE_URL }}
-          llm_auth_token: ${{ secrets.LLM_API_KEY }}
-          llm_model: ${{ secrets.LLM_MODEL }}
-          llm_use_anthropic: "false"
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: set LLM_API_KEY (OpenAI/Anthropic compatible) to enable
+          # LLM-assisted review; deterministic rules run regardless.
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          LLM_MODEL: ${{ secrets.LLM_MODEL }}
+          LLM_BASE_URL: ${{ secrets.LLM_BASE_URL }}
