@@ -1,5 +1,5 @@
 /** What a source needs before it will answer a request. */
-export type NzSourceAuth = "none" | "key" | "account";
+export type NzSourceAuth = 'none' | 'key' | 'account';
 
 /** Options shared by every adapter's live fetch. */
 export interface NzFetchOptions {

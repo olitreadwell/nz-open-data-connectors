@@ -9,12 +9,7 @@
     "published_at": "2026-02-12T22:42:16.925221Z",
     "featured_at": "2025-10-14T21:40:41.102502Z",
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/123148/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -28,12 +23,7 @@
     "published_at": "2025-10-23T20:51:33.297845Z",
     "featured_at": "2020-10-20T03:46:02.101971Z",
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/104400/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -47,12 +37,7 @@
     "published_at": "2026-08-12T02:28:08.327409Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48076/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -66,12 +51,7 @@
     "published_at": "2026-04-01T03:41:20.273543Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48104/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -85,12 +65,7 @@
     "published_at": "2024-11-15T02:21:59.491874Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48066/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -104,12 +79,7 @@
     "published_at": "2024-11-15T02:21:47.751513Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48288/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -123,12 +93,7 @@
     "published_at": "2025-08-20T19:45:48.952994Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122765/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -142,12 +107,7 @@
     "published_at": "2026-08-20T21:54:37.553141Z",
     "featured_at": "2026-03-07T02:48:45.904652Z",
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/123984/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -161,12 +121,7 @@
     "published_at": "2024-11-15T02:22:01.398998Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48054/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -180,12 +135,7 @@
     "published_at": "2025-08-20T19:44:32.660648Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122764/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -199,12 +149,7 @@
     "published_at": "2026-04-01T03:51:50.778105Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/112060/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -218,12 +163,7 @@
     "published_at": "2025-12-02T20:29:42.841245Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/123462/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -237,12 +177,7 @@
     "published_at": "2024-11-15T02:22:01.107800Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48065/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -256,12 +191,7 @@
     "published_at": "2025-08-20T19:41:04.640667Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122760/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -275,12 +205,7 @@
     "published_at": "2026-08-19T01:32:54.701934Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/125063/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -294,12 +219,7 @@
     "published_at": "2024-11-15T02:21:39.570114Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/95415/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -313,12 +233,7 @@
     "published_at": "2026-08-19T01:33:58.756877Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/125060/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -332,12 +247,7 @@
     "published_at": "2026-08-19T01:30:55.038013Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/125064/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -351,12 +261,7 @@
     "published_at": "2018-01-22T22:06:50.428627Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48127/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -370,12 +275,7 @@
     "published_at": "2026-04-01T03:54:10.462002Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48137/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -389,12 +289,7 @@
     "published_at": "2026-04-01T03:40:26.424212Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48098/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -408,12 +303,7 @@
     "published_at": "2025-06-11T05:05:14.013785Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/114281/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -427,12 +317,7 @@
     "published_at": "2025-08-20T19:39:54.759141Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122758/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -446,12 +331,7 @@
     "published_at": "2024-11-15T02:21:53.107156Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48131/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -465,12 +345,7 @@
     "published_at": "2026-04-01T03:38:54.293798Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48105/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -484,11 +359,7 @@
     "published_at": "2026-08-18T23:32:55.478941Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122766/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view"],
     "public_access": "view"
   },
@@ -502,12 +373,7 @@
     "published_at": "2024-11-15T02:21:57.086384Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48081/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -521,12 +387,7 @@
     "published_at": "2024-11-15T02:21:47.704962Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48282/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -540,12 +401,7 @@
     "published_at": "2024-11-15T02:21:35.706055Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/105725/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -559,12 +415,7 @@
     "published_at": "2025-11-19T21:20:51.284212Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122805/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -578,12 +429,7 @@
     "published_at": "2025-11-28T04:13:15.954993Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48420/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -597,12 +443,7 @@
     "published_at": "2024-11-15T02:21:42.881326Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48415/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -616,11 +457,7 @@
     "published_at": "2026-06-22T20:55:46.820178Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124798/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view"],
     "public_access": "view"
   },
@@ -634,12 +471,7 @@
     "published_at": "2024-11-15T02:21:56.674111Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48085/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -653,12 +485,7 @@
     "published_at": "2026-04-01T03:42:27.221375Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48112/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -672,12 +499,7 @@
     "published_at": "2024-11-15T02:21:39.546571Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48470/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -691,12 +513,7 @@
     "published_at": "2024-11-15T02:21:53.864430Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48148/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -710,12 +527,7 @@
     "published_at": "2026-07-23T23:45:03.956919Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124343/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -729,12 +541,7 @@
     "published_at": "2024-11-15T02:21:50.899064Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48157/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -748,12 +555,7 @@
     "published_at": "2026-08-19T01:32:13.736775Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/125062/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -767,12 +569,7 @@
     "published_at": "2025-04-15T04:04:29.131563Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48135/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -786,11 +583,7 @@
     "published_at": "2026-04-01T03:57:27.921588Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48079/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view"],
     "public_access": "view"
   },
@@ -804,12 +597,7 @@
     "published_at": "2026-04-01T03:44:04.934943Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48107/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -823,12 +611,7 @@
     "published_at": "2026-04-01T03:56:01.311541Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48113/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -842,12 +625,7 @@
     "published_at": "2026-04-20T03:05:09.058851Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124196/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -861,11 +639,7 @@
     "published_at": "2026-04-01T03:58:27.922354Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48136/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view"],
     "public_access": "view"
   },
@@ -879,12 +653,7 @@
     "published_at": "2024-11-15T02:21:56.877585Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48094/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -898,12 +667,7 @@
     "published_at": "2024-11-15T02:38:26.416753Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48183/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -917,12 +681,7 @@
     "published_at": "2026-04-01T03:54:56.668750Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/112061/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -936,12 +695,7 @@
     "published_at": "2025-08-20T19:42:09.882367Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122761/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -955,12 +709,7 @@
     "published_at": "2026-04-01T03:52:54.730179Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48109/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -974,12 +723,7 @@
     "published_at": "2024-11-15T02:05:41.320317Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107289/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -993,12 +737,7 @@
     "published_at": "2024-11-15T04:03:38.906421Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48055/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1012,12 +751,7 @@
     "published_at": "2024-11-15T02:34:37.984363Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48082/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1031,12 +765,7 @@
     "published_at": "2024-11-15T04:03:39.123463Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48095/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1050,12 +779,7 @@
     "published_at": "2026-08-17T00:50:17.225369Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124788/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1069,12 +793,7 @@
     "published_at": "2024-11-15T02:49:52.556698Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48086/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1088,12 +807,7 @@
     "published_at": "2024-11-15T02:21:47.785115Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48187/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1107,12 +821,7 @@
     "published_at": "2024-11-15T02:21:43.305681Z",
     "featured_at": "2014-06-30T04:21:16.046808Z",
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48412/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1126,12 +835,7 @@
     "published_at": "2024-11-15T04:03:33.222650Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48119/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1145,12 +849,7 @@
     "published_at": "2025-04-15T04:07:51.328398Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48134/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1164,12 +863,7 @@
     "published_at": "2024-11-15T02:49:40.447754Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48308/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1183,12 +877,7 @@
     "published_at": "2024-11-15T02:22:02.272054Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48064/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1202,12 +891,7 @@
     "published_at": "2024-11-15T02:21:51.301512Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48162/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1221,12 +905,7 @@
     "published_at": "2024-11-15T02:21:32.715349Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107246/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1240,12 +919,7 @@
     "published_at": "2024-11-15T02:21:55.824915Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48120/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1259,12 +933,7 @@
     "published_at": "2026-04-01T03:53:25.477058Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48099/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1278,12 +947,7 @@
     "published_at": "2026-08-17T00:51:14.722633Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124759/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1297,12 +961,7 @@
     "published_at": "2024-11-15T02:21:21.963150Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/120519/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1316,12 +975,7 @@
     "published_at": "2024-11-15T02:21:47.769251Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48178/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1335,12 +989,7 @@
     "published_at": "2024-11-15T02:21:45.517697Z",
     "featured_at": "2013-10-25T02:41:31.103279Z",
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48348/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1354,12 +1003,7 @@
     "published_at": "2024-11-15T02:21:25.106892Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107425/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1373,12 +1017,7 @@
     "published_at": "2026-07-05T22:17:38.043280Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124799/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1392,12 +1031,7 @@
     "published_at": "2026-08-17T00:51:00.038979Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124767/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1411,12 +1045,7 @@
     "published_at": "2024-11-15T02:34:11.150518Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/110217/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1430,12 +1059,7 @@
     "published_at": "2026-03-23T04:27:24.785149Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/123583/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1449,12 +1073,7 @@
     "published_at": "2024-11-15T02:05:24.241081Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107394/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1468,12 +1087,7 @@
     "published_at": "2026-04-01T03:43:04.014037Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48100/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1487,12 +1101,7 @@
     "published_at": "2024-11-15T02:21:50.710807Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48161/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1506,12 +1115,7 @@
     "published_at": "2026-04-01T03:44:38.029116Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48106/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1525,12 +1129,7 @@
     "published_at": "2026-04-01T03:37:55.496667Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48103/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1544,12 +1143,7 @@
     "published_at": "2024-11-15T02:21:40.335384Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48423/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1563,12 +1157,7 @@
     "published_at": "2024-11-15T02:21:50.875269Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48165/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1582,12 +1171,7 @@
     "published_at": "2026-04-01T03:55:27.853870Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48101/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1601,12 +1185,7 @@
     "published_at": "2024-11-15T02:21:56.810334Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48097/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1620,12 +1199,7 @@
     "published_at": "2024-11-15T02:38:45.549092Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48093/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1639,12 +1213,7 @@
     "published_at": "2026-08-17T00:49:57.411840Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124794/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1658,12 +1227,7 @@
     "published_at": "2026-08-17T00:50:52.939902Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124768/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1677,12 +1241,7 @@
     "published_at": "2024-11-15T02:21:43.736654Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48416/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1696,12 +1255,7 @@
     "published_at": "2024-11-15T02:34:32.053249Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48319/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1715,12 +1269,7 @@
     "published_at": "2024-11-15T02:32:00.299676Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48304/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1734,12 +1283,7 @@
     "published_at": "2026-08-17T00:50:36.595259Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/124775/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1753,12 +1297,7 @@
     "published_at": "2024-11-15T02:38:36.413774Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/105729/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1772,12 +1311,7 @@
     "published_at": "2026-04-01T03:45:20.012490Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48110/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1791,12 +1325,7 @@
     "published_at": "2024-11-15T02:05:42.239180Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107291/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1810,12 +1339,7 @@
     "published_at": "2024-11-15T02:21:33.017855Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/107251/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1829,12 +1353,7 @@
     "published_at": "2025-10-20T22:08:29.518274Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/123147/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1848,12 +1367,7 @@
     "published_at": "2024-11-15T02:21:42.560970Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48413/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1867,12 +1381,7 @@
     "published_at": "2025-09-24T23:36:24.078529Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/122572/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1886,12 +1395,7 @@
     "published_at": "2024-11-15T02:34:31.810872Z",
     "featured_at": null,
     "services": "https://lris.scinfo.org.nz/services/api/v1/layers/48092/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   }

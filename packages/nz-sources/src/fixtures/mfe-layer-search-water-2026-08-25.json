@@ -9,12 +9,7 @@
     "published_at": "2025-06-26T02:43:58.932062Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/117733/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -28,12 +23,7 @@
     "published_at": "2022-12-07T22:33:51.484506Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51845/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -47,12 +37,7 @@
     "published_at": "2022-12-07T22:42:27.796216Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52364/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -66,12 +51,7 @@
     "published_at": "2020-05-28T04:11:43.457747Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/99776/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -85,12 +65,7 @@
     "published_at": "2021-11-10T00:48:21.459225Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53309/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -104,12 +79,7 @@
     "published_at": "2022-12-07T22:41:54.854149Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52370/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -123,12 +93,7 @@
     "published_at": "2015-03-04T23:23:46.665115Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52358/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -142,12 +107,7 @@
     "published_at": "2022-12-07T22:39:37.889784Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52362/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -161,12 +121,7 @@
     "published_at": "2022-12-07T22:41:27.056178Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52372/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -180,12 +135,7 @@
     "published_at": "2017-07-09T21:44:17.428767Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52766/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -199,12 +149,7 @@
     "published_at": "2022-12-07T22:40:46.374870Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52363/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -218,12 +163,7 @@
     "published_at": "2022-12-07T22:38:49.541239Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52361/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -237,12 +177,7 @@
     "published_at": "2017-07-07T00:29:26.266414Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52765/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -256,12 +191,7 @@
     "published_at": "2022-12-07T22:40:09.366623Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52371/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -275,12 +205,7 @@
     "published_at": "2017-04-24T00:53:39.365154Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52677/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -294,12 +219,7 @@
     "published_at": "2017-04-24T00:53:39.372593Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52676/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -313,12 +233,7 @@
     "published_at": "2016-02-18T20:33:36.436575Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52675/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -332,12 +247,7 @@
     "published_at": "2024-11-12T19:49:52.415194Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/120714/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -351,11 +261,7 @@
     "published_at": "2024-05-10T04:55:56.545695Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52375/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view"],
     "public_access": "view"
   },
@@ -369,12 +275,7 @@
     "published_at": "2021-04-15T21:50:43.894436Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/105407/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -388,12 +289,7 @@
     "published_at": "2021-07-30T03:46:37.446717Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/105771/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -407,12 +303,7 @@
     "published_at": "2026-08-05T04:37:33.907845Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/98617/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -426,12 +317,7 @@
     "published_at": "2022-12-07T22:38:13.835261Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52360/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -445,12 +331,7 @@
     "published_at": "2017-01-12T00:20:59.907848Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53312/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -464,12 +345,7 @@
     "published_at": "2026-04-24T04:51:54.758994Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/99909/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -483,12 +359,7 @@
     "published_at": "2017-10-18T00:02:02.887666Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/89421/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -502,12 +373,7 @@
     "published_at": "2018-11-01T00:49:30.821979Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52374/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -521,12 +387,7 @@
     "published_at": "2023-12-12T19:29:12.597889Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115376/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -540,12 +401,7 @@
     "published_at": "2020-01-27T02:18:01.685645Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/104445/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -559,12 +415,7 @@
     "published_at": "2024-05-03T04:20:32.766341Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/118263/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -578,12 +429,7 @@
     "published_at": "2018-04-17T00:59:45.575905Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/95347/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -597,12 +443,7 @@
     "published_at": "2017-01-12T04:00:49.115499Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52851/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -616,12 +457,7 @@
     "published_at": "2016-10-25T03:51:58.760490Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52762/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -635,12 +471,7 @@
     "published_at": "2023-12-11T22:39:02.977363Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115364/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -654,12 +485,7 @@
     "published_at": "2021-05-09T23:23:17.418924Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51832/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -673,12 +499,7 @@
     "published_at": "2016-10-25T03:52:20.709684Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52760/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -692,12 +513,7 @@
     "published_at": "2023-12-11T22:36:43.755195Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115363/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -711,12 +527,7 @@
     "published_at": "2015-03-02T02:57:03.503560Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52354/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -730,12 +541,7 @@
     "published_at": "2023-12-11T22:52:26.841750Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115310/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -749,12 +555,7 @@
     "published_at": "2017-07-07T00:15:30.243805Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52764/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -768,12 +569,7 @@
     "published_at": "2016-10-25T04:06:03.590840Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52749/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -787,12 +583,7 @@
     "published_at": "2018-11-01T00:50:50.026794Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53565/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -806,12 +597,7 @@
     "published_at": "2023-09-27T01:14:49.421201Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/114540/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -825,12 +611,7 @@
     "published_at": "2020-06-25T01:39:21.661457Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51826/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -844,12 +625,7 @@
     "published_at": "2017-07-07T02:50:39.096148Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52830/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -863,12 +639,7 @@
     "published_at": "2023-12-12T03:57:10.584865Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115411/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -882,12 +653,7 @@
     "published_at": "2020-06-25T01:44:59.432664Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51854/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -901,12 +667,7 @@
     "published_at": "2022-09-19T23:41:54.186241Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/104446/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -920,12 +681,7 @@
     "published_at": "2023-12-11T22:40:38.420532Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115365/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -939,12 +695,7 @@
     "published_at": "2020-06-25T01:35:27.730930Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51804/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -958,12 +709,7 @@
     "published_at": "2015-03-02T02:55:00.649147Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51800/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -977,12 +723,7 @@
     "published_at": "2016-02-21T22:27:06.810571Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53313/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -996,12 +737,7 @@
     "published_at": "2017-07-07T01:39:23.678609Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53177/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1015,12 +751,7 @@
     "published_at": "2016-10-25T03:52:41.415855Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52759/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1034,12 +765,7 @@
     "published_at": "2020-06-25T01:42:59.672254Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51855/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1053,12 +779,7 @@
     "published_at": "2015-03-24T20:46:22.196675Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52369/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1072,12 +793,7 @@
     "published_at": "2019-04-17T20:27:26.456425Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/99898/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1091,12 +807,7 @@
     "published_at": "2016-02-18T19:39:29.049915Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52736/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1110,12 +821,7 @@
     "published_at": "2018-07-03T01:01:21.589439Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52748/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1129,12 +835,7 @@
     "published_at": "2016-02-16T00:27:02.317406Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53159/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1148,12 +849,7 @@
     "published_at": "2024-11-19T21:59:40.296628Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/111150/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1167,12 +863,7 @@
     "published_at": "2024-06-23T20:24:38.259052Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/99896/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1186,12 +877,7 @@
     "published_at": "2024-07-02T23:20:33.634089Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/119169/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1205,12 +891,7 @@
     "published_at": "2016-10-25T03:52:02.967367Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52761/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1224,12 +905,7 @@
     "published_at": "2016-02-22T04:47:38.055222Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53066/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1243,12 +919,7 @@
     "published_at": "2016-02-18T19:58:38.681175Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52688/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1262,12 +933,7 @@
     "published_at": "2015-03-04T23:19:26.101601Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52355/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1281,12 +947,7 @@
     "published_at": "2016-02-22T01:56:06.279731Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53030/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1300,12 +961,7 @@
     "published_at": "2016-02-21T22:45:01.420210Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53314/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1319,12 +975,7 @@
     "published_at": "2016-02-22T01:36:15.572248Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52960/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1338,12 +989,7 @@
     "published_at": "2016-02-18T20:08:03.291172Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52700/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1357,12 +1003,7 @@
     "published_at": "2016-10-20T23:57:35.865646Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53499/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1376,12 +1017,7 @@
     "published_at": "2016-02-22T01:50:53.477980Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53163/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1395,12 +1031,7 @@
     "published_at": "2016-10-25T04:09:49.936390Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52827/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1414,12 +1045,7 @@
     "published_at": "2016-02-22T01:13:29.691882Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52989/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1433,12 +1059,7 @@
     "published_at": "2016-02-18T19:44:43.171490Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52729/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1452,12 +1073,7 @@
     "published_at": "2016-02-22T02:15:13.076642Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52869/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1471,12 +1087,7 @@
     "published_at": "2016-02-16T00:29:33.702479Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53161/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1490,12 +1101,7 @@
     "published_at": "2016-02-16T00:23:02.021546Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53157/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1509,12 +1115,7 @@
     "published_at": "2016-02-22T01:32:22.755668Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52938/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1528,12 +1129,7 @@
     "published_at": "2016-02-18T20:23:30.602129Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52723/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1547,12 +1143,7 @@
     "published_at": "2023-12-12T04:00:41.285254Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115373/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1566,12 +1157,7 @@
     "published_at": "2023-12-11T21:20:37.027682Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115307/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1585,12 +1171,7 @@
     "published_at": "2016-02-18T19:59:16.039341Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52689/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1604,12 +1185,7 @@
     "published_at": "2016-02-18T20:11:29.753975Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52706/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1623,12 +1199,7 @@
     "published_at": "2016-02-22T02:11:51.025373Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52858/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1642,12 +1213,7 @@
     "published_at": "2016-02-22T00:47:48.469189Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53101/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1661,12 +1227,7 @@
     "published_at": "2016-02-29T03:33:23.810596Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52686/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1680,12 +1241,7 @@
     "published_at": "2016-02-18T19:45:24.978182Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52728/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1699,12 +1255,7 @@
     "published_at": "2023-12-11T21:21:59.370854Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/115308/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1718,12 +1269,7 @@
     "published_at": "2016-02-22T01:25:15.342976Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53209/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1737,12 +1283,7 @@
     "published_at": "2016-02-18T19:42:45.150456Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52732/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1756,12 +1297,7 @@
     "published_at": "2016-02-21T22:44:55.927879Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53316/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1775,12 +1311,7 @@
     "published_at": "2016-02-16T00:26:06.547485Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53158/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1794,12 +1325,7 @@
     "published_at": "2016-02-22T02:41:54.514769Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52881/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1813,12 +1339,7 @@
     "published_at": "2016-02-18T20:12:33.007990Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52708/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1832,12 +1353,7 @@
     "published_at": "2020-06-25T01:41:18.463093Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/51857/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1851,12 +1367,7 @@
     "published_at": "2016-02-22T02:37:27.153399Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52892/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1870,12 +1381,7 @@
     "published_at": "2016-02-18T20:22:28.911297Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/52719/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   },
@@ -1889,12 +1395,7 @@
     "published_at": "2016-02-22T04:40:01.538195Z",
     "featured_at": null,
     "services": "https://data.mfe.govt.nz/services/api/v1/layers/53094/services/",
-    "user_capabilities": [
-      "can-star",
-      "can-export",
-      "can-spatial-query",
-      "can-view-data-table"
-    ],
+    "user_capabilities": ["can-star", "can-export", "can-spatial-query", "can-view-data-table"],
     "user_permissions": ["find", "view", "download"],
     "public_access": "download"
   }

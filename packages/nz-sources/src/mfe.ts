@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** One layer in the MfE Data Service catalogue. */
 export interface MfeLayer {
@@ -16,7 +16,7 @@ const MFE_LAYER_SCHEMA = z.object({
   id: z.number(),
   title: z.string(),
   url: z.string(),
-  public_access: z.string().optional().default(""),
+  public_access: z.string().optional().default(''),
 });
 
 const MFE_SEARCH_RESPONSE_SCHEMA = z.array(MFE_LAYER_SCHEMA);
@@ -30,7 +30,7 @@ const MFE_SEARCH_RESPONSE_SCHEMA = z.array(MFE_LAYER_SCHEMA);
 export function parseMfeLayers(payload: unknown): MfeLayer[] {
   const parsed = MFE_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("MfE", parsed.error.message);
+    throw new NzSourceParseError('MfE', parsed.error.message);
   }
   return parsed.data.map((layer) => ({
     id: layer.id,
@@ -50,25 +50,23 @@ export function parseMfeLayers(payload: unknown): MfeLayer[] {
  */
 export async function searchMfeLayers(
   query: string,
-  fetchImpl: typeof globalThis.fetch = globalThis.fetch,
+  fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<MfeLayer[]> {
   const url = `https://data.mfe.govt.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
   const response = await fetchImpl(url);
   if (!response.ok) {
-    throw new NzSourceApiError("MfE", `HTTP ${response.status}`);
+    throw new NzSourceApiError('MfE', `HTTP ${response.status}`);
   }
   return parseMfeLayers(await response.json());
 }
 
 /** MfE adapter: Ministry for the Environment layer search, keyless. */
 export const mfeAdapter: NzDataAdapter<MfeLayer[]> = {
-  id: "mfe",
-  name: "MfE Data Service catalogue",
-  auth: "none",
-  description:
-    "Searches Ministry for the Environment layers (water, land, climate).",
-  fetchLive: (options) => searchMfeLayers("water", options?.fetchImpl),
+  id: 'mfe',
+  name: 'MfE Data Service catalogue',
+  auth: 'none',
+  description: 'Searches Ministry for the Environment layers (water, land, climate).',
+  fetchLive: (options) => searchMfeLayers('water', options?.fetchImpl),
   parse: parseMfeLayers,
-  loadFixture: () =>
-    parseMfeLayers(readFixtureJson("mfe-layer-search-water-2026-08-25.json")),
+  loadFixture: () => parseMfeLayers(readFixtureJson('mfe-layer-search-water-2026-08-25.json')),
 };

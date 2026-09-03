@@ -1,23 +1,23 @@
-import { XMLParser } from "fast-xml-parser";
+import { XMLParser } from 'fast-xml-parser';
 
-import { StatsNzParseError } from "./errors.js";
-import type { StatsNzDataflow } from "./types.js";
+import { StatsNzParseError } from './errors.js';
+import type { StatsNzDataflow } from './types.js';
 
 function asRecord(value: unknown): Record<string, unknown> | undefined {
-  return typeof value === "object" && value !== null && !Array.isArray(value)
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
     ? (value as Record<string, unknown>)
     : undefined;
 }
 
 function asString(value: unknown): string {
-  return typeof value === "string" ? value : "";
+  return typeof value === 'string' ? value : '';
 }
 
 /** Parses the Stats NZ dataflow catalogue XML into typed dataflows. */
 export function parseDataflowCatalogueXml(xml: string): StatsNzDataflow[] {
   const parser = new XMLParser({
     ignoreAttributes: false,
-    attributeNamePrefix: "@_",
+    attributeNamePrefix: '@_',
     removeNSPrefix: true,
     processEntities: false,
   });
@@ -26,21 +26,15 @@ export function parseDataflowCatalogueXml(xml: string): StatsNzDataflow[] {
   try {
     doc = parser.parse(xml);
   } catch {
-    throw new StatsNzParseError(
-      "Failed to parse Stats NZ dataflow catalogue XML",
-    );
+    throw new StatsNzParseError('Failed to parse Stats NZ dataflow catalogue XML');
   }
 
   const structure = asRecord(asRecord(doc)?.Structure);
   if (structure === undefined) {
-    throw new StatsNzParseError(
-      "Stats NZ dataflow catalogue XML has no Structure element",
-    );
+    throw new StatsNzParseError('Stats NZ dataflow catalogue XML has no Structure element');
   }
 
-  const dataflowsValue = asRecord(
-    asRecord(structure.Structures)?.Dataflows,
-  )?.Dataflow;
+  const dataflowsValue = asRecord(asRecord(structure.Structures)?.Dataflows)?.Dataflow;
   const dataflows =
     dataflowsValue === undefined
       ? []
@@ -52,10 +46,10 @@ export function parseDataflowCatalogueXml(xml: string): StatsNzDataflow[] {
     const flow = asRecord(raw);
     const name = asRecord(flow?.Name);
     return {
-      id: asString(flow?.["@_id"]),
-      agencyId: asString(flow?.["@_agencyID"]),
-      version: asString(flow?.["@_version"]),
-      title: asString(name?.["#text"]),
+      id: asString(flow?.['@_id']),
+      agencyId: asString(flow?.['@_agencyID']),
+      version: asString(flow?.['@_version']),
+      title: asString(name?.['#text']),
     };
   });
 }

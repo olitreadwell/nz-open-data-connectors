@@ -62,13 +62,7 @@
         "origin_url": null,
         "metadata_url": null,
         "object_url": null,
-        "subject": [
-          "new zealand",
-          "singapore",
-          "travel",
-          "kiwis",
-          "flocking kiwis"
-        ],
+        "subject": ["new zealand", "singapore", "travel", "kiwis", "flocking kiwis"],
         "thumbnail_url": "https://i.ytimg.com/vi/bVcaBaypDOo/default.jpg",
         "large_thumbnail_url": "https://i.ytimg.com/vi/bVcaBaypDOo/hqdefault.jpg",
         "source_url": "http://api.digitalnz.org/records/37203659/source"

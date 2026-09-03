@@ -1,12 +1,11 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** Default ArcGIS Hub host: Auckland Council open data. */
-export const DEFAULT_ARCGIS_HUB_HOST =
-  "https://data-aucklandcouncil.opendata.arcgis.com";
+export const DEFAULT_ARCGIS_HUB_HOST = 'https://data-aucklandcouncil.opendata.arcgis.com';
 
 /** One collection advertised by an ArcGIS Hub search API. */
 export interface ArcgisHubCollection {
@@ -41,14 +40,14 @@ export interface ArcgisHubFetchOptions {
 
 /** Result of an ArcGIS Hub live fetch: collections or dataset search. */
 export type ArcgisHubResult =
-  | { kind: "collections"; collections: ArcgisHubCollection[] }
-  | { kind: "datasets"; datasets: ArcgisHubDataset[] };
+  | { kind: 'collections'; collections: ArcgisHubCollection[] }
+  | { kind: 'datasets'; datasets: ArcgisHubDataset[] };
 
 const ARCGIS_HUB_COLLECTION_SCHEMA = z.object({
   id: z.string(),
   title: z.string(),
-  itemType: z.string().optional().default(""),
-  description: z.string().optional().default(""),
+  itemType: z.string().optional().default(''),
+  description: z.string().optional().default(''),
 });
 
 const ARCGIS_HUB_COLLECTIONS_RESPONSE_SCHEMA = z.object({
@@ -62,28 +61,28 @@ const ARCGIS_HUB_DATASET_SCHEMA = z.object({
     .string()
     .nullable()
     .optional()
-    .transform((value) => value ?? ""),
+    .transform((value) => value ?? ''),
   type: z.string(),
   url: z
     .string()
     .nullable()
     .optional()
-    .transform((value) => value ?? ""),
+    .transform((value) => value ?? ''),
   owner: z
     .string()
     .nullable()
     .optional()
-    .transform((value) => value ?? ""),
+    .transform((value) => value ?? ''),
   source: z
     .string()
     .nullable()
     .optional()
-    .transform((value) => value ?? ""),
+    .transform((value) => value ?? ''),
   tags: z.array(z.string()).optional().default([]),
   modified: z.number().optional().default(0),
   created: z.number().optional().default(0),
   numViews: z.number().optional().default(0),
-  access: z.string().optional().default(""),
+  access: z.string().optional().default(''),
 });
 
 const ARCGIS_HUB_DATASETS_RESPONSE_SCHEMA = z.object({
@@ -92,7 +91,7 @@ const ARCGIS_HUB_DATASETS_RESPONSE_SCHEMA = z.object({
     z.object({
       id: z.string(),
       properties: ARCGIS_HUB_DATASET_SCHEMA,
-    }),
+    })
   ),
   numberMatched: z.number().optional().default(0),
   numberReturned: z.number().optional().default(0),
@@ -117,7 +116,7 @@ export function normalizeArcgisHubHost(host: string): string {
  */
 function stripTrailingSlashes(value: string): string {
   let end = value.length;
-  while (end > 0 && value[end - 1] === "/") {
+  while (end > 0 && value[end - 1] === '/') {
     end -= 1;
   }
   return value.slice(0, end);
@@ -129,12 +128,10 @@ function stripTrailingSlashes(value: string): string {
  * @param payload - Raw JSON from the collections endpoint.
  * @returns The advertised collections.
  */
-export function parseArcgisHubCollections(
-  payload: unknown,
-): ArcgisHubCollection[] {
+export function parseArcgisHubCollections(payload: unknown): ArcgisHubCollection[] {
   const parsed = ARCGIS_HUB_COLLECTIONS_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("ArcGIS Hub", parsed.error.message);
+    throw new NzSourceParseError('ArcGIS Hub', parsed.error.message);
   }
   return parsed.data.collections.map((collection) => ({
     id: collection.id,
@@ -153,7 +150,7 @@ export function parseArcgisHubCollections(
 export function parseArcgisHubDatasets(payload: unknown): ArcgisHubDataset[] {
   const parsed = ARCGIS_HUB_DATASETS_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("ArcGIS Hub", parsed.error.message);
+    throw new NzSourceParseError('ArcGIS Hub', parsed.error.message);
   }
   return parsed.data.features.map((feature) => ({
     id: feature.id,
@@ -178,17 +175,13 @@ export function parseArcgisHubDatasets(payload: unknown): ArcgisHubDataset[] {
  * @returns Collections when the payload has a collections list, else datasets.
  */
 export function parseArcgisHubResult(payload: unknown): ArcgisHubResult {
-  if (
-    typeof payload === "object" &&
-    payload !== null &&
-    "collections" in payload
-  ) {
+  if (typeof payload === 'object' && payload !== null && 'collections' in payload) {
     return {
-      kind: "collections",
+      kind: 'collections',
       collections: parseArcgisHubCollections(payload),
     };
   }
-  return { kind: "datasets", datasets: parseArcgisHubDatasets(payload) };
+  return { kind: 'datasets', datasets: parseArcgisHubDatasets(payload) };
 }
 
 /**
@@ -199,13 +192,13 @@ export function parseArcgisHubResult(payload: unknown): ArcgisHubResult {
  * @returns The advertised collections.
  */
 export async function fetchArcgisHubCollections(
-  options: ArcgisHubFetchOptions = {},
+  options: ArcgisHubFetchOptions = {}
 ): Promise<ArcgisHubCollection[]> {
   const host = normalizeArcgisHubHost(options.host ?? DEFAULT_ARCGIS_HUB_HOST);
   const url = `${host}/api/search/v1/collections`;
   const response = await (options.fetchImpl ?? globalThis.fetch)(url);
   if (!response.ok) {
-    throw new NzSourceApiError("ArcGIS Hub", `HTTP ${response.status}`);
+    throw new NzSourceApiError('ArcGIS Hub', `HTTP ${response.status}`);
   }
   return parseArcgisHubCollections(await response.json());
 }
@@ -220,14 +213,14 @@ export async function fetchArcgisHubCollections(
  */
 export async function searchArcgisHubDatasets(
   query: string,
-  options: ArcgisHubFetchOptions = {},
+  options: ArcgisHubFetchOptions = {}
 ): Promise<ArcgisHubDataset[]> {
   const host = normalizeArcgisHubHost(options.host ?? DEFAULT_ARCGIS_HUB_HOST);
   const url = new URL(`${host}/api/search/v1/collections/dataset/items`);
-  url.searchParams.set("q", query);
+  url.searchParams.set('q', query);
   const response = await (options.fetchImpl ?? globalThis.fetch)(url);
   if (!response.ok) {
-    throw new NzSourceApiError("ArcGIS Hub", `HTTP ${response.status}`);
+    throw new NzSourceApiError('ArcGIS Hub', `HTTP ${response.status}`);
   }
   return parseArcgisHubDatasets(await response.json());
 }
@@ -237,11 +230,11 @@ export async function searchArcgisHubDatasets(
  * probe hits the collections endpoint; passing a query searches datasets.
  */
 export const arcgisHubAdapter = {
-  id: "arcgis",
-  name: "ArcGIS Hub open data",
-  auth: "none",
+  id: 'arcgis',
+  name: 'ArcGIS Hub open data',
+  auth: 'none',
   description:
-    "Searches NZ open data published on ArcGIS Hub (Auckland Council, WCC, Canterbury, NZTA).",
+    'Searches NZ open data published on ArcGIS Hub (Auckland Council, WCC, Canterbury, NZTA).',
   fetchLive: (options?: ArcgisHubFetchOptions) => {
     const host = options?.host;
     const query = options?.q;
@@ -250,20 +243,20 @@ export const arcgisHubAdapter = {
       return searchArcgisHubDatasets(query, {
         ...(host === undefined ? {} : { host }),
         ...(fetchImpl === undefined ? {} : { fetchImpl }),
-      }).then((datasets) => ({ kind: "datasets", datasets }));
+      }).then((datasets) => ({ kind: 'datasets', datasets }));
     }
     return fetchArcgisHubCollections({
       ...(host === undefined ? {} : { host }),
       ...(fetchImpl === undefined ? {} : { fetchImpl }),
-    }).then((collections) => ({ kind: "collections", collections }));
+    }).then((collections) => ({ kind: 'collections', collections }));
   },
   parse: parseArcgisHubResult,
   loadFixture: () => ({
-    kind: "datasets",
+    kind: 'datasets',
     datasets: parseArcgisHubDatasets(
       readFixtureJson(
-        "arcgis-hub-data-aucklandcouncil.opendata.arcgis.com-datasets-parks-2026-08-25.json",
-      ),
+        'arcgis-hub-data-aucklandcouncil.opendata.arcgis.com-datasets-parks-2026-08-25.json'
+      )
     ),
   }),
 } satisfies NzDataAdapter<ArcgisHubResult>;

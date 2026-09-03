@@ -1,8 +1,8 @@
-import { Hono } from "hono";
-import { zValidator } from "@hono/zod-validator";
-import { z } from "zod";
+import { Hono } from 'hono';
+import { zValidator } from '@hono/zod-validator';
+import { z } from 'zod';
 
-import { NZ_DATA_SOURCES, probeNzDataSource } from "@nzlab/nz-sources";
+import { NZ_DATA_SOURCES, probeNzDataSource } from '@nzlab/nz-sources';
 
 const probeParamSchema = z.object({
   id: z
@@ -27,7 +27,7 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
   const app = new Hono();
   const probeFn = options.probeFn ?? probeNzDataSource;
 
-  app.get("/sources", (c) => {
+  app.get('/sources', (c) => {
     const sources = NZ_DATA_SOURCES.map((source) => ({
       id: source.id,
       name: source.name,
@@ -37,24 +37,17 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
     return c.json(sources);
   });
 
-  app.get(
-    "/sources/:id/probe",
-    zValidator("param", probeParamSchema),
-    async (c) => {
-      const { id } = c.req.valid("param");
-      const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
-      if (adapter === undefined) {
-        const NOT_FOUND = 404;
-        return c.json({ error: `Unknown source: ${id}` }, NOT_FOUND);
-      }
-      const apiKey = options.apiKeys?.[adapter.id];
-      const probe = await probeFn(
-        adapter,
-        apiKey === undefined ? {} : { apiKey },
-      );
-      return c.json(probe);
-    },
-  );
+  app.get('/sources/:id/probe', zValidator('param', probeParamSchema), async (c) => {
+    const { id } = c.req.valid('param');
+    const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
+    if (adapter === undefined) {
+      const NOT_FOUND = 404;
+      return c.json({ error: `Unknown source: ${id}` }, NOT_FOUND);
+    }
+    const apiKey = options.apiKeys?.[adapter.id];
+    const probe = await probeFn(adapter, apiKey === undefined ? {} : { apiKey });
+    return c.json(probe);
+  });
 
   return app;
 }
