@@ -1,8 +1,8 @@
-import { parseDataflowCatalogueXml } from "./catalogue.js";
-import { parseCodelistXml } from "./codelist.js";
-import { parseStatsNzCsv } from "./csv.js";
-import { StatsNzApiError, StatsNzError } from "./errors.js";
-import { parseSdmxJsonResponse } from "./sdmxJson.js";
+import { parseDataflowCatalogueXml } from './catalogue.js';
+import { parseCodelistXml } from './codelist.js';
+import { parseStatsNzCsv } from './csv.js';
+import { StatsNzApiError, StatsNzError } from './errors.js';
+import { parseSdmxJsonResponse } from './sdmxJson.js';
 import type {
   StatsNzClient,
   StatsNzClientOptions,
@@ -11,31 +11,25 @@ import type {
   StatsNzDataFormat,
   StatsNzGetDataRequest,
   StatsNzObservation,
-} from "./types.js";
+} from './types.js';
 
-const DEFAULT_BASE_URL = "https://api.data.stats.govt.nz/rest";
+const DEFAULT_BASE_URL = 'https://api.data.stats.govt.nz/rest';
 // Every dataflow in the current ADE catalogue is published at version 1.0
 // (verified against the live catalogue), and the keyless access path requires
 // an explicit version. Callers with a subscription key can pass `latest`.
-const DEFAULT_VERSION = "1.0";
+const DEFAULT_VERSION = '1.0';
 const DEFAULT_TIMEOUT_MS = 30_000;
-const USER_AGENT = "nz-open-data-connectors/0.1.0 (Language=TypeScript)";
-const VALID_FORMATS: StatsNzDataFormat[] = [
-  "csv",
-  "csvfilewithlabels",
-  "jsondata",
-];
+const USER_AGENT = 'nz-open-data-connectors/0.1.0 (Language=TypeScript)';
+const VALID_FORMATS: StatsNzDataFormat[] = ['csv', 'csvfilewithlabels', 'jsondata'];
 
 /**
  * Creates a Stats NZ (ADE) API client.
  * @param options - optional base URL, subscription key, fetch impl, and timeout
  * @returns A client with catalogue, data, and codelist methods
  */
-export function createStatsNzClient(
-  options: StatsNzClientOptions = {},
-): StatsNzClient {
+export function createStatsNzClient(options: StatsNzClientOptions = {}): StatsNzClient {
   let baseUrl = options.baseUrl ?? DEFAULT_BASE_URL;
-  while (baseUrl.endsWith("/")) {
+  while (baseUrl.endsWith('/')) {
     baseUrl = baseUrl.slice(0, -1);
   }
   const subscriptionKey = options.subscriptionKey;
@@ -45,11 +39,11 @@ export function createStatsNzClient(
   async function sendRequest(path: string, accept: string): Promise<Response> {
     const headers: Record<string, string> = {
       Accept: accept,
-      "Cache-Control": "no-cache",
-      "user-agent": USER_AGENT,
+      'Cache-Control': 'no-cache',
+      'user-agent': USER_AGENT,
     };
     if (subscriptionKey !== undefined) {
-      headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
+      headers['Ocp-Apim-Subscription-Key'] = subscriptionKey;
     }
 
     const controller = new AbortController();
@@ -59,18 +53,15 @@ export function createStatsNzClient(
       return await fetchImpl(url, {
         headers,
         signal: controller.signal,
-        cache: "no-store",
+        cache: 'no-store',
       });
     } catch (error) {
-      if (error instanceof DOMException && error.name === "AbortError") {
-        throw new StatsNzApiError(
-          `Stats NZ request timed out after ${timeoutMs}ms`,
-          {
-            status: 0,
-            retryable: true,
-            url,
-          },
-        );
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        throw new StatsNzApiError(`Stats NZ request timed out after ${timeoutMs}ms`, {
+          status: 0,
+          retryable: true,
+          url,
+        });
       }
       throw error;
     } finally {
@@ -78,10 +69,7 @@ export function createStatsNzClient(
     }
   }
 
-  async function toApiError(
-    response: Response,
-    url: string,
-  ): Promise<StatsNzApiError> {
+  async function toApiError(response: Response, url: string): Promise<StatsNzApiError> {
     let message = `Stats NZ API request failed with status ${response.status}`;
     let body: { message?: unknown } | undefined;
     try {
@@ -89,7 +77,7 @@ export function createStatsNzClient(
     } catch {
       body = undefined;
     }
-    if (typeof body?.message === "string" && body.message.length > 0) {
+    if (typeof body?.message === 'string' && body.message.length > 0) {
       message = body.message;
     }
     return new StatsNzApiError(message, {
@@ -99,17 +87,15 @@ export function createStatsNzClient(
     });
   }
 
-  async function getData(
-    request: StatsNzGetDataRequest,
-  ): Promise<StatsNzObservation[]> {
-    const format = request.format ?? "csv";
+  async function getData(request: StatsNzGetDataRequest): Promise<StatsNzObservation[]> {
+    const format = request.format ?? 'csv';
     if (!VALID_FORMATS.includes(format)) {
       throw new StatsNzError(`Unsupported Stats NZ response format: ${format}`);
     }
     const version = request.version ?? DEFAULT_VERSION;
     const versionSegment = `,${encodeURIComponent(version)}`;
-    const path = `/data/STATSNZ,${encodeURIComponent(request.dataflowId)}${versionSegment}/${encodeURIComponent(request.key ?? "all")}?format=${format}`;
-    const accept = format === "jsondata" ? "application/json" : "text/csv";
+    const path = `/data/STATSNZ,${encodeURIComponent(request.dataflowId)}${versionSegment}/${encodeURIComponent(request.key ?? 'all')}?format=${format}`;
+    const accept = format === 'jsondata' ? 'application/json' : 'text/csv';
 
     const response = await sendRequest(path, accept);
     if (!response.ok) {
@@ -117,15 +103,15 @@ export function createStatsNzClient(
     }
 
     const text = await response.text();
-    if (format === "jsondata") {
+    if (format === 'jsondata') {
       return parseSdmxJsonResponse(text);
     }
     return parseStatsNzCsv(text, { dataflowId: request.dataflowId });
   }
 
   async function getDataflowCatalogue(): Promise<StatsNzDataflow[]> {
-    const path = "/dataflow/STATSNZ/all";
-    const response = await sendRequest(path, "application/xml");
+    const path = '/dataflow/STATSNZ/all';
+    const response = await sendRequest(path, 'application/xml');
     if (!response.ok) {
       throw await toApiError(response, `${baseUrl}${path}`);
     }
@@ -134,14 +120,12 @@ export function createStatsNzClient(
 
   async function getCodelist(
     codelistId: string,
-    options: { version?: string } = {},
+    options: { version?: string } = {}
   ): Promise<StatsNzCodelist> {
     const versionSegment =
-      options.version === undefined
-        ? ""
-        : `/${encodeURIComponent(options.version)}`;
+      options.version === undefined ? '' : `/${encodeURIComponent(options.version)}`;
     const path = `/codelist/STATSNZ/${encodeURIComponent(codelistId)}${versionSegment}`;
-    const response = await sendRequest(path, "application/xml");
+    const response = await sendRequest(path, 'application/xml');
     if (!response.ok) {
       throw await toApiError(response, `${baseUrl}${path}`);
     }

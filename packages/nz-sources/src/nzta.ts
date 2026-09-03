@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** One holiday journey hotspot reported by Waka Kotahi (NZTA). */
 export interface NztaHolidayHotspot {
@@ -14,20 +14,20 @@ export interface NztaHolidayHotspot {
 }
 
 const NZTA_HOTSPOT_SCHEMA = z.object({
-  type: z.literal("Feature"),
+  type: z.literal('Feature'),
   properties: z.object({
     holidayName: z.string(),
     RegionTitle: z.string(),
     Title: z.string(),
   }),
   geometry: z.object({
-    type: z.literal("Point"),
+    type: z.literal('Point'),
     coordinates: z.tuple([z.number(), z.number()]),
   }),
 });
 
 const NZTA_HOLIDAY_SCHEMA = z.object({
-  type: z.literal("FeatureCollection"),
+  type: z.literal('FeatureCollection'),
   features: z.array(NZTA_HOTSPOT_SCHEMA),
 });
 
@@ -40,12 +40,10 @@ const NZTA_RESPONSE_SCHEMA = z.record(z.string(), NZTA_HOLIDAY_SCHEMA);
  * @param payload - Raw Waka Kotahi holiday hotspots JSON.
  * @returns Holiday hotspot records with holiday, region, and coordinates.
  */
-export function parseNztaHolidayHotspots(
-  payload: unknown,
-): NztaHolidayHotspot[] {
+export function parseNztaHolidayHotspots(payload: unknown): NztaHolidayHotspot[] {
   const parsed = NZTA_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("Waka Kotahi", parsed.error.message);
+    throw new NzSourceParseError('Waka Kotahi', parsed.error.message);
   }
   const hotspots: NztaHolidayHotspot[] = [];
   for (const holiday of Object.values(parsed.data)) {
@@ -71,29 +69,25 @@ export function parseNztaHolidayHotspots(
  * @returns Holiday hotspot records with holiday, region, and coordinates.
  */
 export async function fetchNztaHolidayHotspots(
-  fetchImpl: typeof globalThis.fetch = globalThis.fetch,
+  fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<NztaHolidayHotspot[]> {
-  const response = await fetchImpl(
-    "https://www.journeys.nzta.govt.nz/api/hotspots",
-    { headers: { Accept: "application/json" } },
-  );
+  const response = await fetchImpl('https://www.journeys.nzta.govt.nz/api/hotspots', {
+    headers: { Accept: 'application/json' },
+  });
   if (!response.ok) {
-    throw new NzSourceApiError("Waka Kotahi", `HTTP ${response.status}`);
+    throw new NzSourceApiError('Waka Kotahi', `HTTP ${response.status}`);
   }
   return parseNztaHolidayHotspots(await response.json());
 }
 
 /** Waka Kotahi adapter: holiday journey hotspots, keyless. */
 export const nztaAdapter: NzDataAdapter<NztaHolidayHotspot[]> = {
-  id: "nzta",
-  name: "Waka Kotahi holiday hotspots",
-  auth: "none",
-  description:
-    "Predicted busy holiday journey hotspots from the NZTA journeys API.",
+  id: 'nzta',
+  name: 'Waka Kotahi holiday hotspots',
+  auth: 'none',
+  description: 'Predicted busy holiday journey hotspots from the NZTA journeys API.',
   fetchLive: (options) => fetchNztaHolidayHotspots(options?.fetchImpl),
   parse: parseNztaHolidayHotspots,
   loadFixture: () =>
-    parseNztaHolidayHotspots(
-      readFixtureJson("nzta-holiday-hotspots-2026-08-25.json"),
-    ),
+    parseNztaHolidayHotspots(readFixtureJson('nzta-holiday-hotspots-2026-08-25.json')),
 };

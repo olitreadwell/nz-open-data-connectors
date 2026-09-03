@@ -1,34 +1,29 @@
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import { swaggerUI } from "@hono/swagger-ui";
+import { Hono } from 'hono';
+import { cors } from 'hono/cors';
+import { swaggerUI } from '@hono/swagger-ui';
 
-import { probeNzDataSource } from "@nzlab/nz-sources";
-import { searchDigitalNzMedia } from "@nzlab/nz-sources";
-import { createStatsNzClient } from "@nzlab/stats-nz";
-import type { StatsNzClient } from "@nzlab/stats-nz";
+import { probeNzDataSource } from '@nzlab/nz-sources';
+import { searchDigitalNzMedia } from '@nzlab/nz-sources';
+import { createStatsNzClient } from '@nzlab/stats-nz';
+import type { StatsNzClient } from '@nzlab/stats-nz';
 
-import { OPEN_API_DOCUMENT } from "./openapi";
-import { createErrorTracker } from "./errorTracking";
-import {
-  createRequestLogger,
-  defaultLogWrite,
-  writeLogEvent,
-  type LogWrite,
-} from "./logger";
+import { OPEN_API_DOCUMENT } from './openapi';
+import { createErrorTracker } from './errorTracking';
+import { createRequestLogger, defaultLogWrite, writeLogEvent, type LogWrite } from './logger';
 import {
   createMetricsCounter,
   createMetricsMiddleware,
   renderPrometheusMetrics,
   type RequestMetrics,
-} from "./metrics";
+} from './metrics';
 import {
   createRateLimiter,
   DEFAULT_RATE_LIMIT_OPTIONS,
   type RateLimiterOptions,
-} from "./rateLimiter";
-import { createSourcesRoutes } from "./routes/sources";
-import { createStatsNzRoutes } from "./routes/statsNz";
-import { createDigitalNzRoutes } from "./routes/digitalNz";
+} from './rateLimiter';
+import { createSourcesRoutes } from './routes/sources';
+import { createStatsNzRoutes } from './routes/statsNz';
+import { createDigitalNzRoutes } from './routes/digitalNz';
 
 /** Options for building the connectors app. */
 export interface ConnectorsAppOptions {
@@ -58,7 +53,7 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
     createStatsNzClient(
       options.statsNzSubscriptionKey === undefined
         ? {}
-        : { subscriptionKey: options.statsNzSubscriptionKey },
+        : { subscriptionKey: options.statsNzSubscriptionKey }
     );
 
   const app = new Hono();
@@ -66,19 +61,14 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   const metrics = options.metrics ?? createMetricsCounter();
   const errorTracker = createErrorTracker(options.sentryDsn);
 
-  app.use("*", createRequestLogger(logWrite));
-  app.use("*", createMetricsMiddleware(metrics));
-  app.use("/api/*", cors({ origin: options.corsOrigin ?? "*" }));
-  app.use(
-    "/api/*",
-    createRateLimiter(options.rateLimit ?? DEFAULT_RATE_LIMIT_OPTIONS),
-  );
-  app.get("/health", (c) =>
-    c.json({ ok: true, name: "nz-open-data-connectors" }),
-  );
-  app.get("/openapi.json", (c) => c.json(OPEN_API_DOCUMENT));
-  app.get("/docs", swaggerUI({ url: "/openapi.json" }));
-  app.get("/metrics", (c) => c.text(renderPrometheusMetrics(metrics)));
+  app.use('*', createRequestLogger(logWrite));
+  app.use('*', createMetricsMiddleware(metrics));
+  app.use('/api/*', cors({ origin: options.corsOrigin ?? '*' }));
+  app.use('/api/*', createRateLimiter(options.rateLimit ?? DEFAULT_RATE_LIMIT_OPTIONS));
+  app.get('/health', (c) => c.json({ ok: true, name: 'nz-open-data-connectors' }));
+  app.get('/openapi.json', (c) => c.json(OPEN_API_DOCUMENT));
+  app.get('/docs', swaggerUI({ url: '/openapi.json' }));
+  app.get('/metrics', (c) => c.text(renderPrometheusMetrics(metrics)));
   const sourcesOptions: {
     apiKeys?: Record<string, string>;
     probeFn?: typeof probeNzDataSource;
@@ -89,8 +79,8 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   if (options.probeFn !== undefined) {
     sourcesOptions.probeFn = options.probeFn;
   }
-  app.route("/api", createSourcesRoutes(sourcesOptions));
-  app.route("/api", createStatsNzRoutes({ client }));
+  app.route('/api', createSourcesRoutes(sourcesOptions));
+  app.route('/api', createStatsNzRoutes({ client }));
   const digitalNzOptions: {
     apiKey?: string;
     searchMedia?: typeof searchDigitalNzMedia;
@@ -101,22 +91,22 @@ export function createConnectorsApp(options: ConnectorsAppOptions = {}): Hono {
   if (options.digitalNzSearchMedia !== undefined) {
     digitalNzOptions.searchMedia = options.digitalNzSearchMedia;
   }
-  app.route("/api", createDigitalNzRoutes(digitalNzOptions));
-  app.notFound((c) => c.json({ error: "not_found" }, 404));
+  app.route('/api', createDigitalNzRoutes(digitalNzOptions));
+  app.notFound((c) => c.json({ error: 'not_found' }, 404));
   app.onError((error, c) => {
     const message = error instanceof Error ? error.message : String(error);
     errorTracker.report(error, { path: c.req.path });
     writeLogEvent(
       {
         ts: new Date().toISOString(),
-        level: "error",
-        event: "unhandled_error",
+        level: 'error',
+        event: 'unhandled_error',
         path: c.req.path,
         message,
       },
-      logWrite,
+      logWrite
     );
-    return c.json({ error: "internal_error" }, 500);
+    return c.json({ error: 'internal_error' }, 500);
   });
   return app;
 }

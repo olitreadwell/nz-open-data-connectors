@@ -18,13 +18,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        if: hashFiles('pnpm-lock.yaml') != ''
       - uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
-          cache: "npm"
-      - run: npm ci
-      - name: Block on high or critical advisories
-        run: npm audit --audit-level=high
+      - name: Install dependencies and audit
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            pnpm install --frozen-lockfile
+            pnpm audit --audit-level=high
+          else
+            npm ci
+            npm audit --audit-level=high
+          fi
 
   secrets:
     name: Committed secrets scan

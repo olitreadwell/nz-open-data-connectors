@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** One earthquake reported by GeoNet (GNS Science). */
 export interface GeoNetQuake {
@@ -26,9 +26,9 @@ export interface GeoNetQuakeSummary {
 }
 
 const GEO_NET_QUAKE_SCHEMA = z.object({
-  type: z.literal("Feature"),
+  type: z.literal('Feature'),
   geometry: z.object({
-    type: z.literal("Point"),
+    type: z.literal('Point'),
     coordinates: z.tuple([z.number(), z.number()]),
   }),
   properties: z.object({
@@ -43,7 +43,7 @@ const GEO_NET_QUAKE_SCHEMA = z.object({
 });
 
 const GEO_NET_RESPONSE_SCHEMA = z.object({
-  type: z.literal("FeatureCollection"),
+  type: z.literal('FeatureCollection'),
   features: z.array(GEO_NET_QUAKE_SCHEMA),
 });
 
@@ -51,7 +51,7 @@ const GEO_NET_RESPONSE_SCHEMA = z.object({
 export function parseGeoNetQuakes(payload: unknown): GeoNetQuake[] {
   const parsed = GEO_NET_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("GeoNet", parsed.error.message);
+    throw new NzSourceParseError('GeoNet', parsed.error.message);
   }
   return parsed.data.features.map((feature) => ({
     publicId: feature.properties.publicID,
@@ -67,30 +67,26 @@ export function parseGeoNetQuakes(payload: unknown): GeoNetQuake[] {
 }
 
 /** Summarizes quakes: count, strongest, shallowest, and magnitude bands. */
-export function summarizeGeoNetQuakes(
-  quakes: GeoNetQuake[],
-): GeoNetQuakeSummary {
+export function summarizeGeoNetQuakes(quakes: GeoNetQuake[]): GeoNetQuakeSummary {
   const majorMagnitude = 5;
   const moderateMagnitude = 4;
   const byMagnitudeBand: Record<string, number> = {};
   for (const quake of quakes) {
     const band =
       quake.magnitude >= majorMagnitude
-        ? "5+"
+        ? '5+'
         : quake.magnitude >= moderateMagnitude
-          ? "4-5"
-          : "3-4";
+          ? '4-5'
+          : '3-4';
     byMagnitudeBand[band] = (byMagnitudeBand[band] ?? 0) + 1;
   }
   const strongest = quakes.reduce<GeoNetQuake | undefined>(
-    (best, quake) =>
-      best === undefined || quake.magnitude > best.magnitude ? quake : best,
-    undefined,
+    (best, quake) => (best === undefined || quake.magnitude > best.magnitude ? quake : best),
+    undefined
   );
   const shallowest = quakes.reduce<GeoNetQuake | undefined>(
-    (best, quake) =>
-      best === undefined || quake.depthKm < best.depthKm ? quake : best,
-    undefined,
+    (best, quake) => (best === undefined || quake.depthKm < best.depthKm ? quake : best),
+    undefined
   );
   return { total: quakes.length, strongest, shallowest, byMagnitudeBand };
 }
@@ -101,25 +97,22 @@ export function summarizeGeoNetQuakes(
  */
 export async function fetchGeoNetFeltQuakes(
   minMmi = 3,
-  fetchImpl: typeof globalThis.fetch = globalThis.fetch,
+  fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<GeoNetQuake[]> {
-  const response = await fetchImpl(
-    `https://api.geonet.org.nz/quake?MMI=${minMmi}`,
-  );
+  const response = await fetchImpl(`https://api.geonet.org.nz/quake?MMI=${minMmi}`);
   if (!response.ok) {
-    throw new NzSourceApiError("GeoNet", `HTTP ${response.status}`);
+    throw new NzSourceApiError('GeoNet', `HTTP ${response.status}`);
   }
   return parseGeoNetQuakes(await response.json());
 }
 
 /** GeoNet adapter: recent felt quakes, keyless. */
 export const geonetAdapter: NzDataAdapter<GeoNetQuake[]> = {
-  id: "geonet",
-  name: "GeoNet (GNS Science)",
-  auth: "none",
-  description: "Recent felt earthquakes (MMI >= 3) as GeoJSON.",
+  id: 'geonet',
+  name: 'GeoNet (GNS Science)',
+  auth: 'none',
+  description: 'Recent felt earthquakes (MMI >= 3) as GeoJSON.',
   fetchLive: (options) => fetchGeoNetFeltQuakes(3, options?.fetchImpl),
   parse: parseGeoNetQuakes,
-  loadFixture: () =>
-    parseGeoNetQuakes(readFixtureJson("geonet-quakes-mmi3.json")),
+  loadFixture: () => parseGeoNetQuakes(readFixtureJson('geonet-quakes-mmi3.json')),
 };

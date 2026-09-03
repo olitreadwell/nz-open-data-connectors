@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** One river quality monitoring site reported by LAWA. */
 export interface LawaRiverQualitySite {
@@ -39,12 +39,10 @@ const LAWA_RESPONSE_SCHEMA = z.array(LAWA_SITE_SCHEMA);
  * @param payload - Raw LAWA river quality sites JSON.
  * @returns Monitoring site records, excluding region boundary rows.
  */
-export function parseLawaRiverQualitySites(
-  payload: unknown,
-): LawaRiverQualitySite[] {
+export function parseLawaRiverQualitySites(payload: unknown): LawaRiverQualitySite[] {
   const parsed = LAWA_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("LAWA", parsed.error.message);
+    throw new NzSourceParseError('LAWA', parsed.error.message);
   }
   return parsed.data
     .filter((site) => !site.IsBackground)
@@ -69,28 +67,25 @@ export function parseLawaRiverQualitySites(
  * @returns Monitoring site records, excluding region boundary rows.
  */
 export async function fetchLawaRiverQualitySites(
-  fetchImpl: typeof globalThis.fetch = globalThis.fetch,
+  fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<LawaRiverQualitySite[]> {
   const response = await fetchImpl(
-    "https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites",
+    'https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites'
   );
   if (!response.ok) {
-    throw new NzSourceApiError("LAWA", `HTTP ${response.status}`);
+    throw new NzSourceApiError('LAWA', `HTTP ${response.status}`);
   }
   return parseLawaRiverQualitySites(await response.json());
 }
 
 /** LAWA adapter: river quality monitoring sites, keyless. */
 export const lawaAdapter: NzDataAdapter<LawaRiverQualitySite[]> = {
-  id: "lawa",
-  name: "LAWA river quality sites",
-  auth: "none",
-  description:
-    "River quality monitoring sites from Land, Air, Water Aotearoa (LAWA).",
+  id: 'lawa',
+  name: 'LAWA river quality sites',
+  auth: 'none',
+  description: 'River quality monitoring sites from Land, Air, Water Aotearoa (LAWA).',
   fetchLive: (options) => fetchLawaRiverQualitySites(options?.fetchImpl),
   parse: parseLawaRiverQualitySites,
   loadFixture: () =>
-    parseLawaRiverQualitySites(
-      readFixtureJson("lawa-river-quality-sites-2026-08-25.json"),
-    ),
+    parseLawaRiverQualitySites(readFixtureJson('lawa-river-quality-sites-2026-08-25.json')),
 };

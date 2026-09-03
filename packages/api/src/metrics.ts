@@ -1,5 +1,5 @@
-import { routePath } from "hono/route";
-import type { MiddlewareHandler } from "hono";
+import { routePath } from 'hono/route';
+import type { MiddlewareHandler } from 'hono';
 
 /** Counts HTTP requests per method and route pattern. */
 export interface RequestMetrics {
@@ -27,25 +27,21 @@ export function createMetricsCounter(): RequestMetrics {
 
 /** Renders request counts as Prometheus text format, sorted by route. */
 export function renderPrometheusMetrics(metrics: RequestMetrics): string {
-  const entries = [...metrics.snapshot().entries()].sort((a, b) =>
-    a[0].localeCompare(b[0]),
-  );
+  const entries = [...metrics.snapshot().entries()].sort((a, b) => a[0].localeCompare(b[0]));
   if (entries.length === 0) {
-    return "";
+    return '';
   }
   const lines = entries.map(([key, count]) => {
-    const separatorIndex = key.indexOf(" ");
+    const separatorIndex = key.indexOf(' ');
     const method = key.slice(0, separatorIndex);
     const route = key.slice(separatorIndex + 1);
     return `nzdata_http_requests_total{method="${method}",route="${route}"} ${count}`;
   });
-  return `${lines.join("\n")}\n`;
+  return `${lines.join('\n')}\n`;
 }
 
 /** Counts every request that passes through the app. */
-export function createMetricsMiddleware(
-  metrics: RequestMetrics,
-): MiddlewareHandler {
+export function createMetricsMiddleware(metrics: RequestMetrics): MiddlewareHandler {
   return async (c, next) => {
     await next();
     metrics.increment(c.req.method, routePath(c, -1));

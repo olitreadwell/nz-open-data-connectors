@@ -1,5 +1,5 @@
-import { getConnInfo } from "@hono/node-server/conninfo";
-import type { Context, MiddlewareHandler } from "hono";
+import { getConnInfo } from '@hono/node-server/conninfo';
+import type { Context, MiddlewareHandler } from 'hono';
 
 /**
  * Options for the in-memory per-IP rate limiter.
@@ -38,22 +38,22 @@ interface RateLimitWindow {
  * @returns The client IP string.
  */
 export function resolveClientIp(c: Context): string {
-  const forwardedFor = c.req.header("x-forwarded-for");
+  const forwardedFor = c.req.header('x-forwarded-for');
   if (forwardedFor !== undefined) {
-    const firstIp = forwardedFor.split(",")[0]?.trim();
-    if (firstIp !== undefined && firstIp !== "") {
+    const firstIp = forwardedFor.split(',')[0]?.trim();
+    if (firstIp !== undefined && firstIp !== '') {
       return firstIp;
     }
   }
   try {
     const address = getConnInfo(c).remote.address;
-    if (address !== undefined && address !== "") {
+    if (address !== undefined && address !== '') {
       return address;
     }
   } catch {
     // No socket information (for example in-process app.request() tests).
   }
-  return "unknown";
+  return 'unknown';
 }
 
 /**
@@ -67,18 +67,13 @@ export function resolveClientIp(c: Context): string {
  * @returns Middleware that answers 429 with a Retry-After header when a
  *   client exceeds the budget.
  */
-export function createRateLimiter(
-  options: RateLimiterOptions,
-): MiddlewareHandler {
+export function createRateLimiter(options: RateLimiterOptions): MiddlewareHandler {
   const windows = new Map<string, RateLimitWindow>();
   return async (c, next) => {
     const clientIp = resolveClientIp(c);
     const nowMs = Date.now();
     const window = windows.get(clientIp);
-    if (
-      window === undefined ||
-      nowMs - window.startedAtMs >= options.windowMs
-    ) {
+    if (window === undefined || nowMs - window.startedAtMs >= options.windowMs) {
       if (window === undefined) {
         purgeExpiredWindows(windows, options.windowMs, nowMs);
       }
@@ -87,8 +82,8 @@ export function createRateLimiter(
       return;
     }
     if (window.count >= options.maxRequests) {
-      c.header("Retry-After", String(Math.ceil(options.windowMs / 1000)));
-      return c.json({ error: "rate_limited" }, 429);
+      c.header('Retry-After', String(Math.ceil(options.windowMs / 1000)));
+      return c.json({ error: 'rate_limited' }, 429);
     }
     window.count += 1;
     await next();
@@ -106,7 +101,7 @@ export function createRateLimiter(
 function purgeExpiredWindows(
   windows: Map<string, RateLimitWindow>,
   windowMs: number,
-  nowMs: number,
+  nowMs: number
 ): void {
   for (const [ip, window] of windows) {
     if (nowMs - window.startedAtMs >= windowMs) {

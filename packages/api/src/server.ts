@@ -1,8 +1,8 @@
-import { serve } from "@hono/node-server";
+import { serve } from '@hono/node-server';
 
-import { createConnectorsApp } from "./index";
-import type { ConnectorsAppOptions } from "./index";
-import { DEFAULT_RATE_LIMIT_OPTIONS } from "./rateLimiter";
+import { createConnectorsApp } from './index';
+import type { ConnectorsAppOptions } from './index';
+import { DEFAULT_RATE_LIMIT_OPTIONS } from './rateLimiter';
 
 /**
  * Parses an optional positive integer env var, falling back to the default.
@@ -11,10 +11,7 @@ import { DEFAULT_RATE_LIMIT_OPTIONS } from "./rateLimiter";
  * @param fallback - Value used when unset or invalid.
  * @returns A positive integer.
  */
-function parsePositiveIntEnv(
-  value: string | undefined,
-  fallback: number,
-): number {
+function parsePositiveIntEnv(value: string | undefined, fallback: number): number {
   if (value === undefined) {
     return fallback;
   }
@@ -50,18 +47,16 @@ if (Object.keys(apiKeys).length > 0) {
 options.rateLimit = {
   maxRequests: parsePositiveIntEnv(
     process.env.RATE_LIMIT_MAX,
-    DEFAULT_RATE_LIMIT_OPTIONS.maxRequests,
+    DEFAULT_RATE_LIMIT_OPTIONS.maxRequests
   ),
   windowMs: parsePositiveIntEnv(
     process.env.RATE_LIMIT_WINDOW_MS,
-    DEFAULT_RATE_LIMIT_OPTIONS.windowMs,
+    DEFAULT_RATE_LIMIT_OPTIONS.windowMs
   ),
 };
 
 const app = createConnectorsApp(options);
 
 serve({ fetch: app.fetch, port }, (info) => {
-  process.stdout.write(
-    `NZ open data connectors listening on http://localhost:${info.port}\n`,
-  );
+  process.stdout.write(`NZ open data connectors listening on http://localhost:${info.port}\n`);
 });

@@ -1,12 +1,12 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest';
 
-import { probeAllNzDataSources } from "./registry.js";
+import { probeAllNzDataSources } from './registry.js';
 
-const RUN_SMOKE = process.env.RUN_SMOKE === "1";
+const RUN_SMOKE = process.env.RUN_SMOKE === '1';
 
 /** Maps an env var to the adapter id that accepts it as an optional key. */
 const OPTIONAL_KEY_SOURCE_ENV: Record<string, string> = {
-  LINZ_API_KEY: "linz",
+  LINZ_API_KEY: 'linz',
 };
 
 /**
@@ -14,18 +14,14 @@ const OPTIONAL_KEY_SOURCE_ENV: Record<string, string> = {
  * non-NZ IPs at the CDN (GitHub Actions runners get an HTML error page), so
  * it is verified by the committed fixture instead.
  */
-const GEO_BLOCKED_SOURCE_IDS = new Set([
-  "data-govt-nz",
-  "data-govt-datastore",
-  "lawa",
-]);
+const GEO_BLOCKED_SOURCE_IDS = new Set(['data-govt-nz', 'data-govt-datastore', 'lawa']);
 
-describe.skipIf(!RUN_SMOKE)("live access smoke test", () => {
-  it("reaches every keyless source and verifies optional-key sources with keys", async () => {
+describe.skipIf(!RUN_SMOKE)('live access smoke test', () => {
+  it('reaches every keyless source and verifies optional-key sources with keys', async () => {
     const apiKeys = Object.fromEntries(
       Object.entries(OPTIONAL_KEY_SOURCE_ENV)
         .filter(([envName]) => process.env[envName] !== undefined)
-        .map(([envName, sourceId]) => [sourceId, process.env[envName] ?? ""]),
+        .map(([envName, sourceId]) => [sourceId, process.env[envName] ?? ''])
     );
     const probes = await probeAllNzDataSources({
       ...(Object.keys(apiKeys).length > 0 ? { apiKeys } : {}),

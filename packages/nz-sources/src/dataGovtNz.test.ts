@@ -1,19 +1,16 @@
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { describe, expect, it } from "vitest";
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import { describe, expect, it } from 'vitest';
 
-import { parseDataGovtNzDatasets } from "./dataGovtNz.js";
-import { NzSourceParseError } from "./errors.js";
+import { parseDataGovtNzDatasets } from './dataGovtNz.js';
+import { NzSourceParseError } from './errors.js';
 
 const FIXTURE = JSON.parse(
-  readFileSync(
-    path.join(process.cwd(), "src/fixtures/data-govt-nz-search-sheep.json"),
-    "utf8",
-  ),
+  readFileSync(path.join(process.cwd(), 'src/fixtures/data-govt-nz-search-sheep.json'), 'utf8')
 ) as unknown;
 
-describe("parseDataGovtNzDatasets", () => {
-  it("parses the data.govt.nz CKAN fixture into datasets", () => {
+describe('parseDataGovtNzDatasets', () => {
+  it('parses the data.govt.nz CKAN fixture into datasets', () => {
     const result = parseDataGovtNzDatasets(FIXTURE);
     expect(result.count).toBe(31);
     expect(result.datasets.length).toBeGreaterThan(0);
@@ -22,9 +19,7 @@ describe("parseDataGovtNzDatasets", () => {
     expect(first?.name?.length).toBeGreaterThan(0);
   });
 
-  it("rejects a failed CKAN response", () => {
-    expect(() => parseDataGovtNzDatasets({ success: false })).toThrow(
-      NzSourceParseError,
-    );
+  it('rejects a failed CKAN response', () => {
+    expect(() => parseDataGovtNzDatasets({ success: false })).toThrow(NzSourceParseError);
   });
 });

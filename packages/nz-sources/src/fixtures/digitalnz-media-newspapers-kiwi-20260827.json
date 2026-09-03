@@ -60,9 +60,7 @@
         "syndication_date": "2014-06-10T14:09:13.630+12:00",
         "published_date": ["1910-02-16T12:00:00Z"],
         "landing_url": "https://paperspast.natlib.govt.nz/newspapers/TT19100216.2.25.5",
-        "rights_url": [
-          "http://paperspast.natlib.govt.nz/cgi-bin/paperspast?a=d\u0026cl=CL1.TT"
-        ],
+        "rights_url": ["http://paperspast.natlib.govt.nz/cgi-bin/paperspast?a=d\u0026cl=CL1.TT"],
         "origin_url": null,
         "metadata_url": null,
         "object_url": null,
@@ -126,9 +124,7 @@
         "syndication_date": "2014-06-10T14:09:36.043+12:00",
         "published_date": ["1910-02-19T12:00:00Z"],
         "landing_url": "https://paperspast.natlib.govt.nz/newspapers/TT19100219.2.21.4",
-        "rights_url": [
-          "http://paperspast.natlib.govt.nz/cgi-bin/paperspast?a=d\u0026cl=CL1.TT"
-        ],
+        "rights_url": ["http://paperspast.natlib.govt.nz/cgi-bin/paperspast?a=d\u0026cl=CL1.TT"],
         "origin_url": null,
         "metadata_url": null,
         "object_url": null,

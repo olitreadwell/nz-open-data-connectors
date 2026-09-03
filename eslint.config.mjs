@@ -1,22 +1,34 @@
-import apiConfig from './packages/api/eslint.config.mjs';
-import cliConfig from './packages/cli/eslint.config.mjs';
-import nzSourcesConfig from './packages/nz-sources/eslint.config.mjs';
-import statsNzConfig from './packages/stats-nz/eslint.config.mjs';
+// Root ESLint config: aggregates each package's flat config so a single
+// `eslint .` from the repo root works (used by the lint-review CI job).
+import api from './packages/api/eslint.config.mjs';
+import cli from './packages/cli/eslint.config.mjs';
+import nzSources from './packages/nz-sources/eslint.config.mjs';
+import statsNz from './packages/stats-nz/eslint.config.mjs';
+
+const packageConfigs = {
+  'packages/api': api,
+  'packages/cli': cli,
+  'packages/nz-sources': nzSources,
+  'packages/stats-nz': statsNz,
+};
 
 export default [
-  ...apiConfig,
-  ...cliConfig,
-  ...nzSourcesConfig,
-  ...statsNzConfig,
   {
     ignores: [
-      'node_modules/',
-      '**/coverage/',
-      'dist/',
-      '**/*.tsbuildinfo',
-      '**/eslint.config.mjs',
-      'packages/config-eslint/**',
-      'packages/config-typescript/**',
+      '**/node_modules/**',
+      '**/dist/**',
+      '**/coverage/**',
+      '**/.next/**',
+      '**/playwright-report/**',
+      '**/test-results/**',
     ],
   },
+  ...Object.entries(packageConfigs).flatMap(([dir, configs]) =>
+    configs.map((entry) => ({
+      ...entry,
+      files: entry.files
+        ? entry.files.map((pattern) => `${dir}/${pattern}`)
+        : [`${dir}/**/*.{ts,tsx}`],
+    })),
+  ),
 ];

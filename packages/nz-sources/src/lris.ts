@@ -1,8 +1,8 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from "./errors.js";
-import { readFixtureJson } from "./fixtures.js";
-import type { NzDataAdapter } from "./types.js";
+import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { readFixtureJson } from './fixtures.js';
+import type { NzDataAdapter } from './types.js';
 
 /** One layer in the LRIS (Landcare Research) catalogue. */
 export interface LrisLayer {
@@ -16,7 +16,7 @@ const LRIS_LAYER_SCHEMA = z.object({
   id: z.number(),
   title: z.string(),
   url: z.string(),
-  public_access: z.string().optional().default(""),
+  public_access: z.string().optional().default(''),
 });
 
 const LRIS_SEARCH_RESPONSE_SCHEMA = z.array(LRIS_LAYER_SCHEMA);
@@ -30,7 +30,7 @@ const LRIS_SEARCH_RESPONSE_SCHEMA = z.array(LRIS_LAYER_SCHEMA);
 export function parseLrisLayers(payload: unknown): LrisLayer[] {
   const parsed = LRIS_SEARCH_RESPONSE_SCHEMA.safeParse(payload);
   if (!parsed.success) {
-    throw new NzSourceParseError("LRIS", parsed.error.message);
+    throw new NzSourceParseError('LRIS', parsed.error.message);
   }
   return parsed.data.map((layer) => ({
     id: layer.id,
@@ -50,25 +50,23 @@ export function parseLrisLayers(payload: unknown): LrisLayer[] {
  */
 export async function searchLrisLayers(
   query: string,
-  fetchImpl: typeof globalThis.fetch = globalThis.fetch,
+  fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<LrisLayer[]> {
   const url = `https://lris.scinfo.org.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
   const response = await fetchImpl(url);
   if (!response.ok) {
-    throw new NzSourceApiError("LRIS", `HTTP ${response.status}`);
+    throw new NzSourceApiError('LRIS', `HTTP ${response.status}`);
   }
   return parseLrisLayers(await response.json());
 }
 
 /** LRIS adapter: Landcare Research layer search, keyless. */
 export const lrisAdapter: NzDataAdapter<LrisLayer[]> = {
-  id: "lris",
-  name: "LRIS (Landcare Research) catalogue",
-  auth: "none",
-  description:
-    "Searches Landcare Research layers (soil, land cover, ecosystems).",
-  fetchLive: (options) => searchLrisLayers("soil", options?.fetchImpl),
+  id: 'lris',
+  name: 'LRIS (Landcare Research) catalogue',
+  auth: 'none',
+  description: 'Searches Landcare Research layers (soil, land cover, ecosystems).',
+  fetchLive: (options) => searchLrisLayers('soil', options?.fetchImpl),
   parse: parseLrisLayers,
-  loadFixture: () =>
-    parseLrisLayers(readFixtureJson("lris-layer-search-soil-2026-08-25.json")),
+  loadFixture: () => parseLrisLayers(readFixtureJson('lris-layer-search-soil-2026-08-25.json')),
 };

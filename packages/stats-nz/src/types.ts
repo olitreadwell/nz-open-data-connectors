@@ -15,7 +15,7 @@ export interface StatsNzObservation {
 }
 
 /** Wire format for a Stats NZ data pull. */
-export type StatsNzDataFormat = "csv" | "csvfilewithlabels" | "jsondata";
+export type StatsNzDataFormat = 'csv' | 'csvfilewithlabels' | 'jsondata';
 
 /** One code-to-label pair inside a codelist. */
 export interface StatsNzCodelistItem {
@@ -51,8 +51,5 @@ export interface StatsNzClientOptions {
 export interface StatsNzClient {
   getDataflowCatalogue(): Promise<StatsNzDataflow[]>;
   getData(request: StatsNzGetDataRequest): Promise<StatsNzObservation[]>;
-  getCodelist(
-    codelistId: string,
-    options?: { version?: string },
-  ): Promise<StatsNzCodelist>;
+  getCodelist(codelistId: string, options?: { version?: string }): Promise<StatsNzCodelist>;
 }

@@ -1,7 +1,7 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it } from 'vitest';
 
-import { createConnectorsApp } from "./index";
-import { OPEN_API_DOCUMENT } from "./openapi";
+import { createConnectorsApp } from './index';
+import { OPEN_API_DOCUMENT } from './openapi';
 
 type DocumentedPath = keyof typeof OPEN_API_DOCUMENT.paths;
 
@@ -11,12 +11,10 @@ type DocumentedPath = keyof typeof OPEN_API_DOCUMENT.paths;
  * @param app - The built connectors app.
  * @returns Sorted route paths with ":id" params converted to "{id}".
  */
-function registeredPaths(
-  app: ReturnType<typeof createConnectorsApp>,
-): string[] {
+function registeredPaths(app: ReturnType<typeof createConnectorsApp>): string[] {
   return [...new Set(app.routes.map((route) => route.path))]
-    .filter((path) => path !== "/api/*" && path !== "/*")
-    .map((path) => path.replaceAll(":id", "{id}"))
+    .filter((path) => path !== '/api/*' && path !== '/*')
+    .map((path) => path.replaceAll(':id', '{id}'))
     .sort();
 }
 
@@ -30,51 +28,46 @@ function documentedResponses(path: DocumentedPath): Record<string, unknown> {
   return OPEN_API_DOCUMENT.paths[path].get.responses;
 }
 
-describe("OpenAPI contract", () => {
-  it("registers every app route in the OpenAPI document", () => {
+describe('OpenAPI contract', () => {
+  it('registers every app route in the OpenAPI document', () => {
     const app = createConnectorsApp({});
     const documented = new Set(Object.keys(OPEN_API_DOCUMENT.paths));
 
     for (const path of registeredPaths(app)) {
-      expect(documented.has(path), `missing documented path ${path}`).toBe(
-        true,
-      );
+      expect(documented.has(path), `missing documented path ${path}`).toBe(true);
     }
   });
 
-  it("registers every documented path in the app", () => {
+  it('registers every documented path in the app', () => {
     const app = createConnectorsApp({});
     const registered = new Set(registeredPaths(app));
 
     for (const path of Object.keys(OPEN_API_DOCUMENT.paths)) {
-      expect(registered.has(path), `missing registered route ${path}`).toBe(
-        true,
+      expect(registered.has(path), `missing registered route ${path}`).toBe(true);
+    }
+  });
+
+  it('documents the rate limit response on every /api path', () => {
+    const apiPaths = (Object.keys(OPEN_API_DOCUMENT.paths) as DocumentedPath[]).filter((path) =>
+      path.startsWith('/api/')
+    );
+
+    for (const path of apiPaths) {
+      expect(Object.keys(documentedResponses(path)), `missing 429 response for ${path}`).toContain(
+        '429'
       );
     }
   });
 
-  it("documents the rate limit response on every /api path", () => {
-    const apiPaths = (
-      Object.keys(OPEN_API_DOCUMENT.paths) as DocumentedPath[]
-    ).filter((path) => path.startsWith("/api/"));
-
-    for (const path of apiPaths) {
-      expect(
-        Object.keys(documentedResponses(path)),
-        `missing 429 response for ${path}`,
-      ).toContain("429");
-    }
-  });
-
-  it("documents error responses for routes that can fail", () => {
-    expect(Object.keys(documentedResponses("/api/sources/{id}/probe"))).toEqual(
-      expect.arrayContaining(["200", "400", "404", "429"]),
+  it('documents error responses for routes that can fail', () => {
+    expect(Object.keys(documentedResponses('/api/sources/{id}/probe'))).toEqual(
+      expect.arrayContaining(['200', '400', '404', '429'])
     );
-    expect(Object.keys(documentedResponses("/api/stats-nz/data"))).toEqual(
-      expect.arrayContaining(["200", "400", "429"]),
+    expect(Object.keys(documentedResponses('/api/stats-nz/data'))).toEqual(
+      expect.arrayContaining(['200', '400', '429'])
     );
-    expect(Object.keys(documentedResponses("/api/stats-nz/codelist"))).toEqual(
-      expect.arrayContaining(["200", "400", "401", "429"]),
+    expect(Object.keys(documentedResponses('/api/stats-nz/codelist'))).toEqual(
+      expect.arrayContaining(['200', '400', '401', '429'])
     );
   });
 });

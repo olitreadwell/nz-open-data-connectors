@@ -57,10 +57,7 @@
         "modified": 1787319332000,
         "avgRating": 0,
         "id": "af300c4cc33b4dff8218394a1eeefe50",
-        "categories": [
-          "/Categories/Community and Social",
-          "/Categories/Open Data"
-        ],
+        "categories": ["/Categories/Community and Social", "/Categories/Open Data"],
         "spatialReference": "2193",
         "numRatings": 0,
         "owner": "OpenDataUser",
@@ -175,16 +172,7 @@
         "banner": null,
         "classification": null,
         "url": "https://services1.arcgis.com/n4yPwebTjJCmXB6W/arcgis/rest/services/Park_Extents/FeatureServer",
-        "tags": [
-          "Park",
-          "Reserve",
-          "Open",
-          "Space",
-          "Sports",
-          "Civic",
-          "Space",
-          "parks"
-        ],
+        "tags": ["Park", "Reserve", "Open", "Space", "Sports", "Civic", "Space", "parks"],
         "numViews": 70031,
         "numComments": 0,
         "size": 14753792,
@@ -983,12 +971,7 @@
         "banner": null,
         "classification": null,
         "url": null,
-        "tags": [
-          "Impervious Surfaces",
-          "Buildings",
-          "Roads",
-          "Machine Learning"
-        ],
+        "tags": ["Impervious Surfaces", "Buildings", "Roads", "Machine Learning"],
         "numViews": 367,
         "numComments": 0,
         "size": 529982083,
