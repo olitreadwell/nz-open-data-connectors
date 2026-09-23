@@ -1,7 +1,7 @@
 # nzdata (Ruby)
 
 Keyless-first connectors for NZ public data, ported from the TypeScript
-`@nzlab/nz-sources` and `@nzlab/stats-nz` packages. One runtime dependency:
+`@open-data-connectors/nz-sources` and `@open-data-connectors/stats-nz` packages. One runtime dependency:
 `rexml` (bundled with Ruby).
 
 ## Install

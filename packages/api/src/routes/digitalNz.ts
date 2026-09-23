@@ -2,8 +2,8 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 
-import { DIGITAL_NZ_MEDIA_TYPES, searchDigitalNzMedia } from '@nzlab/nz-sources';
-import type { DigitalNzMediaType } from '@nzlab/nz-sources';
+import { DIGITAL_NZ_MEDIA_TYPES, searchDigitalNzMedia } from '@open-data-connectors/nz-sources';
+import type { DigitalNzMediaType } from '@open-data-connectors/nz-sources';
 
 const mediaQuerySchema = z.object({
   q: z.string().min(1),

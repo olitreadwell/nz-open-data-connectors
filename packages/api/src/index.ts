@@ -2,10 +2,10 @@ import { Hono } from 'hono';
 import { cors } from 'hono/cors';
 import { swaggerUI } from '@hono/swagger-ui';
 
-import { probeNzDataSource } from '@nzlab/nz-sources';
-import { searchDigitalNzMedia } from '@nzlab/nz-sources';
-import { createStatsNzClient } from '@nzlab/stats-nz';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import { probeNzDataSource } from '@open-data-connectors/nz-sources';
+import { searchDigitalNzMedia } from '@open-data-connectors/nz-sources';
+import { createStatsNzClient } from '@open-data-connectors/stats-nz';
+import type { StatsNzClient } from '@open-data-connectors/stats-nz';
 
 import { OPEN_API_DOCUMENT } from './openapi';
 import { createErrorTracker } from './errorTracking';

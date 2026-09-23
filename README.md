@@ -8,16 +8,16 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| `@nzlab/nz-sources` | Uniform adapters for 8 NZ data sources (GeoNet, data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSB benefits datastore) with live probes and offline fixtures |
-| `@nzlab/stats-nz` | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
-| `@nzlab/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
-| `@nzlab/connectors-cli` | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
+| `@open-data-connectors/nz-sources` | Uniform adapters for 8 NZ data sources (GeoNet, data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSB benefits datastore) with live probes and offline fixtures |
+| `@open-data-connectors/stats-nz` | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
+| `@open-data-connectors/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
+| `@open-data-connectors/connectors-cli` | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
 | `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
 | `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
 
 ## Connectors
 
-Thirteen source adapters, all in `@nzlab/nz-sources`. Every one works
+Thirteen source adapters, all in `@open-data-connectors/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
@@ -154,8 +154,8 @@ npm run check
 ```
 
 ```ts
-import { probeAllNzDataSources } from '@nzlab/nz-sources';
-import { createStatsNzClient } from '@nzlab/stats-nz';
+import { probeAllNzDataSources } from '@open-data-connectors/nz-sources';
+import { createStatsNzClient } from '@open-data-connectors/stats-nz';
 
 const probes = await probeAllNzDataSources({});
 console.log(probes.map((p) => `${p.id}: ${p.ok ? 'ok' : p.status}`).join('\n'));

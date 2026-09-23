@@ -1,4 +1,4 @@
-# @nzlab/stats-nz
+# @open-data-connectors/stats-nz
 
 Shared client for the [Aotearoa Data Explorer (ADE) API](https://www.stats.govt.nz/tools/aotearoa-data-explorer/ade-api-user-guide/) - the current Stats NZ data API (the old `api.stats.govt.nz` open data API closed 30 August 2024). SDMX 2.1 REST, base URL `https://api.data.stats.govt.nz/rest/`.
 
@@ -7,7 +7,7 @@ Server-side only (SDMX responses can be large; never call this from the browser)
 ## Quick start
 
 ```ts
-import { createStatsNzClient } from '@nzlab/stats-nz';
+import { createStatsNzClient } from '@open-data-connectors/stats-nz';
 
 const client = createStatsNzClient({
   subscriptionKey: process.env.STATS_NZ_SUBSCRIPTION_KEY, // optional, see below
@@ -55,8 +55,8 @@ All failures throw `StatsNzError` subclasses: `StatsNzApiError` (HTTP status, `r
 ## Tests
 
 ```sh
-npm run test -w @nzlab/stats-nz        # unit + integration (local stub server) + perf + security
-RUN_SMOKE=1 npm run test:smoke -w @nzlab/stats-nz   # live smoke tests against api.data.stats.govt.nz
+npm run test -w @open-data-connectors/stats-nz        # unit + integration (local stub server) + perf + security
+RUN_SMOKE=1 npm run test:smoke -w @open-data-connectors/stats-nz   # live smoke tests against api.data.stats.govt.nz
 ```
 
 Fixtures in `src/fixtures/` are real snapshots pulled from the ADE API (`format=csv` and the dataflow catalogue), dated in their filenames. The smoke tests are skipped by default and must be run explicitly.

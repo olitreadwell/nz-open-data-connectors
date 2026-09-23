@@ -1,5 +1,5 @@
 {
-  "name": "@nzlab/stats-nz",
+  "name": "@open-data-connectors/stats-nz",
   "version": "0.1.0",
   "private": false,
   "type": "module",
@@ -26,11 +26,11 @@
     "test:watch": "vitest --watch",
     "clean": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage",
     "clean:all": "rm -rf dist tsconfig.tsbuildinfo tsconfig.build.tsbuildinfo coverage node_modules",
-    "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts"
+    "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts --testTimeout=30000"
   },
   "devDependencies": {
-    "@nzlab/config-eslint": "*",
-    "@nzlab/config-typescript": "*",
+    "@open-data-connectors/config-eslint": "*",
+    "@open-data-connectors/config-typescript": "*",
     "@types/node": "22.20.1",
     "eslint": "9.39.5",
     "typescript": "6.0.3",

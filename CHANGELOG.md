@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+- npm packages moved off the NZ-specific scope and onto
+  `@open-data-connectors/*`, in every package name, import, tsconfig, eslint
+  config, and lockfile entry. The root `build`, `dev`, and `start` scripts now
+  target this repo's own workspaces, and the broken root `typecheck` script
+  (bare `tsc --noEmit`, which printed help and exited 1) is gone. Use
+  `npm run type-check`.
+- Live smoke suites carry an explicit 30s per-test budget. Vitest's 5000ms
+  default expired on the New Zealand network (the keyless sweep takes about
+  7s, the Stats NZ catalogue about 3.6s) even when every source answered.
 - DigitalNZ media search: `nzdata media --query <q> --type <type>` and
   `GET /api/digitalnz/media?q=<q>&type=<type>` for images, newspapers,
   videos, audio, literature, and artwork, with preview image URLs. Mirrored
