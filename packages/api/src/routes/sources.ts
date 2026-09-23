@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 
-import { NZ_DATA_SOURCES, probeNzDataSource } from '@nzlab/nz-sources';
+import { NZ_DATA_SOURCES, probeNzDataSource } from '@open-data-connectors/nz-sources';
 
 const probeParamSchema = z.object({
   id: z

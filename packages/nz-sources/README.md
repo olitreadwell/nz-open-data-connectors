@@ -1,4 +1,4 @@
-# @nzlab/nz-sources
+# @open-data-connectors/nz-sources
 
 Uniform TypeScript adapters for NZ public data sources. Every adapter has the same shape: a live fetch, a strict parse, and a committed fixture fallback so builds work offline.
 
@@ -18,7 +18,7 @@ Uniform TypeScript adapters for NZ public data sources. Every adapter has the sa
 ## Quick start
 
 ```ts
-import { NZ_DATA_SOURCES, probeAllNzDataSources } from '@nzlab/nz-sources';
+import { NZ_DATA_SOURCES, probeAllNzDataSources } from '@open-data-connectors/nz-sources';
 
 // List every source.
 for (const source of NZ_DATA_SOURCES) {
@@ -41,8 +41,8 @@ All adapters work keyless. `linz` and `digitalnz` accept an optional key for hig
 ## Tests
 
 ```sh
-npm run test -w @nzlab/nz-sources        # unit tests, fixtures only, no network
-RUN_SMOKE=1 npm run test:smoke -w @nzlab/nz-sources   # live probes against the real APIs
+npm run test -w @open-data-connectors/nz-sources        # unit tests, fixtures only, no network
+RUN_SMOKE=1 npm run test:smoke -w @open-data-connectors/nz-sources   # live probes against the real APIs
 ```
 
 Fixtures in `src/fixtures/` are real snapshots from the live APIs. Smoke tests are skipped by default and must be run explicitly.

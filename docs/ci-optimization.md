@@ -10,7 +10,7 @@ snippets here are the GitHub Actions form used by this repo.
    and `quality.yml` skip pushes that touch only `docs/**` and markdown.
    The PR is the quality gate, so nothing is lost.
 2. **Fail-fast ordering** — the `check` job runs cheap gates first
-   (format → lint → typecheck), then coverage → build → smoke; `e2e`
+   (format → lint → type-check), then coverage → build → smoke; `e2e`
    waits for `check`. A broken format fails in ~10s, not after a build.
 3. **Concurrency cancellation** — every workflow has a
    `concurrency: { group: <name>-${{ github.ref }}, cancel-in-progress: true }`
@@ -31,7 +31,7 @@ snippets here are the GitHub Actions form used by this repo.
 8. **Artifact retention** — `playwright-report` uploads expire after 3
    days; nothing else is stored. Docker images are built and tested, not
    pushed to a registry, so there is no image-bloat cost.
-9. **Left-shifted checks** — `pre-commit` runs lint + typecheck + tests in
+9. **Left-shifted checks** — `pre-commit` runs lint + type-check + tests in
    parallel; `pre-push` runs the full `check` plus a blocking
    `pnpm audit --audit-level=high`. CI runs the exact same contract.
 10. **Scheduled jobs** — the only cron is the weekly template sync

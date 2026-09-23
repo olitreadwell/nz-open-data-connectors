@@ -6,10 +6,10 @@ import {
   getNzDataSource,
   probeNzDataSource,
   searchDigitalNzMedia,
-} from '@nzlab/nz-sources';
-import type { DigitalNzMediaType } from '@nzlab/nz-sources';
-import { createStatsNzClient, serializeStatsNzRowsToCsv } from '@nzlab/stats-nz';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+} from '@open-data-connectors/nz-sources';
+import type { DigitalNzMediaType } from '@open-data-connectors/nz-sources';
+import { createStatsNzClient, serializeStatsNzRowsToCsv } from '@open-data-connectors/stats-nz';
+import type { StatsNzClient } from '@open-data-connectors/stats-nz';
 
 /** Where the CLI writes its output. Injectable for tests. */
 export interface CliOutput {

@@ -1,5 +1,5 @@
 {
-  "name": "@nzlab/connectors-api",
+  "name": "@open-data-connectors/connectors-api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -18,7 +18,7 @@
     "type-check": "tsc --noEmit",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts",
+    "test:smoke": "RUN_SMOKE=1 vitest run src/smoke.test.ts --testTimeout=30000",
     "clean": "rm -rf tsconfig.tsbuildinfo coverage",
     "clean:all": "rm -rf tsconfig.tsbuildinfo coverage node_modules"
   },
@@ -26,15 +26,15 @@
     "@hono/node-server": "2.1.1",
     "@hono/swagger-ui": "0.6.1",
     "@hono/zod-validator": "0.9.0",
-    "@nzlab/nz-sources": "*",
-    "@nzlab/stats-nz": "*",
+    "@open-data-connectors/nz-sources": "*",
+    "@open-data-connectors/stats-nz": "*",
     "@sentry/node": "10.71.0",
     "hono": "4.13.3",
     "zod": "3.25.76"
   },
   "devDependencies": {
-    "@nzlab/config-eslint": "*",
-    "@nzlab/config-typescript": "*",
+    "@open-data-connectors/config-eslint": "*",
+    "@open-data-connectors/config-typescript": "*",
     "@types/node": "22.20.1",
     "eslint": "9.39.5",
     "tsx": "4.23.12",

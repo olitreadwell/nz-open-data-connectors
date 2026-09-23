@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest';
 
-import { probeNzDataSource, searchDigitalNzMedia } from '@nzlab/nz-sources';
-import type { DigitalNzRecord } from '@nzlab/nz-sources';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import { probeNzDataSource, searchDigitalNzMedia } from '@open-data-connectors/nz-sources';
+import type { DigitalNzRecord } from '@open-data-connectors/nz-sources';
+import type { StatsNzClient } from '@open-data-connectors/stats-nz';
 
 import { runCli } from './commands.js';
 import type { CliOutput } from './commands.js';
