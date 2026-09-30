@@ -1,7 +1,7 @@
 # nzdata (Python)
 
 Keyless-first connectors for NZ public data, ported from the TypeScript
-`@open-data-connectors/nz-sources` and `@open-data-connectors/stats-nz` packages. One runtime dependency:
+`@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz` packages. One runtime dependency:
 `httpx` (urllib is blocked by Cloudflare on some NZ data endpoints).
 
 ## Install

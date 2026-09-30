@@ -2,10 +2,10 @@
 
 ## Unreleased
 
-- npm packages moved off the NZ-specific scope and onto
-  `@open-data-connectors/*`, in every package name, import, tsconfig, eslint
-  config, and lockfile entry. The root `build`, `dev`, and `start` scripts now
-  target this repo's own workspaces, and the broken root `typecheck` script
+- npm packages moved off the placeholder `@nzlab` scope and onto this repo's
+  own `@nz-open-data-connectors/*`, in every package name, import, tsconfig,
+  eslint config, and lockfile entry. The root `build`, `dev`, and `start`
+  scripts now target this repo's own workspaces, and the broken root `typecheck` script
   (bare `tsc --noEmit`, which printed help and exited 1) is gone. Use
   `npm run type-check`.
 - Live smoke suites carry an explicit 30s per-test budget. Vitest's 5000ms

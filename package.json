@@ -10,9 +10,9 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w @open-data-connectors/connectors-api",
-    "build": "npm run build -w @open-data-connectors/nz-sources -w @open-data-connectors/stats-nz && npm run build -w @open-data-connectors/connectors-cli",
-    "start": "npm run start -w @open-data-connectors/connectors-api",
+    "dev": "npm run dev -w @nz-open-data-connectors/connectors-api",
+    "build": "npm run build -w @nz-open-data-connectors/nz-sources -w @nz-open-data-connectors/stats-nz && npm run build -w @nz-open-data-connectors/connectors-cli",
+    "start": "npm run start -w @nz-open-data-connectors/connectors-api",
     "setup": "node scripts/setup.mjs",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
@@ -31,8 +31,8 @@
     "check": "npm run format:check && npm run build && npm run lint && npm run type-check && npm run test:coverage",
     "type-check": "npm run type-check --workspaces --if-present",
     "test:smoke": "npm run test:smoke --workspaces --if-present",
-    "dev:api": "npm run dev -w @open-data-connectors/connectors-api",
-    "start:api": "npm run start -w @open-data-connectors/connectors-api"
+    "dev:api": "npm run dev -w @nz-open-data-connectors/connectors-api",
+    "start:api": "npm run start -w @nz-open-data-connectors/connectors-api"
   },
   "devDependencies": {
     "prettier": "3.9.6",
