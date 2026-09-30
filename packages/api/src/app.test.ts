@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 
-import { probeNzDataSource } from '@nzlab/nz-sources';
-import { searchDigitalNzMedia } from '@nzlab/nz-sources';
-import type { DigitalNzRecord } from '@nzlab/nz-sources';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import { probeNzDataSource } from '@nz-open-data-connectors/nz-sources';
+import { searchDigitalNzMedia } from '@nz-open-data-connectors/nz-sources';
+import type { DigitalNzRecord } from '@nz-open-data-connectors/nz-sources';
+import type { StatsNzClient } from '@nz-open-data-connectors/stats-nz';
 
 import { createConnectorsApp } from './index';
 

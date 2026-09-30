@@ -2,8 +2,8 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 
-import { serializeStatsNzRowsToCsv } from '@nzlab/stats-nz';
-import type { StatsNzClient } from '@nzlab/stats-nz';
+import { serializeStatsNzRowsToCsv } from '@nz-open-data-connectors/stats-nz';
+import type { StatsNzClient } from '@nz-open-data-connectors/stats-nz';
 
 const dataQuerySchema = z.object({
   dataflowId: z.string().min(1),
