@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @nz-open-data-connectors/connectors-api",
-    "build": "npm run build -w @nz-open-data-connectors/nz-sources -w @nz-open-data-connectors/stats-nz && npm run build -w @nz-open-data-connectors/connectors-cli",
+    "build": "npm run build -w @nz-open-data-connectors/nz-sources -w @nz-open-data-connectors/stats-nz && npm run build -w @nz-open-data-connectors/nz-mcp && npm run build -w @nz-open-data-connectors/connectors-cli",
     "start": "npm run start -w @nz-open-data-connectors/connectors-api",
     "setup": "node scripts/setup.mjs",
     "lint": "npm run lint --workspaces --if-present",
