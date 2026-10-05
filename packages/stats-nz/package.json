@@ -1,6 +1,7 @@
 {
   "name": "@nz-open-data-connectors/stats-nz",
   "version": "0.1.1",
+  "license": "MIT",
   "private": false,
   "type": "module",
   "main": "./dist/index.js",

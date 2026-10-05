@@ -48,6 +48,7 @@
     "access": "public"
   },
   "description": "MCP server exposing the NZ open data connector library to Claude and ChatGPT",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/olitreadwell/nz-open-data-connectors.git"
