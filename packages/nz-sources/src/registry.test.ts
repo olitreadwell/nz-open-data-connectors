@@ -100,6 +100,9 @@ describe('registry', () => {
         if (hostname === 'www.journeys.nzta.govt.nz') {
           return jsonResponse(readFixtureJson('nzta-holiday-hotspots-2026-08-25.json'));
         }
+        if (hostname === 'opendata-nzta.opendata.arcgis.com') {
+          return jsonResponse(readFixtureJson('nzta-open-data-2026-10-05.json'));
+        }
         return new Response('unexpected url', { status: 404 });
       })
     );

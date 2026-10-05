@@ -40,5 +40,13 @@
     "tsx": "4.23.12",
     "typescript": "6.0.3",
     "vitest": "3.2.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olitreadwell/nz-open-data-connectors.git"
+  },
+  "homepage": "https://github.com/olitreadwell/nz-open-data-connectors#readme",
+  "bugs": {
+    "url": "https://github.com/olitreadwell/nz-open-data-connectors/issues"
   }
 }

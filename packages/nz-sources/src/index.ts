@@ -81,6 +81,19 @@ export type { NzorName, NzorSearchResult } from './nzor.js';
 export { parseNztaHolidayHotspots, nztaAdapter } from './nzta.js';
 /** Waka Kotahi types. */
 export type { NztaHolidayHotspot } from './nzta.js';
+/** Waka Kotahi (NZTA) open data hub catalogue (DCAT 1.1). */
+export {
+  fetchNztaOpenDataCatalogue,
+  parseNztaOpenDataCatalogue,
+  nztaOpenDataAdapter,
+  NZTA_OPEN_DATA_SOURCE_ID,
+} from './nztaOpenData.js';
+/** Waka Kotahi open data types. */
+export type {
+  NztaOpenDataCatalogue,
+  NztaOpenDataDataset,
+  NztaOpenDataDistribution,
+} from './nztaOpenData.js';
 /** The uniform adapter registry and probe helpers. */
 export {
   NZ_DATA_SOURCES,

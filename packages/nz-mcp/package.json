@@ -47,5 +47,13 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "MCP server exposing the NZ open data connector library to Claude and ChatGPT"
+  "description": "MCP server exposing the NZ open data connector library to Claude and ChatGPT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olitreadwell/nz-open-data-connectors.git"
+  },
+  "homepage": "https://github.com/olitreadwell/nz-open-data-connectors#readme",
+  "bugs": {
+    "url": "https://github.com/olitreadwell/nz-open-data-connectors/issues"
+  }
 }

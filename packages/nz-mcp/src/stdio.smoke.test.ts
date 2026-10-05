@@ -24,7 +24,7 @@ describe.runIf(RUN_SMOKE)('the built stdio server', () => {
     expect(tools.map((tool) => tool.name)).toContain('nz_felt_earthquakes');
 
     const sources = await client.callTool({ name: 'list_sources', arguments: {} });
-    expect(JSON.parse(firstText(sources)).length).toBe(13);
+    expect(JSON.parse(firstText(sources)).length).toBe(14);
 
     const probe = await client.callTool({
       name: 'probe_sources',

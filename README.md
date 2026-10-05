@@ -8,8 +8,8 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| `@nz-open-data-connectors/nz-sources` | Uniform adapters for 8 NZ data sources (GeoNet, data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSB benefits datastore) with live probes and offline fixtures |
-| `@nz-open-data-connectors/stats-nz` | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 8 NZ data sources (GeoNet, data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSB benefits datastore) with live probes and offline fixtures |
+| [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
 | `@nz-open-data-connectors/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
 | `@nz-open-data-connectors/connectors-cli` | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
 | `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
@@ -17,7 +17,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Thirteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
+Fourteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
@@ -36,6 +36,7 @@ DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 | `mfe` | MfE Data Service layer catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mfe` |
 | `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
 | `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
+| `nzta-open-data` | Waka Kotahi open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta-open-data` |
 
 ### Adapter examples
 
@@ -105,6 +106,11 @@ npx tsx packages/cli/src/cli.ts probe lris
 ```sh
 # Waka Kotahi - predicted busy holiday journey hotspots
 npx tsx packages/cli/src/cli.ts probe nzta
+```
+
+```sh
+# Waka Kotahi - open data hub catalogue (DCAT 1.1 feed)
+npx tsx packages/cli/src/cli.ts probe nzta-open-data
 ```
 
 ## Language-agnostic access

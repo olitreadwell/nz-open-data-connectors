@@ -10,6 +10,7 @@ import { lrisAdapter } from './lris.js';
 import { mfeAdapter } from './mfe.js';
 import { nzorAdapter } from './nzor.js';
 import { nztaAdapter } from './nzta.js';
+import { nztaOpenDataAdapter } from './nztaOpenData.js';
 import { tradeMeAdapter } from './tradeMe.js';
 import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from './types.js';
 
@@ -28,6 +29,7 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   mfeAdapter,
   lrisAdapter,
   nztaAdapter,
+  nztaOpenDataAdapter,
 ];
 
 /** Looks up a source adapter by id. */

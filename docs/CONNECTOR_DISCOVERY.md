@@ -71,3 +71,62 @@ educationcounts.govt.nz (403 bot-blocked), figure.nz (dead),
 data1850.nz (no API), incidents.fireandemergency.nz (dead),
 api.rbnz.govt.nz (403 keyed), data.doc.govt.nz (dead), data-ccc hub (401),
 data-gwrc hub (400).
+
+## 2026-10-05 addition: `nzta-open-data`
+
+One more keyless adapter was built and registered: the Waka Kotahi (NZ Transport
+Agency) open data hub catalogue, read from its DCAT 1.1 feed.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `nzta-open-data` | Waka Kotahi (NZTA) open data hub | `https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json` | `nzta-open-data-2026-10-05.json` |
+
+### Exact curl command (captured 2026-10-05)
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+# NZTA open data hub DCAT 1.1 catalogue feed (HTTP 200, application/json, 244 KB, 36 datasets)
+curl -sS -L -A "$UA" \
+  "https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json" \
+  -o nzta-open-data-2026-10-05.json
+```
+
+The dataset search endpoint was also checked live on 2026-10-05 but is not
+used by the adapter:
+
+```sh
+# GeoJSON dataset search (HTTP 200, application/geo+json, 91 KB, 11 matches for "traffic")
+curl -sS -L -A "$UA" \
+  "https://opendata-nzta.opendata.arcgis.com/api/search/v1/collections/dataset/items?q=traffic" \
+  -o nzta-search-traffic-2026-10-05.json
+```
+
+### Shape notes
+
+- Keyless, no API key, no headers beyond the browser User-Agent.
+- Top level is a DCAT 1.1 catalog: `@type: "dcat:Catalog"` plus a `dataset` list.
+- Each dataset carries `identifier`, `title`, `description`, `landingPage`,
+  `keyword`, `issued`, `modified`, `publisher.name`, `contactPoint`,
+  `license`, `theme`, `spatial`, and a `distribution` list.
+- `theme` arrives either as a list of strings or as an empty string, so the
+  parser normalizes both to a string list.
+- Distribution entries carry `title`, `format`, `mediaType`, and `accessURL`.
+
+### Licence
+
+The feed is published by Waka Kotahi on ArcGIS Hub. Dataset licence fields
+vary: the first dataset points at Creative Commons Attribution 4.0
+(`https://creativecommons.org/licenses/by/4.0`), and some datasets carry
+custom NZTA CC-BY 4.0 or non-commercial terms in free text. The adapter
+returns the raw `license` value per dataset; check it before reuse.
+
+### Verification status
+
+- Verified live on 2026-10-05 from this machine with the curl above
+  (`HTTP 200 application/json; charset=utf-8`, 244426 bytes, 36 datasets).
+- The dataset search endpoint was verified live the same day
+  (`HTTP 200 application/geo+json; charset=utf-8`, 90847 bytes).
+- The unit test uses the committed fixture only. It never hits the network.
+- Not verified: behaviour from non-NZ IPs, or whether the licence text is
+  stable over time.

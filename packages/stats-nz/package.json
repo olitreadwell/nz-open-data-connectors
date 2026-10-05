@@ -1,6 +1,6 @@
 {
   "name": "@nz-open-data-connectors/stats-nz",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
@@ -42,5 +42,13 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olitreadwell/nz-open-data-connectors.git"
+  },
+  "homepage": "https://github.com/olitreadwell/nz-open-data-connectors#readme",
+  "bugs": {
+    "url": "https://github.com/olitreadwell/nz-open-data-connectors/issues"
   }
 }
