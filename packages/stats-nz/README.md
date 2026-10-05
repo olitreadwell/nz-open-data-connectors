@@ -1,62 +1,69 @@
 # @nz-open-data-connectors/stats-nz
 
-Shared client for the [Aotearoa Data Explorer (ADE) API](https://www.stats.govt.nz/tools/aotearoa-data-explorer/ade-api-user-guide/) - the current Stats NZ data API (the old `api.stats.govt.nz` open data API closed 30 August 2024). SDMX 2.1 REST, base URL `https://api.data.stats.govt.nz/rest/`.
+Client for the Aotearoa Data Explorer (ADE) API from Stats NZ. Server-side TypeScript users pull catalogue, data, and codelists.
 
-Server-side only (SDMX responses can be large; never call this from the browser).
+## What this package does
+
+- Reads the ADE SDMX 2.1 REST API at `https://api.data.stats.govt.nz/rest/`.
+- Pulls the dataflow catalogue, data rows, and codelists.
+- Parses and writes CSV.
+- Runs on the server only. SDMX responses can be large.
+
+## Install
+
+```sh
+npm install @nz-open-data-connectors/stats-nz
+```
 
 ## Quick start
 
 ```ts
 import { createStatsNzClient } from '@nz-open-data-connectors/stats-nz';
 
-const client = createStatsNzClient({
-  subscriptionKey: process.env.STATS_NZ_SUBSCRIPTION_KEY, // optional, see below
-});
-
-// Every table in ADE, with titles: 911 dataflows, keyless.
+const client = createStatsNzClient({});
 const catalogue = await client.getDataflowCatalogue();
+console.log(catalogue.length); // 911
 
-// Data as typed rows. Works keyless for agriculture tables (e.g. AGR_AGR_003).
 const rows = await client.getData({ dataflowId: 'AGR_AGR_003', format: 'csv' });
-// rows: [{ dimensions: { LIVESTOCK: '6731', AREA: '20', YEAR: '2024' }, value: 23583001, ... }]
-
-// Codelists (dimension code -> label) need a subscription key.
-const codelist = await client.getCodelist('CL_LIVESTOCK_AGR_AGR_003', { version: '1.0' });
+console.log(rows.length);
 ```
 
-## Access levels (verified live 2025-08-17)
+## Adapters
 
-| Endpoint                                   | Without key                  | With key   |
-| ------------------------------------------ | ---------------------------- | ---------- |
-| `getDataflowCatalogue()`                   | yes                          | yes        |
-| `getData({ format: 'csv' })`               | agriculture tables (`AGR_*`) | all tables |
-| `getData({ format: 'csvfilewithlabels' })` | no                           | yes        |
-| `getData({ format: 'jsondata' })`          | no                           | yes        |
-| `getCodelist()` / structure endpoints      | no                           | yes        |
+| Adapter | What it does | Key |
+| --- | --- | --- |
+| `createStatsNzClient(options)` | Builds a client. Returns the methods below. | none |
+| `client.getDataflowCatalogue()` | Every ADE dataflow, with titles. 911 dataflows at version 1.0. | none |
+| `client.getData({ dataflowId, format })` | Data rows for one dataflow. | none for `AGR_*` tables |
+| `client.getCodelist(codelistId, options)` | Maps dimension codes to labels. | `STATS_NZ_SUBSCRIPTION_KEY` |
+| `serializeStatsNzRowsToCsv(rows)` | Turns typed rows back into CSV. | none |
 
-Keyless requests must use the explicit published version. The client defaults to `1.0` (every one of the 911 current dataflows is version 1.0); pass `version: 'latest'` only with a key.
+## Notes and limits
 
-## Subscription key
+- The old `api.stats.govt.nz` open data API closed on 30 August 2024. ADE replaces it.
+- Keyless requests must use an explicit published version. The client defaults to version `1.0`.
+- The `csv` format is keyless for agriculture tables only.
+- The `csvfilewithlabels` and `jsondata` formats need a subscription key.
+- The `jsondata` parser follows the SDMX-JSON 1.0 spec. It is not yet live-verified.
+- All failures throw `StatsNzError` subclasses: `StatsNzApiError` for HTTP status, and `StatsNzParseError` for a malformed response. `StatsNzApiError.retryable` is true for 429 and 5xx.
+- A free key is available at https://portal.apis.stats.govt.nz. Set `STATS_NZ_SUBSCRIPTION_KEY` in the server environment.
+- Access levels in this file were verified live on 2025-08-17.
+- Fixtures in `src/fixtures/` are real ADE snapshots, dated in their filenames.
+- Unit tests run offline. Run them with `npm run test -w @nz-open-data-connectors/stats-nz`. Live smoke tests need `RUN_SMOKE=1`.
 
-Free signup at [portal.apis.stats.govt.nz](https://portal.apis.stats.govt.nz). Set `STATS_NZ_SUBSCRIPTION_KEY` in the app env (server-only). Sent as the `Ocp-Apim-Subscription-Key` header; never exposed to the browser.
+## Data sources and licences
 
-## Formats
+- Publisher: Stats NZ.
+- Source URL: `https://api.data.stats.govt.nz/rest/`.
+- API guide: https://www.stats.govt.nz/tools/aotearoa-data-explorer/ade-api-user-guide/.
+- The data is not covered by the package licence. Stats NZ sets the licence and terms for ADE data. Check the API guide before you reuse a table.
 
-- `csv` - codes only, keyless for `AGR_*` tables. Fast to parse, verified against the real API.
-- `csvfilewithlabels` - code + label columns, requires a key.
-- `jsondata` - SDMX-JSON, requires a key. Parser implemented against the SDMX-JSON 1.0 spec; **not yet live-verified** (needs a subscription key).
+## Package licence
 
-`serializeStatsNzRowsToCsv(rows)` turns typed observations back into CSV (dimension columns, then `value`, then `status` when present) for language-agnostic output.
+MIT. See LICENSE.
 
-## Errors
+## Links
 
-All failures throw `StatsNzError` subclasses: `StatsNzApiError` (HTTP status, `retryable` flag for 429/5xx) and `StatsNzParseError` (malformed response).
-
-## Tests
-
-```sh
-npm run test -w @nz-open-data-connectors/stats-nz        # unit + integration (local stub server) + perf + security
-RUN_SMOKE=1 npm run test:smoke -w @nz-open-data-connectors/stats-nz   # live smoke tests against api.data.stats.govt.nz
-```
-
-Fixtures in `src/fixtures/` are real snapshots pulled from the ADE API (`format=csv` and the dataflow catalogue), dated in their filenames. The smoke tests are skipped by default and must be run explicitly.
+- npm: https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz
+- source: https://github.com/olitreadwell/nz-open-data-connectors/tree/main/packages/stats-nz
+- docs: https://github.com/olitreadwell/nz-open-data-connectors/blob/main/docs/ARCHITECTURE.md

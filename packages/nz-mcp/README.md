@@ -1,84 +1,73 @@
 # @nz-open-data-connectors/nz-mcp
 
-An MCP server over the NZ open data connector library. Point Claude
-Code, Claude Desktop, or a ChatGPT connector at it and the model can list the
-sources, check which ones are answering, and pull real data.
+An MCP server that exposes the NZ open data connectors to Claude, ChatGPT, and other MCP clients.
 
-Every source in this library is keyless. Nothing here needs an account.
+## What this package does
 
-## Tools
+- Serves the `nz-sources` and `stats-nz` connectors over the Model Context Protocol (MCP).
+- Runs as a stdio server. The binary is `nz-open-data-mcp`.
+- Lists sources, probes them live, and fetches data by name.
+- Uses keyless sources only. No account is needed.
 
-| Tool                          | What it does                                                                          |
-| ----------------------------- | ------------------------------------------------------------------------------------- |
-| `list_sources`                | Every source, with the id the other tools take.                                       |
-| `probe_sources`               | Live fetch against each source, so you know a number is real and not a stale fixture. |
-| `fetch_source`                | One source through its adapter.                                                       |
-| `nz_felt_earthquakes`         | Recent felt earthquakes from GeoNet, by minimum intensity.                            |
-| `nz_datastore_rows`           | Rows from one data.govt.nz CKAN datastore resource.                                   |
-| `nz_trademe_categories`       | The public Trade Me category tree.                                                    |
-| `stats_nz_dataflow_catalogue` | Every Stats NZ Aotearoa Data Explorer dataflow.                                       |
-| `stats_nz_data`               | Observations from one Stats NZ dataflow.                                              |
-| `stats_nz_codelist`           | The code-to-label map for a Stats NZ dataflow.                                        |
-
-`probe_sources` matters more than it looks. Every adapter falls back to a
-committed fixture when the upstream API is slow, so a build never fails on a
-flaky government host. That also means a number can be months old without
-anyone noticing. Probe first when the freshness of the answer matters.
-
-## Running it
+## Install
 
 ```sh
-npm install
-npm run build
-node dist/stdio.js
+npm install @nz-open-data-connectors/nz-mcp
 ```
 
-The bin is `nz-open-data-mcp`, so a global install gives you:
+## Quick start
 
 ```sh
 npx @nz-open-data-connectors/nz-mcp
 ```
 
-## Wiring it into Claude Code
-
-```sh
-claude mcp add nz-open-data -- node /absolute/path/to/packages/nz-mcp/dist/stdio.js
-```
-
-Or in `.mcp.json` at the root of whatever project you want it in:
+Add the server to a project's `.mcp.json`:
 
 ```json
 {
   "mcpServers": {
     "nz-open-data": {
-      "command": "node",
-      "args": ["/absolute/path/to/packages/nz-mcp/dist/stdio.js"]
+      "command": "npx",
+      "args": ["-y", "@nz-open-data-connectors/nz-mcp"]
     }
   }
 }
 ```
 
-## Wiring it into Claude Desktop
+## Tools
 
-Add the same block to `claude_desktop_config.json`
-(`~/Library/Application Support/Claude/claude_desktop_config.json` on macOS).
+| Tool | What it does |
+| --- | --- |
+| `list_sources` | Every source, with the id the other tools take. |
+| `probe_sources` | Live fetch against each source, so you know a number is real and not a stale fixture. |
+| `fetch_source` | One source through its adapter. |
+| `nz_felt_earthquakes` | Recent felt earthquakes from GeoNet, by minimum intensity. |
+| `nz_datastore_rows` | Rows from one data.govt.nz CKAN datastore resource. |
+| `nz_trademe_categories` | The public Trade Me category tree. |
+| `stats_nz_dataflow_catalogue` | Every Stats NZ Aotearoa Data Explorer dataflow. |
+| `stats_nz_data` | Observations from one Stats NZ dataflow. |
+| `stats_nz_codelist` | The code-to-label map for a Stats NZ dataflow. |
 
-## Wiring it into ChatGPT
+## Notes and limits
 
-ChatGPT connectors take a remote MCP endpoint, so this stdio server needs a
-tunnel in front of it:
+- `probe_sources` matters. Every adapter falls back to a committed fixture when the upstream API is slow, so a number can be months old. Probe first when freshness matters.
+- Add a tool by wrapping the named function from `@nz-open-data-connectors/nz-sources`, not the adapter's `fetchLive()`. The named functions carry the real query parameters.
+- Add one entry to `NZ_QUERY_TOOLS` in `src/nzOpenDataMcpServer.ts`, then rebuild. The tool appears after that.
+- The server is stdio only. A remote MCP endpoint needs a tunnel in front of it.
 
-```sh
-npx @modelcontextprotocol/inspector node dist/stdio.js   # inspect and test locally
-cloudflared tunnel --url http://localhost:PORT            # then point the connector at it
-```
+## Data sources and licences
 
-## Adding a tool
+- This server reads the same sources as `@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz`.
+- The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ, Trade Me, NZOR, LINZ, ArcGIS Hub portals, LAWA, MfE, Landcare Research LRIS, and Waka Kotahi (NZTA).
+- The source URLs are in the `nz-sources` README.
+- The data is not covered by the package licence. Each publisher sets the licence for its own data. Check the source page before you reuse a dataset.
 
-Wrap the named function from `@$nz-open-data-connectors/nz-sources`, not the
-adapter's `fetchLive()`. `fetchLive()` takes no query parameters, so a tool
-built on it can only ever return the adapter's default slice. The named
-functions carry the real parameters.
+## Package licence
 
-Add one entry to `NZ_QUERY_TOOLS` in
-`src/nzOpenDataMcpServer.ts`, rebuild, and the tool appears.
+MIT. See LICENSE.
+
+## Links
+
+- npm: https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp
+- source: https://github.com/olitreadwell/nz-open-data-connectors/tree/main/packages/nz-mcp
+- docs: https://github.com/olitreadwell/nz-open-data-connectors#readme

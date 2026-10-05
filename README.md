@@ -8,10 +8,13 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 8 NZ data sources (GeoNet, data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSB benefits datastore) with live probes and offline fixtures |
-| [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, CSV parsing and serialization |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 14 NZ public data sources, with live probes and offline fixtures |
+| [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
+| [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
 | `@nz-open-data-connectors/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
-| `@nz-open-data-connectors/connectors-cli` | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
+| [`@nz-open-data-connectors/connectors-cli`](https://www.npmjs.com/package/@nz-open-data-connectors/connectors-cli) | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
+| `@nz-open-data-connectors/config-eslint` | Shared ESLint flat config for the TypeScript packages |
+| `@nz-open-data-connectors/config-typescript` | Shared TypeScript configuration for the packages |
 | `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
 | `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
 
