@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -99,10 +100,9 @@ export async function fetchGeoNetFeltQuakes(
   minMmi = 3,
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<GeoNetQuake[]> {
-  const response = await fetchImpl(`https://api.geonet.org.nz/quake?MMI=${minMmi}`);
-  if (!response.ok) {
-    throw new NzSourceApiError('GeoNet', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('GeoNet', `https://api.geonet.org.nz/quake?MMI=${minMmi}`, {
+    fetchImpl: fetchImpl,
+  });
   return parseGeoNetQuakes(await response.json());
 }
 

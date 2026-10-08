@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -68,10 +69,7 @@ export async function searchDataGovtNzDatasets(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<DataGovtNzSearchResult> {
   const url = `https://catalogue.data.govt.nz/api/3/action/package_search?q=${encodeURIComponent(query)}&rows=20`;
-  const response = await fetchImpl(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('data.govt.nz', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('data.govt.nz', url, { fetchImpl: fetchImpl });
   return parseDataGovtNzDatasets(await response.json());
 }
 

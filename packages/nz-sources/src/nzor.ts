@@ -1,6 +1,7 @@
 import { XMLParser } from 'fast-xml-parser';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureText } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -57,10 +58,7 @@ export async function searchNzorNames(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<NzorSearchResult> {
   const url = `https://data.nzor.org.nz/names?q=${encodeURIComponent(query)}`;
-  const response = await fetchImpl(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('NZOR', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('NZOR', url, { fetchImpl: fetchImpl });
   return parseNzorNames(await response.text());
 }
 

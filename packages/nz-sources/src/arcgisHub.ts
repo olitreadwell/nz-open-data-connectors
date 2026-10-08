@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -196,10 +197,7 @@ export async function fetchArcgisHubCollections(
 ): Promise<ArcgisHubCollection[]> {
   const host = normalizeArcgisHubHost(options.host ?? DEFAULT_ARCGIS_HUB_HOST);
   const url = `${host}/api/search/v1/collections`;
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('ArcGIS Hub', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('ArcGIS Hub', url, { fetchImpl: options.fetchImpl });
   return parseArcgisHubCollections(await response.json());
 }
 
@@ -218,10 +216,7 @@ export async function searchArcgisHubDatasets(
   const host = normalizeArcgisHubHost(options.host ?? DEFAULT_ARCGIS_HUB_HOST);
   const url = new URL(`${host}/api/search/v1/collections/dataset/items`);
   url.searchParams.set('q', query);
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('ArcGIS Hub', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('ArcGIS Hub', url, { fetchImpl: options.fetchImpl });
   return parseArcgisHubDatasets(await response.json());
 }
 

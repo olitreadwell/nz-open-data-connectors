@@ -1,4 +1,5 @@
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -56,10 +57,9 @@ function toTradeMeCategory(category: RawTradeMeCategory): TradeMeCategory {
 export async function fetchTradeMeCategories(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<TradeMeCategory> {
-  const response = await fetchImpl('https://api.trademe.co.nz/v1/Categories.json');
-  if (!response.ok) {
-    throw new NzSourceApiError('Trade Me', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('Trade Me', 'https://api.trademe.co.nz/v1/Categories.json', {
+    fetchImpl: fetchImpl,
+  });
   return parseTradeMeCategories(await response.json());
 }
 

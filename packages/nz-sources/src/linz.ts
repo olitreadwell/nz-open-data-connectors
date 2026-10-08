@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -42,12 +43,10 @@ export async function searchLinzLayers(
   options: { apiKey?: string; fetchImpl?: typeof globalThis.fetch } = {}
 ): Promise<LinzLayer[]> {
   const url = `https://data.linz.govt.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url, {
+  const response = await httpGet('LINZ', url, {
+    fetchImpl: options.fetchImpl,
     ...(options.apiKey === undefined ? {} : { headers: { 'x-api-key': options.apiKey } }),
   });
-  if (!response.ok) {
-    throw new NzSourceApiError('LINZ', `HTTP ${response.status}`);
-  }
   return parseLinzLayers(await response.json());
 }
 

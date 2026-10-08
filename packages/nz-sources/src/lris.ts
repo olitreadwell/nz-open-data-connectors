@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -53,10 +54,7 @@ export async function searchLrisLayers(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<LrisLayer[]> {
   const url = `https://lris.scinfo.org.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
-  const response = await fetchImpl(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('LRIS', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('LRIS', url, { fetchImpl: fetchImpl });
   return parseLrisLayers(await response.json());
 }
 

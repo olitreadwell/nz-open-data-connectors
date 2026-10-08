@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -69,12 +70,11 @@ export function parseLawaRiverQualitySites(payload: unknown): LawaRiverQualitySi
 export async function fetchLawaRiverQualitySites(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<LawaRiverQualitySite[]> {
-  const response = await fetchImpl(
-    'https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites'
+  const response = await httpGet(
+    'LAWA',
+    'https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites',
+    { fetchImpl: fetchImpl }
   );
-  if (!response.ok) {
-    throw new NzSourceApiError('LAWA', `HTTP ${response.status}`);
-  }
   return parseLawaRiverQualitySites(await response.json());
 }
 

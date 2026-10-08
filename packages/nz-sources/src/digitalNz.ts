@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -151,10 +152,7 @@ export async function searchDigitalNzRecords(
   if (options.apiKey !== undefined) {
     url.searchParams.set('api_key', options.apiKey);
   }
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('DigitalNZ', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('DigitalNZ', url, { fetchImpl: options.fetchImpl });
   return parseDigitalNzRecords(await response.json());
 }
 
@@ -181,10 +179,7 @@ export async function searchDigitalNzMedia(
   if (options.apiKey !== undefined) {
     url.searchParams.set('api_key', options.apiKey);
   }
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('DigitalNZ', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('DigitalNZ', url, { fetchImpl: options.fetchImpl });
   return parseDigitalNzRecords(await response.json());
 }
 

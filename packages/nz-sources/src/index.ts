@@ -48,6 +48,8 @@ export {
 export type { DigitalNzRecord, DigitalNzMediaType } from './digitalNz.js';
 /** Errors shared by every source adapter. */
 export { NzSourceApiError, NzSourceError, NzSourceParseError } from './errors.js';
+/** API error detail type. */
+export type { NzSourceApiErrorDetails } from './errors.js';
 /** GeoNet felt earthquake data. */
 export {
   fetchGeoNetFeltQuakes,
@@ -105,5 +107,9 @@ export {
 export { fetchTradeMeCategories, parseTradeMeCategories, tradeMeAdapter } from './tradeMe.js';
 /** Trade Me types. */
 export type { TradeMeCategory } from './tradeMe.js';
+/** The shared HTTP layer every adapter fetch goes through. */
+export { httpGet, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
+/** Shared HTTP layer types. */
+export type { HttpGetOptions } from './http.js';
 /** Shared adapter contract types. */
 export type { NzDataAdapter, NzFetchOptions, NzSourceAuth, NzSourceProbe } from './types.js';

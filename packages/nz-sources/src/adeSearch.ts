@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -62,10 +63,7 @@ export async function searchAdeTables(
   const url =
     `https://explore.data.stats.govt.nz/sfs/api/search?tenant=public` +
     `&q=${encodeURIComponent(query)}&limit=${limit}`;
-  const response = await (options.fetchImpl ?? globalThis.fetch)(url);
-  if (!response.ok) {
-    throw new NzSourceApiError('ADE search', `HTTP ${response.status}`);
-  }
+  const response = await httpGet('ADE search', url, { fetchImpl: options.fetchImpl });
   return parseAdeSearchResults(await response.json());
 }
 

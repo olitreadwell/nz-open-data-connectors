@@ -1,0 +1,77 @@
+import { NzSourceApiError } from './errors.js';
+
+/**
+ * Identifies this client to the public APIs it calls.
+ *
+ * Several NZ government endpoints sit behind gateways that rate-limit or
+ * block clients they cannot identify, so every adapter sends this.
+ */
+export const USER_AGENT = 'nz-open-data-connectors/0.1.0 (Language=TypeScript)';
+
+/** Per-request timeout in milliseconds, applied to every adapter. */
+export const DEFAULT_TIMEOUT_MS = 30_000;
+
+/** The one status code worth retrying: the server is asking us to slow down. */
+const HTTP_TOO_MANY_REQUESTS = 429;
+
+/** The lowest status code that means the server failed rather than the request. */
+const HTTP_INTERNAL_SERVER_ERROR = 500;
+
+/** Options shared by the shared HTTP helpers. */
+export interface HttpGetOptions {
+  /** Fetch implementation override, used by tests. */
+  fetchImpl?: typeof globalThis.fetch | undefined;
+  /** Extra request headers, merged over the defaults. */
+  headers?: Record<string, string> | undefined;
+  /** Overrides {@link DEFAULT_TIMEOUT_MS}. */
+  timeoutMs?: number | undefined;
+}
+
+/**
+ * Issues a GET through the shared HTTP layer.
+ *
+ * Every adapter goes through here so that three things happen the same way
+ * for all 14 sources: a `user-agent` identifies the client, a timeout aborts
+ * a request that hangs, and a failure carries whether retrying is worthwhile.
+ *
+ * @param source - Source name used in the error message, e.g. "GeoNet".
+ * @param url - Absolute URL or URL object to fetch.
+ * @param options - Fetch override, extra headers, and timeout.
+ * @returns The response, already checked for a successful status.
+ * @throws {NzSourceApiError} On a non-2xx status, an abort, or a network error.
+ */
+export async function httpGet(
+  source: string,
+  url: string | URL,
+  options: HttpGetOptions = {}
+): Promise<Response> {
+  const doFetch = options.fetchImpl ?? globalThis.fetch;
+  const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  let response: Response;
+  try {
+    response = await doFetch(url, {
+      headers: { 'user-agent': USER_AGENT, ...options.headers },
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (controller.signal.aborted) {
+      throw new NzSourceApiError(source, `request timed out after ${timeoutMs}ms`, {
+        retryable: true,
+      });
+    }
+    throw new NzSourceApiError(source, `request failed: ${String(error)}`, { retryable: true });
+  } finally {
+    clearTimeout(timer);
+  }
+
+  if (!response.ok) {
+    throw new NzSourceApiError(source, `HTTP ${response.status}`, {
+      status: response.status,
+      retryable:
+        response.status === HTTP_TOO_MANY_REQUESTS || response.status >= HTTP_INTERNAL_SERVER_ERROR,
+    });
+  }
+  return response;
+}

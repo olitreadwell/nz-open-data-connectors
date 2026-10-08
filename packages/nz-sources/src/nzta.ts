@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -71,12 +72,10 @@ export function parseNztaHolidayHotspots(payload: unknown): NztaHolidayHotspot[]
 export async function fetchNztaHolidayHotspots(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<NztaHolidayHotspot[]> {
-  const response = await fetchImpl('https://www.journeys.nzta.govt.nz/api/hotspots', {
+  const response = await httpGet('Waka Kotahi', 'https://www.journeys.nzta.govt.nz/api/hotspots', {
+    fetchImpl: fetchImpl,
     headers: { Accept: 'application/json' },
   });
-  if (!response.ok) {
-    throw new NzSourceApiError('Waka Kotahi', `HTTP ${response.status}`);
-  }
   return parseNztaHolidayHotspots(await response.json());
 }
 

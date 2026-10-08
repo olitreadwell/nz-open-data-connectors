@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
-import { NzSourceApiError, NzSourceParseError } from './errors.js';
+import { NzSourceParseError } from './errors.js';
+import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
 
@@ -134,12 +135,11 @@ export function parseNztaOpenDataCatalogue(payload: unknown): NztaOpenDataCatalo
 export async function fetchNztaOpenDataCatalogue(
   fetchImpl: typeof globalThis.fetch = globalThis.fetch
 ): Promise<NztaOpenDataCatalogue> {
-  const response = await fetchImpl(
-    'https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json'
+  const response = await httpGet(
+    'NZTA open data',
+    'https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json',
+    { fetchImpl: fetchImpl }
   );
-  if (!response.ok) {
-    throw new NzSourceApiError('NZTA open data', `HTTP ${response.status}`);
-  }
   return parseNztaOpenDataCatalogue(await response.json());
 }
 
