@@ -1,38 +1,69 @@
 # FAQ
 
-Source for the help center page (`/help`). Keep both in sync.
+Questions that come up about this repo.
 
-## How do I report a bug?
+## Do I need an API key?
 
-Use the feedback form (pick "Bug report"). It creates a labelled GitHub
-issue with your browser, page, and repro steps included. No GitHub account
-needed.
+No. All fourteen adapters work keyless. Two accept an optional key from the
+environment to unlock more: `DIGITAL_NZ_API_KEY` raises the DigitalNZ rate
+limit and `LINZ_API_KEY` unlocks LINZ layer search. Keys are read server-side
+and are never accepted from API or CLI callers.
 
-## How do I request a feature?
+Leave `DIGITAL_NZ_API_KEY` unset rather than empty if you do not have one. A
+set-but-empty value is sent as `api_key=` and DigitalNZ answers HTTP 403
+`Invalid API Key`.
 
-Same form, pick "Feature request". It lands as an enhancement-labelled
-issue.
+## Can I reuse the data?
 
-## How do I contact you directly?
+The MIT licence here covers the code, not the data. Each publisher keeps its
+own terms. GeoNet content is Creative Commons Attribution 3.0 New Zealand.
+NZOR content is Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
+Zealand, so it is not for commercial use. data.govt.nz and the Waka Kotahi open
+data hub carry a licence value per dataset. `docs/CONNECTOR_DISCOVERY.md` lists
+the position for every source.
 
-Use the contact form. It is validated and rate-limited; messages go to the
-project inbox.
+Credit the publisher when you republish, not this library. The connectors fetch
+and shape the data; they add nothing to it.
 
-## Why is there a puzzle before I can submit?
+## Why do the tests use fixtures instead of the live APIs?
 
-It is a proof-of-work challenge: a tiny computation proving you are a real
-visitor, not a script. It stops bots and AI from flooding the forms while
-being instant for humans. See `docs/contact.md` for the spec.
+Fixtures make the suite fast, offline, and the same on every machine. Each
+fixture is a real snapshot of a live response, stored in
+`packages/nz-sources/src/fixtures/`. Live calls are opt-in through
+`npm run test:smoke` with `RUN_SMOKE=1`. If a source changes shape, the live
+smoke run is what catches it.
 
-## What information gets collected?
+## Will calling the API get me blocked?
 
-The fields you enter, the page you were on, your browser user agent, and the
-time. Never include passwords, tokens, or personal data.
+Every adapter sends a descriptive `User-Agent`
+(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), waits at most 30
+seconds, and marks HTTP 429, HTTP 5xx and network failures as `retryable` on
+the thrown `NzSourceApiError`. Nothing retries automatically, so the caller
+decides the backoff.
 
-## What if issue creation is disabled?
+## Can I use this from Python, R, or Julia?
 
-The form still validates your input, then points you to the contact form.
+Yes, two ways. Run the HTTP API (`npm run dev:api`) and call
+`GET /api/sources/:id/probe`, or run the CLI and read JSON or CSV from stdout.
+There is also a Python port and a Ruby port in `python/` and `ruby/`, neither
+published yet, so install those from the repo.
 
-## Who answers these?
+## How do I add a source?
 
-The maintainers, via the project inbox configured in `CONTACT_TO`.
+Write one adapter in `packages/nz-sources/src`, give it a live fetch, a strict
+parse, and a committed fixture, then register it in
+`packages/nz-sources/src/registry.ts` and export it from
+`packages/nz-sources/src/index.ts`. The
+API and the CLI pick it up from the registry. `docs/ARCHITECTURE.md` describes
+the interface.
+
+## A source has moved or died. How do I report it?
+
+Open an issue with the adapter id, the command you ran, and the response you
+saw. Dead sources are worth knowing about even when we cannot fix them; see
+the "Not wired up" table in `COUNTRY.md` for the ones already ruled out.
+
+## Who maintains this?
+
+Oli Treadwell (`@olitreadwell`). Careful issues and pull requests are welcome.
+The open work is listed in `COUNTRY.md` and `docs/AGENT_CONTEXT.md`.

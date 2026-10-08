@@ -11,12 +11,12 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 | [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 14 NZ public data sources, with live probes and offline fixtures |
 | [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
 | [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
-| `@nz-open-data-connectors/connectors-api` | HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
-| [`@nz-open-data-connectors/connectors-cli`](https://www.npmjs.com/package/@nz-open-data-connectors/connectors-cli) | `nzdata` command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
-| `@nz-open-data-connectors/config-eslint` | Shared ESLint flat config for the TypeScript packages |
-| `@nz-open-data-connectors/config-typescript` | Shared TypeScript configuration for the packages |
-| `python/` (`nzdata` on PyPI) | Python port of the connectors, one dependency (`httpx`) |
-| `ruby/` (`nzdata` gem) | Ruby port of the connectors, one dependency (`rexml`) |
+| `@nz-open-data-connectors/connectors-api` | Private. HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
+| [`@nz-open-data-connectors/connectors-cli`](https://www.npmjs.com/package/@nz-open-data-connectors/connectors-cli) | Command line tool that prints JSON or CSV to stdout, so any language can shell out to it |
+| `@nz-open-data-connectors/config-eslint` | Private. Shared ESLint flat config for the TypeScript packages |
+| `@nz-open-data-connectors/config-typescript` | Private. Shared TypeScript configuration for the packages |
+| `python/` | Python port of the connectors, one dependency (`httpx`). Not on PyPI yet; install from the repo. |
+| `ruby/` | Ruby port of the connectors, one dependency (`rexml`). Not on RubyGems yet; install from the repo. |
 
 ## Connectors
 
@@ -24,9 +24,26 @@ Fourteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every on
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
+The data is not ours, and each publisher keeps its own terms. GeoNet content
+is copyright Earth Sciences New Zealand (formerly GNS Science) and carries
+Creative Commons Attribution 3.0 New Zealand. NZOR content carries Creative
+Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
+commercial use. data.govt.nz and the Waka Kotahi open data hub return a licence
+value per dataset, and the `nzta-open-data` adapter passes that value through.
+For every other source, check the publisher's licence before you reuse the data:
+the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
+lists where each source's terms live.
+
+Every adapter also sends the same `User-Agent`
+(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), waits at most 30
+seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
+5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
+shared `httpGet` helper in `packages/nz-sources/src/http.ts` does this for all
+fourteen adapters, so callers write nothing extra.
+
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
-| `geonet` | GeoNet (GNS Science) | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet` |
+| `geonet` | GeoNet (Earth Sciences New Zealand) | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet` |
 | `data-govt-nz` | data.govt.nz catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-nz` |
 | `data-govt-datastore` | data.govt.nz datastore (MSD benefits) | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-datastore` |
 | `ade-search` | Aotearoa Data Explorer search index | Yes | - | `npx tsx packages/cli/src/cli.ts probe ade-search` |
@@ -40,6 +57,18 @@ DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 | `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
 | `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
 | `nzta-open-data` | Waka Kotahi open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta-open-data` |
+
+### Added 2026-10-05
+
+One more keyless adapter, checked live on 2026-10-05 and covered by a committed
+fixture:
+
+- `nzta-open-data` reads the Waka Kotahi (NZTA) open data hub catalogue from
+  its DCAT 1.1 feed: 36 datasets, each with publisher, contact, themes, and a
+  per-dataset `license` value.
+
+The exact curl command and the licence notes are in
+`docs/CONNECTOR_DISCOVERY.md`.
 
 ### Adapter examples
 
@@ -182,6 +211,10 @@ console.log(dataflows.length); // 911
 | `LINZ_API_KEY` | LINZ layer search (optional) | data.linz.govt.nz |
 | `DIGITAL_NZ_API_KEY` | DigitalNZ search (optional) | digitalnz.org |
 | `SENTRY_DSN` | Error tracking (optional, off by default) | sentry.io |
+| `PORT` | Port the API listens on (default 8787) | your own deployment |
+| `CORS_ORIGIN` | Restricting browser access to `/api` (default: any origin) | your own deployment |
+| `RATE_LIMIT_MAX` | Per-IP request budget for `/api` (default: 60 per minute) | your own deployment |
+| `RATE_LIMIT_WINDOW_MS` | Rate limit window (default: 60000) | your own deployment |
 
 Copy `.env.example` to `.env` and fill in your own keys. Real keys are gitignored and never committed.
 
@@ -196,10 +229,16 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 
 ## Language ports
 
-- `python/` - Python package, publishable to PyPI as `nzdata` (tag `python-v*`).
-- `ruby/` - Ruby gem, publishable to RubyGems as `nzdata` (tag `ruby-v*`).
+`python/` and `ruby/` are ports of the same design. Neither is published to
+PyPI or RubyGems yet, so install from the repo. The publish workflows exist and
+fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
-Both ports mirror the TypeScript surface: the same 8 adapters, the same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. Each port has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See each directory's README for quickstarts and publishing steps.
+Both ports mirror part of the TypeScript surface: 8 of the 14 adapters, the same
+Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. The
+six adapters the ports do not carry yet are `arcgis`, `lawa`, `mfe`, `lris`,
+`nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
+`mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See
+each directory's README for quickstarts and publishing steps.
 
 ## Run the API in Docker
 
@@ -215,9 +254,18 @@ Optional keys come from the environment only. Without a `.env` file every keyles
 ## Documentation
 
 - `docs/ARCHITECTURE.md` - how the pieces fit together, in plain language
+- `docs/CONNECTOR_DISCOVERY.md` - every adapter, the live check behind it, the sources that did not work, and the licence position per source
 - `docs/SECURITY.md` - key handling and the security checklist
 - `docs/GLOSSARY.md` - plain-language definitions of every term
 - `docs/RELEASING.md` - how versions, tags, and publishing work
+- `docs/AGENT_CONTEXT.md` - handoff context for an agent working in this repo
+- `docs/faq.md` - keys, licences, fixtures, and how to add a source
+- `docs/contact.md` - how to report a bug, a dead source, or a security problem
+- `COUNTRY.md` - adapter status table and the sources that are not wired up
+
+The other files under `docs/` come from the shared project template
+(`olitreadwell/template`) and describe the template's own gates. For this repo,
+the API contract lives at `GET /openapi.json` and `/docs`.
 
 ## Contributing
 

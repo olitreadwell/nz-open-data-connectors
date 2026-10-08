@@ -15,8 +15,10 @@ One design, three languages.
 - `python/` - a Python port of the same design (package name `nzdata`).
 - `ruby/` - a Ruby port of the same design (gem name `nzdata`).
 
-A fix or a new source usually has to land in all three places. See
-`docs/ARCHITECTURE.md` for the full map and `docs/GLOSSARY.md` for terms.
+The ports cover 8 of the 14 adapters, so a new source lands in TypeScript
+first and in the ports only when someone ports it. A fix to a shared adapter
+lands in every language that carries that adapter. See `docs/ARCHITECTURE.md`
+for the full map and `docs/GLOSSARY.md` for terms.
 
 ## Set up your machine
 
@@ -30,8 +32,12 @@ A fix or a new source usually has to land in all three places. See
 ### Python
 
 1. Install [uv](https://docs.astral.sh/uv/).
-2. Run `cd python && uv sync`. This creates `.venv/` and installs the
-   pinned dependencies from `uv.lock`.
+2. Run `cd python && uv sync --extra dev`. This creates `.venv/` and installs
+   the pinned dependencies from `uv.lock`. The `--extra dev` flag is required:
+   the test and lint tools live in the `dev` extra, so a plain `uv sync`
+   leaves you without `pytest`, `ruff` or `mypy`.
+3. The interpreter is pinned in `python/.python-version` (3.12). `uv` reads it
+   automatically.
 
 ### Ruby
 
@@ -102,8 +108,9 @@ Example: `docs/contributing_guide/8`.
   per commit.
 - Use Conventional Commits for messages. Examples: `feat:`, `fix:`,
   `docs:`, `chore:`.
-- When a change affects the shared design, update all three languages:
-  TypeScript, Python, and Ruby.
+- When a change affects an adapter the ports carry, update every language
+  that carries it. The six TypeScript-only adapters are listed in
+  `docs/ARCHITECTURE.md`.
 - Run the quality gates above before you push.
 - Open the PR with `gh pr create`. Describe what changed and why.
 

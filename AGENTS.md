@@ -6,15 +6,16 @@ for the plain-language map, `docs/GLOSSARY.md` for terms.
 
 ## Repo map
 
-- `packages/nz-sources` - one adapter per NZ data source (GeoNet,
-  data.govt.nz, LINZ, DigitalNZ, Trade Me, NZOR, ADE search, MSD benefits)
+- `packages/nz-sources` - 14 adapters, one per NZ data source, plus a shared
+  HTTP helper (`src/http.ts`) and committed fixtures (`src/fixtures/`)
 - `packages/stats-nz` - Aotearoa Data Explorer (ADE) client
 - `packages/api` - HTTP wrapper (Hono), OpenAPI spec, Swagger UI
 - `packages/cli` - `nzdata` command line tool
+- `packages/nz-mcp` - MCP server for the connectors
 - `packages/config-eslint`, `packages/config-typescript` - shared config
-- `python/` - Python port (`nzdata` on PyPI)
-- `ruby/` - Ruby port (`nzdata` gem)
-- `docs/` - architecture, security, glossary, releasing
+- `python/` - Python port, package `nzdata`, not published to PyPI yet
+- `ruby/` - Ruby port, gem `nzdata`, not published to RubyGems yet
+- `docs/` - architecture, connector discovery, security, glossary, releasing
 
 ## Commands
 
@@ -54,12 +55,21 @@ Ruby changes run their own gates.
   (`getNzDataSource`, not `get`)
 - Pick one spelling per concept and use it everywhere (`dataflowId`, not
   `dataset` in one place and `flow` in another)
-- Keep changes in all three languages when a behavior change affects the
-  shared design
+- Register a new adapter in `packages/nz-sources/src/registry.ts` and export
+  it from `packages/nz-sources/src/index.ts` in the same change
+- A new adapter lands in TypeScript first. The ports cover 8 of the 14
+  adapters; the six TypeScript-only ones are `arcgis`, `lawa`, `mfe`, `lris`,
+  `nzta` and `nzta-open-data`
+- Fetches go through `httpGet` in `packages/nz-sources/src/http.ts`, which
+  sets the User-Agent, applies the 30 second timeout, and marks 429, 5xx and
+  network failures as `retryable`
 
 ## Docs for humans and agents
 
 - `docs/ARCHITECTURE.md` - how the pieces fit together
+- `docs/CONNECTOR_DISCOVERY.md` - live checks, ruled-out sources, and the
+  licence position per source
+- `COUNTRY.md` - adapter status and what is not wired up
 - `docs/SECURITY.md` - key handling and security checklist
 - `docs/GLOSSARY.md` - plain-language terms
 - `docs/RELEASING.md` - versioning and tags

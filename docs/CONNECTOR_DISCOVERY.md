@@ -1,4 +1,4 @@
-# Connector discovery notes (2026-08-25)
+# Connector discovery notes
 
 Findings from the "more sources" pass. Four new keyless adapters were built
 and verified against live APIs. Fixtures are real snapshots captured on
@@ -14,8 +14,8 @@ and verified against live APIs. Fixtures are real snapshots captured on
 | `nzta` | Waka Kotahi journeys | `https://www.journeys.nzta.govt.nz/api/hotspots` | `nzta-holiday-hotspots-2026-08-25.json` |
 
 All four are keyless, return JSON, and were stable across repeated fetches
-(identical payloads on two consecutive calls). None are registered in
-`registry.ts` (out of scope for this pass).
+(identical payloads on two consecutive calls). All four are registered in
+`registry.ts`.
 
 ## Exact curl commands
 
@@ -130,3 +130,33 @@ returns the raw `license` value per dataset; check it before reuse.
 - The unit test uses the committed fixture only. It never hits the network.
 - Not verified: behaviour from non-NZ IPs, or whether the licence text is
   stable over time.
+
+## Licences and attribution
+
+The MIT licence in this repo covers the code, not the data. Every source keeps
+its own terms, and the publisher's licence is the one that applies.
+
+| Adapter | Publisher | Licence position |
+| --- | --- | --- |
+| `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
+| `data-govt-nz`, `data-govt-datastore` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter does not return those fields today |
+| `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
+| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter does not return those fields today |
+| `trademe` | Trade Me | Check the Trade Me API terms of use |
+| `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |
+| `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
+| `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset |
+| `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Check the LAWA terms of use |
+| `mfe` | Ministry for the Environment, on the Koordinates platform | Per layer |
+| `lris` | Landcare Research, on the Koordinates platform | Per layer |
+| `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
+| `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
+
+Two things follow from the table. First, only `nzta-open-data` returns licence
+metadata today, so a caller who needs to republish a dataset has to check the
+publisher. Returning licence and attribution per record is on the open list in
+`COUNTRY.md`. Second, NZOR is the one source here that rules out commercial
+use, so treat results from it accordingly.
+
+When you republish, credit the publisher, not this library. The connectors
+fetch and shape the data; they add nothing to it.

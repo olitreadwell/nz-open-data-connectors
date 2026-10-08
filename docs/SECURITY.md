@@ -71,5 +71,18 @@ Before merging a change:
 
 ## Report a problem
 
-Open an issue in the GitHub repository. For secrets or vulnerabilities,
-mention "security" in the title and keep details out of the summary.
+For a bug that is not security related, open an issue in the GitHub
+repository.
+
+For a vulnerability, use GitHub's private report form:
+<https://github.com/olitreadwell/nz-open-data-connectors/security/advisories/new>.
+That channel is private between you and the maintainer, so details stay out
+of public view. Do not open a public issue for a vulnerability, and do not
+paste a working exploit into an issue thread.
+
+In scope here: a path where an API key reaches a response, a log line, or a
+committed file; an injection or request-forgery path through a connector's
+parsing; a dependency with a known advisory that actually ships.
+
+Out of scope: findings that only affect development dependencies or the build
+tooling, and anything that needs a compromised machine or a modified clone.

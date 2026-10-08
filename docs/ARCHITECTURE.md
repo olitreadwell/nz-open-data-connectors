@@ -11,8 +11,10 @@ One design, three languages.
 - Python: a port of the same design (`python/`, package name `nzdata`).
 - Ruby: a port of the same design (`ruby/`, gem name `nzdata`).
 
-All three expose the same operations. A fix or a new source usually has to
-land in all three places.
+The ports carry 8 of the 14 TypeScript adapters, plus the same Stats NZ client.
+The other six adapters (`arcgis`, `lawa`, `mfe`, `lris`, `nzta`,
+`nzta-open-data`) are TypeScript only. Porting them is separate work, so a new
+adapter lands in TypeScript first and in the ports only when someone ports it.
 
 ## The pieces
 
@@ -23,8 +25,8 @@ land in all three places.
 | HTTP API | `packages/api` | Exposes the connectors over HTTP |
 | CLI | `packages/cli` | Exposes the connectors on the command line |
 | Config packages | `packages/config-eslint`, `packages/config-typescript` | Shared lint and TypeScript settings |
-| Python port | `python/` | Same adapters and Stats NZ client in Python |
-| Ruby port | `ruby/` | Same adapters and Stats NZ client in Ruby |
+| Python port | `python/` | 8 of the 14 adapters and the Stats NZ client, in Python |
+| Ruby port | `ruby/` | 8 of the 14 adapters and the Stats NZ client, in Ruby |
 
 ## How a request flows
 
@@ -35,6 +37,14 @@ Every adapter speaks one interface (`NzDataAdapter`). It knows how to:
 
 The HTTP API and the CLI call the same adapters. They never call the
 endpoints directly. This is what "one design" means.
+
+Live fetches go through the shared helper in
+`packages/nz-sources/src/http.ts`. It sets one `User-Agent`
+(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), aborts after 30
+seconds, and marks HTTP 429, HTTP 5xx and network failures as `retryable` on
+the thrown `NzSourceApiError`, with the HTTP status attached. Adapters pass
+their own headers (LINZ sends `x-api-key`, Waka Kotahi sends
+`Accept: application/json`) and the helper merges them.
 
 ## Media search
 
@@ -47,6 +57,17 @@ DigitalNZ has no separate artwork category.
 The CLI exposes it as `nzdata media --query <q> --type <type>` and the API
 as `GET /api/digitalnz/media?q=<q>&type=<type>`. The same function exists
 in the Python and Ruby ports (`search_digital_nz_media`).
+
+## Summaries built into the adapters
+
+One adapter answers with a summary next to the raw rows, so callers do not have
+to recompute the same figures:
+
+- `summarizeGeoNetQuakes` gives the quake count, the strongest quake, the
+  shallowest quake, and a count per magnitude band (3-4, 4-5, 5+).
+
+The Python and Ruby ports carry the same summary, also named
+`summarize_geonet_quakes`.
 
 ## Keyless first
 
@@ -76,6 +97,7 @@ Why: tests run fast, offline, and give the same answer on every machine.
 | Integration tests | `packages/api/src/app.test.ts` | `npm run check` |
 | E2E tests | `packages/api/src/e2e.test.ts` | `npm run check` |
 | Live smoke tests | `*.test.ts` gated on `RUN_SMOKE=1` | opt-in, or nightly CI |
+| Contract test | `packages/api/src/openapi.contract.test.ts` | `npm run check` |
 
 The Python and Ruby ports mirror this: fixture-based tests plus opt-in
 smoke tests.
@@ -90,8 +112,11 @@ smoke tests.
 
 ## Documentation index
 
-- `README.md` — quickstart and commands
-- `docs/ARCHITECTURE.md` — this file
-- `docs/SECURITY.md` — keys, audits, and the security checklist
-- `docs/GLOSSARY.md` — plain-language terms
-- `docs/RELEASING.md` — how versions and tags work
+- `README.md` - quickstart and commands
+- `docs/ARCHITECTURE.md` - this file
+- `docs/CONNECTOR_DISCOVERY.md` - what has been checked live, and the licence position per source
+- `docs/SECURITY.md` - keys, audits, and the security checklist
+- `docs/GLOSSARY.md` - plain-language terms
+- `docs/RELEASING.md` - how versions and tags work
+- `docs/AGENT_CONTEXT.md` - handoff context for an agent working in this repo
+- `COUNTRY.md` - adapter status and what is not wired up
