@@ -107,6 +107,8 @@ export {
 export { fetchTradeMeCategories, parseTradeMeCategories, tradeMeAdapter } from './tradeMe.js';
 /** Trade Me types. */
 export type { TradeMeCategory } from './tradeMe.js';
+/** API key normalization shared by adapters, the API, and the CLI. */
+export { normalizeSourceApiKey } from './apiKey.js';
 /** The shared HTTP layer every adapter fetch goes through. */
 export { httpGet, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
 /** Shared HTTP layer types. */

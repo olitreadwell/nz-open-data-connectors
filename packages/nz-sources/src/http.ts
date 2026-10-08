@@ -4,9 +4,10 @@ import { NzSourceApiError } from './errors.js';
  * Identifies this client to the public APIs it calls.
  *
  * Several NZ government endpoints sit behind gateways that rate-limit or
- * block clients they cannot identify, so every adapter sends this.
+ * block clients they cannot identify, so every adapter sends this. The string
+ * carries no version, so it cannot go stale between releases.
  */
-export const USER_AGENT = 'nz-open-data-connectors/0.1.0 (Language=TypeScript)';
+export const USER_AGENT = 'nz-open-data-connectors (Language=TypeScript)';
 
 /** Per-request timeout in milliseconds, applied to every adapter. */
 export const DEFAULT_TIMEOUT_MS = 30_000;

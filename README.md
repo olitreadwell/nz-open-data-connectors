@@ -35,7 +35,7 @@ the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
 lists where each source's terms live.
 
 Every adapter also sends the same `User-Agent`
-(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), waits at most 30
+(`nz-open-data-connectors (Language=TypeScript)`), waits at most 30
 seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
 5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
 shared `httpGet` helper in `packages/nz-sources/src/http.ts` does this for all

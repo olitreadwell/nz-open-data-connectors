@@ -1,5 +1,7 @@
 import { serve } from '@hono/node-server';
 
+import { normalizeSourceApiKey } from '@nz-open-data-connectors/nz-sources';
+
 import { createConnectorsApp } from './index';
 import type { ConnectorsAppOptions } from './index';
 import { DEFAULT_RATE_LIMIT_OPTIONS } from './rateLimiter';
@@ -25,21 +27,26 @@ function parsePositiveIntEnv(value: string | undefined, fallback: number): numbe
 const port = Number(process.env.PORT ?? 8787);
 
 const options: ConnectorsAppOptions = {};
-if (process.env.CORS_ORIGIN !== undefined) {
-  options.corsOrigin = process.env.CORS_ORIGIN;
+const corsOrigin = process.env.CORS_ORIGIN?.trim();
+if (corsOrigin !== undefined && corsOrigin !== '') {
+  options.corsOrigin = corsOrigin;
 }
-if (process.env.STATS_NZ_SUBSCRIPTION_KEY !== undefined) {
-  options.statsNzSubscriptionKey = process.env.STATS_NZ_SUBSCRIPTION_KEY;
+const statsNzSubscriptionKey = normalizeSourceApiKey(process.env.STATS_NZ_SUBSCRIPTION_KEY);
+if (statsNzSubscriptionKey !== undefined) {
+  options.statsNzSubscriptionKey = statsNzSubscriptionKey;
 }
-if (process.env.SENTRY_DSN !== undefined) {
-  options.sentryDsn = process.env.SENTRY_DSN;
+const sentryDsn = process.env.SENTRY_DSN?.trim();
+if (sentryDsn !== undefined && sentryDsn !== '') {
+  options.sentryDsn = sentryDsn;
 }
 const apiKeys: Record<string, string> = {};
-if (process.env.LINZ_API_KEY !== undefined) {
-  apiKeys.linz = process.env.LINZ_API_KEY;
+const linzApiKey = normalizeSourceApiKey(process.env.LINZ_API_KEY);
+if (linzApiKey !== undefined) {
+  apiKeys.linz = linzApiKey;
 }
-if (process.env.DIGITAL_NZ_API_KEY !== undefined) {
-  apiKeys.digitalnz = process.env.DIGITAL_NZ_API_KEY;
+const digitalNzApiKey = normalizeSourceApiKey(process.env.DIGITAL_NZ_API_KEY);
+if (digitalNzApiKey !== undefined) {
+  apiKeys.digitalnz = digitalNzApiKey;
 }
 if (Object.keys(apiKeys).length > 0) {
   options.apiKeys = apiKeys;

@@ -9,9 +9,10 @@ environment to unlock more: `DIGITAL_NZ_API_KEY` raises the DigitalNZ rate
 limit and `LINZ_API_KEY` unlocks LINZ layer search. Keys are read server-side
 and are never accepted from API or CLI callers.
 
-Leave `DIGITAL_NZ_API_KEY` unset rather than empty if you do not have one. A
-set-but-empty value is sent as `api_key=` and DigitalNZ answers HTTP 403
-`Invalid API Key`.
+A key that is set but blank counts as unset. `normalizeSourceApiKey` trims
+every key that arrives from an environment variable or a caller, so an empty
+`LINZ_API_KEY=` or `DIGITAL_NZ_API_KEY=` goes out keyless rather than as
+`api_key=` with a 403 coming back.
 
 ## Can I reuse the data?
 
@@ -36,7 +37,7 @@ smoke run is what catches it.
 ## Will calling the API get me blocked?
 
 Every adapter sends a descriptive `User-Agent`
-(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), waits at most 30
+(`nz-open-data-connectors (Language=TypeScript)`), waits at most 30
 seconds, and marks HTTP 429, HTTP 5xx and network failures as `retryable` on
 the thrown `NzSourceApiError`. Nothing retries automatically, so the caller
 decides the backoff.

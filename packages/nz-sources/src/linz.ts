@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { NzSourceParseError } from './errors.js';
+import { normalizeSourceApiKey } from './apiKey.js';
 import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
@@ -43,9 +44,10 @@ export async function searchLinzLayers(
   options: { apiKey?: string; fetchImpl?: typeof globalThis.fetch } = {}
 ): Promise<LinzLayer[]> {
   const url = `https://data.linz.govt.nz/services/api/v1/layers?search=${encodeURIComponent(query)}`;
+  const apiKey = normalizeSourceApiKey(options.apiKey);
   const response = await httpGet('LINZ', url, {
     fetchImpl: options.fetchImpl,
-    ...(options.apiKey === undefined ? {} : { headers: { 'x-api-key': options.apiKey } }),
+    ...(apiKey === undefined ? {} : { headers: { 'x-api-key': apiKey } }),
   });
   return parseLinzLayers(await response.json());
 }
@@ -58,6 +60,7 @@ export const linzAdapter: NzDataAdapter<LinzLayer[]> = {
   description: 'Searches LINZ layers (property titles, parcels, boundaries).',
   fetchLive: (options) =>
     searchLinzLayers('property', {
+      ...(options?.apiKey === undefined ? {} : { apiKey: options.apiKey }),
       ...(options?.fetchImpl === undefined ? {} : { fetchImpl: options.fetchImpl }),
     }),
   parse: parseLinzLayers,

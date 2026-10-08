@@ -3,7 +3,7 @@ import { createServer, type Server } from 'node:http';
 import { AddressInfo } from 'node:net';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
-import { createStatsNzClient } from './client.js';
+import { createStatsNzClient, normalizeStatsNzSubscriptionKey } from './client.js';
 
 const HTTP_OK = 200;
 const HTTP_UNAUTHORIZED = 401;
@@ -288,5 +288,34 @@ describe('stats-nz integration against a local HTTP server', () => {
     expect(error).toBeInstanceOf(StatsNzApiError);
     expect((error as StatsNzApiError).status).toBe(401);
     expect((error as StatsNzApiError).message).toContain('subscription key');
+  });
+});
+
+describe('normalizeStatsNzSubscriptionKey', () => {
+  it('passes a real key through, trimmed', () => {
+    expect(normalizeStatsNzSubscriptionKey('  secret  ')).toBe('secret');
+  });
+
+  it('treats a blank key as absent', () => {
+    expect(normalizeStatsNzSubscriptionKey('')).toBeUndefined();
+    expect(normalizeStatsNzSubscriptionKey('   ')).toBeUndefined();
+    expect(normalizeStatsNzSubscriptionKey(undefined)).toBeUndefined();
+  });
+});
+
+describe('blank subscription keys', () => {
+  it('sends no key header when the key is set but empty', async () => {
+    const seen: Array<string | null> = [];
+    const fetchImpl = stubFetch(async (_url, init) => {
+      seen.push(new Headers(init.headers).get('Ocp-Apim-Subscription-Key'));
+      return new Response('DATAFLOW,X_Y,OBS_VALUE\n');
+    });
+    const client = createStatsNzClient({
+      baseUrl: 'https://stub.example/rest',
+      fetchImpl,
+      subscriptionKey: '   ',
+    });
+    await client.getData({ dataflowId: 'X' });
+    expect(seen).toEqual([null]);
   });
 });

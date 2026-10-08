@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { NzSourceParseError } from './errors.js';
+import { normalizeSourceApiKey } from './apiKey.js';
 import { httpGet } from './http.js';
 import { readFixtureJson } from './fixtures.js';
 import type { NzDataAdapter } from './types.js';
@@ -149,8 +150,9 @@ export async function searchDigitalNzRecords(
   const url = new URL('https://api.digitalnz.org/v3/records.json');
   url.searchParams.set('text', query);
   url.searchParams.set('per_page', '20');
-  if (options.apiKey !== undefined) {
-    url.searchParams.set('api_key', options.apiKey);
+  const apiKey = normalizeSourceApiKey(options.apiKey);
+  if (apiKey !== undefined) {
+    url.searchParams.set('api_key', apiKey);
   }
   const response = await httpGet('DigitalNZ', url, { fetchImpl: options.fetchImpl });
   return parseDigitalNzRecords(await response.json());
@@ -176,8 +178,9 @@ export async function searchDigitalNzMedia(
   url.searchParams.set('text', query);
   url.searchParams.set('per_page', '20');
   url.searchParams.set('and[category][]', getDigitalNzCategoryFilter(mediaType));
-  if (options.apiKey !== undefined) {
-    url.searchParams.set('api_key', options.apiKey);
+  const apiKey = normalizeSourceApiKey(options.apiKey);
+  if (apiKey !== undefined) {
+    url.searchParams.set('api_key', apiKey);
   }
   const response = await httpGet('DigitalNZ', url, { fetchImpl: options.fetchImpl });
   return parseDigitalNzRecords(await response.json());

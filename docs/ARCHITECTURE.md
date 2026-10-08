@@ -40,7 +40,7 @@ endpoints directly. This is what "one design" means.
 
 Live fetches go through the shared helper in
 `packages/nz-sources/src/http.ts`. It sets one `User-Agent`
-(`nz-open-data-connectors/0.1.0 (Language=TypeScript)`), aborts after 30
+(`nz-open-data-connectors (Language=TypeScript)`), aborts after 30
 seconds, and marks HTTP 429, HTTP 5xx and network failures as `retryable` on
 the thrown `NzSourceApiError`, with the HTTP status attached. Adapters pass
 their own headers (LINZ sends `x-api-key`, Waka Kotahi sends

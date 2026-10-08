@@ -29,9 +29,9 @@ and all fourteen answered. Fixture dates are the capture dates.
 | Waka Kotahi holiday hotspots | `nzta` | Live, keyless; sends `Accept: application/json` |
 | Waka Kotahi open data hub | `nzta-open-data` | Live, keyless; DCAT 1.1 catalogue, fixture captured 2026-10-05 |
 
-One trap worth knowing: leave `DIGITAL_NZ_API_KEY` unset rather than empty. A
-set-but-empty key is sent as `api_key=` and the DigitalNZ API answers 403
-`Invalid API Key`.
+A key that is set but blank is treated as unset. An empty `LINZ_API_KEY` or
+`DIGITAL_NZ_API_KEY` is trimmed away at the boundary, so the request goes out
+keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 
 ## Checklist
 

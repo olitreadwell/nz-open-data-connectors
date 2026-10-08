@@ -6,6 +6,7 @@ import {
   getDigitalNzCategoryFilter,
   parseDigitalNzRecords,
   searchDigitalNzMedia,
+  searchDigitalNzRecords,
   type DigitalNzMediaType,
 } from './digitalNz.js';
 import { NzSourceParseError } from './errors.js';
@@ -89,5 +90,40 @@ describe('media search', () => {
       const records = parseDigitalNzRecords(readFixture(filename));
       expect(records.length).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('DigitalNZ key handling', () => {
+  /** Runs one search and returns the URL the adapter asked for. */
+  async function capturedSearchUrl(apiKey: string | undefined): Promise<string> {
+    const urls: string[] = [];
+    await searchDigitalNzRecords('sheep', {
+      ...(apiKey === undefined ? {} : { apiKey }),
+      fetchImpl: async (input) => {
+        urls.push(
+          input instanceof URL ? input.href : typeof input === 'string' ? input : input.url
+        );
+        return new Response(JSON.stringify(FIXTURE), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        });
+      },
+    });
+    return urls[0] ?? '';
+  }
+
+  it('sends the key when one is configured', async () => {
+    const url = await capturedSearchUrl('secret-key');
+    expect(url).toContain('api_key=secret-key');
+  });
+
+  it('omits the key when it is not configured', async () => {
+    const url = await capturedSearchUrl(undefined);
+    expect(url).not.toContain('api_key');
+  });
+
+  it('omits the key when it is set but empty', async () => {
+    const url = await capturedSearchUrl('');
+    expect(url).not.toContain('api_key');
   });
 });

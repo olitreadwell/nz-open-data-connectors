@@ -4,6 +4,7 @@ import {
   DIGITAL_NZ_MEDIA_TYPES,
   NZ_DATA_SOURCES,
   getNzDataSource,
+  normalizeSourceApiKey,
   probeNzDataSource,
   searchDigitalNzMedia,
 } from '@nz-open-data-connectors/nz-sources';
@@ -54,18 +55,19 @@ DIGITAL_NZ_API_KEY). Output goes to stdout as JSON (or CSV); errors go to stderr
 
 function createCliStatsNzClient(): StatsNzClient {
   const options: { subscriptionKey?: string } = {};
-  if (process.env.STATS_NZ_SUBSCRIPTION_KEY !== undefined) {
-    options.subscriptionKey = process.env.STATS_NZ_SUBSCRIPTION_KEY;
+  const subscriptionKey = normalizeSourceApiKey(process.env.STATS_NZ_SUBSCRIPTION_KEY);
+  if (subscriptionKey !== undefined) {
+    options.subscriptionKey = subscriptionKey;
   }
   return createStatsNzClient(options);
 }
 
 function getApiKeyForSource(id: string): string | undefined {
   if (id === 'linz') {
-    return process.env.LINZ_API_KEY;
+    return normalizeSourceApiKey(process.env.LINZ_API_KEY);
   }
   if (id === 'digitalnz') {
-    return process.env.DIGITAL_NZ_API_KEY;
+    return normalizeSourceApiKey(process.env.DIGITAL_NZ_API_KEY);
   }
   return undefined;
 }

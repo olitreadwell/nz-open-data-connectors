@@ -19,8 +19,27 @@ const DEFAULT_BASE_URL = 'https://api.data.stats.govt.nz/rest';
 // an explicit version. Callers with a subscription key can pass `latest`.
 const DEFAULT_VERSION = '1.0';
 const DEFAULT_TIMEOUT_MS = 30_000;
-const USER_AGENT = 'nz-open-data-connectors/0.1.0 (Language=TypeScript)';
+const USER_AGENT = 'nz-open-data-connectors (Language=TypeScript)';
 const VALID_FORMATS: StatsNzDataFormat[] = ['csv', 'csvfilewithlabels', 'jsondata'];
+
+/**
+ * Normalizes the optional subscription key.
+ *
+ * A key that is set but empty (`STATS_NZ_SUBSCRIPTION_KEY=`) is treated as
+ * absent, so a blank header never reaches the API. The same helper lives in
+ * `@nz-open-data-connectors/nz-sources` as `normalizeSourceApiKey`; the two
+ * packages are published separately and do not depend on each other.
+ *
+ * @param key - The raw key, or undefined when unset.
+ * @returns The trimmed key, or undefined when it is blank.
+ */
+export function normalizeStatsNzSubscriptionKey(key: string | undefined): string | undefined {
+  const trimmed = key?.trim();
+  if (trimmed === undefined || trimmed === '') {
+    return undefined;
+  }
+  return trimmed;
+}
 
 /**
  * Creates a Stats NZ (ADE) API client.
@@ -32,7 +51,7 @@ export function createStatsNzClient(options: StatsNzClientOptions = {}): StatsNz
   while (baseUrl.endsWith('/')) {
     baseUrl = baseUrl.slice(0, -1);
   }
-  const subscriptionKey = options.subscriptionKey;
+  const subscriptionKey = normalizeStatsNzSubscriptionKey(options.subscriptionKey);
   const fetchImpl = options.fetchImpl ?? globalThis.fetch;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
 
