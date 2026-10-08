@@ -29,6 +29,29 @@ export interface HttpGetOptions {
 }
 
 /**
+ * Builds the request headers, letting a caller replace the User-Agent.
+ *
+ * Most adapters send only the default identity. A few sources (the SEC and
+ * the National Weather Service, for example) ask for a more descriptive
+ * User-Agent of their own, and that one wins. Other headers merge over the
+ * defaults.
+ *
+ * @param extra - Headers supplied by the adapter.
+ * @returns The headers for one request.
+ */
+function buildRequestHeaders(extra: Record<string, string> | undefined): Record<string, string> {
+  const headers: Record<string, string> = { 'user-agent': USER_AGENT };
+  for (const [name, value] of Object.entries(extra ?? {})) {
+    if (name.toLowerCase() === 'user-agent') {
+      headers['user-agent'] = value;
+    } else {
+      headers[name] = value;
+    }
+  }
+  return headers;
+}
+
+/**
  * Issues a GET through the shared HTTP layer.
  *
  * Every adapter goes through here so that three things happen the same way
@@ -53,7 +76,7 @@ export async function httpGet(
   let response: Response;
   try {
     response = await doFetch(url, {
-      headers: { 'user-agent': USER_AGENT, ...options.headers },
+      headers: buildRequestHeaders(options.headers),
       signal: controller.signal,
     });
   } catch (error) {
