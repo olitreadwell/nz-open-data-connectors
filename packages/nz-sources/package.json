@@ -2,6 +2,8 @@
   "name": "@nz-open-data-connectors/nz-sources",
   "version": "0.1.1",
   "license": "MIT",
+  "description": "Keyless-first TypeScript clients for 14 New Zealand public data sources, with live probes and offline fixtures.",
+  "keywords": ["new-zealand", "open-data", "api", "api-client", "typescript", "geonet", "stats-nz", "linz", "digitalnz", "arcgis"],
   "private": false,
   "type": "module",
   "main": "./dist/index.js",

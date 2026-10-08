@@ -2,6 +2,8 @@
   "name": "@nz-open-data-connectors/stats-nz",
   "version": "0.1.1",
   "license": "MIT",
+  "description": "Client for the Stats NZ Aotearoa Data Explorer (ADE): dataflow catalogue, data pulls, codelists and CSV parsing.",
+  "keywords": ["new-zealand", "open-data", "stats-nz", "sdmx", "api-client", "typescript", "statistics"],
   "private": false,
   "type": "module",
   "main": "./dist/index.js",

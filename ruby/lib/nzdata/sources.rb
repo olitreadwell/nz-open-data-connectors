@@ -5,6 +5,8 @@ require 'net/http'
 require 'rexml/document'
 require 'uri'
 
+require_relative 'http_defaults'
+
 module Nzdata
   Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture)
   Probe = Struct.new(:id, :name, :auth, :ok, :status, :sample)
@@ -25,7 +27,6 @@ module Nzdata
   NzorSearchResult = Struct.new(:total, :names)
   TradeMeCategory = Struct.new(:name, :number, :path, :is_leaf, :subcategories)
 
-  DEFAULT_TIMEOUT_MS = 30_000
   FIXTURES_DIR = File.expand_path('fixtures', __dir__)
   MSD_BENEFIT_RESOURCE_ID = '9144a616-9ab1-4475-972b-ac42c1f891b7'
 

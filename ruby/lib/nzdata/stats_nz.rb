@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require 'cgi'
 require 'csv'
 require 'json'
 require 'net/http'
 require 'rexml/document'
 require 'uri'
+
+require_relative 'http_defaults'
 
 module Nzdata
   StatsNzDataflow = Struct.new(:id, :agency_id, :version, :title)
@@ -15,7 +16,6 @@ module Nzdata
 
   DEFAULT_BASE_URL = 'https://api.data.stats.govt.nz/rest'
   DEFAULT_VERSION = '1.0'
-  DEFAULT_TIMEOUT_MS = 30_000
   USER_AGENT = 'nz-open-data-connectors/0.1.0 (Language=Ruby)'
   VALID_FORMATS = %w[csv csvfilewithlabels jsondata].freeze
 

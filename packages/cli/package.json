@@ -2,6 +2,8 @@
   "name": "@nz-open-data-connectors/connectors-cli",
   "version": "0.1.0",
   "license": "MIT",
+  "description": "Command line tool for New Zealand open data. Prints JSON or CSV to stdout so any language can shell out to it.",
+  "keywords": ["new-zealand", "open-data", "cli", "typescript", "data", "api"],
   "type": "module",
   "main": "./dist/cli.js",
   "types": "./dist/cli.d.ts",
