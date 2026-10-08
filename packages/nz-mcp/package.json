@@ -36,7 +36,7 @@
     "@types/node": "22.20.1",
     "eslint": "9.39.5",
     "typescript": "6.0.3",
-    "vitest": "3.2.7"
+    "vitest": "5.0.3"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.0",
@@ -47,7 +47,6 @@
   "publishConfig": {
     "access": "public"
   },
-  "description": "MCP server exposing the NZ open data connector library to Claude and ChatGPT",
   "license": "MIT",
   "repository": {
     "type": "git",
