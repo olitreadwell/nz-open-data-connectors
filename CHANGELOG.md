@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.2 (2026-11-03)
+## 0.1.3 (2026-11-03)
 
 - `nz-sources` and `stats-nz` now build against Zod 4. The shared HTTP helper
   accepts a caller-supplied User-Agent, never sends a blank API key, and the
