@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.1.2 (2026-11-03)
+
+- `nz-sources` and `stats-nz` now build against Zod 4. The shared HTTP helper
+  accepts a caller-supplied User-Agent, never sends a blank API key, and the
+  Stats NZ subscription key reaches the LINZ adapter.
+- The data.govt.nz row schema and the SDMX-JSON attribute default are valid
+  under Zod 4.
+
 - npm packages moved off the placeholder `@nzlab` scope and onto this repo's
   own `@nz-open-data-connectors/*`, in every package name, import, tsconfig,
   eslint config, and lockfile entry. The root `build`, `dev`, and `start`

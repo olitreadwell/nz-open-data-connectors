@@ -48,7 +48,7 @@ const sdmxJsonResponseSchema = z.object({
             )
             .default([]),
         })
-        .default({}),
+        .default({ observation: [] }),
     }),
   }),
 });
