@@ -19,7 +19,41 @@ const DEFAULT_BASE_URL = 'https://api.data.stats.govt.nz/rest';
 // an explicit version. Callers with a subscription key can pass `latest`.
 const DEFAULT_VERSION = '1.0';
 const DEFAULT_TIMEOUT_MS = 30_000;
+const MAX_REDIRECTS = 20;
 const USER_AGENT = 'nz-open-data-connectors (Language=TypeScript)';
+const REDIRECT_STATUSES = new Set([301, 302, 303, 307, 308]);
+const SENSITIVE_HEADER_NAMES = new Set([
+  'authorization',
+  'proxy-authorization',
+  'cookie',
+  'set-cookie',
+  'host',
+]);
+const SENSITIVE_HEADER_PARTS = [
+  'api-key',
+  'apikey',
+  'subscription-key',
+  'access-token',
+  'auth-token',
+  'access-key',
+  'auth',
+  'secret',
+  'token',
+];
+
+/** Tests whether a header must be dropped when a redirect changes origin. */
+function isSensitiveHeader(name: string): boolean {
+  const lowered = name.toLowerCase();
+  return (
+    SENSITIVE_HEADER_NAMES.has(lowered) ||
+    SENSITIVE_HEADER_PARTS.some((part) => lowered.includes(part))
+  );
+}
+
+/** Drops credentials before a redirect leaves the current origin. */
+function stripSensitiveHeaders(headers: Record<string, string>): Record<string, string> {
+  return Object.fromEntries(Object.entries(headers).filter(([name]) => !isSensitiveHeader(name)));
+}
 const VALID_FORMATS: StatsNzDataFormat[] = ['csv', 'csvfilewithlabels', 'jsondata'];
 
 /**
@@ -68,21 +102,54 @@ export function createStatsNzClient(options: StatsNzClientOptions = {}): StatsNz
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     const url = `${baseUrl}${path}`;
+    let currentUrl = url;
+    let currentHeaders = headers;
+
     try {
-      return await fetchImpl(url, {
-        headers,
-        signal: controller.signal,
-        cache: 'no-store',
-      });
+      for (let redirects = 0; ; redirects += 1) {
+        const response = await fetchImpl(currentUrl, {
+          headers: currentHeaders,
+          signal: controller.signal,
+          cache: 'no-store',
+          redirect: 'manual',
+        });
+        if (!REDIRECT_STATUSES.has(response.status)) {
+          return response;
+        }
+
+        const location = response.headers.get('location');
+        if (location === null) {
+          return response;
+        }
+        if (redirects >= MAX_REDIRECTS) {
+          throw new StatsNzApiError(
+            `Stats NZ request redirected more than ${MAX_REDIRECTS} times`,
+            { status: 0, retryable: false, url }
+          );
+        }
+
+        const nextUrl = new URL(location, currentUrl).toString();
+        if (new URL(currentUrl).origin !== new URL(nextUrl).origin) {
+          currentHeaders = stripSensitiveHeaders(currentHeaders);
+        }
+        currentUrl = nextUrl;
+      }
     } catch (error) {
-      if (error instanceof DOMException && error.name === 'AbortError') {
+      if (error instanceof StatsNzApiError) {
+        throw error;
+      }
+      if (controller.signal.aborted || (error instanceof Error && error.name === 'AbortError')) {
         throw new StatsNzApiError(`Stats NZ request timed out after ${timeoutMs}ms`, {
           status: 0,
           retryable: true,
           url,
         });
       }
-      throw error;
+      throw new StatsNzApiError(`Stats NZ request failed: ${String(error)}`, {
+        status: 0,
+        retryable: true,
+        url,
+      });
     } finally {
       clearTimeout(timer);
     }

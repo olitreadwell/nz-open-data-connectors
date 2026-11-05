@@ -2,6 +2,7 @@
 
 require_relative 'spec_helper'
 require 'socket'
+require 'csv'
 
 describe Nzdata do
   LIVESTOCK_CSV = Nzdata.read_fixture_text('agricultural-livestock-regional-council-2025-08-17.csv')
@@ -55,9 +56,14 @@ describe Nzdata do
       _(rows.map(&:value)).must_equal [7.0, nil]
     end
 
-    it 'rejects malformed CSV' do
-      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE\n\"unterminated\n", 'AGR_AGR_003') })
-        .must_raise Nzdata::StatsNzParseError
+    it 'normalizes bare carriage returns' do
+      rows = Nzdata.parse_stats_nz_csv("OBS_VALUE\r7\r", 'X')
+      _(rows.map(&:value)).must_equal [7.0]
+    end
+
+    it 'uses the TypeScript lenient quote rule' do
+      rows = Nzdata.parse_stats_nz_csv("OBS_VALUE\n\"7\n", 'X')
+      _(rows.map(&:value)).must_equal [7.0]
     end
   end
 
@@ -224,6 +230,13 @@ describe Nzdata do
       payload = JSON.parse(SDMX_JSON)
       payload['data']['dataSets'][0]['series']['0:0:0']['observations']['0'] = []
       _(Nzdata.parse_sdmx_json_response(JSON.generate(payload)).first.value).must_be_nil
+    end
+
+    it 'rejects a malformed non-status observation attribute' do
+      payload = JSON.parse(SDMX_JSON)
+      payload['data']['structure']['attributes']['observation'] = [{ 'id' => 'OTHER' }]
+      _(-> { Nzdata.parse_sdmx_json_response(JSON.generate(payload)) })
+        .must_raise Nzdata::StatsNzParseError
     end
 
     it 'rejects a null observation attribute list' do

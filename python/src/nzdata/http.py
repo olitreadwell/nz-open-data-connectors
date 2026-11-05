@@ -2,12 +2,13 @@
 
 from __future__ import annotations
 
+import time
 from typing import Dict, Mapping
 from urllib.parse import urljoin, urlsplit
 
 import httpx
 
-MAX_REDIRECTS = 5
+MAX_REDIRECTS = 20
 
 _SENSITIVE_HEADERS = {
     "authorization",
@@ -22,6 +23,8 @@ _SENSITIVE_HEADER_PARTS = (
     "subscription-key",
     "access-token",
     "auth-token",
+    "access-key",
+    "auth",
     "secret",
     "token",
 )
@@ -60,22 +63,26 @@ def get_with_redirects(
     max_redirects: int = MAX_REDIRECTS,
 ) -> httpx.Response:
     """GETs a URL, following redirects without leaking credentials cross-origin."""
+    deadline = time.monotonic() + timeout_ms / 1000
     current_url = url
     current_headers = dict(headers)
-    response: httpx.Response | None = None
-    for _ in range(max_redirects + 1):
+    for redirect_count in range(max_redirects + 1):
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise httpx.TimeoutException(f"request timed out after {timeout_ms}ms")
         response = httpx.get(
             current_url,
             headers=current_headers,
-            timeout=timeout_ms / 1000,
+            timeout=remaining,
             follow_redirects=False,
         )
         location = response.headers.get("location")
         if response.status_code not in (301, 302, 303, 307, 308) or location is None:
             return response
+        if redirect_count >= max_redirects:
+            raise httpx.HTTPError(f"too many redirects after {max_redirects}")
         next_url = urljoin(current_url, location)
         if not same_origin(current_url, next_url):
             current_headers = strip_sensitive_headers(current_headers)
         current_url = next_url
-    assert response is not None
-    return response
+    raise httpx.HTTPError(f"too many redirects after {max_redirects}")

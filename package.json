@@ -15,7 +15,7 @@
     "build": "npm run build -w @nz-open-data-connectors/nz-sources -w @nz-open-data-connectors/stats-nz && npm run build -w @nz-open-data-connectors/nz-mcp && npm run build -w @nz-open-data-connectors/connectors-cli",
     "start": "npm run start -w @nz-open-data-connectors/connectors-api",
     "setup": "node scripts/setup.mjs",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "npm run type-check --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "format": "npm run format --workspaces --if-present",
     "format:check": "npm run format:check --workspaces --if-present",

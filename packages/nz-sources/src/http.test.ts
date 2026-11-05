@@ -41,6 +41,56 @@ describe('httpGet', () => {
     expect(headers.Accept).toBe('application/json');
   });
 
+  it('drops credentials when a redirect changes origin', async () => {
+    const calls: { url: string; headers: Headers }[] = [];
+    const impl: typeof globalThis.fetch = async (input, init) => {
+      const url = typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
+      calls.push({ url, headers: new Headers(init?.headers) });
+      if (calls.length === 1) {
+        return new Response('', {
+          status: 302,
+          headers: { location: 'https://other.example/final' },
+        });
+      }
+      return new Response('ok', { status: 200 });
+    };
+
+    await httpGet('Test source', URL_UNDER_TEST, {
+      fetchImpl: impl,
+      headers: {
+        authorization: 'Bearer secret',
+        'x-api-key': 'key',
+        'x-auth-key': 'auth-key',
+        Accept: 'application/json',
+      },
+    });
+
+    expect(calls).toHaveLength(2);
+    expect(calls[0]?.headers.get('x-api-key')).toBe('key');
+    expect(calls[1]?.headers.get('authorization')).toBeNull();
+    expect(calls[1]?.headers.get('x-api-key')).toBeNull();
+    expect(calls[1]?.headers.get('x-auth-key')).toBeNull();
+    expect(calls[1]?.headers.get('accept')).toBe('application/json');
+  });
+
+  it('keeps credentials when a redirect stays on the same origin', async () => {
+    const credentials: Array<string | null> = [];
+    const impl: typeof globalThis.fetch = async (_input, init) => {
+      credentials.push(new Headers(init?.headers).get('x-api-key'));
+      if (credentials.length === 1) {
+        return new Response('', { status: 302, headers: { location: '/final' } });
+      }
+      return new Response('ok', { status: 200 });
+    };
+
+    await httpGet('Test source', URL_UNDER_TEST, {
+      fetchImpl: impl,
+      headers: { 'x-api-key': 'key' },
+    });
+
+    expect(credentials).toEqual(['key', 'key']);
+  });
+
   it('returns the response when the status is ok', async () => {
     const { impl } = recordingFetch(() => new Response('hello', { status: 200 }));
     const response = await httpGet('Test source', URL_UNDER_TEST, { fetchImpl: impl });

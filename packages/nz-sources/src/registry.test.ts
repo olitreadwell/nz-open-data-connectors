@@ -140,9 +140,14 @@ describe('registry', () => {
     expect(fetchImpl).toHaveBeenCalledTimes(1);
   });
 
-  it('returns no probes for an unknown id', async () => {
-    const probes = await probeAllNzDataSources({ ids: ['not-a-source'] });
-    expect(probes).toEqual([]);
+  it('rejects an unknown id before probing', async () => {
+    const fetchImpl = vi.fn();
+    vi.stubGlobal('fetch', fetchImpl);
+
+    await expect(probeAllNzDataSources({ ids: ['not-a-source'] })).rejects.toThrow(
+      'Unknown NZ source id "not-a-source"'
+    );
+    expect(fetchImpl).not.toHaveBeenCalled();
   });
 
   it('returns no probes for an explicit empty id list', async () => {

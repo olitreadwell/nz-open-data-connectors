@@ -3,7 +3,7 @@ import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createNzOpenDataMcpServer, NZ_MCP_SERVER_VERSION } from './nzOpenDataMcpServer.js';
+import { createNzOpenDataMcpServer } from './nzOpenDataMcpServer.js';
 
 /** Connects a client to a server over the in-memory transport pair. */
 async function connectClient(
@@ -22,11 +22,12 @@ function firstText(result: unknown): string {
 }
 
 describe('createNzOpenDataMcpServer', () => {
-  it('reports the package.json version in the handshake', () => {
+  it('reports the package.json version in the handshake', async () => {
     const manifest = JSON.parse(
       readFileSync(new URL('../package.json', import.meta.url), 'utf8')
     ) as { version: string };
-    expect(NZ_MCP_SERVER_VERSION).toBe(manifest.version);
+    const client = await connectClient(createNzOpenDataMcpServer());
+    expect(client.getServerVersion()?.version).toBe(manifest.version);
   });
 
   it('advertises the country query tool', async () => {
@@ -69,7 +70,7 @@ describe('createNzOpenDataMcpServer', () => {
     ]);
   });
 
-  it('probes only the requested source ids', async () => {
+  it('rejects an unknown source id', async () => {
     const client = await connectClient(createNzOpenDataMcpServer());
 
     const result = await client.callTool({
@@ -77,7 +78,8 @@ describe('createNzOpenDataMcpServer', () => {
       arguments: { ids: ['not-a-source'] },
     });
 
-    expect(JSON.parse(firstText(result))).toEqual([]);
+    expect((result as { isError?: boolean }).isError).toBe(true);
+    expect(firstText(result)).toContain('not-a-source');
   });
 
   it('lists every source in the country registry', async () => {
@@ -156,7 +158,21 @@ describe('every advertised tool', () => {
       const argumentSets = [REQUIRED_ARGS[tool.name] ?? {}, FULL_ARGS[tool.name] ?? {}];
       for (const args of argumentSets) {
         const result = await client.callTool({ name: tool.name, arguments: args });
+        const isError = (result as { isError?: boolean }).isError === true;
         expect((result as { content?: unknown }).content, tool.name).toBeDefined();
+        if (tool.name === 'list_sources') {
+          expect(isError, tool.name).toBe(false);
+        } else if (tool.name === 'probe_sources') {
+          expect(isError, tool.name).toBe(false);
+          const probes = JSON.parse(firstText(result)) as { ok: boolean }[];
+          expect(probes.length, tool.name).toBeGreaterThan(0);
+          expect(
+            probes.every((probe) => !probe.ok),
+            tool.name
+          ).toBe(true);
+        } else {
+          expect(isError, tool.name).toBe(true);
+        }
       }
     }
 

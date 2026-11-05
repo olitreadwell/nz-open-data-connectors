@@ -102,6 +102,44 @@ describe('createStatsNzClient', () => {
     expect(seen).toEqual(['secret-key', '']);
   });
 
+  it('drops the subscription key when a redirect changes origin', async () => {
+    const seen: Array<string | null> = [];
+    const urls: string[] = [];
+    const fetchImpl = stubFetch(async (url, init) => {
+      urls.push(url);
+      seen.push(new Headers(init.headers).get('Ocp-Apim-Subscription-Key'));
+      if (urls.length === 1) {
+        return new Response('', {
+          status: 302,
+          headers: { location: 'https://other.example/final' },
+        });
+      }
+      return new Response('DATAFLOW,X_Y,OBS_VALUE\n');
+    });
+    const client = createStatsNzClient({
+      baseUrl: 'https://stub.example/rest',
+      fetchImpl,
+      subscriptionKey: 'secret',
+    });
+
+    await client.getData({ dataflowId: 'X' });
+
+    expect(urls).toHaveLength(2);
+    expect(seen).toEqual(['secret', null]);
+  });
+
+  it('wraps a network failure as a retryable API error', async () => {
+    const fetchImpl = stubFetch(async () => {
+      throw new TypeError('ECONNREFUSED');
+    });
+    const client = createStatsNzClient({ baseUrl: 'https://stub.example/rest', fetchImpl });
+    const error = await client.getData({ dataflowId: 'X' }).catch((caught: unknown) => caught);
+
+    expect(error).toBeInstanceOf(StatsNzApiError);
+    expect((error as StatsNzApiError).status).toBe(0);
+    expect((error as StatsNzApiError).retryable).toBe(true);
+  });
+
   it('parses the dataflow catalogue', async () => {
     const fetchImpl = stubFetch(
       async () =>

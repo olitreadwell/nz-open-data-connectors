@@ -226,9 +226,13 @@ def parse_sdmx_json_response(text: str) -> List[StatsNzObservation]:
         raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
     status_values: Optional[List[Dict[str, str]]] = None
     for attribute in observation_attributes:
-        if isinstance(attribute, dict) and attribute.get("id") == "OBS_STATUS":
-            status_values = _sdmx_values(attribute.get("values"), "OBS_STATUS")
-            break
+        if not isinstance(attribute, dict) or not isinstance(attribute.get("id"), str):
+            raise StatsNzParseError(
+                "Stats NZ jsondata response does not match the SDMX-JSON shape"
+            )
+        values = _sdmx_values(attribute.get("values"), "observation attribute")
+        if attribute["id"] == "OBS_STATUS":
+            status_values = values
 
     rows: List[StatsNzObservation] = []
     for dataset in datasets:

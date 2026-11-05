@@ -74,6 +74,15 @@ export async function probeAllNzDataSources(options?: {
   ids?: string[];
 }): Promise<NzSourceProbe[]> {
   const { apiKey, apiKeys, ids } = options ?? {};
+  if (ids !== undefined) {
+    const known = new Set(NZ_DATA_SOURCES.map((source) => source.id));
+    const unknown = [...new Set(ids.filter((id) => !known.has(id)))];
+    if (unknown.length > 0) {
+      const noun = unknown.length === 1 ? 'id' : 'ids';
+      const list = unknown.map((id) => `"${id}"`).join(', ');
+      throw new Error(`Unknown NZ source ${noun} ${list}. Call list_sources for the ids.`);
+    }
+  }
   const wanted = ids === undefined ? undefined : new Set(ids);
   return Promise.all(
     NZ_DATA_SOURCES.filter((source) => wanted === undefined || wanted.has(source.id)).map(

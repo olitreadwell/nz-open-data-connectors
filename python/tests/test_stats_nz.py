@@ -70,6 +70,21 @@ def test_parse_stats_nz_csv_matches_typescript_number_parsing():
         parse_stats_nz_csv("OBS_VALUE\n1e400\n", "X")
 
 
+def test_parse_stats_nz_csv_normalizes_bare_carriage_returns():
+    rows = parse_stats_nz_csv("OBS_VALUE\r7\r", "X")
+    assert [row.value for row in rows] == [7]
+
+
+def test_parse_stats_nz_csv_uses_typescript_lenient_quotes():
+    rows = parse_stats_nz_csv('OBS_VALUE\n"7\n', "X")
+    assert [row.value for row in rows] == [7]
+
+
+def test_parse_stats_nz_csv_rejects_oversized_radix_value_as_parse_error():
+    with pytest.raises(StatsNzParseError):
+        parse_stats_nz_csv("OBS_VALUE\n0x" + "f" * 400 + "\n", "X")
+
+
 def test_parse_stats_nz_csv_keeps_a_blank_record_like_typescript():
     rows = parse_stats_nz_csv("OBS_VALUE\n7\n\n", "X")
     assert [row.value for row in rows] == [7, None]
@@ -356,6 +371,13 @@ def test_parse_sdmx_json_allows_an_empty_observation():
     payload["data"]["dataSets"][0]["series"]["0:0:0"]["observations"]["0"] = []
     rows = parse_sdmx_json_response(json.dumps(payload))
     assert rows[0].value is None
+
+
+def test_parse_sdmx_json_rejects_malformed_non_status_attributes():
+    payload = json.loads(SDMX_JSON)
+    payload["data"]["structure"]["attributes"]["observation"] = [{"id": "OTHER"}]
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response(json.dumps(payload))
 
 
 def test_parse_sdmx_json_rejects_null_observation_attributes():

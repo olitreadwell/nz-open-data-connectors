@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'csv'
 require 'json'
 require 'net/http'
 require 'rexml/document'
+require 'timeout'
 require 'uri'
 
 require_relative 'http_defaults'
@@ -21,10 +21,7 @@ module Nzdata
   module_function
 
   def parse_stats_nz_csv(text, dataflow_id)
-    text = text.sub(/\A\uFEFF/, '')
-    return [] if text.strip.empty?
-
-    rows = CSV.parse(text)
+    rows = parse_stats_nz_csv_rows(text)
     return [] if rows.empty?
 
     records = stats_nz_records(rows)
@@ -34,8 +31,51 @@ module Nzdata
     end
 
     records.map { |record| stats_nz_observation(record, dataflow_id) }
-  rescue CSV::MalformedCSVError => e
-    raise StatsNzParseError, "Malformed Stats NZ CSV: #{e.message}"
+  end
+
+  def parse_stats_nz_csv_rows(text)
+    normalized = text.sub(/\A\uFEFF/, '').gsub(/\r\n?/, "\n")
+    return [] if normalized.strip.empty?
+
+    rows = []
+    row = []
+    field = +''
+    in_quotes = false
+    index = 0
+    while index < normalized.length
+      char = normalized[index]
+      if in_quotes
+        if char == '"' && normalized[index + 1] == '"'
+          field << '"'
+          index += 2
+          next
+        end
+        if char == '"'
+          in_quotes = false
+        else
+          field << char
+        end
+      elsif char == '"'
+        in_quotes = true
+      elsif char == ','
+        row << field
+        field = +''
+      elsif char == "\n"
+        row << field
+        rows << row
+        row = []
+        field = +''
+      else
+        field << char
+      end
+      index += 1
+    end
+
+    unless field.empty? && row.empty?
+      row << field
+      rows << row
+    end
+    rows
   end
 
   def stats_nz_records(rows)
@@ -159,10 +199,16 @@ module Nzdata
     observation_attributes = attributes.key?('observation') ? attributes['observation'] : []
     raise StatsNzParseError, SDMX_SHAPE_ERROR unless observation_attributes.is_a?(Array)
 
-    attribute = observation_attributes.find do |entry|
-      entry.is_a?(Hash) && entry['id'] == 'OBS_STATUS'
+    status_values = nil
+    observation_attributes.each do |entry|
+      unless entry.is_a?(Hash) && entry['id'].is_a?(String)
+        raise StatsNzParseError, SDMX_SHAPE_ERROR
+      end
+
+      values = sdmx_values(entry['values'], 'observation attribute')
+      status_values = values if entry['id'] == 'OBS_STATUS'
     end
-    attribute && sdmx_values(attribute['values'], 'OBS_STATUS')
+    status_values
   end
 
   def sdmx_dataset_rows(dataset, series_dimensions, time_dimension, status_values)
@@ -414,21 +460,32 @@ module Nzdata
       body
     end
 
-    def default_fetch(url, headers, timeout_ms, redirects_left = 5)
+    def default_fetch(url, headers, timeout_ms, redirects_left = 20, deadline = nil)
+      deadline ||= Process.clock_gettime(Process::CLOCK_MONOTONIC) + (timeout_ms / 1000.0)
+      remaining = deadline - Process.clock_gettime(Process::CLOCK_MONOTONIC)
+      raise Timeout::Error, "request timed out after #{timeout_ms}ms" if remaining <= 0
+
       uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
-      http.open_timeout = timeout_ms / 1000.0
-      http.read_timeout = timeout_ms / 1000.0
+      http.open_timeout = remaining
+      http.read_timeout = remaining
       request = Net::HTTP::Get.new(uri)
       headers.each { |key, value| request[key] = value }
       response = http.request(request)
-      if response.is_a?(Net::HTTPRedirection) && redirects_left.positive?
+      if response.is_a?(Net::HTTPRedirection)
         location = response['location']
         unless location.nil?
+          if redirects_left.zero?
+            raise StatsNzApiError.new(
+              'Stats NZ request redirected too many times',
+              status: 0, retryable: false, url: url
+            )
+          end
+
           next_url = URI.join(url.to_s, location).to_s
           next_headers = Nzdata.redirect_headers(headers, url, next_url)
-          return default_fetch(next_url, next_headers, timeout_ms, redirects_left - 1)
+          return default_fetch(next_url, next_headers, timeout_ms, redirects_left - 1, deadline)
         end
       end
       [response.code.to_i, response.body.to_s]

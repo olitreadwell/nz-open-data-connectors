@@ -1,5 +1,8 @@
 """Unit tests for the Python port's shared redirect handling."""
 
+import httpx
+import pytest
+
 import nzdata.http as http
 
 
@@ -25,6 +28,7 @@ def test_cross_origin_redirect_drops_credentials(monkeypatch):
             "user-agent": "nz-open-data-connectors",
             "Ocp-Apim-Subscription-Key": "secret",
             "X-Api-Key": "key",
+            "X-Auth-Key": "auth-key",
         },
         1000,
     )
@@ -51,7 +55,7 @@ def test_same_origin_redirect_keeps_credentials(monkeypatch):
     assert calls[1][1] == {"Ocp-Apim-Subscription-Key": "secret"}
 
 
-def test_redirect_limit_returns_the_last_response(monkeypatch):
+def test_redirect_limit_raises(monkeypatch):
     calls = 0
 
     def fake_get(url, headers, **kwargs):
@@ -60,7 +64,7 @@ def test_redirect_limit_returns_the_last_response(monkeypatch):
         return StubResponse(302, "/again")
 
     monkeypatch.setattr(http.httpx, "get", fake_get)
-    response = http.get_with_redirects("https://api.example/start", {}, 1000, max_redirects=2)
+    with pytest.raises(httpx.HTTPError):
+        http.get_with_redirects("https://api.example/start", {}, 1000, max_redirects=2)
 
-    assert response.status_code == 302
     assert calls == 3

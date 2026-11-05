@@ -242,7 +242,8 @@ describe Nzdata do
         {
           'user-agent' => 'nz-open-data-connectors',
           'Ocp-Apim-Subscription-Key' => 'secret',
-          'X-Api-Key' => 'key'
+          'X-Api-Key' => 'key',
+          'X-Auth-Key' => 'auth-key'
         },
         'https://api.example/start',
         'https://other.example/final'

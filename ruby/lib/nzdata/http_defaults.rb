@@ -18,10 +18,22 @@ module Nzdata
   ].freeze
 
   SENSITIVE_REDIRECT_HEADER_PARTS = %w[
-    api-key apikey subscription-key access-token auth-token secret token
+    api-key apikey subscription-key access-token auth-token access-key auth secret token
   ].freeze
 
   module_function
+
+  def build_request_headers(headers)
+    request_headers = { 'user-agent' => USER_AGENT }
+    headers.each do |name, value|
+      if name.to_s.casecmp('user-agent').zero?
+        request_headers['user-agent'] = value
+      else
+        request_headers[name.to_s] = value
+      end
+    end
+    request_headers
+  end
 
   def sensitive_redirect_header?(name)
     lowered = name.to_s.downcase
