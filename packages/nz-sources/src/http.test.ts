@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { NzSourceApiError } from './errors.js';
-import { DEFAULT_TIMEOUT_MS, httpGet, USER_AGENT } from './http.js';
+import { DEFAULT_TIMEOUT_MS, httpGet, httpPost, USER_AGENT } from './http.js';
 
 /** A fetch stub that records the init it was called with. */
 function recordingFetch(response: () => Response): {
@@ -102,5 +102,78 @@ describe('httpGet', () => {
 
   it('defaults the timeout to 30 seconds', () => {
     expect(DEFAULT_TIMEOUT_MS).toBe(30_000);
+  });
+});
+
+describe('httpPost', () => {
+  it('sends a form body with the shared user agent', async () => {
+    const { impl, calls } = recordingFetch(() => new Response('ok', { status: 200 }));
+    const body = new URLSearchParams({ query: 'employment' });
+    await httpPost('Test source', URL_UNDER_TEST, body, { fetchImpl: impl });
+    expect(calls[0]?.method).toBe('POST');
+    expect(calls[0]?.body).toBe(body);
+    expect(headersOf(calls)['user-agent']).toBe(USER_AGENT);
+  });
+
+  it('merges caller headers over the defaults', async () => {
+    const { impl, calls } = recordingFetch(() => new Response('ok', { status: 200 }));
+    await httpPost('Test source', URL_UNDER_TEST, 'raw', {
+      fetchImpl: impl,
+      headers: { 'content-type': 'text/plain' },
+    });
+    const headers = headersOf(calls);
+    expect(headers['user-agent']).toBe(USER_AGENT);
+    expect(headers['content-type']).toBe('text/plain');
+  });
+
+  it('returns a manual redirect instead of following it', async () => {
+    const { impl } = recordingFetch(
+      () => new Response('', { status: 302, headers: { location: '/next' } })
+    );
+    const response = await httpPost('Test source', URL_UNDER_TEST, 'body', {
+      fetchImpl: impl,
+      redirect: 'manual',
+    });
+    expect(response.status).toBe(302);
+    expect(response.headers.get('location')).toBe('/next');
+  });
+
+  it('follows redirects by default', async () => {
+    const { impl, calls } = recordingFetch(() => new Response('ok', { status: 200 }));
+    await httpPost('Test source', URL_UNDER_TEST, 'body', { fetchImpl: impl });
+    expect(calls[0]?.redirect).toBeUndefined();
+  });
+
+  it('reports a 500 as retryable', async () => {
+    const { impl } = recordingFetch(() => new Response('later', { status: 500 }));
+    const failure = await httpPost('Test source', URL_UNDER_TEST, 'body', {
+      fetchImpl: impl,
+    }).catch((error: unknown) => error);
+    expect(failure).toBeInstanceOf(NzSourceApiError);
+    expect((failure as NzSourceApiError).retryable).toBe(true);
+  });
+
+  it('reports a network failure as retryable', async () => {
+    const impl: typeof globalThis.fetch = async () => {
+      throw new Error('ECONNREFUSED');
+    };
+    const failure = await httpPost('Test source', URL_UNDER_TEST, 'body', {
+      fetchImpl: impl,
+    }).catch((error: unknown) => error);
+    expect(failure).toBeInstanceOf(NzSourceApiError);
+    expect((failure as NzSourceApiError).retryable).toBe(true);
+  });
+
+  it('aborts a request that outlives the timeout', async () => {
+    const hangingFetch: typeof globalThis.fetch = (_input, init) =>
+      new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener('abort', () => reject(new Error('aborted')));
+      });
+    const failure = await httpPost('Test source', URL_UNDER_TEST, 'body', {
+      fetchImpl: hangingFetch,
+      timeoutMs: 10,
+    }).catch((error: unknown) => error);
+    expect(failure).toBeInstanceOf(NzSourceApiError);
+    expect((failure as NzSourceApiError).message).toBe('Test source: request timed out after 10ms');
   });
 });

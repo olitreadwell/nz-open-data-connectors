@@ -28,6 +28,12 @@ export interface HttpGetOptions {
   timeoutMs?: number | undefined;
 }
 
+/** Options shared by the POST helper. */
+export interface HttpPostOptions extends HttpGetOptions {
+  /** Redirect mode, e.g. `manual` when the caller must read the `location`. */
+  redirect?: RequestRedirect | undefined;
+}
+
 /**
  * Builds the request headers, letting a caller replace the User-Agent.
  *
@@ -55,7 +61,7 @@ function buildRequestHeaders(extra: Record<string, string> | undefined): Record<
  * Issues a GET through the shared HTTP layer.
  *
  * Every adapter goes through here so that three things happen the same way
- * for all 14 sources: a `user-agent` identifies the client, a timeout aborts
+ * for all 15 sources: a `user-agent` identifies the client, a timeout aborts
  * a request that hangs, and a failure carries whether retrying is worthwhile.
  *
  * @param source - Source name used in the error message, e.g. "GeoNet".
@@ -69,6 +75,44 @@ export async function httpGet(
   url: string | URL,
   options: HttpGetOptions = {}
 ): Promise<Response> {
+  return request(source, url, {}, options, false);
+}
+
+/**
+ * Issues a POST through the shared HTTP layer.
+ *
+ * Uses the same identity, timeout, and retryable error mapping as
+ * {@link httpGet}. A caller that needs to read a redirect sets
+ * `redirect: 'manual'`; the 3xx response is then returned instead of thrown.
+ *
+ * @param source - Source name used in the error message, e.g. "Infoshare".
+ * @param url - Absolute URL or URL object to fetch.
+ * @param body - Form body or raw request body.
+ * @param options - Fetch override, headers, timeout, and redirect mode.
+ * @returns The response, already checked for a successful status.
+ * @throws {NzSourceApiError} On an unrecoverable status, an abort, or a network error.
+ */
+export async function httpPost(
+  source: string,
+  url: string | URL,
+  body: string | URLSearchParams,
+  options: HttpPostOptions = {}
+): Promise<Response> {
+  const init: RequestInit = { method: 'POST', body };
+  if (options.redirect !== undefined) {
+    init.redirect = options.redirect;
+  }
+  return request(source, url, init, options, true);
+}
+
+/** Runs one request and maps failures to the shared error type. */
+async function request(
+  source: string,
+  url: string | URL,
+  init: RequestInit,
+  options: HttpGetOptions,
+  acceptRedirect: boolean
+): Promise<Response> {
   const doFetch = options.fetchImpl ?? globalThis.fetch;
   const timeoutMs = options.timeoutMs ?? DEFAULT_TIMEOUT_MS;
   const controller = new AbortController();
@@ -76,6 +120,7 @@ export async function httpGet(
   let response: Response;
   try {
     response = await doFetch(url, {
+      ...init,
       headers: buildRequestHeaders(options.headers),
       signal: controller.signal,
     });
@@ -90,7 +135,8 @@ export async function httpGet(
     clearTimeout(timer);
   }
 
-  if (!response.ok) {
+  const isRedirect = response.status >= 300 && response.status < 400;
+  if (!response.ok && !(acceptRedirect && isRedirect)) {
     throw new NzSourceApiError(source, `HTTP ${response.status}`, {
       status: response.status,
       retryable:

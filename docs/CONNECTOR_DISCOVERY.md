@@ -131,6 +131,60 @@ returns the raw `license` value per dataset; check it before reuse.
 - Not verified: behaviour from non-NZ IPs, or whether the licence text is
   stable over time.
 
+## 2026-11-06 addition: `infoshare`
+
+Stats NZ Infoshare is an ASP.NET search application, not a JSON API. The
+adapter opens the search page to get a session cookie and the ASP.NET view
+state, posts the query, then reads the first results page. It returns the
+table title, folder path, and last-updated date for up to 20 tables, plus the
+total match count.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `infoshare` | Stats NZ Infoshare | `https://infoshare.stats.govt.nz/SearchPage.aspx` then `https://infoshare.stats.govt.nz/SearchResults.aspx` | `infoshare-search-employment-2026-11-06.html` |
+
+### Exact curl commands (captured 2026-11-06)
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+BASE="https://infoshare.stats.govt.nz"
+
+# Start a session and capture the ASP.NET view state.
+curl -sS -L -A "$UA" -c /tmp/infoshare.cookies \
+  "$BASE/SearchPage.aspx" -o /tmp/infoshare-search-page.html
+
+VIEWSTATE=$(sed -n 's/.*name="__VIEWSTATE"[^>]*value="\([^"]*\)".*/\1/p' /tmp/infoshare-search-page.html | head -1)
+EVENTVALIDATION=$(sed -n 's/.*name="__EVENTVALIDATION"[^>]*value="\([^"]*\)".*/\1/p' /tmp/infoshare-search-page.html | head -1)
+
+# Post the query. A 302 to /SearchResults.aspx is the expected response.
+curl -sS -A "$UA" -b /tmp/infoshare.cookies -c /tmp/infoshare.cookies \
+  -X POST --data-urlencode "__EVENTTARGET=" --data-urlencode "__EVENTARGUMENT=" \
+  --data-urlencode "__VIEWSTATE=$VIEWSTATE" \
+  --data-urlencode "__EVENTVALIDATION=$EVENTVALIDATION" \
+  --data-urlencode "ctl00\$MainContent\$ctlSearch\$tbSearchText=employment" \
+  --data-urlencode "ctl00\$MainContent\$ctlSearch\$rblSearchOptions=rbSearchOptionsOr" \
+  --data-urlencode "ctl00\$MainContent\$ctlSearch\$btnSearch.x=10" \
+  --data-urlencode "ctl00\$MainContent\$ctlSearch\$btnSearch.y=10" \
+  -o /dev/null -w '%{http_code} %{redirect_url}\n' \
+  "$BASE/SearchPage.aspx"
+
+# Read the results page with the same session cookie.
+curl -sS -L -A "$UA" -b /tmp/infoshare.cookies \
+  "$BASE/SearchResults.aspx" \
+  -o infoshare-search-employment-2026-11-06.html
+```
+
+### Shape notes
+
+- Keyless. No account, API key, or extra header beyond the browser User-Agent.
+- The results page is HTML. The adapter reads the result anchors, the
+  `Last updated` line, the `Table path` line, the total count, and the echoed
+  query from a hidden field.
+- Only the first results page is returned (20 rows). Pagination uses ASP.NET
+  postbacks, which the adapter does not follow.
+- The live check on 2026-11-06 returned 180 tables for "employment" and a
+  60,220 byte fixture.
+
 ## Licences and attribution
 
 The MIT licence in this repo covers the code, not the data. Every source keeps
@@ -141,6 +195,7 @@ its own terms, and the publisher's licence is the one that applies.
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
 | `data-govt-nz`, `data-govt-datastore` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter does not return those fields today |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
+| `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
 | `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter does not return those fields today |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |

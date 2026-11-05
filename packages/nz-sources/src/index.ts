@@ -61,6 +61,14 @@ export {
 } from './geonet.js';
 /** GeoNet types. */
 export type { GeoNetQuake, GeoNetQuakeSummary } from './geonet.js';
+/** Stats NZ Infoshare table catalogue search. */
+export {
+  searchInfoshareTables,
+  parseInfoshareSearchResults,
+  infoshareAdapter,
+} from './infoshare.js';
+/** Stats NZ Infoshare types. */
+export type { InfoshareSearchResult, InfoshareTable } from './infoshare.js';
 /** LINZ layer search. */
 export { searchLinzLayers, parseLinzLayers, linzAdapter } from './linz.js';
 /** LINZ types. */
@@ -112,8 +120,8 @@ export type { TradeMeCategory } from './tradeMe.js';
 /** API key normalization shared by adapters, the API, and the CLI. */
 export { normalizeSourceApiKey } from './apiKey.js';
 /** The shared HTTP layer every adapter fetch goes through. */
-export { httpGet, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
+export { httpGet, httpPost, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
 /** Shared HTTP layer types. */
-export type { HttpGetOptions } from './http.js';
+export type { HttpGetOptions, HttpPostOptions } from './http.js';
 /** Shared adapter contract types. */
 export type { NzDataAdapter, NzFetchOptions, NzSourceAuth, NzSourceProbe } from './types.js';

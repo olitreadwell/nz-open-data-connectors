@@ -1,1 +1,2 @@
 python/src/nzdata/sources.py
+packages/nz-sources/src/fixtures/infoshare-*.html

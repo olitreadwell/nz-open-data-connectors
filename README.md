@@ -8,7 +8,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 14 NZ public data sources, with live probes and offline fixtures |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 15 NZ public data sources, with live probes and offline fixtures |
 | [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
 | [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
 | `@nz-open-data-connectors/connectors-api` | Private. HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
@@ -20,13 +20,15 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Fourteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
+Fifteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
 The data is not ours, and each publisher keeps its own terms. GeoNet content
 is copyright Earth Sciences New Zealand (formerly GNS Science) and carries
-Creative Commons Attribution 3.0 New Zealand. NZOR content carries Creative
+Creative Commons Attribution 3.0 New Zealand. Stats NZ content, including
+Infoshare, carries Creative Commons Attribution 4.0 International unless a page
+says otherwise. NZOR content carries Creative
 Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
 commercial use. data.govt.nz and the Waka Kotahi open data hub return a licence
 value per dataset, and the `nzta-open-data` adapter passes that value through.
@@ -38,8 +40,8 @@ Every adapter also sends the same `User-Agent`
 (`nz-open-data-connectors (Language=TypeScript)`), waits at most 30
 seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
 5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
-shared `httpGet` helper in `packages/nz-sources/src/http.ts` does this for all
-fourteen adapters, so callers write nothing extra.
+shared `httpGet` and `httpPost` helpers in `packages/nz-sources/src/http.ts` do
+this for all fifteen adapters, so callers write nothing extra.
 
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
@@ -47,6 +49,7 @@ fourteen adapters, so callers write nothing extra.
 | `data-govt-nz` | data.govt.nz catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-nz` |
 | `data-govt-datastore` | data.govt.nz datastore (MSD benefits) | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-datastore` |
 | `ade-search` | Aotearoa Data Explorer search index | Yes | - | `npx tsx packages/cli/src/cli.ts probe ade-search` |
+| `infoshare` | Stats NZ Infoshare table catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe infoshare` |
 | `digitalnz` | DigitalNZ (National Library) | Yes | `DIGITAL_NZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe digitalnz` |
 | `trademe` | Trade Me categories | Yes | - | `npx tsx packages/cli/src/cli.ts probe trademe` |
 | `nzor` | NZ Organisms Register | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzor` |
@@ -69,6 +72,15 @@ fixture:
 
 The exact curl command and the licence notes are in
 `docs/CONNECTOR_DISCOVERY.md`.
+
+### Added 2026-11-06
+
+`infoshare` searches the Stats NZ Infoshare table catalogue. Infoshare is an
+ASP.NET application, so the adapter opens the search page, posts the query, and
+reads the first results page. Each result carries the table title, folder path,
+and last-updated date. The live probe searches for "employment".
+
+The session flow and licence note are in `docs/CONNECTOR_DISCOVERY.md`.
 
 ### Adapter examples
 
@@ -93,6 +105,11 @@ npx tsx packages/cli/src/cli.ts probe data-govt-datastore
 ```sh
 # ADE search - tables matching "median annual earnings"
 npx tsx packages/cli/src/cli.ts probe ade-search
+```
+
+```sh
+# Infoshare - tables matching "employment"
+npx tsx packages/cli/src/cli.ts probe infoshare
 ```
 
 ```sh
@@ -233,10 +250,10 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 PyPI or RubyGems yet, so install from the repo. The publish workflows exist and
 fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
-Both ports mirror part of the TypeScript surface: 8 of the 14 adapters, the same
+Both ports mirror part of the TypeScript surface: 8 of the 15 adapters, the same
 Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. The
-six adapters the ports do not carry yet are `arcgis`, `lawa`, `mfe`, `lris`,
-`nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
+seven adapters the ports do not carry yet are `arcgis`, `infoshare`, `lawa`,
+`mfe`, `lris`, `nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
 `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See
 each directory's README for quickstarts and publishing steps.
 

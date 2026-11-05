@@ -11,8 +11,8 @@ One design, three languages.
 - Python: a port of the same design (`python/`, package name `nzdata`).
 - Ruby: a port of the same design (`ruby/`, gem name `nzdata`).
 
-The ports carry 8 of the 14 TypeScript adapters, plus the same Stats NZ client.
-The other six adapters (`arcgis`, `lawa`, `mfe`, `lris`, `nzta`,
+The ports carry 8 of the 15 TypeScript adapters, plus the same Stats NZ client.
+The other seven adapters (`arcgis`, `infoshare`, `lawa`, `mfe`, `lris`, `nzta`,
 `nzta-open-data`) are TypeScript only. Porting them is separate work, so a new
 adapter lands in TypeScript first and in the ports only when someone ports it.
 
@@ -25,8 +25,8 @@ adapter lands in TypeScript first and in the ports only when someone ports it.
 | HTTP API | `packages/api` | Exposes the connectors over HTTP |
 | CLI | `packages/cli` | Exposes the connectors on the command line |
 | Config packages | `packages/config-eslint`, `packages/config-typescript` | Shared lint and TypeScript settings |
-| Python port | `python/` | 8 of the 14 adapters and the Stats NZ client, in Python |
-| Ruby port | `ruby/` | 8 of the 14 adapters and the Stats NZ client, in Ruby |
+| Python port | `python/` | 8 of the 15 adapters and the Stats NZ client, in Python |
+| Ruby port | `ruby/` | 8 of the 15 adapters and the Stats NZ client, in Ruby |
 
 ## How a request flows
 

@@ -51,10 +51,28 @@ describe('registry', () => {
   it('probes every registered source and reports one result each', async () => {
     vi.stubGlobal(
       'fetch',
-      vi.fn(async (input: string | URL | Request) => {
+      vi.fn(async (input: string | URL | Request, init?: RequestInit) => {
         const url =
           typeof input === 'string' ? input : input instanceof URL ? input.href : input.url;
         const hostname = new URL(url).hostname;
+        if (hostname === 'infoshare.stats.govt.nz') {
+          if (init?.method === 'POST') {
+            return new Response('', {
+              status: 302,
+              headers: { location: '/SearchResults.aspx' },
+            });
+          }
+          if (url.endsWith('/SearchResults.aspx')) {
+            return new Response(readFixtureText('infoshare-search-employment-2026-11-06.html'), {
+              status: 200,
+            });
+          }
+          return new Response(
+            '<input type="hidden" name="__VIEWSTATE" value="view" />' +
+              '<input type="hidden" name="__EVENTVALIDATION" value="event" />',
+            { status: 200, headers: { 'set-cookie': 'ASP.NET_SessionId=test; path=/' } }
+          );
+        }
         if (hostname === 'api.geonet.org.nz') {
           return jsonResponse(readFixtureJson('geonet-quakes-mmi3.json'));
         }

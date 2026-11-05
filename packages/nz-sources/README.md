@@ -1,11 +1,11 @@
 # @nz-open-data-connectors/nz-sources
 
-Uniform TypeScript adapters for 14 New Zealand public data sources. Node.js and TypeScript users call them directly.
+Uniform TypeScript adapters for 15 New Zealand public data sources. Node.js and TypeScript users call them directly.
 
 ## What this package does
 
 - Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture for tests.
-- Ships 14 adapters. Every one works without an API key.
+- Ships 15 adapters. Every one works without an API key.
 - Accepts an optional key for DigitalNZ and LINZ.
 - Runs its tests offline against real fixture snapshots.
 
@@ -38,6 +38,7 @@ for (const probe of probes) {
 | `data-govt-nz` | data.govt.nz catalogue | none | Dataset search. |
 | `data-govt-datastore` | data.govt.nz datastore | none | Row pulls, defaulting to national MSD benefit data. |
 | `ade-search` | Aotearoa Data Explorer (ADE) search index | none | Table ID and title search. |
+| `infoshare` | Stats NZ Infoshare | none | Table search with folder path and last-updated date. |
 | `digitalnz` | DigitalNZ (National Library) | none | Record and media search. |
 | `trademe` | Trade Me | none | The public category tree. |
 | `nzor` | New Zealand Organisms Register (NZOR) | none | Organism name search. |
@@ -55,6 +56,7 @@ for (const probe of probes) {
 - A live fetch throws when the upstream API fails or times out. Fixtures are read only through `loadFixture`, so a stale snapshot never appears silently.
 - The data.govt.nz catalogue and datastore block non-NZ IP addresses at the CDN. The live smoke tests skip them.
 - The NZOR hosts have failed the TLS handshake since 2026-09-21. The adapter stays for its committed fixture.
+- Infoshare returns the first 20 table matches per search. The adapter does not follow its ASP.NET pagination, so use the total count to decide whether to narrow the query.
 - Fixtures in `src/fixtures/` are real API snapshots, dated in their filenames.
 - Unit tests run offline. Run them with `npm run test -w @nz-open-data-connectors/nz-sources`. Live smoke tests need `RUN_SMOKE=1`.
 
@@ -68,6 +70,7 @@ Each adapter reads one publisher. The table lists the source URL.
 | `data-govt-nz` | `https://catalogue.data.govt.nz/api/3/action/package_search` |
 | `data-govt-datastore` | `https://catalogue.data.govt.nz/api/3/action/datastore_search` |
 | `ade-search` | `https://explore.data.stats.govt.nz/sfs/api/search` |
+| `infoshare` | `https://infoshare.stats.govt.nz/SearchPage.aspx` |
 | `digitalnz` | `https://api.digitalnz.org/v3/records.json` |
 | `trademe` | `https://api.trademe.co.nz/v1/Categories.json` |
 | `nzor` | `https://data.nzor.org.nz/names` |
@@ -79,7 +82,7 @@ Each adapter reads one publisher. The table lists the source URL.
 | `nzta` | `https://www.journeys.nzta.govt.nz/api/hotspots` |
 | `nzta-open-data` | `https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json` |
 
-The data is not covered by the package licence. Each publisher sets the licence for its own data. The Waka Kotahi DCAT feed sets Creative Commons Attribution 4.0 (CC BY 4.0) for its first dataset. Some other datasets carry custom NZTA CC-BY 4.0 or non-commercial terms. This was checked on 2026-10-05. Check the source page before you reuse any dataset.
+The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The Waka Kotahi DCAT feed sets CC BY 4.0 for its first dataset; some other datasets carry custom NZTA CC BY 4.0 or non-commercial terms. These terms were checked on 2026-11-06. Check the source page before you reuse any dataset.
 
 ## Package licence
 

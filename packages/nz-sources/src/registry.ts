@@ -4,6 +4,7 @@ import { dataGovtDatastoreAdapter } from './dataGovtDatastore.js';
 import { dataGovtNzAdapter } from './dataGovtNz.js';
 import { digitalNzAdapter } from './digitalNz.js';
 import { geonetAdapter } from './geonet.js';
+import { infoshareAdapter } from './infoshare.js';
 import { lawaAdapter } from './lawa.js';
 import { linzAdapter } from './linz.js';
 import { lrisAdapter } from './lris.js';
@@ -20,6 +21,7 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   dataGovtNzAdapter,
   dataGovtDatastoreAdapter,
   adeSearchAdapter,
+  infoshareAdapter,
   digitalNzAdapter,
   tradeMeAdapter,
   nzorAdapter,

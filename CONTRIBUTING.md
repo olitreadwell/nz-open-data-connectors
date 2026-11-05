@@ -15,7 +15,7 @@ One design, three languages.
 - `python/` - a Python port of the same design (package name `nzdata`).
 - `ruby/` - a Ruby port of the same design (gem name `nzdata`).
 
-The ports cover 8 of the 14 adapters, so a new source lands in TypeScript
+The ports cover 8 of the 15 adapters, so a new source lands in TypeScript
 first and in the ports only when someone ports it. A fix to a shared adapter
 lands in every language that carries that adapter. See `docs/ARCHITECTURE.md`
 for the full map and `docs/GLOSSARY.md` for terms.
@@ -109,7 +109,7 @@ Example: `docs/contributing_guide/8`.
 - Use Conventional Commits for messages. Examples: `feat:`, `fix:`,
   `docs:`, `chore:`.
 - When a change affects an adapter the ports carry, update every language
-  that carries it. The six TypeScript-only adapters are listed in
+  that carries it. The seven TypeScript-only adapters are listed in
   `docs/ARCHITECTURE.md`.
 - Run the quality gates above before you push.
 - Open the PR with `gh pr create`. Describe what changed and why.

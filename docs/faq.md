@@ -4,7 +4,7 @@ Questions that come up about this repo.
 
 ## Do I need an API key?
 
-No. All fourteen adapters work keyless. Two accept an optional key from the
+No. All fifteen adapters work keyless. Two accept an optional key from the
 environment to unlock more: `DIGITAL_NZ_API_KEY` raises the DigitalNZ rate
 limit and `LINZ_API_KEY` unlocks LINZ layer search. Keys are read server-side
 and are never accepted from API or CLI callers.
