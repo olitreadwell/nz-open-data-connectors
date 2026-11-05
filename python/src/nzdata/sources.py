@@ -1,7 +1,7 @@
 """Uniform adapters for NZ public data sources.
 
 Every adapter has the same shape: a live fetch, a strict parse, and a
-committed fixture fallback so builds work offline.
+committed fixture for tests. A live fetch never falls back to the fixture.
 """
 
 from __future__ import annotations
@@ -11,11 +11,12 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from importlib.resources import files
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, Iterator, List, Optional
 
 import httpx
 
 from .errors import NzSourceApiError, NzSourceParseError
+from .http import get_with_redirects
 
 DEFAULT_TIMEOUT_MS = 30_000
 USER_AGENT = "nz-open-data-connectors (Language=Python)"
@@ -163,10 +164,14 @@ def read_fixture_text(filename: str) -> str:
 
 
 def _get_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
+    request_headers: Dict[str, str] = {"user-agent": USER_AGENT}
+    for name, value in (headers or {}).items():
+        if name.lower() == "user-agent":
+            request_headers["user-agent"] = value
+        else:
+            request_headers[name] = value
     try:
-        response = httpx.get(
-            url, headers=headers or {}, timeout=DEFAULT_TIMEOUT_MS / 1000, follow_redirects=True
-        )
+        response = get_with_redirects(url, request_headers, DEFAULT_TIMEOUT_MS)
     except httpx.HTTPError as exc:
         raise NzSourceApiError("HTTP request", str(exc)) from exc
     if response.status_code < 200 or response.status_code >= 300:
@@ -175,7 +180,10 @@ def _get_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
 
 
 def _get_json(url: str, headers: Optional[Dict[str, str]] = None) -> Any:
-    return json.loads(_get_text(url, headers))
+    try:
+        return json.loads(_get_text(url, headers))
+    except json.JSONDecodeError as exc:
+        raise NzSourceParseError("HTTP response", "invalid JSON") from exc
 
 
 # --- Aotearoa Data Explorer search -----------------------------------------
@@ -247,14 +255,51 @@ def parse_data_govt_nz_datasets(payload: Any) -> DataGovtNzSearchResult:
     )
 
 
-def search_data_govt_nz_datasets(query: str) -> DataGovtNzSearchResult:
-    url = (
+def _data_govt_nz_search_url(query: str, rows: int, start: int) -> str:
+    return (
         "https://catalogue.data.govt.nz/api/3/action/package_search"
-        f"?q={urllib.parse.quote(query)}&rows=20"
+        f"?q={urllib.parse.quote(query)}&rows={rows}&start={start}"
     )
+
+
+def search_data_govt_nz_datasets(
+    query: str, rows: int = 20, start: int = 0
+) -> DataGovtNzSearchResult:
+    if rows < 1 or rows > 1000:
+        raise ValueError("rows must be between 1 and 1000")
+    if start < 0:
+        raise ValueError("start must be 0 or greater")
+    url = _data_govt_nz_search_url(query, rows, start)
     return parse_data_govt_nz_datasets(_get_json(url))
 
 
+def search_all_data_govt_nz_datasets(
+    query: str, page_size: int = 1000
+) -> DataGovtNzSearchResult:
+    """Search every page of the data.govt.nz catalogue."""
+    if page_size < 1 or page_size > 1000:
+        raise ValueError("page_size must be between 1 and 1000")
+    datasets: List[DataGovtNzDataset] = []
+    total = 0
+    start = 0
+    while True:
+        page = search_data_govt_nz_datasets(query, rows=page_size, start=start)
+        total = page.count
+        if not page.datasets:
+            break
+        datasets.extend(page.datasets)
+        if len(datasets) >= total:
+            break
+        start += len(page.datasets)
+    return DataGovtNzSearchResult(count=total, datasets=datasets)
+
+
+def iter_data_govt_nz_datasets(
+    query: str, page_size: int = 1000
+) -> Iterator[DataGovtNzDataset]:
+    """Yield every dataset from every page of the catalogue."""
+    for dataset in search_all_data_govt_nz_datasets(query, page_size=page_size).datasets:
+        yield dataset
 data_govt_nz_adapter = NzDataAdapter(
     id="data-govt-nz",
     name="data.govt.nz catalogue",

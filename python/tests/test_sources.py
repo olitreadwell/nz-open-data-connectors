@@ -5,6 +5,7 @@ from importlib.resources import files
 
 import pytest
 
+import nzdata.sources as sources
 from nzdata import (
     NZ_DATA_SOURCES,
     get_nz_data_source,
@@ -13,6 +14,8 @@ from nzdata import (
 from nzdata.errors import NzSourceParseError
 from nzdata.sources import (
     DIGITAL_NZ_CATEGORY_FILTERS,
+    DataGovtNzDataset,
+    DataGovtNzSearchResult,
     NzDataAdapter,
     parse_ade_search_results,
     parse_data_govt_datastore_rows,
@@ -22,6 +25,9 @@ from nzdata.sources import (
     parse_linz_layers,
     parse_nzor_names,
     parse_trademe_categories,
+    search_ade_tables,
+    search_all_data_govt_nz_datasets,
+    search_data_govt_nz_datasets,
     search_digital_nz_media,
     summarize_geonet_quakes,
 )
@@ -87,6 +93,54 @@ def test_data_govt_nz_fixture_parses():
 def test_data_govt_nz_rejects_bad_payload():
     with pytest.raises(NzSourceParseError):
         parse_data_govt_nz_datasets({"result": "nope"})
+
+
+def test_data_govt_nz_search_rejects_bad_paging():
+    with pytest.raises(ValueError):
+        search_data_govt_nz_datasets("housing", rows=0)
+    with pytest.raises(ValueError):
+        search_data_govt_nz_datasets("housing", rows=1001)
+    with pytest.raises(ValueError):
+        search_data_govt_nz_datasets("housing", start=-1)
+
+
+def test_search_all_data_govt_nz_paginates(monkeypatch):
+    calls = []
+
+    def fake_search(query, rows=20, start=0):
+        calls.append((query, rows, start))
+        if start == 0:
+            return DataGovtNzSearchResult(
+                count=3,
+                datasets=[
+                    DataGovtNzDataset("a", "A", "", "", "", None),
+                    DataGovtNzDataset("b", "B", "", "", "", None),
+                ],
+            )
+        return DataGovtNzSearchResult(
+            count=3,
+            datasets=[DataGovtNzDataset("c", "C", "", "", "", None)],
+        )
+
+    monkeypatch.setattr(sources, "search_data_govt_nz_datasets", fake_search)
+
+    result = search_all_data_govt_nz_datasets("housing", page_size=2)
+
+    assert result.count == 3
+    assert [dataset.name for dataset in result.datasets] == ["a", "b", "c"]
+    assert calls == [("housing", 2, 0), ("housing", 2, 2)]
+
+
+def test_search_all_data_govt_nz_stops_on_empty_page(monkeypatch):
+    def fake_search(query, rows=20, start=0):
+        return DataGovtNzSearchResult(count=10, datasets=[])
+
+    monkeypatch.setattr(sources, "search_data_govt_nz_datasets", fake_search)
+
+    result = search_all_data_govt_nz_datasets("housing")
+
+    assert result.count == 10
+    assert result.datasets == []
 
 
 def test_datastore_fixture_parses():
@@ -255,3 +309,47 @@ def test_probe_all_uses_per_source_keys():
     ]
     assert [probe.ok for probe in probes] == [True, True]
     assert seen == {"a": "k1", "b": "k2"}
+
+
+def test_http_get_sends_the_default_user_agent(monkeypatch):
+    captured = {}
+
+    class StubResponse:
+        status_code = 200
+        text = "{}"
+        headers = {}
+
+    def fake_get(url, headers=None, **kwargs):
+        captured["headers"] = headers
+        return StubResponse()
+
+    monkeypatch.setattr("nzdata.http.httpx.get", fake_get)
+    from nzdata.sources import _get_text
+
+    _get_text("https://example.test/data")
+    assert captured["headers"] == {"user-agent": "nz-open-data-connectors (Language=Python)"}
+
+
+def test_http_get_lets_caller_headers_override_the_user_agent(monkeypatch):
+    captured = {}
+
+    class StubResponse:
+        status_code = 200
+        text = "{}"
+        headers = {}
+
+    def fake_get(url, headers=None, **kwargs):
+        captured["headers"] = headers
+        return StubResponse()
+
+    monkeypatch.setattr("nzdata.http.httpx.get", fake_get)
+    from nzdata.sources import _get_text
+
+    _get_text("https://example.test/data", {"User-Agent": "other-agent", "Accept": "text/plain"})
+    assert captured["headers"] == {"user-agent": "other-agent", "Accept": "text/plain"}
+
+
+def test_json_fetch_rejects_invalid_json(monkeypatch):
+    monkeypatch.setattr("nzdata.sources._get_text", lambda url, headers=None: "not json")
+    with pytest.raises(NzSourceParseError):
+        search_ade_tables("earnings")
