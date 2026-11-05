@@ -7,6 +7,8 @@ export {
   parseArcgisHubCollections,
   parseArcgisHubDatasets,
   parseArcgisHubResult,
+  fetchArcgisHubCollections,
+  searchArcgisHubDatasets,
   normalizeArcgisHubHost,
   arcgisHubAdapter,
   DEFAULT_ARCGIS_HUB_HOST,
@@ -64,15 +66,15 @@ export { searchLinzLayers, parseLinzLayers, linzAdapter } from './linz.js';
 /** LINZ types. */
 export type { LinzLayer } from './linz.js';
 /** LAWA river quality monitoring sites. */
-export { parseLawaRiverQualitySites, lawaAdapter } from './lawa.js';
+export { fetchLawaRiverQualitySites, parseLawaRiverQualitySites, lawaAdapter } from './lawa.js';
 /** LAWA types. */
 export type { LawaRiverQualitySite } from './lawa.js';
 /** LRIS land and soil layer search. */
-export { parseLrisLayers, lrisAdapter } from './lris.js';
+export { searchLrisLayers, parseLrisLayers, lrisAdapter } from './lris.js';
 /** LRIS types. */
 export type { LrisLayer } from './lris.js';
 /** MfE Data Service layer catalogue. */
-export { parseMfeLayers, mfeAdapter } from './mfe.js';
+export { searchMfeLayers, parseMfeLayers, mfeAdapter } from './mfe.js';
 /** MfE types. */
 export type { MfeLayer } from './mfe.js';
 /** NZOR (New Zealand Organisms Register) name search. */
@@ -80,7 +82,7 @@ export { searchNzorNames, parseNzorNames, nzorAdapter } from './nzor.js';
 /** NZOR types. */
 export type { NzorName, NzorSearchResult } from './nzor.js';
 /** Waka Kotahi holiday journey hotspots. */
-export { parseNztaHolidayHotspots, nztaAdapter } from './nzta.js';
+export { fetchNztaHolidayHotspots, parseNztaHolidayHotspots, nztaAdapter } from './nzta.js';
 /** Waka Kotahi types. */
 export type { NztaHolidayHotspot } from './nzta.js';
 /** Waka Kotahi (NZTA) open data hub catalogue (DCAT 1.1). */

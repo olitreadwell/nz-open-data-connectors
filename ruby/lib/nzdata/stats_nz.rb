@@ -16,47 +16,271 @@ module Nzdata
 
   DEFAULT_BASE_URL = 'https://api.data.stats.govt.nz/rest'
   DEFAULT_VERSION = '1.0'
-  USER_AGENT = 'nz-open-data-connectors (Language=Ruby)'
   VALID_FORMATS = %w[csv csvfilewithlabels jsondata].freeze
 
   module_function
 
   def parse_stats_nz_csv(text, dataflow_id)
     text = text.sub(/\A\uFEFF/, '')
-    rows = CSV.parse(text, headers: true)
-    return [] if rows.nil? || rows.empty?
+    return [] if text.strip.empty?
 
-    headers = rows.headers
-    unless headers.include?('OBS_VALUE')
-      raise StatsNzParseError,
-            'Stats NZ CSV is missing the OBS_VALUE column'
+    rows = CSV.parse(text)
+    return [] if rows.empty?
+
+    records = stats_nz_records(rows)
+    return [] if records.empty?
+    unless records.first.key?('OBS_VALUE')
+      raise StatsNzParseError, 'Stats NZ CSV is missing the OBS_VALUE column'
     end
 
+    records.map { |record| stats_nz_observation(record, dataflow_id) }
+  rescue CSV::MalformedCSVError => e
+    raise StatsNzParseError, "Malformed Stats NZ CSV: #{e.message}"
+  end
+
+  def stats_nz_records(rows)
+    header = rows.first
+    rows.drop(1).map do |values|
+      if values.length > header.length
+        raise StatsNzParseError, 'CSV row has more fields than the header row'
+      end
+
+      header.each_with_index.to_h { |name, index| [name.to_s, values[index].to_s] }
+    end
+  end
+
+  def stats_nz_observation(record, dataflow_id)
     suffix = "_#{dataflow_id}"
     label_suffix = "_LABEL#{suffix}"
-    rows.map do |row|
-      dimensions = {}
-      labels = {}
-      row.to_h.each do |key, value|
-        next if %w[DATAFLOW OBS_VALUE OBS_STATUS].include?(key)
+    dimensions = {}
+    labels = {}
+    record.each do |key, value|
+      next if %w[DATAFLOW OBS_VALUE OBS_STATUS].include?(key)
 
-        if key.end_with?(label_suffix)
-          labels[key[0...-label_suffix.length]] = value.to_s
-          next
-        end
-        dimensions[key[0...-suffix.length]] = value.to_s if key.end_with?(suffix)
+      if key.end_with?(label_suffix)
+        labels[key[0...-label_suffix.length]] = value
+        next
       end
-      raw_value = row['OBS_VALUE'].to_s
-      value = raw_value.empty? ? nil : Float(raw_value)
-      if value && !value.finite?
+      dimensions[key[0...-suffix.length]] = value if key.end_with?(suffix)
+    end
+    value = parse_observation_value(record['OBS_VALUE'].to_s)
+
+    observation = StatsNzObservation.new(dimensions, value)
+    observation.labels = labels unless labels.empty?
+    status = record['OBS_STATUS'].to_s.strip
+    observation.status = status unless status.empty?
+    observation
+  end
+
+  DECIMAL_NUMBER = /\A[+-]?(?:(?:\d+(?:\.\d*)?)|(?:\.\d+))(?:[eE][+-]?\d+)?\z/
+  RADIX_NUMBER = /\A(?:0[xX][0-9a-fA-F]+|0[bB][01]+|0[oO][0-7]+)\z/
+
+  def parse_observation_value(raw_value)
+    return nil if raw_value.empty?
+
+    text = raw_value.strip
+    value =
+      if text.empty?
+        0.0
+      elsif RADIX_NUMBER.match?(text)
+        Integer(text, 0).to_f
+      elsif DECIMAL_NUMBER.match?(text)
+        Float(text.sub(/\.(?=[eE]|\z)/, '.0'))
+      else
         raise StatsNzParseError, "Invalid OBS_VALUE in Stats NZ CSV: #{raw_value}"
       end
+    raise StatsNzParseError, "Invalid OBS_VALUE in Stats NZ CSV: #{raw_value}" unless value.finite?
 
-      observation = StatsNzObservation.new(dimensions, value)
-      observation.labels = labels unless labels.empty?
-      observation.status = row['OBS_STATUS'].to_s.strip unless row['OBS_STATUS'].to_s.strip.empty?
-      observation
+    value
+  rescue ArgumentError, RangeError
+    raise StatsNzParseError, "Invalid OBS_VALUE in Stats NZ CSV: #{raw_value}"
+  end
+
+  def sdmx_values(values, dimension)
+    unless values.is_a?(Array)
+      raise StatsNzParseError,
+            "Stats NZ jsondata dimension #{dimension} has no values list"
     end
+    values.map do |value|
+      unless value.is_a?(Hash) && value['id'].is_a?(String) && value['name'].is_a?(String)
+        raise StatsNzParseError,
+              "Stats NZ jsondata dimension #{dimension} has an invalid value"
+      end
+      { 'id' => value['id'], 'name' => value['name'] }
+    end
+  end
+
+  def sdmx_dimensions(value, label)
+    unless value.is_a?(Array)
+      raise StatsNzParseError,
+            "Stats NZ jsondata has no #{label} dimensions list"
+    end
+    value.map do |dimension|
+      unless dimension.is_a?(Hash) && dimension['id'].is_a?(String)
+        raise StatsNzParseError,
+              "Stats NZ jsondata has an invalid #{label} dimension"
+      end
+      [dimension['id'], sdmx_values(dimension['values'], dimension['id'])]
+    end
+  end
+
+  SDMX_SHAPE_ERROR = 'Stats NZ jsondata response does not match the SDMX-JSON shape'
+
+  def parse_sdmx_json_response(text)
+    data = sdmx_data(text)
+    structure = data['structure']
+    dimensions = structure['dimensions']
+    series_dimensions = sdmx_dimensions(dimensions['series'], 'series')
+    observation_dimensions = sdmx_dimensions(dimensions.fetch('observation', []), 'observation')
+    time_dimension = observation_dimensions.find { |id, _values| id == 'TIME_PERIOD' } ||
+                     observation_dimensions.first
+    status_values = sdmx_status_values(structure)
+    data.fetch('dataSets', []).flat_map do |dataset|
+      sdmx_dataset_rows(dataset, series_dimensions, time_dimension, status_values)
+    end
+  end
+
+  def sdmx_data(text)
+    payload = JSON.parse(text)
+    data = payload.is_a?(Hash) ? payload['data'] : nil
+    valid = data.is_a?(Hash) && data.fetch('dataSets', []).is_a?(Array) &&
+            data['structure'].is_a?(Hash) && data['structure']['dimensions'].is_a?(Hash)
+    raise StatsNzParseError, SDMX_SHAPE_ERROR unless valid
+
+    data
+  rescue JSON::ParserError
+    raise StatsNzParseError, 'Stats NZ jsondata response is not valid JSON'
+  end
+
+  def sdmx_status_values(structure)
+    attributes = structure.key?('attributes') ? structure['attributes'] : {}
+    raise StatsNzParseError, SDMX_SHAPE_ERROR unless attributes.is_a?(Hash)
+
+    observation_attributes = attributes.key?('observation') ? attributes['observation'] : []
+    raise StatsNzParseError, SDMX_SHAPE_ERROR unless observation_attributes.is_a?(Array)
+
+    attribute = observation_attributes.find do |entry|
+      entry.is_a?(Hash) && entry['id'] == 'OBS_STATUS'
+    end
+    attribute && sdmx_values(attribute['values'], 'OBS_STATUS')
+  end
+
+  def sdmx_dataset_rows(dataset, series_dimensions, time_dimension, status_values)
+    unless dataset.is_a?(Hash) && dataset['series'].is_a?(Hash)
+      raise StatsNzParseError, SDMX_SHAPE_ERROR
+    end
+
+    dataset['series'].flat_map do |series_key, series|
+      sdmx_series_rows(series_key, series, series_dimensions, time_dimension, status_values)
+    end
+  end
+
+  def sdmx_series_rows(series_key, series, series_dimensions, time_dimension, status_values)
+    unless series.is_a?(Hash) && series['observations'].is_a?(Hash)
+      raise StatsNzParseError, SDMX_SHAPE_ERROR
+    end
+
+    base_dimensions, base_labels = sdmx_series_dimensions(series_key, series_dimensions)
+    context = {
+      base_dimensions: base_dimensions,
+      base_labels: base_labels,
+      time_dimension: time_dimension,
+      status_values: status_values
+    }
+    series['observations'].map do |observation_key, observation|
+      sdmx_observation_row(observation_key, observation, context)
+    end
+  end
+
+  def sdmx_series_dimensions(series_key, series_dimensions)
+    dimensions = {}
+    labels = {}
+    parts = series_key.split(':')
+    series_dimensions.each_with_index do |(dimension_id, values), index|
+      position = sdmx_index(parts[index])
+      next if position.nil? || position >= values.length
+
+      dimensions[dimension_id] = values[position]['id']
+      labels[dimension_id] = values[position]['name']
+    end
+    [dimensions, labels]
+  end
+
+  def sdmx_observation_row(observation_key, observation, context)
+    raise StatsNzParseError, SDMX_SHAPE_ERROR unless observation.is_a?(Array)
+
+    dimensions = context[:base_dimensions].dup
+    labels = context[:base_labels].dup
+    apply_sdmx_time_dimension(observation_key, context[:time_dimension], dimensions, labels)
+    value = sdmx_observation_value(observation)
+    row = StatsNzObservation.new(dimensions, value)
+    row.labels = labels
+    status = sdmx_observation_status(observation, context[:status_values])
+    row.status = status unless status.nil?
+    row
+  end
+
+  def apply_sdmx_time_dimension(observation_key, time_dimension, dimensions, labels)
+    return if time_dimension.nil?
+
+    index = sdmx_index(observation_key.split(':').first)
+    return if index.nil? || index >= time_dimension[1].length
+
+    period = time_dimension[1][index]
+    dimensions['TIME_PERIOD'] = period['id']
+    labels['TIME_PERIOD'] = period['name']
+  end
+
+  def sdmx_observation_status(observation, status_values)
+    return nil if status_values.nil? || observation.length < 2
+    return nil unless observation[1].is_a?(Array) && !observation[1].empty?
+
+    index = sdmx_index(observation[1].first)
+    return nil if index.nil? || index >= status_values.length
+
+    status = status_values[index]['id']
+    status == '' ? nil : status
+  end
+
+  def sdmx_index(value)
+    case value
+    when Integer
+      value.negative? ? nil : value
+    when Float
+      value.finite? && value == value.to_i && !value.negative? ? value.to_i : nil
+    when String
+      number = Float(value, exception: false)
+      number&.finite? && number == number.to_i && !number.negative? ? number.to_i : nil
+    end
+  end
+
+  def finite_sdmx_number?(value)
+    return false unless value.is_a?(Integer) || value.is_a?(Float)
+
+    value.is_a?(Float) ? value.finite? : true
+  end
+
+  def sdmx_observation_value(observation)
+    observation.each do |entry|
+      case entry
+      when nil
+        next
+      when Array
+        unless entry.all? { |item| finite_sdmx_number?(item) }
+          raise StatsNzParseError, SDMX_SHAPE_ERROR
+        end
+      else
+        raise StatsNzParseError, SDMX_SHAPE_ERROR unless finite_sdmx_number?(entry)
+      end
+    end
+    return nil if observation.empty?
+
+    first = observation.first
+    return nil unless finite_sdmx_number?(first)
+
+    Float(first)
+  rescue RangeError
+    raise StatsNzParseError, SDMX_SHAPE_ERROR
   end
 
   def format_value(value)
@@ -144,15 +368,12 @@ module Nzdata
         raise StatsNzError,
               "Unsupported Stats NZ response format: #{format}"
       end
-      if format == 'jsondata'
-        raise StatsNzError,
-              'jsondata format is not implemented in the Ruby port'
-      end
-
       version ||= DEFAULT_VERSION
       path = "/data/STATSNZ,#{encode(dataflow_id)},#{encode(version)}/" \
              "#{encode(key)}?format=#{format}"
-      body = send_request(path, 'text/csv')
+      body = send_request(path, format == 'jsondata' ? 'application/json' : 'text/csv')
+      return Nzdata.parse_sdmx_json_response(body) if format == 'jsondata'
+
       Nzdata.parse_stats_nz_csv(body, dataflow_id)
     end
 
@@ -193,7 +414,7 @@ module Nzdata
       body
     end
 
-    def default_fetch(url, headers, timeout_ms)
+    def default_fetch(url, headers, timeout_ms, redirects_left = 5)
       uri = URI(url)
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = uri.scheme == 'https'
@@ -202,7 +423,17 @@ module Nzdata
       request = Net::HTTP::Get.new(uri)
       headers.each { |key, value| request[key] = value }
       response = http.request(request)
+      if response.is_a?(Net::HTTPRedirection) && redirects_left.positive?
+        location = response['location']
+        unless location.nil?
+          next_url = URI.join(url.to_s, location).to_s
+          next_headers = Nzdata.redirect_headers(headers, url, next_url)
+          return default_fetch(next_url, next_headers, timeout_ms, redirects_left - 1)
+        end
+      end
       [response.code.to_i, response.body.to_s]
+    rescue StatsNzApiError
+      raise
     rescue StandardError => e
       raise StatsNzApiError.new("Stats NZ request failed: #{e.message}", status: 0,
                                                                          retryable: true, url: url)

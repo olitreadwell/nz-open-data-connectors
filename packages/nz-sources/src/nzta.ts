@@ -63,8 +63,8 @@ export function parseNztaHolidayHotspots(payload: unknown): NztaHolidayHotspot[]
 
 /**
  * Fetches holiday journey hotspots from the Waka Kotahi journeys API.
- * Keyless; needs an Accept: application/json header. Falls back to a
- * committed fixture when the API is unreachable.
+ * Keyless; needs an Accept: application/json header. Throws on an
+ * unreachable API.
  *
  * @param fetchImpl - Fetch implementation override for tests.
  * @returns Holiday hotspot records with holiday, region, and coordinates.

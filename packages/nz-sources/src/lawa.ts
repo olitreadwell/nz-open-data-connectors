@@ -62,7 +62,7 @@ export function parseLawaRiverQualitySites(payload: unknown): LawaRiverQualitySi
 
 /**
  * Fetches river quality monitoring sites from the LAWA map service.
- * Keyless; falls back to a committed fixture when the API is unreachable.
+ * Keyless; throws on an unreachable API.
  *
  * @param fetchImpl - Fetch implementation override for tests.
  * @returns Monitoring site records, excluding region boundary rows.

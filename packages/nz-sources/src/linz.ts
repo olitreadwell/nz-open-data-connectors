@@ -37,7 +37,7 @@ export function parseLinzLayers(payload: unknown): LinzLayer[] {
 /**
  * Searches the LINZ Data Service catalogue for layers (e.g. "property
  * titles"). Works keyless for the catalogue; an API key is sent when
- * provided. Falls back to a committed fixture when the API is unreachable.
+ * provided. Throws on an unreachable API.
  */
 export async function searchLinzLayers(
   query: string,

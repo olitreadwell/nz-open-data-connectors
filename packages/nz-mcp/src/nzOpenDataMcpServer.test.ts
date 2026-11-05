@@ -1,8 +1,9 @@
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 
-import { createNzOpenDataMcpServer } from './nzOpenDataMcpServer.js';
+import { createNzOpenDataMcpServer, NZ_MCP_SERVER_VERSION } from './nzOpenDataMcpServer.js';
 
 /** Connects a client to a server over the in-memory transport pair. */
 async function connectClient(
@@ -21,12 +22,62 @@ function firstText(result: unknown): string {
 }
 
 describe('createNzOpenDataMcpServer', () => {
+  it('reports the package.json version in the handshake', () => {
+    const manifest = JSON.parse(
+      readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+    ) as { version: string };
+    expect(NZ_MCP_SERVER_VERSION).toBe(manifest.version);
+  });
+
   it('advertises the country query tool', async () => {
     const client = await connectClient(createNzOpenDataMcpServer());
 
     const { tools } = await client.listTools();
 
     expect(tools.map((tool) => tool.name)).toContain('nz_felt_earthquakes');
+  });
+
+  it('advertises a named tool for every library query', async () => {
+    const client = await connectClient(createNzOpenDataMcpServer());
+
+    const { tools } = await client.listTools();
+    const names = tools.map((tool) => tool.name);
+
+    expect(names).toEqual([
+      'list_sources',
+      'probe_sources',
+      'fetch_source',
+      'nz_felt_earthquakes',
+      'nz_datastore_rows',
+      'nz_trademe_categories',
+      'nz_ade_search',
+      'nz_data_govt_search',
+      'nz_digitalnz_records',
+      'nz_digitalnz_media',
+      'nz_linz_layers',
+      'nz_nzor_names',
+      'nz_arcgis_hub_search',
+      'nz_arcgis_hub_collections',
+      'nz_lawa_river_quality',
+      'nz_mfe_layers',
+      'nz_lris_layers',
+      'nz_nzta_hotspots',
+      'nz_nzta_open_data',
+      'stats_nz_dataflow_catalogue',
+      'stats_nz_data',
+      'stats_nz_codelist',
+    ]);
+  });
+
+  it('probes only the requested source ids', async () => {
+    const client = await connectClient(createNzOpenDataMcpServer());
+
+    const result = await client.callTool({
+      name: 'probe_sources',
+      arguments: { ids: ['not-a-source'] },
+    });
+
+    expect(JSON.parse(firstText(result))).toEqual([]);
   });
 
   it('lists every source in the country registry', async () => {
@@ -55,6 +106,15 @@ describe('createNzOpenDataMcpServer', () => {
 /** Arguments a tool needs before its handler will run at all. */
 const REQUIRED_ARGS: Record<string, Record<string, unknown>> = {
   nz_datastore_rows: { resourceId: 'not-a-real-resource' },
+  nz_ade_search: { query: 'earnings' },
+  nz_data_govt_search: { query: 'sheep' },
+  nz_digitalnz_records: { query: 'kiwi' },
+  nz_digitalnz_media: { query: 'kiwi', mediaType: 'newspapers' },
+  nz_linz_layers: { query: 'parcel' },
+  nz_nzor_names: { query: 'kiwi' },
+  nz_arcgis_hub_search: { query: 'water' },
+  nz_mfe_layers: { query: 'water' },
+  nz_lris_layers: { query: 'soil' },
   stats_nz_data: { dataflowId: 'NOT_A_DATAFLOW' },
   stats_nz_codelist: { codelistId: 'NOT_A_CODELIST' },
 };
@@ -65,6 +125,15 @@ const FULL_ARGS: Record<string, Record<string, unknown>> = {
   fetch_source: { id: 'geonet', apiKey: 'k' },
   nz_felt_earthquakes: { minMmi: 4 },
   nz_datastore_rows: { resourceId: 'not-a-real-resource', limit: 10 },
+  nz_ade_search: { query: 'earnings', limit: 5 },
+  nz_data_govt_search: { query: 'sheep' },
+  nz_digitalnz_records: { query: 'kiwi', apiKey: 'k' },
+  nz_digitalnz_media: { query: 'kiwi', mediaType: 'images', apiKey: 'k' },
+  nz_linz_layers: { query: 'parcel', apiKey: 'k' },
+  nz_nzor_names: { query: 'kiwi' },
+  nz_arcgis_hub_search: { query: 'water', host: 'https://data.example.org' },
+  nz_mfe_layers: { query: 'water' },
+  nz_lris_layers: { query: 'soil' },
   stats_nz_dataflow_catalogue: { subscriptionKey: 'k' },
   stats_nz_data: {
     dataflowId: 'NOT_A_DATAFLOW',

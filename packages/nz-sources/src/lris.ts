@@ -43,7 +43,7 @@ export function parseLrisLayers(payload: unknown): LrisLayer[] {
 
 /**
  * Searches the LRIS (Landcare Research) catalogue for layers (e.g. "soil").
- * Keyless; falls back to a committed fixture when the API is unreachable.
+ * Keyless; throws on an unreachable API.
  *
  * @param query - Layer search text, e.g. "soil".
  * @param fetchImpl - Fetch implementation override for tests.

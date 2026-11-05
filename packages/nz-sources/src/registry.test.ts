@@ -111,4 +111,29 @@ describe('registry', () => {
     const keyless = probes.filter((probe) => probe.auth === 'none');
     expect(keyless.every((probe) => probe.ok)).toBe(true);
   });
+
+  it('probes only the requested sources', async () => {
+    const fetchImpl = vi.fn(async () => jsonResponse(readFixtureJson('geonet-quakes-mmi3.json')));
+    vi.stubGlobal('fetch', fetchImpl);
+
+    const probes = await probeAllNzDataSources({ ids: ['geonet'] });
+
+    expect(probes.map((probe) => probe.id)).toEqual(['geonet']);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it('returns no probes for an unknown id', async () => {
+    const probes = await probeAllNzDataSources({ ids: ['not-a-source'] });
+    expect(probes).toEqual([]);
+  });
+
+  it('returns no probes for an explicit empty id list', async () => {
+    const fetchImpl = vi.fn();
+    vi.stubGlobal('fetch', fetchImpl);
+
+    const probes = await probeAllNzDataSources({ ids: [] });
+
+    expect(probes).toEqual([]);
+    expect(fetchImpl).not.toHaveBeenCalled();
+  });
 });

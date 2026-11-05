@@ -187,7 +187,7 @@ export function parseArcgisHubResult(payload: unknown): ArcgisHubResult {
 
 /**
  * Fetches the collection list from an ArcGIS Hub search API. Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API.
  *
  * @param options - Host and fetch override.
  * @returns The advertised collections.
@@ -203,7 +203,7 @@ export async function fetchArcgisHubCollections(
 
 /**
  * Searches datasets on an ArcGIS Hub search API by keyword. Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API.
  *
  * @param query - Search keyword, e.g. "parks".
  * @param options - Host and fetch override.

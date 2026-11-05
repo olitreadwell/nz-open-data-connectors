@@ -26,8 +26,8 @@ git push origin v0.1.1
 The `v*` tag triggers two workflows:
 
 - `.github/workflows/release.yml` creates a GitHub Release with notes.
-- `.github/workflows/publish-npm.yml` runs `npm stage publish --workspaces`,
-  which stages every public workspace but publishes nothing on its own.
+- `.github/workflows/publish-npm.yml` stages each public workspace whose
+  version is not on npm yet. It publishes nothing on its own.
 
 ### Approving a staged publish
 

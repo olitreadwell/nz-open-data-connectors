@@ -4,7 +4,7 @@ Uniform TypeScript adapters for 14 New Zealand public data sources. Node.js and 
 
 ## What this package does
 
-- Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture fallback.
+- Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture for tests.
 - Ships 14 adapters. Every one works without an API key.
 - Accepts an optional key for DigitalNZ and LINZ.
 - Runs its tests offline against real fixture snapshots.
@@ -52,7 +52,7 @@ for (const probe of probes) {
 ## Notes and limits
 
 - Every adapter works keyless. DigitalNZ and LINZ accept an optional key: `DIGITAL_NZ_API_KEY` and `LINZ_API_KEY`. Keys are read from the environment only.
-- Each adapter falls back to a committed fixture when the upstream API fails or times out. A result can be stale.
+- A live fetch throws when the upstream API fails or times out. Fixtures are read only through `loadFixture`, so a stale snapshot never appears silently.
 - The data.govt.nz catalogue and datastore block non-NZ IP addresses at the CDN. The live smoke tests skip them.
 - The NZOR hosts have failed the TLS handshake since 2026-09-21. The adapter stays for its committed fixture.
 - Fixtures in `src/fixtures/` are real API snapshots, dated in their filenames.

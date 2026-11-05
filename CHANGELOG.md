@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- Python and Ruby ports: match TypeScript redirect credential handling and CSV and SDMX parsing.
+- MCP: add named tools for every registered source, probe only requested ids, and read the server version from package.json.
+
 ## 0.1.3 (2026-11-03)
 
 - `nz-sources` and `stats-nz` now build against Zod 4. The shared HTTP helper

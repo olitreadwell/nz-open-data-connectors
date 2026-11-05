@@ -9,7 +9,7 @@ export interface NzFetchOptions {
 
 /**
  * One NZ data source behind a uniform interface: live fetch, strict parse,
- * and a committed fixture fallback so builds work offline.
+ * and a committed fixture for tests. A live fetch never falls back to it.
  */
 export interface NzDataAdapter<T> {
   readonly id: string;

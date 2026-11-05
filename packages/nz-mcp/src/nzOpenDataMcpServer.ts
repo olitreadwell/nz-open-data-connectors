@@ -1,23 +1,39 @@
 import {
+  DIGITAL_NZ_MEDIA_TYPES,
+  fetchLawaRiverQualitySites,
+  fetchArcgisHubCollections,
   fetchDataGovtDatastoreRows,
   fetchGeoNetFeltQuakes,
+  fetchNztaHolidayHotspots,
+  fetchNztaOpenDataCatalogue,
   fetchTradeMeCategories,
   getNzDataSource,
   NZ_DATA_SOURCES,
   probeAllNzDataSources,
+  searchAdeTables,
+  searchArcgisHubDatasets,
+  searchDataGovtNzDatasets,
+  searchDigitalNzMedia,
+  searchDigitalNzRecords,
+  searchLinzLayers,
+  searchLrisLayers,
+  searchMfeLayers,
+  searchNzorNames,
 } from '@nz-open-data-connectors/nz-sources';
 import { createStatsNzClient } from '@nz-open-data-connectors/stats-nz';
 import type { StatsNzDataFormat } from '@nz-open-data-connectors/stats-nz';
+import type { DigitalNzMediaType } from '@nz-open-data-connectors/nz-sources';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 
 import { createSourceMcpServer, type SourceQueryTool } from './createSourceMcpServer.js';
+import { readPackageVersion } from './packageVersion.js';
 
 /** What this server calls itself in the MCP handshake. */
 export const NZ_MCP_SERVER_NAME = 'nz-open-data';
 
-/** Version reported in the MCP handshake. Kept in step with package.json. */
-export const NZ_MCP_SERVER_VERSION = '0.1.0';
+/** Version reported in the MCP handshake, read from package.json. */
+export const NZ_MCP_SERVER_VERSION = readPackageVersion();
 
 const STATS_NZ_FORMATS = ['csv', 'csvfilewithlabels', 'jsondata'] as const;
 
@@ -61,6 +77,151 @@ const NZ_QUERY_TOOLS: SourceQueryTool[] = [
     description: 'The public Trade Me category tree, keyless. Useful for classifying listings.',
     inputSchema: {},
     run: async () => fetchTradeMeCategories(),
+  },
+  {
+    name: 'nz_ade_search',
+    title: 'Search ADE tables',
+    description:
+      'Searches the Aotearoa Data Explorer table index by keyword and returns matching dataflow ids, versions, and dimensions. Keyless.',
+    inputSchema: {
+      query: z.string().describe('Keyword search, for example median annual earnings.'),
+      limit: z.number().int().min(1).max(100).optional().describe('Result cap. Defaults to 20.'),
+    },
+    run: async (args) => {
+      const limit = typeof args.limit === 'number' ? args.limit : undefined;
+      return searchAdeTables(String(args.query), limit === undefined ? {} : { limit });
+    },
+  },
+  {
+    name: 'nz_data_govt_search',
+    title: 'Search data.govt.nz',
+    description:
+      'Searches the data.govt.nz catalogue by keyword and returns dataset names, titles, and organisations. Keyless.',
+    inputSchema: { query: z.string().describe('Keyword search.') },
+    run: async (args) => searchDataGovtNzDatasets(String(args.query)),
+  },
+  {
+    name: 'nz_digitalnz_records',
+    title: 'Search DigitalNZ records',
+    description:
+      'Searches DigitalNZ across every collection and returns record metadata. Keyless for a small number of requests; pass apiKey for a key.',
+    inputSchema: {
+      query: z.string().describe('Keyword search.'),
+      apiKey: z.string().optional().describe('DigitalNZ API key.'),
+    },
+    run: async (args) => {
+      const apiKey = stringOrUndefined(args.apiKey);
+      return searchDigitalNzRecords(String(args.query), apiKey === undefined ? {} : { apiKey });
+    },
+  },
+  {
+    name: 'nz_digitalnz_media',
+    title: 'Search DigitalNZ media',
+    description:
+      'Searches DigitalNZ within one media category, which narrows results better than a text query alone. Keyless for a small number of requests; pass apiKey for a key.',
+    inputSchema: {
+      query: z.string().describe('Keyword search.'),
+      mediaType: z.enum(DIGITAL_NZ_MEDIA_TYPES).describe('Media category to search.'),
+      apiKey: z.string().optional().describe('DigitalNZ API key.'),
+    },
+    run: async (args) => {
+      const apiKey = stringOrUndefined(args.apiKey);
+      return searchDigitalNzMedia(
+        String(args.query),
+        String(args.mediaType) as DigitalNzMediaType,
+        apiKey === undefined ? {} : { apiKey }
+      );
+    },
+  },
+  {
+    name: 'nz_linz_layers',
+    title: 'Search LINZ layers',
+    description:
+      'Searches the LINZ Data Service layer catalogue by keyword. Keyless; pass apiKey for higher limits.',
+    inputSchema: {
+      query: z.string().describe('Keyword search.'),
+      apiKey: z.string().optional().describe('LINZ API key.'),
+    },
+    run: async (args) => {
+      const apiKey = stringOrUndefined(args.apiKey);
+      return searchLinzLayers(String(args.query), apiKey === undefined ? {} : { apiKey });
+    },
+  },
+  {
+    name: 'nz_nzor_names',
+    title: 'Search NZOR names',
+    description:
+      'Searches the New Zealand Organisms Register for species names. Keyless. The NZOR host has been unreliable since 2026-09-21.',
+    inputSchema: { query: z.string().describe('Name or partial name to search.') },
+    run: async (args) => searchNzorNames(String(args.query)),
+  },
+  {
+    name: 'nz_arcgis_hub_search',
+    title: 'Search an ArcGIS Hub',
+    description:
+      'Searches datasets on an ArcGIS Hub search API. Keyless. Defaults to the Auckland Council hub; pass host for another council or agency.',
+    inputSchema: {
+      query: z.string().describe('Keyword search.'),
+      host: z
+        .string()
+        .optional()
+        .describe('ArcGIS Hub base URL, for example https://data.example.govt.nz.'),
+    },
+    run: async (args) => {
+      const host = stringOrUndefined(args.host);
+      return searchArcgisHubDatasets(String(args.query), host === undefined ? {} : { host });
+    },
+  },
+  {
+    name: 'nz_arcgis_hub_collections',
+    title: 'List ArcGIS Hub collections',
+    description:
+      'Lists the collections on an ArcGIS Hub search API. Keyless. Defaults to the Auckland Council hub; pass host for another council or agency.',
+    inputSchema: {
+      host: z
+        .string()
+        .optional()
+        .describe('ArcGIS Hub base URL, for example https://data.example.govt.nz.'),
+    },
+    run: async (args) => {
+      const host = stringOrUndefined(args.host);
+      return fetchArcgisHubCollections(host === undefined ? {} : { host });
+    },
+  },
+  {
+    name: 'nz_lawa_river_quality',
+    title: 'LAWA river quality sites',
+    description: 'River quality monitoring sites from LAWA, keyless.',
+    inputSchema: {},
+    run: async () => fetchLawaRiverQualitySites(),
+  },
+  {
+    name: 'nz_mfe_layers',
+    title: 'Search MfE layers',
+    description: 'Searches the Ministry for the Environment Data Service layer catalogue. Keyless.',
+    inputSchema: { query: z.string().describe('Keyword search.') },
+    run: async (args) => searchMfeLayers(String(args.query)),
+  },
+  {
+    name: 'nz_lris_layers',
+    title: 'Search LRIS layers',
+    description: 'Searches the Landcare Research LRIS layer catalogue. Keyless.',
+    inputSchema: { query: z.string().describe('Keyword search.') },
+    run: async (args) => searchLrisLayers(String(args.query)),
+  },
+  {
+    name: 'nz_nzta_hotspots',
+    title: 'Waka Kotahi holiday hotspots',
+    description: 'Holiday journey hotspots from the Waka Kotahi journeys site. Keyless.',
+    inputSchema: {},
+    run: async () => fetchNztaHolidayHotspots(),
+  },
+  {
+    name: 'nz_nzta_open_data',
+    title: 'Waka Kotahi open data catalogue',
+    description: 'The Waka Kotahi (NZTA) ArcGIS open data catalogue in DCAT form. Keyless.',
+    inputSchema: {},
+    run: async () => fetchNztaOpenDataCatalogue(),
   },
   {
     name: 'stats_nz_dataflow_catalogue',
@@ -161,18 +322,15 @@ export function createNzOpenDataMcpServer(): McpServer {
         description: source.description,
       })),
     probeSources: async (ids) => {
-      const probes = await probeAllNzDataSources();
-      const wanted = ids === undefined || ids.length === 0 ? undefined : new Set(ids);
-      return probes
-        .filter((probe) => wanted === undefined || wanted.has(probe.id))
-        .map((probe) => ({
-          id: probe.id,
-          name: probe.name,
-          auth: probe.auth,
-          ok: probe.ok,
-          status: probe.status,
-          ...(probe.sample === undefined ? {} : { sample: probe.sample }),
-        }));
+      const probes = await probeAllNzDataSources(ids === undefined ? {} : { ids });
+      return probes.map((probe) => ({
+        id: probe.id,
+        name: probe.name,
+        auth: probe.auth,
+        ok: probe.ok,
+        status: probe.status,
+        ...(probe.sample === undefined ? {} : { sample: probe.sample }),
+      }));
     },
     fetchSource: async (id, options) => {
       const adapter = getNzDataSource(id);

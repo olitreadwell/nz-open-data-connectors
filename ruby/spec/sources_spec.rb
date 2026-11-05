@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'spec_helper'
+require 'socket'
 
 describe Nzdata do
   describe 'registry' do
@@ -140,6 +141,14 @@ describe Nzdata do
     end
   end
 
+  describe 'get_json' do
+    it 'rejects invalid JSON with a source parse error' do
+      Nzdata.stub(:get_text, 'not json') do
+        _(-> { Nzdata.search_ade_tables('earnings') }).must_raise Nzdata::NzSourceParseError
+      end
+    end
+  end
+
   describe 'probes' do
     it 'reports success and failure' do
       ok_adapter = Nzdata::Adapter.new('ok', 'OK', 'none', '', ->(_k) { { 'value' => 1 } }, ->(p) { p }, -> { {} })
@@ -164,6 +173,90 @@ describe Nzdata do
       end
       adapters.each { |adapter| Nzdata.probe_nz_data_source(adapter, { 'a' => 'k1', 'b' => 'k2' }[adapter.id]) }
       _(seen).must_equal('a' => 'k1', 'b' => 'k2')
+    end
+  end
+
+  describe 'http_get' do
+    def with_http_server(handler)
+      server = TCPServer.new('127.0.0.1', 0)
+      port = server.addr[1]
+      requests = []
+      thread = Thread.new do
+        loop do
+          socket = server.accept
+          request = +''
+          while (line = socket.gets)
+            request << line
+            break if line == "\r\n"
+          end
+          requests << request
+          status, headers, body = handler.call(request)
+          socket.write("HTTP/1.1 #{status}\r\n")
+          headers.each { |name, value| socket.write("#{name}: #{value}\r\n") }
+          socket.write("content-length: #{body.bytesize}\r\nconnection: close\r\n\r\n#{body}")
+          socket.close
+        end
+      rescue IOError, Errno::EBADF
+        nil
+      end
+      yield "http://127.0.0.1:#{port}", requests
+    ensure
+      server&.close
+      thread&.kill
+    end
+
+    it 'sends the default user agent' do
+      with_http_server(->(_request) { [200, {}, '{}'] }) do |base_url, requests|
+        status, body = Nzdata.http_get("#{base_url}/data")
+        _(status).must_equal 200
+        _(body).must_equal '{}'
+        _(requests.first.downcase).must_include 'user-agent: nz-open-data-connectors (language=ruby)'
+      end
+    end
+
+    it 'follows a redirect to the final response' do
+      handler = lambda do |request|
+        if request.start_with?('GET /start')
+          [302, { 'location' => '/final' }, '']
+        else
+          [200, {}, 'done']
+        end
+      end
+      with_http_server(handler) do |base_url, requests|
+        _(Nzdata.get_text("#{base_url}/start")).must_equal 'done'
+        _(requests.length).must_equal 2
+        _(requests.last).must_include 'GET /final'
+      end
+    end
+
+    it 'wraps a network failure in NzSourceApiError' do
+      server = TCPServer.new('127.0.0.1', 0)
+      port = server.addr[1]
+      server.close
+      _(-> { Nzdata.http_get("http://127.0.0.1:#{port}/data") })
+        .must_raise Nzdata::NzSourceApiError
+    end
+
+    it 'drops credentials when a redirect changes origin' do
+      headers = Nzdata.redirect_headers(
+        {
+          'user-agent' => 'nz-open-data-connectors',
+          'Ocp-Apim-Subscription-Key' => 'secret',
+          'X-Api-Key' => 'key'
+        },
+        'https://api.example/start',
+        'https://other.example/final'
+      )
+      _(headers).must_equal('user-agent' => 'nz-open-data-connectors')
+    end
+
+    it 'keeps credentials when a redirect stays on the same origin' do
+      headers = Nzdata.redirect_headers(
+        { 'Ocp-Apim-Subscription-Key' => 'secret' },
+        'https://api.example/start',
+        'https://api.example/final'
+      )
+      _(headers).must_equal('Ocp-Apim-Subscription-Key' => 'secret')
     end
   end
 end

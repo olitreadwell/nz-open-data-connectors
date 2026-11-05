@@ -2,6 +2,7 @@
 
 import csv
 import io
+import json
 from importlib.resources import files
 
 import pytest
@@ -11,6 +12,7 @@ from nzdata.stats_nz import (
     create_stats_nz_client,
     parse_codelist_xml,
     parse_dataflow_catalogue_xml,
+    parse_sdmx_json_response,
     parse_stats_nz_csv,
     serialize_stats_nz_rows_to_csv,
 )
@@ -40,7 +42,37 @@ def test_parse_stats_nz_csv_rejects_missing_value_column():
 
 def test_parse_stats_nz_csv_rejects_non_finite_value():
     with pytest.raises(StatsNzParseError):
-        parse_stats_nz_csv("OBS_VALUE_AGR_AGR_003\nnot-a-number\n", "AGR_AGR_003")
+        parse_stats_nz_csv("OBS_VALUE,DATAFLOW\nnot-a-number,AGR_AGR_003\n", "AGR_AGR_003")
+
+
+def test_parse_stats_nz_csv_rejects_infinite_value():
+    with pytest.raises(StatsNzParseError):
+        parse_stats_nz_csv("OBS_VALUE,DATAFLOW\ninf,AGR_AGR_003\n", "AGR_AGR_003")
+
+
+def test_parse_stats_nz_csv_returns_empty_for_empty_input():
+    assert parse_stats_nz_csv("", "AGR_AGR_003") == []
+
+
+def test_parse_stats_nz_csv_rejects_extra_columns():
+    with pytest.raises(StatsNzParseError):
+        parse_stats_nz_csv(
+            "OBS_VALUE,DATAFLOW\n7,AGR_AGR_003,extra\n", "AGR_AGR_003"
+        )
+
+
+def test_parse_stats_nz_csv_matches_typescript_number_parsing():
+    assert parse_stats_nz_csv("OBS_VALUE\n0x10\n", "X")[0].value == 16
+    assert parse_stats_nz_csv("OBS_VALUE\n1.\n", "X")[0].value == 1
+    with pytest.raises(StatsNzParseError):
+        parse_stats_nz_csv("OBS_VALUE\n1_000\n", "X")
+    with pytest.raises(StatsNzParseError):
+        parse_stats_nz_csv("OBS_VALUE\n1e400\n", "X")
+
+
+def test_parse_stats_nz_csv_keeps_a_blank_record_like_typescript():
+    rows = parse_stats_nz_csv("OBS_VALUE\n7\n\n", "X")
+    assert [row.value for row in rows] == [7, None]
 
 
 def test_serialize_round_trips_through_csv_module():
@@ -165,10 +197,172 @@ def test_client_get_data_rejects_unknown_format():
         client.get_data("AGR_AGR_003", format="xml")
 
 
-def test_client_get_data_rejects_jsondata_in_python_port():
-    client = create_stats_nz_client(fetch_impl=lambda _u, _h, _t: (200, ""))
-    with pytest.raises(StatsNzError):
-        client.get_data("AGR_AGR_003", format="jsondata")
+def test_client_get_data_parses_jsondata_with_json_accept_header():
+    seen = {}
+
+    def fetch_impl(_url, headers, _timeout_ms):
+        seen.update(headers)
+        return 200, json.dumps(
+            {
+                "data": {
+                    "dataSets": [
+                        {"series": {"0:0": {"observations": {"0": [7]}}}},
+                    ],
+                    "structure": {
+                        "dimensions": {
+                            "series": [
+                                {
+                                    "id": "DIM",
+                                    "name": "Dim",
+                                    "values": [{"id": "d1", "name": "Dim one"}],
+                                }
+                            ],
+                            "observation": [
+                                {
+                                    "id": "TIME_PERIOD",
+                                    "name": "Time",
+                                    "values": [{"id": "2024", "name": "2024"}],
+                                }
+                            ],
+                        },
+                        "attributes": {"observation": []},
+                    },
+                }
+            }
+        )
+
+    client = create_stats_nz_client(fetch_impl=fetch_impl)
+    rows = client.get_data("AGR_AGR_003", format="jsondata")
+    assert rows[0].value == 7
+    assert rows[0].dimensions == {"DIM": "d1", "TIME_PERIOD": "2024"}
+    assert seen["Accept"] == "application/json"
+
+
+SDMX_JSON = json.dumps(
+    {
+        "data": {
+            "dataSets": [
+                {
+                    "series": {
+                        "0:0:0": {"observations": {"0": [23583001]}},
+                        "0:1:0": {"observations": {"0": [123.5, [1]]}},
+                    }
+                }
+            ],
+            "structure": {
+                "dimensions": {
+                    "series": [
+                        {
+                            "id": "LIVESTOCK",
+                            "name": "Livestock",
+                            "values": [{"id": "6731", "name": "Sheep"}],
+                        },
+                        {
+                            "id": "AREA",
+                            "name": "Area",
+                            "values": [
+                                {"id": "20", "name": "New Zealand"},
+                                {"id": "1", "name": "Northland"},
+                            ],
+                        },
+                        {"id": "YEAR", "name": "Year", "values": [{"id": "2024", "name": "2024"}]},
+                    ],
+                    "observation": [
+                        {
+                            "id": "TIME_PERIOD",
+                            "name": "Time",
+                            "values": [{"id": "2024", "name": "2024"}],
+                        }
+                    ],
+                },
+                "attributes": {
+                    "observation": [
+                        {
+                            "id": "OBS_STATUS",
+                            "name": "Status",
+                            "values": [
+                                {"id": "", "name": "Normal"},
+                                {"id": "s", "name": "Suppressed"},
+                            ],
+                        }
+                    ]
+                },
+            },
+        }
+    }
+)
+
+
+def test_parse_sdmx_json_reads_series_and_observation_dimensions():
+    rows = parse_sdmx_json_response(SDMX_JSON)
+    assert len(rows) == 2
+    assert rows[0].dimensions == {
+        "LIVESTOCK": "6731",
+        "AREA": "20",
+        "YEAR": "2024",
+        "TIME_PERIOD": "2024",
+    }
+    assert rows[0].labels == {
+        "LIVESTOCK": "Sheep",
+        "AREA": "New Zealand",
+        "YEAR": "2024",
+        "TIME_PERIOD": "2024",
+    }
+    assert rows[0].value == 23583001
+    assert rows[0].status is None
+
+
+def test_parse_sdmx_json_maps_status_attribute():
+    rows = parse_sdmx_json_response(SDMX_JSON)
+    assert rows[1].status == "s"
+
+
+def test_parse_sdmx_json_returns_empty_without_datasets():
+    payload = json.loads(SDMX_JSON)
+    payload["data"]["dataSets"] = []
+    assert parse_sdmx_json_response(json.dumps(payload)) == []
+
+
+def test_parse_sdmx_json_rejects_invalid_json():
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response("{not json")
+
+
+def test_parse_sdmx_json_rejects_missing_structure():
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response('{"data":{}}')
+
+
+def test_parse_sdmx_json_rejects_bare_nan():
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response('{"data": NaN}')
+
+
+def test_parse_sdmx_json_rejects_string_and_boolean_values():
+    for value in ("1", True):
+        payload = json.loads(SDMX_JSON)
+        payload["data"]["dataSets"][0]["series"]["0:0:0"]["observations"]["0"] = [value]
+        with pytest.raises(StatsNzParseError):
+            parse_sdmx_json_response(json.dumps(payload))
+
+
+def test_parse_sdmx_json_rejects_non_finite_values():
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response(SDMX_JSON.replace("23583001", "1e400", 1))
+
+
+def test_parse_sdmx_json_allows_an_empty_observation():
+    payload = json.loads(SDMX_JSON)
+    payload["data"]["dataSets"][0]["series"]["0:0:0"]["observations"]["0"] = []
+    rows = parse_sdmx_json_response(json.dumps(payload))
+    assert rows[0].value is None
+
+
+def test_parse_sdmx_json_rejects_null_observation_attributes():
+    payload = json.loads(SDMX_JSON)
+    payload["data"]["structure"]["attributes"]["observation"] = None
+    with pytest.raises(StatsNzParseError):
+        parse_sdmx_json_response(json.dumps(payload))
 
 
 def test_client_get_dataflow_catalogue():

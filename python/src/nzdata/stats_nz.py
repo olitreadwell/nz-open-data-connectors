@@ -6,8 +6,6 @@ only: SDMX responses can be large, so never call this from a browser.
 
 from __future__ import annotations
 
-import csv
-import io
 import json
 import math
 import urllib.parse
@@ -18,6 +16,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import httpx
 
 from .errors import StatsNzApiError, StatsNzError, StatsNzParseError
+from .http import get_with_redirects
+from .stats_nz_csv import parse_csv_rows, parse_observation_value
 
 DEFAULT_BASE_URL = "https://api.data.stats.govt.nz/rest"
 DEFAULT_VERSION = "1.0"
@@ -69,9 +69,7 @@ class StatsNzCodelist:
 
 def _default_fetch(url: str, headers: Dict[str, str], timeout_ms: int) -> FetchResult:
     try:
-        response = httpx.get(
-            url, headers=headers, timeout=timeout_ms / 1000, follow_redirects=True
-        )
+        response = get_with_redirects(url, headers, timeout_ms)
         return response.status_code, response.text
     except httpx.HTTPError as exc:
         raise StatsNzApiError(
@@ -81,13 +79,18 @@ def _default_fetch(url: str, headers: Dict[str, str], timeout_ms: int) -> FetchR
 
 def parse_stats_nz_csv(text: str, dataflow_id: str) -> List[StatsNzObservation]:
     """Parses an ADE CSV payload (codes only) into typed observations."""
-    reader = csv.DictReader(io.StringIO(text.lstrip("\ufeff")))
-    if reader.fieldnames is None or "OBS_VALUE" not in reader.fieldnames:
+    text = text.lstrip("\ufeff")
+    if not text.strip():
+        return []
+    records = parse_csv_rows(text)
+    if not records:
+        return []
+    if "OBS_VALUE" not in records[0]:
         raise StatsNzParseError("Stats NZ CSV is missing the OBS_VALUE column")
     suffix = f"_{dataflow_id}"
     label_suffix = f"_LABEL{suffix}"
     observations: List[StatsNzObservation] = []
-    for record in reader:
+    for record in records:
         dimensions: Dict[str, str] = {}
         labels: Dict[str, str] = {}
         for key, cell_value in record.items():
@@ -98,10 +101,7 @@ def parse_stats_nz_csv(text: str, dataflow_id: str) -> List[StatsNzObservation]:
                 continue
             if key.endswith(suffix):
                 dimensions[key[: -len(suffix)]] = cell_value or ""
-        raw_value = record.get("OBS_VALUE") or ""
-        value: Optional[float] = None if raw_value == "" else float(raw_value)
-        if value is not None and not math.isfinite(value):
-            raise StatsNzParseError(f"Invalid OBS_VALUE in Stats NZ CSV: {raw_value}")
+        value = parse_observation_value(record.get("OBS_VALUE", ""))
         status = (record.get("OBS_STATUS") or "").strip()
         observation = StatsNzObservation(dimensions=dimensions, value=value)
         if labels:
@@ -110,6 +110,173 @@ def parse_stats_nz_csv(text: str, dataflow_id: str) -> List[StatsNzObservation]:
             observation.status = status
         observations.append(observation)
     return observations
+
+
+def _sdmx_values(values: Any, dimension: str) -> List[Dict[str, str]]:
+    if not isinstance(values, list):
+        raise StatsNzParseError(
+            f"Stats NZ jsondata dimension {dimension} has no values list"
+        )
+    result: List[Dict[str, str]] = []
+    for value in values:
+        if (
+            not isinstance(value, dict)
+            or not isinstance(value.get("id"), str)
+            or not isinstance(value.get("name"), str)
+        ):
+            raise StatsNzParseError(
+                f"Stats NZ jsondata dimension {dimension} has an invalid value"
+            )
+        result.append({"id": value["id"], "name": value["name"]})
+    return result
+
+
+def _sdmx_dimensions(value: Any, label: str) -> List[Tuple[str, List[Dict[str, str]]]]:
+    if not isinstance(value, list):
+        raise StatsNzParseError(f"Stats NZ jsondata has no {label} dimensions list")
+    dimensions: List[Tuple[str, List[Dict[str, str]]]] = []
+    for dimension in value:
+        if not isinstance(dimension, dict) or not isinstance(dimension.get("id"), str):
+            raise StatsNzParseError(f"Stats NZ jsondata has an invalid {label} dimension")
+        dimensions.append(
+            (dimension["id"], _sdmx_values(dimension.get("values"), dimension["id"]))
+        )
+    return dimensions
+
+
+def _reject_json_constant(value: str) -> None:
+    raise ValueError(f"invalid JSON constant: {value}")
+
+
+def _sdmx_index(value: Any) -> Optional[int]:
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        return value if value >= 0 else None
+    if isinstance(value, float) and math.isfinite(value) and value.is_integer():
+        return int(value) if value >= 0 else None
+    if isinstance(value, str):
+        try:
+            number = float(value)
+        except ValueError:
+            return None
+        if math.isfinite(number) and number.is_integer() and number >= 0:
+            return int(number)
+    return None
+
+
+def _finite_number(value: Any) -> bool:
+    if isinstance(value, bool) or not isinstance(value, (int, float)):
+        return False
+    try:
+        return math.isfinite(float(value))
+    except (OverflowError, ValueError):
+        return False
+
+
+def _sdmx_observation_value(observation: Any) -> Optional[float]:
+    if not isinstance(observation, list):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    for entry in observation:
+        if entry is None:
+            continue
+        if isinstance(entry, list):
+            if not all(_finite_number(item) for item in entry):
+                raise StatsNzParseError(
+                    "Stats NZ jsondata response does not match the SDMX-JSON shape"
+                )
+            continue
+        if not _finite_number(entry):
+            raise StatsNzParseError(
+                "Stats NZ jsondata response does not match the SDMX-JSON shape"
+            )
+    if not observation:
+        return None
+    first = observation[0]
+    return float(first) if _finite_number(first) else None
+
+
+def parse_sdmx_json_response(text: str) -> List[StatsNzObservation]:
+    """Parses a Stats NZ jsondata response into observations."""
+    try:
+        payload = json.loads(text, parse_constant=_reject_json_constant)
+    except (json.JSONDecodeError, ValueError) as exc:
+        raise StatsNzParseError("Stats NZ jsondata response is not valid JSON") from exc
+    data = payload.get("data") if isinstance(payload, dict) else None
+    if not isinstance(data, dict):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    datasets = data.get("dataSets", [])
+    structure = data.get("structure")
+    if not isinstance(datasets, list) or not isinstance(structure, dict):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    dimensions = structure.get("dimensions")
+    if not isinstance(dimensions, dict):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    series_dimensions = _sdmx_dimensions(dimensions.get("series"), "series")
+    observation_dimensions = _sdmx_dimensions(dimensions.get("observation", []), "observation")
+    time_dimension = next(
+        (entry for entry in observation_dimensions if entry[0] == "TIME_PERIOD"),
+        observation_dimensions[0] if observation_dimensions else None,
+    )
+    attributes = structure.get("attributes", {})
+    if not isinstance(attributes, dict):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    observation_attributes = attributes.get("observation", [])
+    if not isinstance(observation_attributes, list):
+        raise StatsNzParseError("Stats NZ jsondata response does not match the SDMX-JSON shape")
+    status_values: Optional[List[Dict[str, str]]] = None
+    for attribute in observation_attributes:
+        if isinstance(attribute, dict) and attribute.get("id") == "OBS_STATUS":
+            status_values = _sdmx_values(attribute.get("values"), "OBS_STATUS")
+            break
+
+    rows: List[StatsNzObservation] = []
+    for dataset in datasets:
+        if not isinstance(dataset, dict) or not isinstance(dataset.get("series"), dict):
+            raise StatsNzParseError(
+                "Stats NZ jsondata response does not match the SDMX-JSON shape"
+            )
+        for series_key, series in dataset["series"].items():
+            if not isinstance(series, dict) or not isinstance(series.get("observations"), dict):
+                raise StatsNzParseError(
+                    "Stats NZ jsondata response does not match the SDMX-JSON shape"
+                )
+            row_dimensions: Dict[str, str] = {}
+            labels: Dict[str, str] = {}
+            parts = series_key.split(":")
+            for index, (dimension_id, values) in enumerate(series_dimensions):
+                position = _sdmx_index(parts[index]) if index < len(parts) else None
+                if position is None:
+                    continue
+                if 0 <= position < len(values):
+                    row_dimensions[dimension_id] = values[position]["id"]
+                    labels[dimension_id] = values[position]["name"]
+
+            for observation_key, observation in series["observations"].items():
+                row_dimensions = dict(row_dimensions)
+                row_labels = dict(labels)
+                if time_dimension is not None:
+                    time_index = _sdmx_index(observation_key.split(":")[0])
+                    if time_index is not None and 0 <= time_index < len(time_dimension[1]):
+                        period = time_dimension[1][time_index]
+                        row_dimensions["TIME_PERIOD"] = period["id"]
+                        row_labels["TIME_PERIOD"] = period["name"]
+                value = _sdmx_observation_value(observation)
+                row = StatsNzObservation(dimensions=row_dimensions, value=value)
+                row.labels = row_labels
+                if (
+                    len(observation) > 1
+                    and isinstance(observation[1], list)
+                    and observation[1]
+                    and status_values is not None
+                ):
+                    status_index = _sdmx_index(observation[1][0])
+                    if status_index is not None and 0 <= status_index < len(status_values):
+                        status = status_values[status_index]["id"]
+                        if status != "":
+                            row.status = status
+                rows.append(row)
+    return rows
 
 
 def _format_value(value: Optional[float]) -> str:
@@ -302,14 +469,15 @@ class StatsNzClient:
         """Pulls data rows for a dataflow. Keyless for AGR_* tables."""
         if format not in VALID_FORMATS:
             raise StatsNzError(f"Unsupported Stats NZ response format: {format}")
-        if format == "jsondata":
-            raise StatsNzError("jsondata format is not implemented in the Python port")
         version = version or DEFAULT_VERSION
         path = (
             f"/data/STATSNZ,{urllib.parse.quote(dataflow_id)},{urllib.parse.quote(version)}"
             f"/{urllib.parse.quote(key)}?format={format}"
         )
-        body = self._send_request(path, "text/csv")
+        accept = "application/json" if format == "jsondata" else "text/csv"
+        body = self._send_request(path, accept)
+        if format == "jsondata":
+            return parse_sdmx_json_response(body)
         return parse_stats_nz_csv(body, dataflow_id)
 
     def get_dataflow_catalogue(self) -> List[StatsNzDataflow]:

@@ -62,7 +62,7 @@ export function parseDataGovtNzDatasets(payload: unknown): DataGovtNzSearchResul
 
 /**
  * Searches the public data.govt.nz catalogue (CKAN API). Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API; the fixture is only read by `loadFixture`.
  */
 export async function searchDataGovtNzDatasets(
   query: string,

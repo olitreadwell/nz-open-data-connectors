@@ -94,7 +94,7 @@ export function summarizeGeoNetQuakes(quakes: GeoNetQuake[]): GeoNetQuakeSummary
 
 /**
  * Fetches recent felt quakes (MMI >= minMmi) from the public GeoNet API.
- * Keyless; falls back to a committed fixture when the API is unreachable.
+ * Keyless; throws on an unreachable API.
  */
 export async function fetchGeoNetFeltQuakes(
   minMmi = 3,

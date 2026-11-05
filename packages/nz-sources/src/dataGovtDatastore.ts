@@ -47,7 +47,7 @@ export function parseDataGovtDatastoreRows(payload: unknown): DataGovtDatastoreR
 
 /**
  * Fetches rows from a data.govt.nz CKAN datastore resource. Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API; the fixture is only read by `loadFixture`.
  */
 export async function fetchDataGovtDatastoreRows(
   resourceId: string,

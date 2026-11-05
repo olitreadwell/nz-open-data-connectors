@@ -53,7 +53,7 @@ export function parseAdeSearchResults(payload: unknown): AdeSearchResult {
 
 /**
  * Searches the Aotearoa Data Explorer table index by keyword. Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API; the fixture is only read by `loadFixture`.
  */
 export async function searchAdeTables(
   query: string,

@@ -127,7 +127,7 @@ export function parseNztaOpenDataCatalogue(payload: unknown): NztaOpenDataCatalo
 
 /**
  * Fetches the Waka Kotahi (NZTA) open data DCAT 1.1 catalogue feed. Keyless.
- * Falls back to a committed fixture when the API is unreachable.
+ * Throws on an unreachable API.
  *
  * @param fetchImpl - Fetch implementation override for tests.
  * @returns Catalogue datasets with their distributions and licence details.

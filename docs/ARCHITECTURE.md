@@ -79,7 +79,7 @@ Every source works without an API key. Keys unlock more:
 Keys are read from the environment only. The API and CLI never accept keys
 from callers, and keys are never committed to the repo.
 
-## Fixtures instead of the live network
+## Tests use fixtures
 
 Tests never touch the network unless you set `RUN_SMOKE=1`.
 

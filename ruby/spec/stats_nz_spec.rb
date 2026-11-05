@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative 'spec_helper'
+require 'socket'
 
 describe Nzdata do
   LIVESTOCK_CSV = Nzdata.read_fixture_text('agricultural-livestock-regional-council-2025-08-17.csv')
@@ -22,7 +23,40 @@ describe Nzdata do
     end
 
     it 'rejects a non-finite value' do
-      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE_AGR_AGR_003\nnot-a-number\n", 'AGR_AGR_003') })
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE,DATAFLOW\nnot-a-number,AGR_AGR_003\n", 'AGR_AGR_003') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'rejects a non-finite value' do
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE,DATAFLOW\n1e400,AGR_AGR_003\n", 'AGR_AGR_003') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'returns no rows for empty input' do
+      _(Nzdata.parse_stats_nz_csv('', 'AGR_AGR_003')).must_equal []
+    end
+
+    it 'rejects a row with more fields than the header' do
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE,DATAFLOW\n7,AGR_AGR_003,extra\n", 'AGR_AGR_003') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'matches TypeScript number parsing' do
+      _(Nzdata.parse_stats_nz_csv("OBS_VALUE\n0x10\n", 'X').first.value).must_equal 16.0
+      _(Nzdata.parse_stats_nz_csv("OBS_VALUE\n1.\n", 'X').first.value).must_equal 1.0
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE\n1_000\n", 'X') })
+        .must_raise Nzdata::StatsNzParseError
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE\n1e400\n", 'X') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'keeps a blank record like TypeScript' do
+      rows = Nzdata.parse_stats_nz_csv("OBS_VALUE\n7\n\n", 'X')
+      _(rows.map(&:value)).must_equal [7.0, nil]
+    end
+
+    it 'rejects malformed CSV' do
+      _(-> { Nzdata.parse_stats_nz_csv("OBS_VALUE\n\"unterminated\n", 'AGR_AGR_003') })
         .must_raise Nzdata::StatsNzParseError
     end
   end
@@ -96,6 +130,110 @@ describe Nzdata do
     end
   end
 
+  describe 'parse_sdmx_json_response' do
+    SDMX_JSON = JSON.generate(
+      {
+        'data' => {
+          'dataSets' => [
+            {
+              'series' => {
+                '0:0:0' => { 'observations' => { '0' => [23_583_001] } },
+                '0:1:0' => { 'observations' => { '0' => [123.5, [1]] } }
+              }
+            }
+          ],
+          'structure' => {
+            'dimensions' => {
+              'series' => [
+                { 'id' => 'LIVESTOCK', 'name' => 'Livestock',
+                  'values' => [{ 'id' => '6731', 'name' => 'Sheep' }] },
+                { 'id' => 'AREA', 'name' => 'Area',
+                  'values' => [{ 'id' => '20', 'name' => 'New Zealand' },
+                               { 'id' => '1', 'name' => 'Northland' }] },
+                { 'id' => 'YEAR', 'name' => 'Year',
+                  'values' => [{ 'id' => '2024', 'name' => '2024' }] }
+              ],
+              'observation' => [
+                { 'id' => 'TIME_PERIOD', 'name' => 'Time',
+                  'values' => [{ 'id' => '2024', 'name' => '2024' }] }
+              ]
+            },
+            'attributes' => {
+              'observation' => [
+                { 'id' => 'OBS_STATUS', 'name' => 'Status',
+                  'values' => [{ 'id' => '', 'name' => 'Normal' },
+                               { 'id' => 's', 'name' => 'Suppressed' }] }
+              ]
+            }
+          }
+        }
+      }
+    )
+
+    it 'reads series and observation dimensions' do
+      rows = Nzdata.parse_sdmx_json_response(SDMX_JSON)
+      _(rows.length).must_equal 2
+      _(rows.first.dimensions).must_equal('LIVESTOCK' => '6731', 'AREA' => '20',
+                                          'YEAR' => '2024', 'TIME_PERIOD' => '2024')
+      _(rows.first.labels).must_equal('LIVESTOCK' => 'Sheep', 'AREA' => 'New Zealand',
+                                      'YEAR' => '2024', 'TIME_PERIOD' => '2024')
+      _(rows.first.value).must_equal 23_583_001
+      _(rows.first.status).must_be_nil
+    end
+
+    it 'maps the status attribute' do
+      _(Nzdata.parse_sdmx_json_response(SDMX_JSON)[1].status).must_equal 's'
+    end
+
+    it 'returns no rows without datasets' do
+      payload = JSON.parse(SDMX_JSON)
+      payload['data']['dataSets'] = []
+      _(Nzdata.parse_sdmx_json_response(JSON.generate(payload))).must_equal []
+    end
+
+    it 'rejects invalid JSON' do
+      _(-> { Nzdata.parse_sdmx_json_response('{not json') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'rejects a response missing structure' do
+      _(-> { Nzdata.parse_sdmx_json_response('{"data":{}}') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'rejects bare NaN JSON' do
+      _(-> { Nzdata.parse_sdmx_json_response('{"data": NaN}') })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'rejects string and boolean observation values' do
+      ['"1"', 'true'].each do |value|
+        payload = JSON.parse(SDMX_JSON)
+        payload['data']['dataSets'][0]['series']['0:0:0']['observations']['0'] = [JSON.parse(value)]
+        _(-> { Nzdata.parse_sdmx_json_response(JSON.generate(payload)) })
+          .must_raise Nzdata::StatsNzParseError
+      end
+    end
+
+    it 'rejects non-finite observation values' do
+      _(-> { Nzdata.parse_sdmx_json_response(SDMX_JSON.sub('23583001', '1e400')) })
+        .must_raise Nzdata::StatsNzParseError
+    end
+
+    it 'allows an empty observation' do
+      payload = JSON.parse(SDMX_JSON)
+      payload['data']['dataSets'][0]['series']['0:0:0']['observations']['0'] = []
+      _(Nzdata.parse_sdmx_json_response(JSON.generate(payload)).first.value).must_be_nil
+    end
+
+    it 'rejects a null observation attribute list' do
+      payload = JSON.parse(SDMX_JSON)
+      payload['data']['structure']['attributes']['observation'] = nil
+      _(-> { Nzdata.parse_sdmx_json_response(JSON.generate(payload)) })
+        .must_raise Nzdata::StatsNzParseError
+    end
+  end
+
   describe 'StatsNzClient' do
     def stub_fetch(responses)
       lambda do |url, _headers, _timeout_ms|
@@ -114,6 +252,40 @@ describe Nzdata do
       )
       rows = client.get_data('AGR_AGR_003')
       _(rows.first.value).must_equal 7_458_218.0
+    end
+
+    it 'follows an HTTP redirect' do
+      server = TCPServer.new('127.0.0.1', 0)
+      port = server.addr[1]
+      requests = []
+      thread = Thread.new do
+        loop do
+          socket = server.accept
+          request = +''
+          while (line = socket.gets)
+            request << line
+            break if line == "\r\n"
+          end
+          requests << request
+          if requests.length == 1
+            socket.write("HTTP/1.1 302 Found\r\nlocation: /final\r\ncontent-length: 0\r\n\r\n")
+          else
+            body = "OBS_VALUE,DATAFLOW\n7,AGR_AGR_003\n"
+            socket.write("HTTP/1.1 200 OK\r\ncontent-length: #{body.bytesize}\r\n\r\n#{body}")
+          end
+          socket.close
+        end
+      rescue IOError, Errno::EBADF
+        nil
+      end
+
+      client = Nzdata.create_stats_nz_client(base_url: "http://127.0.0.1:#{port}/rest")
+      rows = client.get_data('AGR_AGR_003')
+      _(rows.first.value).must_equal 7.0
+      _(requests.length).must_equal 2
+    ensure
+      server&.close
+      thread&.kill
     end
 
     it 'sends the subscription key header' do
@@ -147,9 +319,33 @@ describe Nzdata do
       _(-> { client.get_data('AGR_AGR_003', format: 'xml') }).must_raise Nzdata::StatsNzError
     end
 
-    it 'rejects jsondata in the Ruby port' do
-      client = Nzdata.create_stats_nz_client(fetch_impl: ->(_u, _h, _t) { [200, ''] })
-      _(-> { client.get_data('AGR_AGR_003', format: 'jsondata') }).must_raise Nzdata::StatsNzError
+    it 'parses jsondata with a JSON accept header' do
+      seen = {}
+      client = Nzdata.create_stats_nz_client(
+        fetch_impl: lambda { |_url, headers, _timeout_ms|
+          seen.merge!(headers)
+          [200, JSON.generate(
+            {
+              'data' => {
+                'dataSets' => [{ 'series' => { '0:0' => { 'observations' => { '0' => [7] } } } }],
+                'structure' => {
+                  'dimensions' => {
+                    'series' => [{ 'id' => 'DIM', 'name' => 'Dim',
+                                   'values' => [{ 'id' => 'd1', 'name' => 'Dim one' }] }],
+                    'observation' => [{ 'id' => 'TIME_PERIOD', 'name' => 'Time',
+                                        'values' => [{ 'id' => '2024', 'name' => '2024' }] }]
+                  },
+                  'attributes' => { 'observation' => [] }
+                }
+              }
+            }
+          )]
+        }
+      )
+      rows = client.get_data('AGR_AGR_003', format: 'jsondata')
+      _(rows.first.value).must_equal 7
+      _(rows.first.dimensions).must_equal('DIM' => 'd1', 'TIME_PERIOD' => '2024')
+      _(seen['Accept']).must_equal 'application/json'
     end
 
     it 'lists the dataflow catalogue' do

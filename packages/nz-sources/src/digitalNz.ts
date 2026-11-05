@@ -140,8 +140,8 @@ export interface DigitalNzSearchOptions {
 
 /**
  * Searches the DigitalNZ (National Library) API. The v3 search endpoint
- * answers keyless; passing an API key raises the rate limit. Falls back to a
- * committed fixture when unreachable.
+ * answers keyless; passing an API key raises the rate limit. Throws on an
+ * unreachable API; the fixture is only read by `loadFixture`.
  */
 export async function searchDigitalNzRecords(
   query: string,

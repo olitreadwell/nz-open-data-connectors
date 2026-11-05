@@ -65,16 +65,20 @@ export async function probeNzDataSource<T>(
   }
 }
 
-/** Probes every registered source in parallel, with optional per-source keys. */
+/** Probes the requested sources in parallel, with optional per-source keys. */
 export async function probeAllNzDataSources(options?: {
   apiKey?: string;
   apiKeys?: Record<string, string>;
+  ids?: string[];
 }): Promise<NzSourceProbe[]> {
-  const { apiKey, apiKeys } = options ?? {};
+  const { apiKey, apiKeys, ids } = options ?? {};
+  const wanted = ids === undefined ? undefined : new Set(ids);
   return Promise.all(
-    NZ_DATA_SOURCES.map((source) => {
-      const key = apiKeys?.[source.id] ?? apiKey;
-      return probeNzDataSource(source, key === undefined ? {} : { apiKey: key });
-    })
+    NZ_DATA_SOURCES.filter((source) => wanted === undefined || wanted.has(source.id)).map(
+      (source) => {
+        const key = apiKeys?.[source.id] ?? apiKey;
+        return probeNzDataSource(source, key === undefined ? {} : { apiKey: key });
+      }
+    )
   );
 }

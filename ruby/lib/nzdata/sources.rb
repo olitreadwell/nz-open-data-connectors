@@ -40,15 +40,45 @@ module Nzdata
     File.read(File.join(FIXTURES_DIR, filename), encoding: 'UTF-8')
   end
 
+  MAX_REDIRECTS = 5
+
   def http_get(url, headers = {}, timeout_ms = DEFAULT_TIMEOUT_MS)
+    fetch_with_redirects(url, headers, timeout_ms, MAX_REDIRECTS)
+  rescue NzSourceApiError
+    raise
+  rescue StandardError => e
+    raise NzSourceApiError.new('HTTP request', e.message)
+  end
+
+  def build_request_headers(headers)
+    request_headers = { 'user-agent' => USER_AGENT }
+    headers.each do |name, value|
+      if name.to_s.casecmp('user-agent').zero?
+        request_headers['user-agent'] = value
+      else
+        request_headers[name.to_s] = value
+      end
+    end
+    request_headers
+  end
+
+  def fetch_with_redirects(url, headers, timeout_ms, redirects_left)
     uri = URI(url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == 'https'
     http.open_timeout = timeout_ms / 1000.0
     http.read_timeout = timeout_ms / 1000.0
     request = Net::HTTP::Get.new(uri)
-    headers.each { |key, value| request[key] = value }
+    build_request_headers(headers).each { |key, value| request[key] = value }
     response = http.request(request)
+    if response.is_a?(Net::HTTPRedirection) && redirects_left.positive?
+      location = response['location']
+      unless location.nil?
+        next_url = URI.join(url.to_s, location).to_s
+        return fetch_with_redirects(next_url, Nzdata.redirect_headers(headers, url, next_url),
+                                    timeout_ms, redirects_left - 1)
+      end
+    end
     [response.code.to_i, response.body.to_s]
   end
 
@@ -61,6 +91,8 @@ module Nzdata
 
   def get_json(url, headers = {})
     JSON.parse(get_text(url, headers))
+  rescue JSON::ParserError
+    raise NzSourceParseError.new('HTTP response', 'invalid JSON')
   end
 
   # --- Aotearoa Data Explorer search -------------------------------------

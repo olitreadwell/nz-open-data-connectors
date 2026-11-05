@@ -43,7 +43,7 @@ export function parseMfeLayers(payload: unknown): MfeLayer[] {
 
 /**
  * Searches the MfE Data Service catalogue for layers (e.g. "water").
- * Keyless; falls back to a committed fixture when the API is unreachable.
+ * Keyless; throws on an unreachable API.
  *
  * @param query - Layer search text, e.g. "water".
  * @param fetchImpl - Fetch implementation override for tests.
