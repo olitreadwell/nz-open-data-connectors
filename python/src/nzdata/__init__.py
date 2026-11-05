@@ -23,7 +23,6 @@ from .stats_nz import (
     StatsNzDataflow,
     StatsNzObservation,
     create_stats_nz_client,
-    parse_sdmx_json_response,
     parse_stats_nz_csv,
     serialize_stats_nz_rows_to_csv,
 )
@@ -43,7 +42,6 @@ __all__ = [
     "create_stats_nz_client",
     "get_nz_data_source",
     "iter_data_govt_nz_datasets",
-    "parse_sdmx_json_response",
     "parse_stats_nz_csv",
     "probe_all_nz_data_sources",
     "probe_nz_data_source",
