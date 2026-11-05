@@ -6,11 +6,15 @@ committed fixture for tests. A live fetch never falls back to the fixture.
 
 from __future__ import annotations
 
+import hashlib
 import json
+import os
+import tempfile
 import urllib.parse
 import xml.etree.ElementTree as ET
 from dataclasses import dataclass, field
 from importlib.resources import files
+from pathlib import Path
 from typing import Any, Callable, Dict, Iterator, List, Optional
 
 import httpx
@@ -181,9 +185,43 @@ def _get_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
 
 def _get_json(url: str, headers: Optional[Dict[str, str]] = None) -> Any:
     try:
-        return json.loads(_get_text(url, headers))
+        cache_dir = os.environ.get("NZDATA_CACHE_DIR")
+        cache_path = _cache_path(cache_dir, url, headers) if cache_dir else None
+        if cache_path is not None and cache_path.exists():
+            return json.loads(cache_path.read_text(encoding="utf-8"))
+        if cache_path is not None and _offline_enabled():
+            raise NzSourceApiError("cache", f"offline mode and no cached response for {url}")
+        payload = json.loads(_get_text(url, headers))
+        if cache_path is not None:
+            _write_cache(cache_path, payload)
+        return payload
     except json.JSONDecodeError as exc:
         raise NzSourceParseError("HTTP response", "invalid JSON") from exc
+
+
+def _cache_key(url: str, headers: Optional[Dict[str, str]]) -> str:
+    material = url + "\n" + "\n".join(
+        f"{name.lower()}:{value}" for name, value in sorted((headers or {}).items())
+    )
+    return hashlib.sha256(material.encode("utf-8")).hexdigest()
+
+
+def _cache_path(cache_dir: str, url: str, headers: Optional[Dict[str, str]]) -> Path:
+    return Path(cache_dir) / f"{_cache_key(url, headers)}.json"
+
+
+def _offline_enabled() -> bool:
+    return os.environ.get("NZDATA_OFFLINE", "").lower() in {"1", "true", "yes"}
+
+
+def _write_cache(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.NamedTemporaryFile(
+        "w", encoding="utf-8", dir=path.parent, delete=False
+    ) as handle:
+        json.dump(payload, handle)
+        temporary = Path(handle.name)
+    temporary.replace(path)
 
 
 # --- Aotearoa Data Explorer search -----------------------------------------
