@@ -49,6 +49,8 @@ describe Nzdata do
       _(result.datasets.first.license_id).must_equal 'CC-BY-4.0'
       _(result.datasets.first.license_title).must_equal 'Creative Commons Attribution 4.0 International'
       _(result.datasets[2].license_id).must_equal 'CC-BY-NZ-3.0'
+      _(result.datasets[1].author).must_equal 'Ministry for the Environment'
+      _(result.datasets[1].organization).must_equal 'Ministry for the Environment'
     end
 
     it 'rejects a bad data.govt.nz payload' do
@@ -68,6 +70,11 @@ describe Nzdata do
       _(records.first.rights).must_equal ''
       _(records.first.copyright).must_equal ['All rights reserved']
       _(records.first.publisher).must_equal []
+      _(records.first.creator).must_equal []
+      _(records.first.contributor).must_equal ['Sheep Heaven']
+      _(records.first.usage).must_equal ['All rights reserved']
+      _(records[1].creator).must_equal ['sheep123']
+      _(records[1].contributor).must_equal []
     end
 
     it 'rejects non-string CKAN licence fields' do
@@ -146,6 +153,9 @@ describe Nzdata do
       _(records.first.rights).must_equal 'CC BY 4.0'
       _(records.first.rights_url).must_equal ['https://creativecommons.org/licenses/by/4.0/']
       _(records.first.copyright).must_equal ['Some rights reserved']
+      _(records.first.creator).must_equal []
+      _(records.first.contributor).must_equal []
+      _(records.first.usage).must_equal ['Share', 'Modify', 'Use commercially']
     end
 
     it 'maps every media type to a DigitalNZ category' do

@@ -213,7 +213,7 @@ curl -sS --max-time 30 \
   `result.count`, and `result.results`.
 - Each dataset carries `name`, `title`, `notes`, `metadata_modified`, `url`,
   `author`, `organization.title`, `license_id`, `license_title`, `license_url`,
-  and a `resources` list.
+  `rights`, and a `resources` list.
 - Each resource carries `name`, `format`, `url`, and `size`. `size` can be
   null when the catalogue does not know it.
 - Some fields arrive as null or are absent, including `license_title`,
@@ -229,8 +229,9 @@ The catalogue returns a licence per dataset. Most MBIE datasets use Creative
 Commons Attribution 4.0 International or Creative Commons Attribution 3.0 New
 Zealand. A few use "Other licensing (check with source agency)" or have no
 licence metadata. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`,
-`author` and `organization` so a caller can check the position and attribution
-before reuse.
+`rights`, `author` and `organization` so a caller can check the position and
+attribution before reuse. For rows where `license_url` is null and `rights` is
+present, `rights` is the only licence pointer the source supplies.
 
 ### Verification status
 
@@ -248,18 +249,19 @@ its own terms, and the publisher's licence is the one that applies.
 
 The table uses source field names when it describes an API response, and the
 adapter's camelCase output name when it describes what this library returns.
-For example, CKAN's `license_id` becomes `licenseId`, and DigitalNZ's
+CKAN and DigitalNZ source fields use snake_case; ArcGIS Hub source fields use
+camelCase. For example, CKAN's `license_id` becomes `licenseId`, and DigitalNZ's
 `rights_url` becomes `rightsUrl`.
 
 | Adapter | Publisher | Licence position |
 | --- | --- | --- |
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
-| `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl` and `organization` as the publisher |
+| `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title`, `license_url`, `author` and `organization.title` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` as the publisher |
 | `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
-| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title`, `license_url`, `author` and `organization.title`, and the adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization`. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank |
+| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title`, `license_url`, `rights`, `author` and `organization.title`, and the adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `rights`, `author` and `organization`. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank. For rows where `license_url` is null and `rights` is present, `rights` is the only licence pointer |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
-| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url`, `copyright`, `content_partner` and `publisher`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns `rights`, `rightsUrl`, `copyright` and `publisher`, plus `contentPartner` as attribution. When `display_content_partner` is empty, `contentPartner` falls back to `content_partner`, then `publisher` |
+| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url`, `copyright`, `content_partner`, `publisher`, `creator`, `contributor` and `usage`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns `rights`, `rightsUrl`, `copyright`, `publisher`, `creator`, `contributor` and `usage`, plus `contentPartner` as attribution. When `display_content_partner` is empty, `contentPartner` falls back to `content_partner`, then `publisher` |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |
 | `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |

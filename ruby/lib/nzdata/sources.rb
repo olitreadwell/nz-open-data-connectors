@@ -16,13 +16,13 @@ module Nzdata
   AdeDataflow = Struct.new(:dataflow_id, :version, :agency_id, :name, :dimensions)
   AdeSearchResult = Struct.new(:num_found, :dataflows)
   DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization,
-                                 :license_id, :license_title, :license_url)
+                                 :author, :license_id, :license_title, :license_url)
   DataGovtNzSearchResult = Struct.new(:count, :datasets)
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
   DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url,
                                :categories, :thumbnail_url, :large_thumbnail_url, :object_url,
                                :source_url, :display_date, :rights, :rights_url, :copyright,
-                               :publisher)
+                               :publisher, :creator, :contributor, :usage)
   GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
                            :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
@@ -152,6 +152,7 @@ module Nzdata
           dataset.fetch('metadata_modified', ''),
           dataset.fetch('url', ''),
           organization.is_a?(Hash) ? organization['title'] : nil,
+          parse_string(dataset.fetch('author', nil), 'data.govt.nz', 'author'),
           parse_string(dataset.fetch('license_id', nil), 'data.govt.nz', 'license_id'),
           parse_string(dataset.fetch('license_title', nil), 'data.govt.nz', 'license_title'),
           parse_string(dataset.fetch('license_url', nil), 'data.govt.nz', 'license_url')

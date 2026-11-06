@@ -74,6 +74,7 @@ class DataGovtNzDataset:
     metadata_modified: str
     url: str
     organization: Optional[str]
+    author: str = ""
     license_id: str = ""
     license_title: str = ""
     license_url: str = ""
@@ -110,6 +111,9 @@ class DigitalNzRecord:
     rights_url: List[str] = field(default_factory=list)
     copyright: List[str] = field(default_factory=list)
     publisher: List[str] = field(default_factory=list)
+    creator: List[str] = field(default_factory=list)
+    contributor: List[str] = field(default_factory=list)
+    usage: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -321,6 +325,7 @@ def parse_data_govt_nz_datasets(payload: Any) -> DataGovtNzSearchResult:
                     if isinstance(dataset.get("organization"), dict)
                     else None
                 ),
+                author=_require_string(dataset.get("author"), "data.govt.nz", "author"),
                 license_id=_require_string(
                     dataset.get("license_id"), "data.govt.nz", "license_id"
                 ),
@@ -476,6 +481,11 @@ def parse_digital_nz_records(payload: Any) -> List[DigitalNzRecord]:
                     record.get("copyright"), "DigitalNZ", "copyright"
                 ),
                 publisher=publishers,
+                creator=_require_string_list(record.get("creator"), "DigitalNZ", "creator"),
+                contributor=_require_string_list(
+                    record.get("contributor"), "DigitalNZ", "contributor"
+                ),
+                usage=_require_string_list(record.get("usage"), "DigitalNZ", "usage"),
             )
         )
     return records

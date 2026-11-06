@@ -29,6 +29,11 @@ describe('parseDigitalNzRecords', () => {
     expect(first?.copyright).toEqual(['All rights reserved']);
     expect(first?.rightsUrl).toEqual([]);
     expect(first?.publisher).toEqual([]);
+    expect(first?.creator).toEqual([]);
+    expect(first?.contributor).toEqual(['Sheep Heaven']);
+    expect(first?.usage).toEqual(['All rights reserved']);
+    expect(records[1]?.creator).toEqual(['sheep123']);
+    expect(records[1]?.contributor).toEqual([]);
   });
 
   it('falls back to content partners and publishers when display partner is empty', () => {
@@ -79,6 +84,9 @@ describe('media search', () => {
     expect(first?.rightsUrl).toEqual(['https://creativecommons.org/licenses/by/4.0/']);
     expect(first?.copyright).toEqual(['Some rights reserved']);
     expect(first?.contentPartner).toBe('Museum of New Zealand Te Papa Tongarewa');
+    expect(first?.creator).toEqual([]);
+    expect(first?.contributor).toEqual([]);
+    expect(first?.usage).toEqual(['Share', 'Modify', 'Use commercially']);
   });
 
   it('filters the live request by category', async () => {

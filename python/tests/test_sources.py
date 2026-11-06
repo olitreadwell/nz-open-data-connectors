@@ -91,6 +91,8 @@ def test_data_govt_nz_fixture_parses():
     assert result.datasets[0].license_id == "CC-BY-4.0"
     assert result.datasets[0].license_title == "Creative Commons Attribution 4.0 International"
     assert result.datasets[2].license_id == "CC-BY-NZ-3.0"
+    assert result.datasets[1].author == "Ministry for the Environment"
+    assert result.datasets[1].organization == "Ministry for the Environment"
 
 
 def test_data_govt_nz_rejects_bad_payload():
@@ -161,6 +163,11 @@ def test_digital_nz_fixture_parses():
     assert records[0].title
     assert records[0].rights == ""
     assert records[0].copyright == ["All rights reserved"]
+    assert records[0].creator == []
+    assert records[0].contributor == ["Sheep Heaven"]
+    assert records[0].usage == ["All rights reserved"]
+    assert records[1].creator == ["sheep123"]
+    assert records[1].contributor == []
 
 
 def test_data_govt_nz_rejects_non_string_license_fields():
@@ -242,6 +249,9 @@ def test_digital_nz_media_fixture_parses():
     assert records[0].rights == "CC BY 4.0"
     assert records[0].rights_url == ["https://creativecommons.org/licenses/by/4.0/"]
     assert records[0].copyright == ["Some rights reserved"]
+    assert records[0].creator == []
+    assert records[0].contributor == []
+    assert records[0].usage == ["Share", "Modify", "Use commercially"]
 
 
 def test_digital_nz_media_type_filters():

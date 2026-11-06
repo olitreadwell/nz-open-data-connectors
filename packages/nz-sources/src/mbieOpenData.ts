@@ -31,6 +31,7 @@ export interface MbieOpenDataDataset {
   licenseId: string;
   licenseTitle: string;
   licenseUrl: string;
+  rights: string;
   resources: MbieOpenDataResource[];
 }
 
@@ -78,6 +79,11 @@ const MBIE_OPEN_DATA_DATASET_SCHEMA = z.object({
     .nullable()
     .optional()
     .transform((value) => value ?? ''),
+  rights: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
   resources: z.array(MBIE_OPEN_DATA_RESOURCE_SCHEMA).optional().default([]),
 });
 
@@ -113,6 +119,7 @@ export function parseMbieOpenDataDatasets(payload: unknown): MbieOpenDataSearchR
       licenseId: dataset.license_id,
       licenseTitle: dataset.license_title,
       licenseUrl: dataset.license_url,
+      rights: dataset.rights,
       resources: dataset.resources.map((resource) => ({
         name: resource.name,
         format: resource.format,

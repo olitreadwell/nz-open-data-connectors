@@ -21,6 +21,8 @@ describe('parseDataGovtNzDatasets', () => {
     expect(first?.licenseTitle).toBe('Creative Commons Attribution 4.0 International');
     expect(first?.licenseUrl).toBe('https://creativecommons.org/licenses/by/4.0/');
     expect(result.datasets[2]?.licenseId).toBe('CC-BY-NZ-3.0');
+    expect(result.datasets[1]?.author).toBe('Ministry for the Environment');
+    expect(result.datasets[1]?.organization).toBe('Ministry for the Environment');
   });
 
   it('rejects a failed CKAN response', () => {

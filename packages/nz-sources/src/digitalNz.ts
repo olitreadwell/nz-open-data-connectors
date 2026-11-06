@@ -24,6 +24,9 @@ export interface DigitalNzRecord {
   rightsUrl: string[];
   copyright: string[];
   publisher: string[];
+  creator: string[];
+  contributor: string[];
+  usage: string[];
 }
 
 const DIGITAL_NZ_RECORD_SCHEMA = z.object({
@@ -41,6 +44,9 @@ const DIGITAL_NZ_RECORD_SCHEMA = z.object({
     .transform((value) => value ?? ''),
   content_partner: z.array(z.string()).nullable().optional().default([]),
   publisher: z.array(z.string()).nullable().optional().default([]),
+  creator: z.array(z.string()).nullable().optional().default([]),
+  contributor: z.array(z.string()).nullable().optional().default([]),
+  usage: z.array(z.string()).nullable().optional().default([]),
   display_collection: z
     .string()
     .nullable()
@@ -144,6 +150,9 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
     rightsUrl: record.rights_url ?? [],
     copyright: record.copyright ?? [],
     publisher: record.publisher ?? [],
+    creator: record.creator ?? [],
+    contributor: record.contributor ?? [],
+    usage: record.usage ?? [],
   }));
 }
 

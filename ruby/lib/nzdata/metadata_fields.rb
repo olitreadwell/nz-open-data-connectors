@@ -52,7 +52,10 @@ module Nzdata
       parse_string(record.fetch('rights', nil), 'DigitalNZ', 'rights'),
       parse_string_list(record.fetch('rights_url', nil), 'DigitalNZ', 'rights_url'),
       parse_string_list(record.fetch('copyright', nil), 'DigitalNZ', 'copyright'),
-      publishers
+      publishers,
+      parse_string_list(record.fetch('creator', nil), 'DigitalNZ', 'creator'),
+      parse_string_list(record.fetch('contributor', nil), 'DigitalNZ', 'contributor'),
+      parse_string_list(record.fetch('usage', nil), 'DigitalNZ', 'usage')
     )
   end
 end

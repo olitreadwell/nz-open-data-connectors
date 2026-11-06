@@ -12,6 +12,7 @@ export interface DataGovtNzDataset {
   notes: string;
   metadataModified: string;
   url: string;
+  author: string;
   organization: string | undefined;
   licenseId: string;
   licenseTitle: string;
@@ -30,6 +31,11 @@ const DATA_GOVT_NZ_DATASET_SCHEMA = z.object({
   notes: z.string().optional().default(''),
   metadata_modified: z.string(),
   url: z.string().optional().default(''),
+  author: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
   organization: z
     .object({ title: z.string() })
     .optional()
@@ -73,6 +79,7 @@ export function parseDataGovtNzDatasets(payload: unknown): DataGovtNzSearchResul
       notes: dataset.notes,
       metadataModified: dataset.metadata_modified,
       url: dataset.url,
+      author: dataset.author,
       organization: dataset.organization,
       licenseId: dataset.license_id,
       licenseTitle: dataset.license_title,
