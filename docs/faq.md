@@ -4,7 +4,7 @@ Questions that come up about this repo.
 
 ## Do I need an API key?
 
-No. All fifteen adapters work keyless. Two accept an optional key from the
+No. All sixteen adapters work keyless. Two accept an optional key from the
 environment to unlock more: `DIGITAL_NZ_API_KEY` raises the DigitalNZ rate
 limit and `LINZ_API_KEY` unlocks LINZ layer search. Keys are read server-side
 and are never accepted from API or CLI callers.
@@ -19,9 +19,9 @@ every key that arrives from an environment variable or a caller, so an empty
 The MIT licence here covers the code, not the data. Each publisher keeps its
 own terms. GeoNet content is Creative Commons Attribution 3.0 New Zealand.
 NZOR content is Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
-Zealand, so it is not for commercial use. data.govt.nz and the Waka Kotahi open
-data hub carry a licence value per dataset. `docs/CONNECTOR_DISCOVERY.md` lists
-the position for every source.
+Zealand, so it is not for commercial use. data.govt.nz, MBIE open data and the
+Waka Kotahi open data hub carry a licence value per dataset.
+`docs/CONNECTOR_DISCOVERY.md` lists the position for every source.
 
 Credit the publisher when you republish, not this library. The connectors fetch
 and shape the data; they add nothing to it.

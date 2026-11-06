@@ -1,11 +1,11 @@
 # @nz-open-data-connectors/nz-sources
 
-Uniform TypeScript adapters for 15 New Zealand public data sources. Node.js and TypeScript users call them directly.
+Uniform TypeScript adapters for 16 New Zealand public data sources. Node.js and TypeScript users call them directly.
 
 ## What this package does
 
 - Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture for tests.
-- Ships 15 adapters. Every one works without an API key.
+- Ships 16 adapters. Every one works without an API key.
 - Accepts an optional key for DigitalNZ and LINZ.
 - Runs its tests offline against real fixture snapshots.
 
@@ -47,6 +47,7 @@ for (const probe of probes) {
 | `lawa` | Land, Air, Water Aotearoa (LAWA) | none | River quality monitoring sites. |
 | `mfe` | Ministry for the Environment (MfE) Data Service | none | Layer search for water, land, and climate data. |
 | `lris` | Landcare Research LRIS | none | Layer search for soil, land cover, and ecosystems. |
+| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE) | none | MBIE datasets and downloadable files in the national catalogue. |
 | `nzta` | Waka Kotahi journeys API | none | Predicted busy holiday journey hotspots. |
 | `nzta-open-data` | Waka Kotahi open data hub | none | The hub's DCAT 1.1 catalogue. |
 
@@ -54,7 +55,7 @@ for (const probe of probes) {
 
 - Every adapter works keyless. DigitalNZ and LINZ accept an optional key: `DIGITAL_NZ_API_KEY` and `LINZ_API_KEY`. Keys are read from the environment only.
 - A live fetch throws when the upstream API fails or times out. Fixtures are read only through `loadFixture`, so a stale snapshot never appears silently.
-- The data.govt.nz catalogue and datastore block non-NZ IP addresses at the CDN. The live smoke tests skip them.
+- The data.govt.nz catalogue and datastore block non-NZ IP addresses at the CDN. The MBIE adapter uses the same catalogue host, so the live smoke tests skip all three.
 - The NZOR hosts have failed the TLS handshake since 2026-09-21. The adapter stays for its committed fixture.
 - Infoshare returns the first 20 table matches per search. The adapter does not follow its ASP.NET pagination, so use the total count to decide whether to narrow the query.
 - Fixtures in `src/fixtures/` are real API snapshots, dated in their filenames.
@@ -79,10 +80,11 @@ Each adapter reads one publisher. The table lists the source URL.
 | `lawa` | `https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites` |
 | `mfe` | `https://data.mfe.govt.nz/services/api/v1/layers` |
 | `lris` | `https://lris.scinfo.org.nz/services/api/v1/layers` |
+| `mbie-open-data` | `https://catalogue.data.govt.nz/api/3/action/package_search?fq=organization:ministry-of-business-innovation-and-employment` |
 | `nzta` | `https://www.journeys.nzta.govt.nz/api/hotspots` |
 | `nzta-open-data` | `https://opendata-nzta.opendata.arcgis.com/api/feed/dcat-us/1.1.json` |
 
-The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The Waka Kotahi DCAT feed sets CC BY 4.0 for its first dataset; some other datasets carry custom NZTA CC BY 4.0 or non-commercial terms. These terms were checked on 2026-11-06. Check the source page before you reuse any dataset.
+The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata, and the adapter returns the `licenseId`, `licenseTitle`, and `licenseUrl` fields it receives. The Waka Kotahi DCAT feed sets CC BY 4.0 for its first dataset; some other datasets carry custom NZTA CC BY 4.0 or non-commercial terms. These terms were checked on 2026-11-07. Check the source page before you reuse any dataset.
 
 ## Package licence
 

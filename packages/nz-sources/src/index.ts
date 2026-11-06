@@ -81,6 +81,20 @@ export type { LawaRiverQualitySite } from './lawa.js';
 export { searchLrisLayers, parseLrisLayers, lrisAdapter } from './lris.js';
 /** LRIS types. */
 export type { LrisLayer } from './lris.js';
+/** MBIE datasets in the national open data catalogue. */
+export {
+  fetchMbieOpenDataDatasets,
+  parseMbieOpenDataDatasets,
+  mbieOpenDataAdapter,
+  MBIE_OPEN_DATA_ORGANIZATION,
+  MBIE_OPEN_DATA_SOURCE_ID,
+} from './mbieOpenData.js';
+/** MBIE open data types. */
+export type {
+  MbieOpenDataDataset,
+  MbieOpenDataResource,
+  MbieOpenDataSearchResult,
+} from './mbieOpenData.js';
 /** MfE Data Service layer catalogue. */
 export { searchMfeLayers, parseMfeLayers, mfeAdapter } from './mfe.js';
 /** MfE types. */

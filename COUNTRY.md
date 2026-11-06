@@ -9,15 +9,16 @@ key from the environment to unlock more. Keys stay server-side.
 
 ## Adapters
 
-All fifteen were probed keyless from an Auckland connection. The first fourteen
-were checked on 2026-10-08 and Infoshare on 2026-11-06; all answered. Fixture
-dates are the capture dates.
+All sixteen were probed keyless from an Auckland connection. The first fourteen
+were checked on 2026-10-08, Infoshare on 2026-11-06, and MBIE open data on
+2026-11-07; all answered. Fixture dates are the capture dates.
 
 | Source | Adapter id | Status |
 | --- | --- | --- |
 | GeoNet (Earth Sciences New Zealand) | `geonet` | Live, keyless |
 | data.govt.nz catalogue | `data-govt-nz` | Live, keyless |
 | data.govt.nz datastore (MSD benefits) | `data-govt-datastore` | Live, keyless |
+| MBIE open data | `mbie-open-data` | Live, keyless; MBIE datasets in the national catalogue |
 | Aotearoa Data Explorer search | `ade-search` | Live, keyless |
 | Stats NZ Infoshare | `infoshare` | Live, keyless; HTML table search |
 | DigitalNZ (National Library) | `digitalnz` | Live, keyless; optional `DIGITAL_NZ_API_KEY` raises the rate limit |
@@ -37,19 +38,19 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 
 ## Checklist
 
-- [x] Fifteen keyless adapters, each with a live fetch, a strict parse, and a
+- [x] Sixteen keyless adapters, each with a live fetch, a strict parse, and a
       committed fixture
 - [x] Shared HTTP layer (`httpGet`, `httpPost`): one User-Agent, 30 second timeout,
       `retryable` on 429, 5xx and network failures
 - [x] HTTP API with an OpenAPI spec, Swagger UI, and a contract test
 - [x] CLI that prints JSON or CSV
 - [x] Dockerfile with a non-root user and a health check
-- [x] Python and Ruby ports for 8 of the 15 adapters
+- [x] Python and Ruby ports for 8 of the 16 adapters
 - [ ] Publish the ports to PyPI and RubyGems
-- [ ] Port the remaining seven adapters (`arcgis`, `infoshare`, `lawa`, `mfe`,
-      `lris`, `nzta`, `nzta-open-data`)
+- [ ] Port the remaining eight adapters (`arcgis`, `infoshare`, `lawa`,
+      `mbie-open-data`, `mfe`, `lris`, `nzta`, `nzta-open-data`)
 - [ ] Return licence and attribution metadata per record, instead of only for
-      `nzta-open-data`
+      `nzta-open-data` and `mbie-open-data`
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, Koordinates,
       Auckland Transport
 

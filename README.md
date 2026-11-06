@@ -8,7 +8,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 15 NZ public data sources, with live probes and offline fixtures |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 16 NZ public data sources, with live probes and offline fixtures |
 | [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
 | [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
 | `@nz-open-data-connectors/connectors-api` | Private. HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
@@ -20,7 +20,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Fifteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
+Sixteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
@@ -30,8 +30,9 @@ Creative Commons Attribution 3.0 New Zealand. Stats NZ content, including
 Infoshare, carries Creative Commons Attribution 4.0 International unless a page
 says otherwise. NZOR content carries Creative
 Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
-commercial use. data.govt.nz and the Waka Kotahi open data hub return a licence
-value per dataset, and the `nzta-open-data` adapter passes that value through.
+commercial use. The data.govt.nz catalogue, MBIE open data and the Waka Kotahi
+open data hub carry a licence value per dataset. The `nzta-open-data` and
+`mbie-open-data` adapters pass that value through.
 For every other source, check the publisher's licence before you reuse the data:
 the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
 lists where each source's terms live.
@@ -41,7 +42,7 @@ Every adapter also sends the same `User-Agent`
 seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
 5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
 shared `httpGet` and `httpPost` helpers in `packages/nz-sources/src/http.ts` do
-this for all fifteen adapters, so callers write nothing extra.
+this for all sixteen adapters, so callers write nothing extra.
 
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
@@ -58,6 +59,7 @@ this for all fifteen adapters, so callers write nothing extra.
 | `lawa` | LAWA river quality monitoring sites | Yes | - | `npx tsx packages/cli/src/cli.ts probe lawa` |
 | `mfe` | MfE Data Service layer catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mfe` |
 | `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
+| `mbie-open-data` | MBIE datasets in the national catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mbie-open-data` |
 | `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
 | `nzta-open-data` | Waka Kotahi open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta-open-data` |
 
@@ -81,6 +83,17 @@ reads the first results page. Each result carries the table title, folder path,
 and last-updated date. The live probe searches for "employment".
 
 The session flow and licence note are in `docs/CONNECTOR_DISCOVERY.md`.
+
+### Added 2026-11-07
+
+`mbie-open-data` reads the Ministry of Business, Innovation and Employment
+datasets in the data.govt.nz catalogue: 34 datasets with their notes,
+downloadable resources, and a licence value per dataset. The MBIE open data
+page is behind a browser challenge, so the adapter uses the national CKAN
+catalogue filtered to the MBIE organisation.
+
+The exact curl command and the licence notes are in
+`docs/CONNECTOR_DISCOVERY.md`.
 
 ### Adapter examples
 
@@ -150,6 +163,11 @@ npx tsx packages/cli/src/cli.ts probe mfe
 ```sh
 # LRIS - land and soil layers matching "soil" from Landcare Research
 npx tsx packages/cli/src/cli.ts probe lris
+```
+
+```sh
+# MBIE - datasets in the national open data catalogue
+npx tsx packages/cli/src/cli.ts probe mbie-open-data
 ```
 
 ```sh
@@ -250,10 +268,10 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 PyPI or RubyGems yet, so install from the repo. The publish workflows exist and
 fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
-Both ports mirror part of the TypeScript surface: 8 of the 15 adapters, the same
+Both ports mirror part of the TypeScript surface: 8 of the 16 adapters, the same
 Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. The
-seven adapters the ports do not carry yet are `arcgis`, `infoshare`, `lawa`,
-`mfe`, `lris`, `nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
+eight adapters the ports do not carry yet are `arcgis`, `infoshare`, `lawa`,
+`mbie-open-data`, `mfe`, `lris`, `nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
 `mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See
 each directory's README for quickstarts and publishing steps.
 

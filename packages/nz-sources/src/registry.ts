@@ -8,6 +8,7 @@ import { infoshareAdapter } from './infoshare.js';
 import { lawaAdapter } from './lawa.js';
 import { linzAdapter } from './linz.js';
 import { lrisAdapter } from './lris.js';
+import { mbieOpenDataAdapter } from './mbieOpenData.js';
 import { mfeAdapter } from './mfe.js';
 import { nzorAdapter } from './nzor.js';
 import { nztaAdapter } from './nzta.js';
@@ -28,6 +29,7 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   linzAdapter,
   arcgisHubAdapter,
   lawaAdapter,
+  mbieOpenDataAdapter,
   mfeAdapter,
   lrisAdapter,
   nztaAdapter,

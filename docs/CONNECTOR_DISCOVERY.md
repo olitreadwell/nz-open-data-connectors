@@ -185,6 +185,60 @@ curl -sS -L -A "$UA" -b /tmp/infoshare.cookies \
 - The live check on 2026-11-06 returned 180 tables for "employment" and a
   60,220 byte fixture.
 
+## 2026-11-07 addition: `mbie-open-data`
+
+The MBIE open data page at `https://www.mbie.govt.nz/about/open-data/` sits
+behind an Incapsula browser challenge. The datasets are also listed in the
+national data.govt.nz catalogue under the MBIE organisation, and that CKAN API
+answers keyless. The adapter reads the catalogue view rather than the challenged
+page.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE) | `https://catalogue.data.govt.nz/api/3/action/package_search?fq=organization:ministry-of-business-innovation-and-employment&rows=1000` | `mbie-open-data-2026-11-07.json` |
+
+### Exact curl command (captured 2026-11-07)
+
+```sh
+# MBIE datasets in the national open data catalogue (HTTP 200, 34 datasets)
+curl -sS --max-time 30 \
+  "https://catalogue.data.govt.nz/api/3/action/package_search?fq=organization%3Aministry-of-business-innovation-and-employment&rows=1000" \
+  -o mbie-open-data-2026-11-07.json
+```
+
+### Shape notes
+
+- Keyless. No API key, account, or extra header is needed.
+- Top level is the standard CKAN `package_search` response: `success: true`,
+  `result.count`, and `result.results`.
+- Each dataset carries `name`, `title`, `notes`, `metadata_modified`, `url`,
+  `license_id`, `license_title`, `license_url`, and a `resources` list.
+- Each resource carries `name`, `format`, `url`, and `size`. `size` can be
+  null when the catalogue does not know it.
+- Some fields arrive as null or are absent, including `license_title`,
+  `license_url`, and `url`. The parser normalizes those to empty strings.
+- The live check on 2026-11-07 returned 34 datasets in a 228,396 byte response.
+  The committed fixture is the same response, pretty-printed for review. The
+  list includes weekly fuel stock updates, energy statistics, tourism
+  estimates, rental bond data, immigration statistics, and labour market data.
+
+### Licence
+
+The catalogue returns a licence per dataset. Most MBIE datasets use Creative
+Commons Attribution 4.0 International or Creative Commons Attribution 3.0 New
+Zealand. A few use "Other licensing (check with source agency)" or have no
+licence metadata. The adapter returns `licenseId`, `licenseTitle`, and
+`licenseUrl` so a caller can check the position before reuse.
+
+### Verification status
+
+- Verified live on 2026-11-07 from this machine with the curl above.
+- The MBIE page itself returned the Incapsula challenge to curl, so it was not
+  used as the adapter endpoint.
+- The unit test uses the committed fixture only. It never hits the network.
+- Not verified: behaviour from non-NZ IPs. The catalogue host is the same one
+  that data.govt.nz uses, and the existing smoke test skips that host.
+
 ## Licences and attribution
 
 The MIT licence in this repo covers the code, not the data. Every source keeps
@@ -194,6 +248,7 @@ its own terms, and the publisher's licence is the one that applies.
 | --- | --- | --- |
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
 | `data-govt-nz`, `data-govt-datastore` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter does not return those fields today |
+| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title` and `license_url`, and the adapter returns all three. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
 | `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter does not return those fields today |
@@ -207,11 +262,12 @@ its own terms, and the publisher's licence is the one that applies.
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
 
-Two things follow from the table. First, only `nzta-open-data` returns licence
-metadata today, so a caller who needs to republish a dataset has to check the
-publisher. Returning licence and attribution per record is on the open list in
-`COUNTRY.md`. Second, NZOR is the one source here that rules out commercial
-use, so treat results from it accordingly.
+Two things follow from the table. First, only `nzta-open-data` and
+`mbie-open-data` return licence metadata today, so a caller who needs to
+republish a dataset from another adapter has to check the publisher. Returning
+licence and attribution per record is on the open list in `COUNTRY.md`.
+Second, NZOR is the one source here that rules out commercial use, so treat
+results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.

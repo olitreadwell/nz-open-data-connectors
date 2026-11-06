@@ -82,6 +82,9 @@ describe('registry', () => {
         if (url.includes('datastore_search')) {
           return jsonResponse(readFixtureJson('data-govt-datastore-msd-benefits.json'));
         }
+        if (url.includes('fq=organization%3Aministry-of-business-innovation-and-employment')) {
+          return jsonResponse(readFixtureJson('mbie-open-data-2026-11-07.json'));
+        }
         if (hostname === 'catalogue.data.govt.nz') {
           return jsonResponse(readFixtureJson('data-govt-nz-search-sheep.json'));
         }

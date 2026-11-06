@@ -14,7 +14,12 @@ const OPTIONAL_KEY_SOURCE_ENV: Record<string, string> = {
  * non-NZ IPs at the CDN (GitHub Actions runners get an HTML error page), so
  * it is verified by the committed fixture instead.
  */
-const GEO_BLOCKED_SOURCE_IDS = new Set(['data-govt-nz', 'data-govt-datastore', 'lawa']);
+const GEO_BLOCKED_SOURCE_IDS = new Set([
+  'data-govt-nz',
+  'data-govt-datastore',
+  'lawa',
+  'mbie-open-data',
+]);
 
 /**
  * Adapter ids whose upstream service has gone away, with the date the probe
