@@ -25,6 +25,36 @@ describe('parseDigitalNzRecords', () => {
     const first = records[0];
     expect(first?.title?.length).toBeGreaterThan(0);
     expect(first?.id).toBeGreaterThan(0);
+    expect(first?.rights).toBe('');
+    expect(first?.copyright).toEqual(['All rights reserved']);
+    expect(first?.rightsUrl).toEqual([]);
+    expect(first?.publisher).toEqual([]);
+    expect(first?.creator).toEqual([]);
+    expect(first?.contributor).toEqual(['Sheep Heaven']);
+    expect(first?.usage).toEqual(['All rights reserved']);
+    expect(records[1]?.creator).toEqual(['sheep123']);
+    expect(records[1]?.contributor).toEqual([]);
+  });
+
+  it('falls back to content partners and publishers when display partner is empty', () => {
+    const records = parseDigitalNzRecords({
+      search: {
+        result_count: 1,
+        results: [
+          {
+            id: 1,
+            title: 'Record without a display partner',
+            display_content_partner: '',
+            content_partner: ['Partner A', 'Partner B'],
+            publisher: ['Publisher X'],
+            rights_url: [],
+            copyright: [],
+          },
+        ],
+      },
+    });
+    expect(records[0]?.contentPartner).toBe('Partner A, Partner B');
+    expect(records[0]?.publisher).toEqual(['Publisher X']);
   });
 
   it('rejects a payload without a search result', () => {
@@ -50,6 +80,13 @@ describe('media search', () => {
     const first = records[0];
     expect(first?.categories).toContain('Images');
     expect(first?.thumbnailUrl?.length).toBeGreaterThan(0);
+    expect(first?.rights).toBe('CC BY 4.0');
+    expect(first?.rightsUrl).toEqual(['https://creativecommons.org/licenses/by/4.0/']);
+    expect(first?.copyright).toEqual(['Some rights reserved']);
+    expect(first?.contentPartner).toBe('Museum of New Zealand Te Papa Tongarewa');
+    expect(first?.creator).toEqual([]);
+    expect(first?.contributor).toEqual([]);
+    expect(first?.usage).toEqual(['Share', 'Modify', 'Use commercially']);
   });
 
   it('filters the live request by category', async () => {

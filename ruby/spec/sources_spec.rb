@@ -46,6 +46,11 @@ describe Nzdata do
       result = Nzdata.parse_data_govt_nz_datasets(Nzdata.read_fixture_json('data-govt-nz-search-sheep.json'))
       _(result.count).must_equal 31
       _(result.datasets.length).must_equal 5
+      _(result.datasets.first.license_id).must_equal 'CC-BY-4.0'
+      _(result.datasets.first.license_title).must_equal 'Creative Commons Attribution 4.0 International'
+      _(result.datasets[2].license_id).must_equal 'CC-BY-NZ-3.0'
+      _(result.datasets[1].author).must_equal 'Ministry for the Environment'
+      _(result.datasets[1].organization).must_equal 'Ministry for the Environment'
     end
 
     it 'rejects a bad data.govt.nz payload' do
@@ -62,6 +67,81 @@ describe Nzdata do
       records = Nzdata.parse_digital_nz_records(Nzdata.read_fixture_json('digitalnz-search-sheep.json'))
       _(records.length).must_equal 2
       _(records.first.title).wont_be_empty
+      _(records.first.rights).must_equal ''
+      _(records.first.copyright).must_equal ['All rights reserved']
+      _(records.first.publisher).must_equal []
+      _(records.first.creator).must_equal []
+      _(records.first.contributor).must_equal ['Sheep Heaven']
+      _(records.first.usage).must_equal ['All rights reserved']
+      _(records[1].creator).must_equal ['sheep123']
+      _(records[1].contributor).must_equal []
+    end
+
+    it 'rejects non-string CKAN licence fields' do
+      payload = {
+        'success' => true,
+        'result' => {
+          'count' => 1,
+          'results' => [
+            {
+              'name' => 'dataset',
+              'title' => 'Dataset',
+              'metadata_modified' => '2026-11-07',
+              'license_id' => 123
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_data_govt_nz_datasets(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'rejects non-string DigitalNZ rights metadata' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'rights_url' => 'https://example.com/rights'
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_digital_nz_records(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'rejects non-string DigitalNZ copyright entries' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'copyright' => [1]
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_digital_nz_records(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'falls back to publisher for DigitalNZ attribution' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'display_content_partner' => '',
+              'content_partner' => [],
+              'publisher' => ['Publisher X']
+            }
+          ]
+        }
+      }
+      records = Nzdata.parse_digital_nz_records(payload)
+      _(records.first.content_partner).must_equal 'Publisher X'
+      _(records.first.publisher).must_equal ['Publisher X']
     end
 
     it 'parses the DigitalNZ media fixture with preview URLs' do
@@ -70,6 +150,12 @@ describe Nzdata do
       )
       _(records.first.categories).must_equal ['Images']
       _(records.first.thumbnail_url).wont_be_empty
+      _(records.first.rights).must_equal 'CC BY 4.0'
+      _(records.first.rights_url).must_equal ['https://creativecommons.org/licenses/by/4.0/']
+      _(records.first.copyright).must_equal ['Some rights reserved']
+      _(records.first.creator).must_equal []
+      _(records.first.contributor).must_equal []
+      _(records.first.usage).must_equal ['Share', 'Modify', 'Use commercially']
     end
 
     it 'maps every media type to a DigitalNZ category' do

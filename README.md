@@ -31,8 +31,15 @@ Infoshare, carries Creative Commons Attribution 4.0 International unless a page
 says otherwise. NZOR content carries Creative
 Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
 commercial use. The data.govt.nz catalogue, MBIE open data and the Waka Kotahi
-open data hub carry a licence value per dataset. The `nzta-open-data` and
-`mbie-open-data` adapters pass that value through.
+open data hub carry a licence value per dataset. DigitalNZ records carry
+`rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
+`usage` values. ArcGIS Hub datasets carry `licenseInfo`, `accessInformation`
+and `license` values. The `arcgis`, `data-govt-nz`, `digitalnz`, `mbie-open-data`
+and `nzta-open-data` adapters pass the source-supplied values through,
+including attribution fields where the source supplies them. Source field
+names follow the API: CKAN and DigitalNZ use snake_case, and ArcGIS Hub uses
+camelCase (`licenseInfo`). Adapter output names use camelCase: `license_id`
+becomes `licenseId`, and `rights_url` becomes `rightsUrl`.
 For every other source, check the publisher's licence before you reuse the data:
 the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
 lists where each source's terms live.
@@ -88,9 +95,10 @@ The session flow and licence note are in `docs/CONNECTOR_DISCOVERY.md`.
 
 `mbie-open-data` reads the Ministry of Business, Innovation and Employment
 datasets in the data.govt.nz catalogue: 34 datasets with their notes,
-downloadable resources, and a licence value per dataset. The MBIE open data
-page is behind a browser challenge, so the adapter uses the national CKAN
-catalogue filtered to the MBIE organisation.
+downloadable resources, a licence value or rights link per dataset, and the
+source `author` and `organization` attribution. The MBIE open data page is
+behind a browser challenge, so the adapter uses the national CKAN catalogue
+filtered to the MBIE organisation.
 
 The exact curl command and the licence notes are in
 `docs/CONNECTOR_DISCOVERY.md`.

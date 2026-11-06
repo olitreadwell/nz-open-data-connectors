@@ -88,6 +88,11 @@ def test_data_govt_nz_fixture_parses():
     assert result.count == 31
     assert len(result.datasets) == 5
     assert result.datasets[0].name
+    assert result.datasets[0].license_id == "CC-BY-4.0"
+    assert result.datasets[0].license_title == "Creative Commons Attribution 4.0 International"
+    assert result.datasets[2].license_id == "CC-BY-NZ-3.0"
+    assert result.datasets[1].author == "Ministry for the Environment"
+    assert result.datasets[1].organization == "Ministry for the Environment"
 
 
 def test_data_govt_nz_rejects_bad_payload():
@@ -156,6 +161,83 @@ def test_digital_nz_fixture_parses():
     records = parse_digital_nz_records(read_fixture_json("digitalnz-search-sheep.json"))
     assert len(records) == 2
     assert records[0].title
+    assert records[0].rights == ""
+    assert records[0].copyright == ["All rights reserved"]
+    assert records[0].creator == []
+    assert records[0].contributor == ["Sheep Heaven"]
+    assert records[0].usage == ["All rights reserved"]
+    assert records[1].creator == ["sheep123"]
+    assert records[1].contributor == []
+
+
+def test_data_govt_nz_rejects_non_string_license_fields():
+    payload = {
+        "success": True,
+        "result": {
+            "count": 1,
+            "results": [
+                {
+                    "name": "dataset",
+                    "title": "Dataset",
+                    "metadata_modified": "2026-11-07",
+                    "license_id": 123,
+                }
+            ],
+        },
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_data_govt_nz_datasets(payload)
+
+
+def test_digital_nz_rejects_non_string_rights_metadata():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "rights_url": "https://example.com/rights",
+                }
+            ]
+        }
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_digital_nz_records(payload)
+
+
+def test_digital_nz_rejects_non_string_copyright_entries():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "copyright": [1],
+                }
+            ]
+        }
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_digital_nz_records(payload)
+
+
+def test_digital_nz_falls_back_to_publisher_for_attribution():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "display_content_partner": "",
+                    "content_partner": [],
+                    "publisher": ["Publisher X"],
+                }
+            ]
+        }
+    }
+    records = parse_digital_nz_records(payload)
+    assert records[0].content_partner == "Publisher X"
+    assert records[0].publisher == ["Publisher X"]
 
 
 def test_digital_nz_media_fixture_parses():
@@ -164,6 +246,12 @@ def test_digital_nz_media_fixture_parses():
     )
     assert records[0].categories == ["Images"]
     assert records[0].thumbnail_url
+    assert records[0].rights == "CC BY 4.0"
+    assert records[0].rights_url == ["https://creativecommons.org/licenses/by/4.0/"]
+    assert records[0].copyright == ["Some rights reserved"]
+    assert records[0].creator == []
+    assert records[0].contributor == []
+    assert records[0].usage == ["Share", "Modify", "Use commercially"]
 
 
 def test_digital_nz_media_type_filters():

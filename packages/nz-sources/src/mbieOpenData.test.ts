@@ -32,6 +32,20 @@ describe('parseMbieOpenDataDatasets', () => {
     expect(first?.licenseId).toBe('CC-BY-4.0');
     expect(first?.licenseTitle).toBe('Creative Commons Attribution 4.0 International');
     expect(first?.licenseUrl).toBe('https://creativecommons.org/licenses/by/4.0/');
+    expect(first?.author).toBe('MBIE fuel response data');
+    expect(first?.organization).toBe('Ministry of Business, Innovation and Employment');
+    expect(first?.rights).toBe('');
+  });
+
+  it('keeps the source rights link when the licence is other', () => {
+    const result = parseMbieOpenDataDatasets(FIXTURE);
+    const companiesOffice = result.datasets.find(
+      (dataset) => dataset.name === 'the-companies-office'
+    );
+    expect(companiesOffice?.licenseId).toBe('other');
+    expect(companiesOffice?.rights).toBe(
+      'https://support.api.business.govt.nz/s/article/terms-and-conditions'
+    );
   });
 
   it('keeps the downloadable resources and their formats', () => {

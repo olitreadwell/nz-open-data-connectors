@@ -26,9 +26,12 @@ export interface MbieOpenDataDataset {
   notes: string;
   metadataModified: string;
   url: string;
+  author: string;
+  organization: string | undefined;
   licenseId: string;
   licenseTitle: string;
   licenseUrl: string;
+  rights: string;
   resources: MbieOpenDataResource[];
 }
 
@@ -51,6 +54,16 @@ const MBIE_OPEN_DATA_DATASET_SCHEMA = z.object({
   notes: z.string().optional().default(''),
   metadata_modified: z.string(),
   url: z.string().optional().default(''),
+  author: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  organization: z
+    .object({ title: z.string() })
+    .nullable()
+    .optional()
+    .transform((org) => org?.title),
   license_id: z
     .string()
     .nullable()
@@ -62,6 +75,11 @@ const MBIE_OPEN_DATA_DATASET_SCHEMA = z.object({
     .optional()
     .transform((value) => value ?? ''),
   license_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  rights: z
     .string()
     .nullable()
     .optional()
@@ -96,9 +114,12 @@ export function parseMbieOpenDataDatasets(payload: unknown): MbieOpenDataSearchR
       notes: dataset.notes,
       metadataModified: dataset.metadata_modified,
       url: dataset.url,
+      author: dataset.author,
+      organization: dataset.organization,
       licenseId: dataset.license_id,
       licenseTitle: dataset.license_title,
       licenseUrl: dataset.license_url,
+      rights: dataset.rights,
       resources: dataset.resources.map((resource) => ({
         name: resource.name,
         format: resource.format,

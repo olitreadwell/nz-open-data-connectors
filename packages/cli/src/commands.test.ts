@@ -39,6 +39,13 @@ const stubSearchMedia: typeof searchDigitalNzMedia = async (query, mediaType) =>
     objectUrl: '',
     sourceUrl: '',
     displayDate: '',
+    rights: '',
+    rightsUrl: [],
+    copyright: [],
+    publisher: [],
+    creator: [],
+    contributor: [],
+    usage: [],
   };
   return [record];
 };

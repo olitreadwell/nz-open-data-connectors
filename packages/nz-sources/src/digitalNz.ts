@@ -20,6 +20,13 @@ export interface DigitalNzRecord {
   objectUrl: string;
   sourceUrl: string;
   displayDate: string;
+  rights: string;
+  rightsUrl: string[];
+  copyright: string[];
+  publisher: string[];
+  creator: string[];
+  contributor: string[];
+  usage: string[];
 }
 
 const DIGITAL_NZ_RECORD_SCHEMA = z.object({
@@ -35,6 +42,11 @@ const DIGITAL_NZ_RECORD_SCHEMA = z.object({
     .nullable()
     .optional()
     .transform((value) => value ?? ''),
+  content_partner: z.array(z.string()).nullable().optional().default([]),
+  publisher: z.array(z.string()).nullable().optional().default([]),
+  creator: z.array(z.string()).nullable().optional().default([]),
+  contributor: z.array(z.string()).nullable().optional().default([]),
+  usage: z.array(z.string()).nullable().optional().default([]),
   display_collection: z
     .string()
     .nullable()
@@ -71,6 +83,13 @@ const DIGITAL_NZ_RECORD_SCHEMA = z.object({
     .nullable()
     .optional()
     .transform((value) => value ?? ''),
+  rights: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  rights_url: z.array(z.string()).nullable().optional().default([]),
+  copyright: z.array(z.string()).nullable().optional().default([]),
 });
 
 const DIGITAL_NZ_RESPONSE_SCHEMA = z.object({
@@ -79,6 +98,30 @@ const DIGITAL_NZ_RESPONSE_SCHEMA = z.object({
     results: z.array(DIGITAL_NZ_RECORD_SCHEMA),
   }),
 });
+
+/**
+ * Resolves record attribution, preferring the display partner and falling back
+ * to the source content partners or publishers when it is empty.
+ *
+ * @param displayPartner - The source display_content_partner value.
+ * @param contentPartners - The source content_partner values.
+ * @param publishers - The source publisher values.
+ * @returns A non-empty attribution string when the source supplied one.
+ */
+function resolveDigitalNzAttribution(
+  displayPartner: string,
+  contentPartners: string[],
+  publishers: string[]
+): string {
+  if (displayPartner.length > 0) {
+    return displayPartner;
+  }
+  const partners = contentPartners.filter((value) => value.length > 0);
+  if (partners.length > 0) {
+    return partners.join(', ');
+  }
+  return publishers.filter((value) => value.length > 0).join(', ');
+}
 
 /** Parses a DigitalNZ v3 records payload into records. */
 export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
@@ -90,7 +133,11 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
     id: record.id,
     title: record.title,
     description: record.description,
-    contentPartner: record.display_content_partner,
+    contentPartner: resolveDigitalNzAttribution(
+      record.display_content_partner,
+      record.content_partner ?? [],
+      record.publisher ?? []
+    ),
     collection: record.display_collection,
     url: record.landing_url,
     categories: record.category,
@@ -99,6 +146,13 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
     objectUrl: record.object_url,
     sourceUrl: record.source_url,
     displayDate: record.display_date,
+    rights: record.rights,
+    rightsUrl: record.rights_url ?? [],
+    copyright: record.copyright ?? [],
+    publisher: record.publisher ?? [],
+    creator: record.creator ?? [],
+    contributor: record.contributor ?? [],
+    usage: record.usage ?? [],
   }));
 }
 

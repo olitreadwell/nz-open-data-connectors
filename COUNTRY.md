@@ -49,8 +49,14 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 - [ ] Publish the ports to PyPI and RubyGems
 - [ ] Port the remaining eight adapters (`arcgis`, `infoshare`, `lawa`,
       `mbie-open-data`, `mfe`, `lris`, `nzta`, `nzta-open-data`)
-- [ ] Return licence and attribution metadata per record, instead of only for
-      `nzta-open-data` and `mbie-open-data`
+- [x] Return source-supplied licence and attribution metadata per record:
+      `arcgis`, `data-govt-nz`, `digitalnz`, `mbie-open-data` and
+      `nzta-open-data`
+- [ ] Add licence and attribution metadata to the other eleven adapters:
+      `ade-search`, `data-govt-datastore`, `geonet`, `infoshare`, `lawa`,
+      `linz`, `lris`, `mfe`, `nzor`, `nzta` and `trademe`. Most publish terms
+      of use instead of a per-record licence, so each source needs its own
+      decision
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, Koordinates,
       Auckland Transport
 

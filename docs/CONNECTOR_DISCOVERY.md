@@ -212,7 +212,8 @@ curl -sS --max-time 30 \
 - Top level is the standard CKAN `package_search` response: `success: true`,
   `result.count`, and `result.results`.
 - Each dataset carries `name`, `title`, `notes`, `metadata_modified`, `url`,
-  `license_id`, `license_title`, `license_url`, and a `resources` list.
+  `author`, `organization.title`, `license_id`, `license_title`, `license_url`,
+  `rights`, and a `resources` list.
 - Each resource carries `name`, `format`, `url`, and `size`. `size` can be
   null when the catalogue does not know it.
 - Some fields arrive as null or are absent, including `license_title`,
@@ -227,8 +228,10 @@ curl -sS --max-time 30 \
 The catalogue returns a licence per dataset. Most MBIE datasets use Creative
 Commons Attribution 4.0 International or Creative Commons Attribution 3.0 New
 Zealand. A few use "Other licensing (check with source agency)" or have no
-licence metadata. The adapter returns `licenseId`, `licenseTitle`, and
-`licenseUrl` so a caller can check the position before reuse.
+licence metadata. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`,
+`rights`, `author` and `organization` so a caller can check the position and
+attribution before reuse. For rows where `license_url` is null and `rights` is
+present, `rights` is the only licence pointer the source supplies.
 
 ### Verification status
 
@@ -244,28 +247,37 @@ licence metadata. The adapter returns `licenseId`, `licenseTitle`, and
 The MIT licence in this repo covers the code, not the data. Every source keeps
 its own terms, and the publisher's licence is the one that applies.
 
+The table uses source field names when it describes an API response, and the
+adapter's camelCase output name when it describes what this library returns.
+CKAN and DigitalNZ source fields use snake_case; ArcGIS Hub source fields use
+camelCase. For example, CKAN's `license_id` becomes `licenseId`, and DigitalNZ's
+`rights_url` becomes `rightsUrl`.
+
 | Adapter | Publisher | Licence position |
 | --- | --- | --- |
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
-| `data-govt-nz`, `data-govt-datastore` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter does not return those fields today |
-| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title` and `license_url`, and the adapter returns all three. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank |
+| `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title`, `license_url`, `author` and `organization.title` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` as the publisher |
+| `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
+| `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title`, `license_url`, `rights`, `author` and `organization.title`, and the adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `rights`, `author` and `organization`. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank. For rows where `license_url` is null and `rights` is present, `rights` is the only licence pointer |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
-| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter does not return those fields today |
+| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url`, `copyright`, `content_partner`, `publisher`, `creator`, `contributor` and `usage`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns `rights`, `rightsUrl`, `copyright`, `publisher`, `creator`, `contributor` and `usage`, plus `contentPartner` as attribution. When `display_content_partner` is empty, `contentPartner` falls back to `content_partner`, then `publisher` |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |
 | `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
-| `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset |
+| `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset. Dataset items carry `licenseInfo`, `accessInformation` and `license`, and the adapter returns all three |
 | `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Check the LAWA terms of use |
 | `mfe` | Ministry for the Environment, on the Koordinates platform | Per layer |
 | `lris` | Landcare Research, on the Koordinates platform | Per layer |
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
 
-Two things follow from the table. First, only `nzta-open-data` and
-`mbie-open-data` return licence metadata today, so a caller who needs to
-republish a dataset from another adapter has to check the publisher. Returning
-licence and attribution per record is on the open list in `COUNTRY.md`.
+Two things follow from the table. First, `arcgis`, `data-govt-nz`, `digitalnz`,
+`mbie-open-data` and `nzta-open-data` return the licence, rights or attribution
+metadata their source supplies. The other eleven adapters still need a
+per-source decision, because most publish terms of use instead of per-record
+metadata; a caller who needs to republish a dataset from one of them has to
+check the publisher. Those sources are the narrowed open item in `COUNTRY.md`.
 Second, NZOR is the one source here that rules out commercial use, so treat
 results from it accordingly.
 

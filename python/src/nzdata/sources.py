@@ -74,6 +74,10 @@ class DataGovtNzDataset:
     metadata_modified: str
     url: str
     organization: Optional[str]
+    author: str = ""
+    license_id: str = ""
+    license_title: str = ""
+    license_url: str = ""
 
 
 @dataclass
@@ -103,6 +107,13 @@ class DigitalNzRecord:
     object_url: str = ""
     source_url: str = ""
     display_date: str = ""
+    rights: str = ""
+    rights_url: List[str] = field(default_factory=list)
+    copyright: List[str] = field(default_factory=list)
+    publisher: List[str] = field(default_factory=list)
+    creator: List[str] = field(default_factory=list)
+    contributor: List[str] = field(default_factory=list)
+    usage: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -165,6 +176,33 @@ def read_fixture_json(filename: str) -> Any:
 def read_fixture_text(filename: str) -> str:
     """Reads a committed fixture as raw text."""
     return files("nzdata").joinpath("fixtures").joinpath(filename).read_text(encoding="utf-8")
+
+
+def _require_string(value: Any, source: str, field_name: str) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, str):
+        return value
+    raise NzSourceParseError(source, f"{field_name} must be a string")
+
+
+def _require_string_list(value: Any, source: str, field_name: str) -> List[str]:
+    if value is None:
+        return []
+    if isinstance(value, list) and all(isinstance(item, str) for item in value):
+        return list(value)
+    raise NzSourceParseError(source, f"{field_name} must be a list of strings")
+
+
+def _digital_nz_attribution(
+    display_partner: str, content_partners: List[str], publishers: List[str]
+) -> str:
+    if display_partner:
+        return display_partner
+    partners = [value for value in content_partners if value]
+    if partners:
+        return ", ".join(partners)
+    return ", ".join(value for value in publishers if value)
 
 
 def _get_text(url: str, headers: Optional[Dict[str, str]] = None) -> str:
@@ -287,6 +325,16 @@ def parse_data_govt_nz_datasets(payload: Any) -> DataGovtNzSearchResult:
                     if isinstance(dataset.get("organization"), dict)
                     else None
                 ),
+                author=_require_string(dataset.get("author"), "data.govt.nz", "author"),
+                license_id=_require_string(
+                    dataset.get("license_id"), "data.govt.nz", "license_id"
+                ),
+                license_title=_require_string(
+                    dataset.get("license_title"), "data.govt.nz", "license_title"
+                ),
+                license_url=_require_string(
+                    dataset.get("license_url"), "data.govt.nz", "license_url"
+                ),
             )
             for dataset in result.get("results", [])
         ],
@@ -400,23 +448,47 @@ def parse_digital_nz_records(payload: Any) -> List[DigitalNzRecord]:
     search = payload.get("search", {})
     if not isinstance(search, dict):
         raise NzSourceParseError("DigitalNZ", "invalid search payload")
-    return [
-        DigitalNzRecord(
-            id=record.get("id", 0),
-            title=record.get("title", ""),
-            description=record.get("description") or "",
-            content_partner=record.get("display_content_partner") or "",
-            collection=record.get("display_collection") or "",
-            url=record.get("landing_url") or "",
-            categories=list(record.get("category") or []),
-            thumbnail_url=record.get("thumbnail_url") or "",
-            large_thumbnail_url=record.get("large_thumbnail_url") or "",
-            object_url=record.get("object_url") or "",
-            source_url=record.get("source_url") or "",
-            display_date=record.get("display_date") or "",
+    records: List[DigitalNzRecord] = []
+    for record in search.get("results", []):
+        display_partner = _require_string(
+            record.get("display_content_partner"), "DigitalNZ", "display_content_partner"
         )
-        for record in search.get("results", [])
-    ]
+        content_partners = _require_string_list(
+            record.get("content_partner"), "DigitalNZ", "content_partner"
+        )
+        publishers = _require_string_list(record.get("publisher"), "DigitalNZ", "publisher")
+        records.append(
+            DigitalNzRecord(
+                id=record.get("id", 0),
+                title=record.get("title", ""),
+                description=record.get("description") or "",
+                content_partner=_digital_nz_attribution(
+                    display_partner, content_partners, publishers
+                ),
+                collection=record.get("display_collection") or "",
+                url=record.get("landing_url") or "",
+                categories=list(record.get("category") or []),
+                thumbnail_url=record.get("thumbnail_url") or "",
+                large_thumbnail_url=record.get("large_thumbnail_url") or "",
+                object_url=record.get("object_url") or "",
+                source_url=record.get("source_url") or "",
+                display_date=record.get("display_date") or "",
+                rights=_require_string(record.get("rights"), "DigitalNZ", "rights"),
+                rights_url=_require_string_list(
+                    record.get("rights_url"), "DigitalNZ", "rights_url"
+                ),
+                copyright=_require_string_list(
+                    record.get("copyright"), "DigitalNZ", "copyright"
+                ),
+                publisher=publishers,
+                creator=_require_string_list(record.get("creator"), "DigitalNZ", "creator"),
+                contributor=_require_string_list(
+                    record.get("contributor"), "DigitalNZ", "contributor"
+                ),
+                usage=_require_string_list(record.get("usage"), "DigitalNZ", "usage"),
+            )
+        )
+    return records
 
 
 def search_digital_nz_records(query: str, api_key: Optional[str] = None) -> List[DigitalNzRecord]:

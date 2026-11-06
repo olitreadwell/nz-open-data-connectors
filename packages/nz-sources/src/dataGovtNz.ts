@@ -12,7 +12,11 @@ export interface DataGovtNzDataset {
   notes: string;
   metadataModified: string;
   url: string;
+  author: string;
   organization: string | undefined;
+  licenseId: string;
+  licenseTitle: string;
+  licenseUrl: string;
 }
 
 /** A data.govt.nz CKAN package_search response: total count plus the rows. */
@@ -27,10 +31,30 @@ const DATA_GOVT_NZ_DATASET_SCHEMA = z.object({
   notes: z.string().optional().default(''),
   metadata_modified: z.string(),
   url: z.string().optional().default(''),
+  author: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
   organization: z
     .object({ title: z.string() })
     .optional()
     .transform((org) => org?.title),
+  license_id: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  license_title: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  license_url: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
 });
 
 const DATA_GOVT_NZ_RESPONSE_SCHEMA = z.object({
@@ -55,7 +79,11 @@ export function parseDataGovtNzDatasets(payload: unknown): DataGovtNzSearchResul
       notes: dataset.notes,
       metadataModified: dataset.metadata_modified,
       url: dataset.url,
+      author: dataset.author,
       organization: dataset.organization,
+      licenseId: dataset.license_id,
+      licenseTitle: dataset.license_title,
+      licenseUrl: dataset.license_url,
     })),
   };
 }

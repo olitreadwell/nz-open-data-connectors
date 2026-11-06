@@ -7,6 +7,7 @@ require 'timeout'
 require 'uri'
 
 require_relative 'http_defaults'
+require_relative 'metadata_fields'
 
 module Nzdata
   Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture)
@@ -14,12 +15,14 @@ module Nzdata
 
   AdeDataflow = Struct.new(:dataflow_id, :version, :agency_id, :name, :dimensions)
   AdeSearchResult = Struct.new(:num_found, :dataflows)
-  DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization)
+  DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization,
+                                 :author, :license_id, :license_title, :license_url)
   DataGovtNzSearchResult = Struct.new(:count, :datasets)
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
   DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url,
-                               :categories, :thumbnail_url, :large_thumbnail_url,
-                               :object_url, :source_url, :display_date)
+                               :categories, :thumbnail_url, :large_thumbnail_url, :object_url,
+                               :source_url, :display_date, :rights, :rights_url, :copyright,
+                               :publisher, :creator, :contributor, :usage)
   GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
                            :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
@@ -148,7 +151,11 @@ module Nzdata
           dataset.fetch('notes', ''),
           dataset.fetch('metadata_modified', ''),
           dataset.fetch('url', ''),
-          organization.is_a?(Hash) ? organization['title'] : nil
+          organization.is_a?(Hash) ? organization['title'] : nil,
+          parse_string(dataset.fetch('author', nil), 'data.govt.nz', 'author'),
+          parse_string(dataset.fetch('license_id', nil), 'data.govt.nz', 'license_id'),
+          parse_string(dataset.fetch('license_title', nil), 'data.govt.nz', 'license_title'),
+          parse_string(dataset.fetch('license_url', nil), 'data.govt.nz', 'license_url')
         )
       end
     )
@@ -215,22 +222,7 @@ module Nzdata
                                    'invalid search payload')
     end
 
-    payload['search'].fetch('results', []).map do |record|
-      DigitalNzRecord.new(
-        record.fetch('id', 0),
-        record.fetch('title', ''),
-        record.fetch('description', nil).to_s,
-        record.fetch('display_content_partner', nil).to_s,
-        record.fetch('display_collection', nil).to_s,
-        record.fetch('landing_url', nil).to_s,
-        record.fetch('category', []).to_a,
-        record.fetch('thumbnail_url', nil).to_s,
-        record.fetch('large_thumbnail_url', nil).to_s,
-        record.fetch('object_url', nil).to_s,
-        record.fetch('source_url', nil).to_s,
-        record.fetch('display_date', nil).to_s
-      )
-    end
+    payload['search'].fetch('results', []).map { |record| digital_nz_record(record) }
   end
 
   def search_digital_nz_records(query, api_key: nil)
