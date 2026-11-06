@@ -163,6 +163,76 @@ def test_digital_nz_fixture_parses():
     assert records[0].copyright == ["All rights reserved"]
 
 
+def test_data_govt_nz_rejects_non_string_license_fields():
+    payload = {
+        "success": True,
+        "result": {
+            "count": 1,
+            "results": [
+                {
+                    "name": "dataset",
+                    "title": "Dataset",
+                    "metadata_modified": "2026-11-07",
+                    "license_id": 123,
+                }
+            ],
+        },
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_data_govt_nz_datasets(payload)
+
+
+def test_digital_nz_rejects_non_string_rights_metadata():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "rights_url": "https://example.com/rights",
+                }
+            ]
+        }
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_digital_nz_records(payload)
+
+
+def test_digital_nz_rejects_non_string_copyright_entries():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "copyright": [1],
+                }
+            ]
+        }
+    }
+    with pytest.raises(NzSourceParseError):
+        parse_digital_nz_records(payload)
+
+
+def test_digital_nz_falls_back_to_publisher_for_attribution():
+    payload = {
+        "search": {
+            "results": [
+                {
+                    "id": 1,
+                    "title": "Record",
+                    "display_content_partner": "",
+                    "content_partner": [],
+                    "publisher": ["Publisher X"],
+                }
+            ]
+        }
+    }
+    records = parse_digital_nz_records(payload)
+    assert records[0].content_partner == "Publisher X"
+    assert records[0].publisher == ["Publisher X"]
+
+
 def test_digital_nz_media_fixture_parses():
     records = parse_digital_nz_records(
         read_fixture_json("digitalnz-media-images-kiwi-20260827.json")

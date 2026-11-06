@@ -67,6 +67,74 @@ describe Nzdata do
       _(records.first.title).wont_be_empty
       _(records.first.rights).must_equal ''
       _(records.first.copyright).must_equal ['All rights reserved']
+      _(records.first.publisher).must_equal []
+    end
+
+    it 'rejects non-string CKAN licence fields' do
+      payload = {
+        'success' => true,
+        'result' => {
+          'count' => 1,
+          'results' => [
+            {
+              'name' => 'dataset',
+              'title' => 'Dataset',
+              'metadata_modified' => '2026-11-07',
+              'license_id' => 123
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_data_govt_nz_datasets(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'rejects non-string DigitalNZ rights metadata' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'rights_url' => 'https://example.com/rights'
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_digital_nz_records(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'rejects non-string DigitalNZ copyright entries' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'copyright' => [1]
+            }
+          ]
+        }
+      }
+      _(-> { Nzdata.parse_digital_nz_records(payload) }).must_raise Nzdata::NzSourceParseError
+    end
+
+    it 'falls back to publisher for DigitalNZ attribution' do
+      payload = {
+        'search' => {
+          'results' => [
+            {
+              'id' => 1,
+              'title' => 'Record',
+              'display_content_partner' => '',
+              'content_partner' => [],
+              'publisher' => ['Publisher X']
+            }
+          ]
+        }
+      }
+      records = Nzdata.parse_digital_nz_records(payload)
+      _(records.first.content_partner).must_equal 'Publisher X'
+      _(records.first.publisher).must_equal ['Publisher X']
     end
 
     it 'parses the DigitalNZ media fixture with preview URLs' do

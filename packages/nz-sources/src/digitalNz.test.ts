@@ -28,6 +28,28 @@ describe('parseDigitalNzRecords', () => {
     expect(first?.rights).toBe('');
     expect(first?.copyright).toEqual(['All rights reserved']);
     expect(first?.rightsUrl).toEqual([]);
+    expect(first?.publisher).toEqual([]);
+  });
+
+  it('falls back to content partners and publishers when display partner is empty', () => {
+    const records = parseDigitalNzRecords({
+      search: {
+        result_count: 1,
+        results: [
+          {
+            id: 1,
+            title: 'Record without a display partner',
+            display_content_partner: '',
+            content_partner: ['Partner A', 'Partner B'],
+            publisher: ['Publisher X'],
+            rights_url: [],
+            copyright: [],
+          },
+        ],
+      },
+    });
+    expect(records[0]?.contentPartner).toBe('Partner A, Partner B');
+    expect(records[0]?.publisher).toEqual(['Publisher X']);
   });
 
   it('rejects a payload without a search result', () => {

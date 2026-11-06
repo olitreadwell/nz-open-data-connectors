@@ -32,6 +32,8 @@ describe('parseMbieOpenDataDatasets', () => {
     expect(first?.licenseId).toBe('CC-BY-4.0');
     expect(first?.licenseTitle).toBe('Creative Commons Attribution 4.0 International');
     expect(first?.licenseUrl).toBe('https://creativecommons.org/licenses/by/4.0/');
+    expect(first?.author).toBe('MBIE fuel response data');
+    expect(first?.organization).toBe('Ministry of Business, Innovation and Employment');
   });
 
   it('keeps the downloadable resources and their formats', () => {

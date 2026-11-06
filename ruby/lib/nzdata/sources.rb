@@ -7,6 +7,7 @@ require 'timeout'
 require 'uri'
 
 require_relative 'http_defaults'
+require_relative 'metadata_fields'
 
 module Nzdata
   Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture)
@@ -20,7 +21,8 @@ module Nzdata
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
   DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url,
                                :categories, :thumbnail_url, :large_thumbnail_url, :object_url,
-                               :source_url, :display_date, :rights, :rights_url, :copyright)
+                               :source_url, :display_date, :rights, :rights_url, :copyright,
+                               :publisher)
   GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
                            :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
@@ -150,9 +152,9 @@ module Nzdata
           dataset.fetch('metadata_modified', ''),
           dataset.fetch('url', ''),
           organization.is_a?(Hash) ? organization['title'] : nil,
-          dataset.fetch('license_id', '').to_s,
-          dataset.fetch('license_title', '').to_s,
-          dataset.fetch('license_url', '').to_s
+          parse_string(dataset.fetch('license_id', nil), 'data.govt.nz', 'license_id'),
+          parse_string(dataset.fetch('license_title', nil), 'data.govt.nz', 'license_title'),
+          parse_string(dataset.fetch('license_url', nil), 'data.govt.nz', 'license_url')
         )
       end
     )
@@ -219,25 +221,7 @@ module Nzdata
                                    'invalid search payload')
     end
 
-    payload['search'].fetch('results', []).map do |record|
-      DigitalNzRecord.new(
-        record.fetch('id', 0),
-        record.fetch('title', ''),
-        record.fetch('description', nil).to_s,
-        record.fetch('display_content_partner', nil).to_s,
-        record.fetch('display_collection', nil).to_s,
-        record.fetch('landing_url', nil).to_s,
-        record.fetch('category', []).to_a,
-        record.fetch('thumbnail_url', nil).to_s,
-        record.fetch('large_thumbnail_url', nil).to_s,
-        record.fetch('object_url', nil).to_s,
-        record.fetch('source_url', nil).to_s,
-        record.fetch('display_date', nil).to_s,
-        record.fetch('rights', nil).to_s,
-        record.fetch('rights_url', []).to_a,
-        record.fetch('copyright', []).to_a
-      )
-    end
+    payload['search'].fetch('results', []).map { |record| digital_nz_record(record) }
   end
 
   def search_digital_nz_records(query, api_key: nil)

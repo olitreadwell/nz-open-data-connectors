@@ -50,10 +50,13 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 - [ ] Port the remaining eight adapters (`arcgis`, `infoshare`, `lawa`,
       `mbie-open-data`, `mfe`, `lris`, `nzta`, `nzta-open-data`)
 - [x] Return source-supplied licence and attribution metadata per record:
-      `data-govt-nz`, `digitalnz`, `mbie-open-data` and `nzta-open-data`
-- [ ] Add licence and attribution metadata to the other twelve adapters.
-      Their APIs do not supply a per-record licence; most publish terms of use
-      instead, so each source needs its own decision
+      `arcgis`, `data-govt-nz`, `digitalnz`, `mbie-open-data` and
+      `nzta-open-data`
+- [ ] Add licence and attribution metadata to the other eleven adapters:
+      `ade-search`, `data-govt-datastore`, `geonet`, `infoshare`, `lawa`,
+      `linz`, `lris`, `mfe`, `nzor`, `nzta` and `trademe`. Most publish terms
+      of use instead of a per-record licence, so each source needs its own
+      decision
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, Koordinates,
       Auckland Transport
 

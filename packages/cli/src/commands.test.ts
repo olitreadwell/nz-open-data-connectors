@@ -42,6 +42,7 @@ const stubSearchMedia: typeof searchDigitalNzMedia = async (query, mediaType) =>
     rights: '',
     rightsUrl: [],
     copyright: [],
+    publisher: [],
   };
   return [record];
 };

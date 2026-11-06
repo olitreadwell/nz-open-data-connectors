@@ -65,6 +65,9 @@ describe('parseArcgisHubDatasets', () => {
     expect(first?.tags.length).toBeGreaterThan(0);
     const parkExtents = datasets.find((dataset) => dataset.title === 'Park Extents');
     expect(parkExtents?.source).toBe('Auckland Council');
+    expect(parkExtents?.licenseInfo).toContain('Auckland Council');
+    expect(parkExtents?.accessInformation).toBe('Auckland Council');
+    expect(parkExtents?.license).toBe('CC-BY-4.0');
   });
 
   it('rejects a payload without features', () => {

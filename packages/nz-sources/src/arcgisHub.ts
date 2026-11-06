@@ -30,6 +30,9 @@ export interface ArcgisHubDataset {
   created: number;
   numViews: number;
   access: string;
+  licenseInfo: string;
+  accessInformation: string;
+  license: string;
 }
 
 /** Options for ArcGIS Hub live fetches: host and optional search query. */
@@ -84,6 +87,21 @@ const ARCGIS_HUB_DATASET_SCHEMA = z.object({
   created: z.number().optional().default(0),
   numViews: z.number().optional().default(0),
   access: z.string().optional().default(''),
+  licenseInfo: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  accessInformation: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  license: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
 });
 
 const ARCGIS_HUB_DATASETS_RESPONSE_SCHEMA = z.object({
@@ -166,6 +184,9 @@ export function parseArcgisHubDatasets(payload: unknown): ArcgisHubDataset[] {
     created: feature.properties.created,
     numViews: feature.properties.numViews,
     access: feature.properties.access,
+    licenseInfo: feature.properties.licenseInfo,
+    accessInformation: feature.properties.accessInformation,
+    license: feature.properties.license,
   }));
 }
 
