@@ -88,6 +88,9 @@ def test_data_govt_nz_fixture_parses():
     assert result.count == 31
     assert len(result.datasets) == 5
     assert result.datasets[0].name
+    assert result.datasets[0].license_id == "CC-BY-4.0"
+    assert result.datasets[0].license_title == "Creative Commons Attribution 4.0 International"
+    assert result.datasets[2].license_id == "CC-BY-NZ-3.0"
 
 
 def test_data_govt_nz_rejects_bad_payload():
@@ -156,6 +159,8 @@ def test_digital_nz_fixture_parses():
     records = parse_digital_nz_records(read_fixture_json("digitalnz-search-sheep.json"))
     assert len(records) == 2
     assert records[0].title
+    assert records[0].rights == ""
+    assert records[0].copyright == ["All rights reserved"]
 
 
 def test_digital_nz_media_fixture_parses():
@@ -164,6 +169,9 @@ def test_digital_nz_media_fixture_parses():
     )
     assert records[0].categories == ["Images"]
     assert records[0].thumbnail_url
+    assert records[0].rights == "CC BY 4.0"
+    assert records[0].rights_url == ["https://creativecommons.org/licenses/by/4.0/"]
+    assert records[0].copyright == ["Some rights reserved"]
 
 
 def test_digital_nz_media_type_filters():

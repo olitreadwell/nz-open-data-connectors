@@ -20,7 +20,8 @@ The MIT licence here covers the code, not the data. Each publisher keeps its
 own terms. GeoNet content is Creative Commons Attribution 3.0 New Zealand.
 NZOR content is Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
 Zealand, so it is not for commercial use. data.govt.nz, MBIE open data and the
-Waka Kotahi open data hub carry a licence value per dataset.
+Waka Kotahi open data hub carry a licence value per dataset, and DigitalNZ
+records carry `rights`, `rights_url` and `copyright` values.
 `docs/CONNECTOR_DISCOVERY.md` lists the position for every source.
 
 Credit the publisher when you republish, not this library. The connectors fetch

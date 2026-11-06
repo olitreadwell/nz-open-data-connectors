@@ -20,6 +20,9 @@ export interface DigitalNzRecord {
   objectUrl: string;
   sourceUrl: string;
   displayDate: string;
+  rights: string;
+  rightsUrl: string[];
+  copyright: string[];
 }
 
 const DIGITAL_NZ_RECORD_SCHEMA = z.object({
@@ -71,6 +74,13 @@ const DIGITAL_NZ_RECORD_SCHEMA = z.object({
     .nullable()
     .optional()
     .transform((value) => value ?? ''),
+  rights: z
+    .string()
+    .nullable()
+    .optional()
+    .transform((value) => value ?? ''),
+  rights_url: z.array(z.string()).nullable().optional().default([]),
+  copyright: z.array(z.string()).nullable().optional().default([]),
 });
 
 const DIGITAL_NZ_RESPONSE_SCHEMA = z.object({
@@ -99,6 +109,9 @@ export function parseDigitalNzRecords(payload: unknown): DigitalNzRecord[] {
     objectUrl: record.object_url,
     sourceUrl: record.source_url,
     displayDate: record.display_date,
+    rights: record.rights,
+    rightsUrl: record.rights_url ?? [],
+    copyright: record.copyright ?? [],
   }));
 }
 

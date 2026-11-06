@@ -25,6 +25,9 @@ describe('parseDigitalNzRecords', () => {
     const first = records[0];
     expect(first?.title?.length).toBeGreaterThan(0);
     expect(first?.id).toBeGreaterThan(0);
+    expect(first?.rights).toBe('');
+    expect(first?.copyright).toEqual(['All rights reserved']);
+    expect(first?.rightsUrl).toEqual([]);
   });
 
   it('rejects a payload without a search result', () => {
@@ -50,6 +53,10 @@ describe('media search', () => {
     const first = records[0];
     expect(first?.categories).toContain('Images');
     expect(first?.thumbnailUrl?.length).toBeGreaterThan(0);
+    expect(first?.rights).toBe('CC BY 4.0');
+    expect(first?.rightsUrl).toEqual(['https://creativecommons.org/licenses/by/4.0/']);
+    expect(first?.copyright).toEqual(['Some rights reserved']);
+    expect(first?.contentPartner).toBe('Museum of New Zealand Te Papa Tongarewa');
   });
 
   it('filters the live request by category', async () => {

@@ -74,9 +74,11 @@ pytest, ruff and mypy.
 1. Publish the ports. `nzdata` is free on PyPI and RubyGems, and the publish
    workflows fire on `python-v*` and `ruby-v*` tags. Trusted publishing has to
    be enabled on PyPI before the first tag.
-2. Per-source licence and attribution metadata is not in every adapter output.
-   Only `nzta-open-data` and `mbie-open-data` pass licence values through. The
-   licence position per source is written down in `docs/CONNECTOR_DISCOVERY.md`.
+2. The `data-govt-nz`, `digitalnz`, `mbie-open-data` and `nzta-open-data`
+   adapters pass source-supplied licence or rights metadata through, with the
+   publisher fields the source supplies. The other adapters' APIs do not supply
+   per-record metadata, so adding it needs a per-source decision. The licence
+   position per source is in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the eight missing adapters to Python and Ruby (`arcgis`, `infoshare`,
    `lawa`, `mbie-open-data`, `mfe`, `lris`, `nzta`, `nzta-open-data`).
 4. Keyed connector backlog, each needing an API key before a live check:

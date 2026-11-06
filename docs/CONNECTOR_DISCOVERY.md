@@ -247,11 +247,12 @@ its own terms, and the publisher's licence is the one that applies.
 | Adapter | Publisher | Licence position |
 | --- | --- | --- |
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08 |
-| `data-govt-nz`, `data-govt-datastore` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter does not return those fields today |
+| `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title` and `license_url` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns all three, plus `organization` as the publisher |
+| `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
 | `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title` and `license_url`, and the adapter returns all three. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
-| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter does not return those fields today |
+| `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url` and `copyright`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns all three, plus `contentPartner` as attribution |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |
 | `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
@@ -262,12 +263,13 @@ its own terms, and the publisher's licence is the one that applies.
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
 
-Two things follow from the table. First, only `nzta-open-data` and
-`mbie-open-data` return licence metadata today, so a caller who needs to
-republish a dataset from another adapter has to check the publisher. Returning
-licence and attribution per record is on the open list in `COUNTRY.md`.
-Second, NZOR is the one source here that rules out commercial use, so treat
-results from it accordingly.
+Two things follow from the table. First, `data-govt-nz`, `digitalnz`,
+`mbie-open-data` and `nzta-open-data` return the licence or rights metadata
+their source supplies. The other adapters' APIs do not supply per-record
+metadata, so a caller who needs to republish a dataset from one of them has to
+check the publisher. Adding metadata to those sources is the narrowed open item
+in `COUNTRY.md`. Second, NZOR is the one source here that rules out commercial
+use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.

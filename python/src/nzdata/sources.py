@@ -74,6 +74,9 @@ class DataGovtNzDataset:
     metadata_modified: str
     url: str
     organization: Optional[str]
+    license_id: str = ""
+    license_title: str = ""
+    license_url: str = ""
 
 
 @dataclass
@@ -103,6 +106,9 @@ class DigitalNzRecord:
     object_url: str = ""
     source_url: str = ""
     display_date: str = ""
+    rights: str = ""
+    rights_url: List[str] = field(default_factory=list)
+    copyright: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -287,6 +293,9 @@ def parse_data_govt_nz_datasets(payload: Any) -> DataGovtNzSearchResult:
                     if isinstance(dataset.get("organization"), dict)
                     else None
                 ),
+                license_id=dataset.get("license_id") or "",
+                license_title=dataset.get("license_title") or "",
+                license_url=dataset.get("license_url") or "",
             )
             for dataset in result.get("results", [])
         ],
@@ -414,6 +423,9 @@ def parse_digital_nz_records(payload: Any) -> List[DigitalNzRecord]:
             object_url=record.get("object_url") or "",
             source_url=record.get("source_url") or "",
             display_date=record.get("display_date") or "",
+            rights=record.get("rights") or "",
+            rights_url=list(record.get("rights_url") or []),
+            copyright=list(record.get("copyright") or []),
         )
         for record in search.get("results", [])
     ]

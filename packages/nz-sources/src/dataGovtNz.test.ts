@@ -17,6 +17,10 @@ describe('parseDataGovtNzDatasets', () => {
     const first = result.datasets[0];
     expect(first?.title?.length).toBeGreaterThan(0);
     expect(first?.name?.length).toBeGreaterThan(0);
+    expect(first?.licenseId).toBe('CC-BY-4.0');
+    expect(first?.licenseTitle).toBe('Creative Commons Attribution 4.0 International');
+    expect(first?.licenseUrl).toBe('https://creativecommons.org/licenses/by/4.0/');
+    expect(result.datasets[2]?.licenseId).toBe('CC-BY-NZ-3.0');
   });
 
   it('rejects a failed CKAN response', () => {

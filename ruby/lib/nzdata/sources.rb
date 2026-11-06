@@ -14,12 +14,13 @@ module Nzdata
 
   AdeDataflow = Struct.new(:dataflow_id, :version, :agency_id, :name, :dimensions)
   AdeSearchResult = Struct.new(:num_found, :dataflows)
-  DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization)
+  DataGovtNzDataset = Struct.new(:name, :title, :notes, :metadata_modified, :url, :organization,
+                                 :license_id, :license_title, :license_url)
   DataGovtNzSearchResult = Struct.new(:count, :datasets)
   DataGovtDatastoreResult = Struct.new(:resource_id, :total, :records)
   DigitalNzRecord = Struct.new(:id, :title, :description, :content_partner, :collection, :url,
-                               :categories, :thumbnail_url, :large_thumbnail_url,
-                               :object_url, :source_url, :display_date)
+                               :categories, :thumbnail_url, :large_thumbnail_url, :object_url,
+                               :source_url, :display_date, :rights, :rights_url, :copyright)
   GeoNetQuake = Struct.new(:public_id, :time, :depth_km, :magnitude, :mmi, :locality, :quality,
                            :latitude, :longitude)
   GeoNetQuakeSummary = Struct.new(:total, :strongest, :shallowest, :by_magnitude_band)
@@ -148,7 +149,10 @@ module Nzdata
           dataset.fetch('notes', ''),
           dataset.fetch('metadata_modified', ''),
           dataset.fetch('url', ''),
-          organization.is_a?(Hash) ? organization['title'] : nil
+          organization.is_a?(Hash) ? organization['title'] : nil,
+          dataset.fetch('license_id', '').to_s,
+          dataset.fetch('license_title', '').to_s,
+          dataset.fetch('license_url', '').to_s
         )
       end
     )
@@ -228,7 +232,10 @@ module Nzdata
         record.fetch('large_thumbnail_url', nil).to_s,
         record.fetch('object_url', nil).to_s,
         record.fetch('source_url', nil).to_s,
-        record.fetch('display_date', nil).to_s
+        record.fetch('display_date', nil).to_s,
+        record.fetch('rights', nil).to_s,
+        record.fetch('rights_url', []).to_a,
+        record.fetch('copyright', []).to_a
       )
     end
   end

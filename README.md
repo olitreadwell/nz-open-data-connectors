@@ -31,8 +31,10 @@ Infoshare, carries Creative Commons Attribution 4.0 International unless a page
 says otherwise. NZOR content carries Creative
 Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
 commercial use. The data.govt.nz catalogue, MBIE open data and the Waka Kotahi
-open data hub carry a licence value per dataset. The `nzta-open-data` and
-`mbie-open-data` adapters pass that value through.
+open data hub carry a licence value per dataset. DigitalNZ records carry
+`rights`, `rights_url` and `copyright` values. The `data-govt-nz`, `digitalnz`,
+`mbie-open-data` and `nzta-open-data` adapters pass the source-supplied values
+through, including the publisher fields where the source supplies them.
 For every other source, check the publisher's licence before you reuse the data:
 the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
 lists where each source's terms live.

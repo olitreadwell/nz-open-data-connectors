@@ -46,6 +46,9 @@ describe Nzdata do
       result = Nzdata.parse_data_govt_nz_datasets(Nzdata.read_fixture_json('data-govt-nz-search-sheep.json'))
       _(result.count).must_equal 31
       _(result.datasets.length).must_equal 5
+      _(result.datasets.first.license_id).must_equal 'CC-BY-4.0'
+      _(result.datasets.first.license_title).must_equal 'Creative Commons Attribution 4.0 International'
+      _(result.datasets[2].license_id).must_equal 'CC-BY-NZ-3.0'
     end
 
     it 'rejects a bad data.govt.nz payload' do
@@ -62,6 +65,8 @@ describe Nzdata do
       records = Nzdata.parse_digital_nz_records(Nzdata.read_fixture_json('digitalnz-search-sheep.json'))
       _(records.length).must_equal 2
       _(records.first.title).wont_be_empty
+      _(records.first.rights).must_equal ''
+      _(records.first.copyright).must_equal ['All rights reserved']
     end
 
     it 'parses the DigitalNZ media fixture with preview URLs' do
@@ -70,6 +75,9 @@ describe Nzdata do
       )
       _(records.first.categories).must_equal ['Images']
       _(records.first.thumbnail_url).wont_be_empty
+      _(records.first.rights).must_equal 'CC BY 4.0'
+      _(records.first.rights_url).must_equal ['https://creativecommons.org/licenses/by/4.0/']
+      _(records.first.copyright).must_equal ['Some rights reserved']
     end
 
     it 'maps every media type to a DigitalNZ category' do
