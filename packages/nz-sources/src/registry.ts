@@ -1,10 +1,12 @@
 import { adeSearchAdapter } from './adeSearch.js';
 import { arcgisHubAdapter } from './arcgisHub.js';
 import { aucklandTransportOpenDataAdapter } from './aucklandTransportOpenData.js';
+import { canterburyMapsAdapter } from './canterburyMaps.js';
 import { christchurchOpenDataAdapter } from './christchurchOpenData.js';
 import { dataGovtDatastoreAdapter } from './dataGovtDatastore.js';
 import { dataGovtNzAdapter } from './dataGovtNz.js';
 import { digitalNzAdapter } from './digitalNz.js';
+import { electricityAuthorityAdapter } from './electricityAuthority.js';
 import { geonetAdapter } from './geonet.js';
 import { infoshareAdapter } from './infoshare.js';
 import { lawaAdapter } from './lawa.js';
@@ -15,10 +17,12 @@ import { mbieOpenDataAdapter } from './mbieOpenData.js';
 import { mfeAdapter } from './mfe.js';
 import { niwaRecAdapter } from './niwaRec.js';
 import { nzorAdapter } from './nzor.js';
+import { nzpamGeodataAdapter } from './nzpamGeodata.js';
 import { nztaAdapter } from './nzta.js';
 import { nztaOpenDataAdapter } from './nztaOpenData.js';
 import { statsNzGeographicAdapter } from './statsNzGeographic.js';
 import { tradeMeAdapter } from './tradeMe.js';
+import { wellingtonCityOpenDataAdapter } from './wellingtonCityOpenData.js';
 import { whanganuiGeospatialAdapter } from './whanganuiGeospatial.js';
 import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from './types.js';
 
@@ -46,6 +50,10 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   aucklandTransportOpenDataAdapter,
   nztaAdapter,
   nztaOpenDataAdapter,
+  canterburyMapsAdapter,
+  wellingtonCityOpenDataAdapter,
+  electricityAuthorityAdapter,
+  nzpamGeodataAdapter,
 ];
 
 /** Looks up a source adapter by id. */

@@ -1,0 +1,58 @@
+{
+  "currentVersion": 11.5,
+  "folders": [],
+  "services": [
+    {
+      "name": "Public/CMA_Minerals_Excluded_Land",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/CMA_Petroleum_Excluded_Land",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/CMA_Petroleum_Offshore_Taranaki",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/CMA_Schedule_4_Land",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/CMA_Treaty_Commitments_Layers",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/GeodataCatalogue_Layers",
+      "type": "FeatureServer"
+    },
+    {
+      "name": "Public/GeodataCatalogue_Layers",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/NZ_Coalfields_Coal_Localities",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/NZ_Continental_Shelf",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/Permits_Minerals_Layers",
+      "type": "FeatureServer"
+    },
+    {
+      "name": "Public/Permits_Minerals_Layers",
+      "type": "MapServer"
+    },
+    {
+      "name": "Public/Permits_Petroleum_Layers",
+      "type": "FeatureServer"
+    },
+    {
+      "name": "Public/Permits_Petroleum_Layers",
+      "type": "MapServer"
+    }
+  ]
+}

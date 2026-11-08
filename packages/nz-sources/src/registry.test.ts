@@ -146,6 +146,20 @@ describe('registry', () => {
         if (hostname === 'data-atgis.opendata.arcgis.com') {
           return jsonResponse(readFixtureJson('auckland-transport-open-data-2026-11-08.json'));
         }
+        if (hostname === 'opendata.canterburymaps.govt.nz') {
+          return jsonResponse(readFixtureJson('canterbury-maps-2026-11-08.json'));
+        }
+        if (hostname === 'data-wcc.opendata.arcgis.com') {
+          return jsonResponse(readFixtureJson('wellington-city-open-data-2026-11-08.json'));
+        }
+        if (hostname === 'emidatasets.blob.core.windows.net') {
+          return new Response(readFixtureText('electricity-authority-datasets-2026-11-08.xml'), {
+            status: 200,
+          });
+        }
+        if (hostname === 'gis.nzpam.govt.nz') {
+          return jsonResponse(readFixtureJson('nzpam-geodata-services-2026-11-08.json'));
+        }
         return new Response('unexpected url', { status: 404 });
       })
     );

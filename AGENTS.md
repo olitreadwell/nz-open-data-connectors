@@ -13,7 +13,7 @@ for the plain-language map, `docs/GLOSSARY.md` for terms.
 
 ## Repo map
 
-- `packages/nz-sources` - 22 adapters, one per NZ data source, plus a shared
+- `packages/nz-sources` - 26 adapters, one per NZ data source, plus a shared
   HTTP helper (`src/http.ts`) and committed fixtures (`src/fixtures/`)
 - `packages/stats-nz` - Aotearoa Data Explorer (ADE) client
 - `packages/api` - HTTP wrapper (Hono), OpenAPI spec, Swagger UI
@@ -64,11 +64,12 @@ Ruby changes run their own gates.
   `dataset` in one place and `flow` in another)
 - Register a new adapter in `packages/nz-sources/src/registry.ts` and export
   it from `packages/nz-sources/src/index.ts` in the same change
-- A new adapter lands in TypeScript first. The ports cover 8 of the 22
-  adapters; the fourteen TypeScript-only ones are `arcgis`,
-  `auckland-transport-open-data`, `christchurch-open-data`, `infoshare`,
-  `lawa`, `lris`, `lris-basemaps`, `mbie-open-data`, `mfe`, `niwa-rec`,
-  `nzta`, `nzta-open-data`, `stats-nz-geographic` and
+- A new adapter lands in TypeScript first. The ports cover 8 of the 26
+  adapters; the eighteen TypeScript-only ones are `arcgis`,
+  `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
+  `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
+  `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`,
+  `nzta-open-data`, `stats-nz-geographic`, `wellington-city-open-data` and
   `whanganui-geospatial`
 - Fetches go through `httpGet` in `packages/nz-sources/src/http.ts`, which
   sets the User-Agent, applies the 30 second timeout, and marks 429, 5xx and

@@ -7,3 +7,6 @@ packages/nz-sources/src/fixtures/stats-nz-geographic-*.json
 packages/nz-sources/src/fixtures/whanganui-geonode-*.json
 packages/nz-sources/src/fixtures/christchurch-open-data-*.json
 packages/nz-sources/src/fixtures/auckland-transport-open-data-*.json
+packages/nz-sources/src/fixtures/canterbury-maps-*.json
+packages/nz-sources/src/fixtures/wellington-city-open-data-*.json
+packages/nz-sources/src/fixtures/electricity-authority-datasets-*.xml

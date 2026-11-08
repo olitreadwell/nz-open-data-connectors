@@ -376,6 +376,107 @@ The same requests returned these responses from an Auckland connection on
 - Not verified: behaviour from non-NZ IPs, or whether the licence values are
   stable over time.
 
+## 2026-11-08 addition: four keyless adapters (batch 2)
+
+Four more keyless adapters were built and probed against the live services on
+2026-11-08. They are the Canterbury Maps and Wellington City DCAT 1.1 feeds,
+the Electricity Authority public dataset container listing, and the NZPAM
+public ArcGIS REST services folder. The generic `arcgis` adapter also accepts
+the Canterbury and Wellington ArcGIS Hub hosts; these dedicated adapters use
+the richer DCAT feed.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `canterbury-maps` | Canterbury Maps | `https://opendata.canterburymaps.govt.nz/api/feed/dcat-us/1.1.json` | `canterbury-maps-2026-11-08.json` |
+| `wellington-city-open-data` | Wellington City Council | `https://data-wcc.opendata.arcgis.com/api/feed/dcat-us/1.1.json` | `wellington-city-open-data-2026-11-08.json` |
+| `electricity-authority` | Electricity Authority | `https://emidatasets.blob.core.windows.net/publicdata?restype=container&comp=list` | `electricity-authority-datasets-2026-11-08.xml` |
+| `nzpam-geodata` | NZPAM Geodata Catalogue | `https://gis.nzpam.govt.nz/server/rest/services/Public?f=pjson` | `nzpam-geodata-services-2026-11-08.json` |
+
+### Exact curl commands
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+# Canterbury Maps DCAT 1.1 catalogue
+curl -sS -L -A "$UA" \
+  "https://opendata.canterburymaps.govt.nz/api/feed/dcat-us/1.1.json" \
+  -o canterbury-maps-2026-11-08.json
+
+# Wellington City DCAT 1.1 catalogue
+curl -sS -L -A "$UA" \
+  "https://data-wcc.opendata.arcgis.com/api/feed/dcat-us/1.1.json" \
+  -o wellington-city-open-data-2026-11-08.json
+
+# Electricity Authority public Azure Blob container listing
+curl -sS -L -A "$UA" \
+  "https://emidatasets.blob.core.windows.net/publicdata?restype=container&comp=list" \
+  -o electricity-authority-datasets-2026-11-08.xml
+
+# NZPAM public ArcGIS REST services folder
+curl -sS -L -A "$UA" \
+  "https://gis.nzpam.govt.nz/server/rest/services/Public?f=pjson" \
+  -o nzpam-geodata-services-2026-11-08.json
+```
+
+### Live response evidence
+
+The same requests returned these responses from an Auckland connection on
+2026-11-08. Each body was saved as the committed fixture.
+
+| Adapter | HTTP status | Content type | Bytes |
+| --- | --- | --- | --- |
+| `canterbury-maps` | 200 | `application/json; charset=utf-8` | 1917893 |
+| `wellington-city-open-data` | 200 | `application/json; charset=utf-8` | 5054548 |
+| `electricity-authority` | 200 | `application/xml` | 2624943 |
+| `nzpam-geodata` | 200 | `text/plain;charset=UTF-8` | 1096 |
+
+### Shape notes
+
+- `canterbury-maps` returns 480 datasets. The first is "Effluent Dairy
+  Discharge Area (Active) - Consented Activities", published by Canterbury
+  Regional Council, with a `license` value of
+  `https://creativecommons.org/licenses/by/3.0`. It carries six distributions;
+  the second is an ArcGIS GeoServices REST API distribution.
+- `wellington-city-open-data` returns 481 datasets. The first is "Heritage
+  Trees", published by Wellington City Council, with a `license` value of
+  `Creative Commons 3.0 (NZ)`. Three dataset titles arrive as JSON numbers in
+  the live feed. The shared DCAT parser normalizes those titles to strings.
+- `electricity-authority` returns the first page of an Azure Blob container
+  listing. The captured page carries 3,941 objects and a `NextMarker` for the
+  next page. Each object carries `Name`, `Url`, `Last-Modified`, `Etag`,
+  `Content-Length` and `Content-Type`. Folders appear as zero-byte objects.
+- `nzpam-geodata` returns ArcGIS REST version `11.5`, no subfolders in
+  `Public`, and 13 services. The first is
+  `Public/CMA_Minerals_Excluded_Land` (`MapServer`). The folder also includes
+  `FeatureServer` endpoints for `GeodataCatalogue_Layers`,
+  `Permits_Minerals_Layers` and `Permits_Petroleum_Layers`. The `Utilities`
+  and `Internal` folders return `Token Required` (error 499) and are not used.
+
+### Licence
+
+- `canterbury-maps`: the DCAT feed carries a per-dataset `license` value. The
+  first captured dataset points at Creative Commons Attribution 3.0. Check the
+  dataset licence before reuse.
+- `wellington-city-open-data`: the DCAT feed carries a per-dataset `license`
+  value. The first captured dataset says Creative Commons 3.0 (NZ). Check the
+  dataset licence before reuse.
+- `electricity-authority`: the container listing carries no per-object licence
+  field. The Electricity Authority copyright, disclaimer and transparency
+  statement says its copyright material is licensed for reuse under CC BY 4.0
+  unless indicated otherwise. That statement was checked on 2026-11-08.
+- `nzpam-geodata`: the ArcGIS REST response carries no licence field. Check the
+  NZPAM terms before reuse.
+
+### Skipped in this pass
+
+| Source | Exact failure |
+| --- | --- |
+| NIWA DataHub | `https://data.niwa.co.nz/api/3/action/package_search?rows=1` returned HTTP 404 HTML with a canonical `store.niwa.co.nz` URL. `store.niwa.co.nz` did not resolve from this machine. No data API was found. |
+| New Zealand Legislation | The developer API documentation says "You need an API key", issued by emailing `contact@pco.govt.nz`. `https://www.legislation.govt.nz/api` returned HTTP 404. Per-document `.xml` files are keyless, but no keyless search or index API was found. |
+| Figure.NZ | The list says the old public API has been withdrawn. The homepage and chart pages are HTML. A chart `/download` URL returned HTTP 200 `image/png`, not a data file. No keyless JSON or CSV dataset API was found. |
+| Reserve Bank of New Zealand | `https://www.rbnz.govt.nz/statistics` returned HTTP 403 with "Website unavailable". |
+| NZPAM CKAN API | `https://geodata.nzpam.govt.nz/api/3/action/package_search?rows=1` returned HTTP 403. The public ArcGIS REST folder was used instead. |
+
 ## Licences and attribution
 
 The MIT licence in this repo covers the code, not the data. Every source keeps
@@ -411,16 +512,21 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `whanganui-geospatial` | Whanganui District Council, on GeoNode | Per dataset. The GeoNode API returns `license.identifier`, and the adapter passes it through as `licenseIdentifier`. Most captured values are `not_specified` or empty |
 | `christchurch-open-data` | Christchurch City Council open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. Most datasets point at CC BY 4.0; some carry custom council, Landcare, or Sentinel terms, and some are blank |
 | `auckland-transport-open-data` | Auckland Transport open GIS data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. 42 of the 45 captured datasets point at CC BY 4.0; three are blank |
+| `canterbury-maps` | Canterbury Maps, Environment Canterbury and partners | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. The first captured dataset points at Creative Commons Attribution 3.0 |
+| `wellington-city-open-data` | Wellington City Council open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. The first captured dataset says Creative Commons 3.0 (NZ) |
+| `electricity-authority` | Electricity Authority | The container listing has no per-object licence. The Authority's copyright statement says its copyright material is licensed for reuse under CC BY 4.0 unless indicated otherwise, checked 2026-11-08 |
+| `nzpam-geodata` | New Zealand Petroleum and Minerals (NZPAM) | The public ArcGIS REST response carries no licence field. Check the NZPAM terms |
 
 Two things follow from the table. First, `arcgis`,
-`auckland-transport-open-data`, `christchurch-open-data`, `data-govt-nz`,
-`digitalnz`, `mbie-open-data`, `nzta-open-data` and `whanganui-geospatial`
-return the licence, rights or attribution metadata their source supplies. The
-other fourteen adapters still need a per-source decision, because most publish
-terms of use instead of per-record metadata; a caller who needs to republish a
-dataset from one of them has to check the publisher. Those sources are the
-narrowed open item in `COUNTRY.md`. Second, NZOR is the one source here that
-rules out commercial use, so treat results from it accordingly.
+`auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
+`data-govt-nz`, `digitalnz`, `mbie-open-data`, `nzta-open-data`,
+`wellington-city-open-data` and `whanganui-geospatial` return the licence,
+rights or attribution metadata their source supplies. The other sixteen
+adapters still need a per-source decision, because most publish terms of use
+instead of per-record metadata; a caller who needs to republish a dataset from
+one of them has to check the publisher. Those sources are the narrowed open
+item in `COUNTRY.md`. Second, NZOR is the one source here that rules out
+commercial use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.

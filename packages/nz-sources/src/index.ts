@@ -33,6 +33,19 @@ export type {
   AucklandTransportOpenDataDataset,
   AucklandTransportOpenDataDistribution,
 } from './aucklandTransportOpenData.js';
+/** Canterbury Maps open data hub catalogue (DCAT 1.1). */
+export {
+  fetchCanterburyMapsCatalogue,
+  parseCanterburyMapsCatalogue,
+  canterburyMapsAdapter,
+  CANTERBURY_MAPS_SOURCE_ID,
+} from './canterburyMaps.js';
+/** Canterbury Maps open data types. */
+export type {
+  CanterburyMapsCatalogue,
+  CanterburyMapsDataset,
+  CanterburyMapsDistribution,
+} from './canterburyMaps.js';
 /** Christchurch City open data hub catalogue (DCAT 1.1). */
 export {
   fetchChristchurchOpenDataCatalogue,
@@ -74,6 +87,18 @@ export {
 } from './digitalNz.js';
 /** DigitalNZ record and media types. */
 export type { DigitalNzRecord, DigitalNzMediaType } from './digitalNz.js';
+/** Electricity Authority downloadable dataset listing. */
+export {
+  fetchElectricityAuthorityDatasets,
+  parseElectricityAuthorityDatasets,
+  electricityAuthorityAdapter,
+  ELECTRICITY_AUTHORITY_SOURCE_ID,
+} from './electricityAuthority.js';
+/** Electricity Authority dataset listing types. */
+export type {
+  ElectricityAuthorityDatasetListing,
+  ElectricityAuthorityDatasetObject,
+} from './electricityAuthority.js';
 /** Errors shared by every source adapter. */
 export { NzSourceApiError, NzSourceError, NzSourceParseError } from './errors.js';
 /** API error detail type. */
@@ -143,6 +168,15 @@ export {
 export { searchNzorNames, parseNzorNames, nzorAdapter } from './nzor.js';
 /** NZOR types. */
 export type { NzorName, NzorSearchResult } from './nzor.js';
+/** NZPAM Geodata Catalogue public ArcGIS services. */
+export {
+  fetchNzpamGeodataServices,
+  parseNzpamGeodataServices,
+  nzpamGeodataAdapter,
+  NZPAM_GEODATA_SOURCE_ID,
+} from './nzpamGeodata.js';
+/** NZPAM Geodata Catalogue types. */
+export type { NzpamGeodataCatalogue, NzpamGeodataService } from './nzpamGeodata.js';
 /** Waka Kotahi holiday journey hotspots. */
 export { fetchNztaHolidayHotspots, parseNztaHolidayHotspots, nztaAdapter } from './nzta.js';
 /** Waka Kotahi types. */
@@ -171,6 +205,19 @@ export {
 export { fetchTradeMeCategories, parseTradeMeCategories, tradeMeAdapter } from './tradeMe.js';
 /** Trade Me types. */
 export type { TradeMeCategory } from './tradeMe.js';
+/** Wellington City open data hub catalogue (DCAT 1.1). */
+export {
+  fetchWellingtonCityOpenDataCatalogue,
+  parseWellingtonCityOpenDataCatalogue,
+  wellingtonCityOpenDataAdapter,
+  WELLINGTON_CITY_OPEN_DATA_SOURCE_ID,
+} from './wellingtonCityOpenData.js';
+/** Wellington City open data types. */
+export type {
+  WellingtonCityOpenDataCatalogue,
+  WellingtonCityOpenDataDataset,
+  WellingtonCityOpenDataDistribution,
+} from './wellingtonCityOpenData.js';
 /** Stats NZ Geographic Data Service layer search. */
 export {
   searchStatsNzGeographicLayers,

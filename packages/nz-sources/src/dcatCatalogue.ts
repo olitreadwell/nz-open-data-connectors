@@ -36,7 +36,7 @@ export interface DcatCatalogue {
 }
 
 const DCAT_DISTRIBUTION_SCHEMA = z.object({
-  title: z.string(),
+  title: z.coerce.string(),
   format: z.string(),
   mediaType: z.string(),
   accessURL: z.string(),
@@ -50,7 +50,7 @@ const DCAT_CONTACT_SCHEMA = z.object({
 const DCAT_DATASET_SCHEMA = z.object({
   '@type': z.literal('dcat:Dataset'),
   identifier: z.string(),
-  title: z.string(),
+  title: z.coerce.string(),
   description: z.string().optional().default(''),
   landingPage: z.string().optional().default(''),
   keyword: z.array(z.string()).optional().default([]),

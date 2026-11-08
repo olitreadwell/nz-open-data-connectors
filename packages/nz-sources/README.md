@@ -1,11 +1,11 @@
 # @nz-open-data-connectors/nz-sources
 
-Uniform TypeScript adapters for 22 New Zealand public data sources. Node.js and TypeScript users call them directly.
+Uniform TypeScript adapters for 26 New Zealand public data sources. Node.js and TypeScript users call them directly.
 
 ## What this package does
 
 - Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture for tests.
-- Ships 22 adapters. Every one works without an API key.
+- Ships 26 adapters. Every one works without an API key.
 - Accepts an optional key for DigitalNZ and LINZ.
 - Runs its tests offline against real fixture snapshots.
 
@@ -56,6 +56,10 @@ for (const probe of probes) {
 | `whanganui-geospatial` | Whanganui District Council GeoNode | none | Municipal geospatial datasets with licence metadata. |
 | `christchurch-open-data` | Christchurch City open data hub | none | The hub's DCAT 1.1 catalogue. |
 | `auckland-transport-open-data` | Auckland Transport open GIS data | none | The hub's DCAT 1.1 catalogue. |
+| `canterbury-maps` | Canterbury Maps open data hub | none | The hub's DCAT 1.1 catalogue. |
+| `wellington-city-open-data` | Wellington City open data hub | none | The hub's DCAT 1.1 catalogue. |
+| `electricity-authority` | Electricity Authority downloadable datasets | none | First page of the public Azure Blob container listing. |
+| `nzpam-geodata` | NZPAM Geodata Catalogue | none | Public ArcGIS REST services for petroleum and minerals geodata. |
 
 ## Notes and limits
 
@@ -67,6 +71,9 @@ for (const probe of probes) {
 - The WMS adapters return service metadata and named layers. They do not request map tiles.
 - Whanganui GeoNode returns the first 100 datasets and reports the catalogue total. The adapter does not follow its pagination.
 - Whanganui GeoNode falls back to HTTP/1.1 when Node's built-in fetch closes the HTTP/2 stream. The shared `httpGet` timeout and error mapping still apply.
+- Canterbury Maps and Wellington City read DCAT 1.1 feeds. Three Wellington City dataset titles arrive as JSON numbers, and the shared DCAT parser normalizes them to strings.
+- Electricity Authority returns the first page of its public Azure Blob container listing, with `nextMarker` for the next page. The live response carried 3,941 objects.
+- NZPAM Geodata reads the public ArcGIS REST folder. The live response listed 13 services; the Utilities and Internal folders return `Token Required` and are not requested.
 - Fixtures in `src/fixtures/` are real API snapshots, dated in their filenames.
 - Unit tests run offline. Run them with `npm run test -w @nz-open-data-connectors/nz-sources`. Live smoke tests need `RUN_SMOKE=1`.
 
@@ -98,8 +105,12 @@ Each adapter reads one publisher. The table lists the source URL.
 | `whanganui-geospatial` | `https://geonode.whanganui.govt.nz/api/v2/datasets/?page_size=100` |
 | `christchurch-open-data` | `https://opendata-christchurchcity.hub.arcgis.com/api/feed/dcat-us/1.1.json` |
 | `auckland-transport-open-data` | `https://data-atgis.opendata.arcgis.com/api/feed/dcat-us/1.1.json` |
+| `canterbury-maps` | `https://opendata.canterburymaps.govt.nz/api/feed/dcat-us/1.1.json` |
+| `wellington-city-open-data` | `https://data-wcc.opendata.arcgis.com/api/feed/dcat-us/1.1.json` |
+| `electricity-authority` | `https://emidatasets.blob.core.windows.net/publicdata?restype=container&comp=list` |
+| `nzpam-geodata` | `https://gis.nzpam.govt.nz/server/rest/services/Public?f=pjson` |
 
-The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare and the Geographic Data Service, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The `arcgis`, `auckland-transport-open-data`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nzta-open-data` and `whanganui-geospatial` adapters return the source-supplied licence or rights metadata: `licenseInfo`, `accessInformation` and `license` for ArcGIS Hub datasets; `license` for the Christchurch City and Auckland Transport DCAT feeds; `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` for data.govt.nz; `rights`, `rightsUrl`, `copyright`, `publisher`, `contentPartner`, `creator`, `contributor` and `usage` for DigitalNZ records; `licenseId`, `licenseTitle`, `licenseUrl`, `author`, `organization` and `rights` for MBIE; `license` for the Waka Kotahi DCAT feed; and `licenseIdentifier` for Whanganui GeoNode datasets. Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; most are CC BY 4.0, and some carry custom terms. The LRIS basemaps and NIWA REC WMS services declare `Fees: none` and their own access constraints; check the publisher's terms. These terms were checked on 2026-11-08. Check the source page before you reuse any dataset.
+The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare and the Geographic Data Service, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The `arcgis`, `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nzta-open-data`, `wellington-city-open-data` and `whanganui-geospatial` adapters return the source-supplied licence or rights metadata: `licenseInfo`, `accessInformation` and `license` for ArcGIS Hub datasets; `license` for the Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds; `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` for data.govt.nz; `rights`, `rightsUrl`, `copyright`, `publisher`, `contentPartner`, `creator`, `contributor` and `usage` for DigitalNZ records; `licenseId`, `licenseTitle`, `licenseUrl`, `author`, `organization` and `rights` for MBIE; `license` for the Waka Kotahi DCAT feed; and `licenseIdentifier` for Whanganui GeoNode datasets. Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; the values vary, so check each one. The Electricity Authority copyright statement licenses its material for reuse under CC BY 4.0 unless an item says otherwise; the dataset listing itself has no licence field. The NZPAM ArcGIS REST response has no licence field; check the publisher's terms. The LRIS basemaps and NIWA REC WMS services declare `Fees: none` and their own access constraints; check the publisher's terms. These terms were checked on 2026-11-08. Check the source page before you reuse any dataset.
 
 ## Package licence
 
