@@ -1,0 +1,448 @@
+<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
+<WMS_Capabilities version="1.3.0" updateSequence=""  xmlns="http://www.opengis.net/wms"   xmlns:sld="http://www.opengis.net/sld"   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xmlns:ms="http://mapserver.gis.umn.edu/mapserver"   xsi:schemaLocation="http://www.opengis.net/wms /wms/1.3.0/capabilities_1_3_0.xsd  http://www.opengis.net/sld /sld/1.1.0/sld_capabilities.xsd  http://mapserver.gis.umn.edu/mapserver https://maps.scinfo.org.nz/basemaps/wms?service=WMS&amp;version=1.3.0&amp;request=GetSchemaExtension">
+
+<!-- MapServer version 7.4.3 OUTPUT=PNG OUTPUT=JPEG OUTPUT=KML SUPPORTS=PROJ SUPPORTS=AGG SUPPORTS=FREETYPE SUPPORTS=CAIRO SUPPORTS=SVG_SYMBOLS SUPPORTS=RSVG SUPPORTS=ICONV SUPPORTS=FRIBIDI SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS SUPPORTS=GEOS SUPPORTS=PBF INPUT=JPEG INPUT=POSTGIS INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+
+<Service>
+  <Name>WMS</Name>
+  <Title>Landcare Research NZ Topographic Baselayer</Title>
+  <Abstract>This is a WMS for Landcare Research&#39;s Topographic Base Map Layer, operated as part of the SCENZ-Grid project. The data contained in this project covers the terrain, hydrography, transport infrastructure, settlements, coastline and coastal features of New Zealand. This service runs a MapServer (http://mapserver.org/index.html) on top of a PostgreSQL / PostGIS database (http://www.postgresql.org/)(http://postgis.refractions.net/).</Abstract>
+  <KeywordList>
+      <Keyword></Keyword>
+  </KeywordList>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?"/>
+  <ContactInformation>
+    <ContactPersonPrimary>
+      <ContactPerson>David Medyckyj-Scott</ContactPerson>
+      <ContactOrganization>Landcare Research New Zealand Limited</ContactOrganization>
+    </ContactPersonPrimary>
+      <ContactPosition>Myscenz-Grid Project Leader</ContactPosition>
+    <ContactAddress>
+        <AddressType>Postal</AddressType>
+        <Address>Landcare Research, Private Bag 11052, Manawatu Mail Centre</Address>
+        <City>Palmerston North</City>
+        <StateOrProvince>Manawatu</StateOrProvince>
+        <PostCode>4442</PostCode>
+        <Country>New Zealand</Country>
+    </ContactAddress>
+      <ContactVoiceTelephone>+64 6 353 4800</ContactVoiceTelephone>
+      <ContactFacsimileTelephone>+64 6 353 4800</ContactFacsimileTelephone>
+  <ContactElectronicMailAddress>Medyckyj-ScottD@landcareresearch.co.nz</ContactElectronicMailAddress>
+  </ContactInformation>
+  <Fees>none</Fees>
+  <AccessConstraints></AccessConstraints>
+  <MaxWidth>8192</MaxWidth>
+  <MaxHeight>8192</MaxHeight>
+</Service>
+
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <GetMap>
+      <Format>image/png</Format>
+      <Format>image/png; mode=8bit</Format>
+      <Format>image/jpeg</Format>
+      <Format>image/svg+xml</Format>
+      <Format>application/x-pdf</Format>
+      <Format>image/tiff</Format>
+      <Format>application/vnd.google-earth.kml.xml</Format>
+      <Format>application/vnd.google-earth.kmz</Format>
+      <Format>application/json</Format>
+      <Format>image/vnd.jpeg-png</Format>
+      <Format>image/vnd.jpeg-png8</Format>
+      <Format>application/x-protobuf</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetMap>
+  </Request>
+  <Exception>
+    <Format>XML</Format>
+    <Format>INIMAGE</Format>
+    <Format>BLANK</Format>
+  </Exception>
+  <Layer>
+    <Name>ext_basemap</Name>
+    <Title>Landcare Research NZ Topographic Baselayer</Title>
+    <Abstract>This is a WMS for Landcare Research&#39;s Topographic Base Map Layer, operated as part of the SCENZ-Grid project. The data contained in this project covers the terrain, hydrography, transport infrastructure, settlements, coastline and coastal features of New Zealand. This service runs a MapServer (http://mapserver.org/index.html) on top of a PostgreSQL / PostGIS database (http://www.postgresql.org/)(http://postgis.refractions.net/).</Abstract>
+    <KeywordList>
+        <Keyword></Keyword>
+    </KeywordList>
+    <CRS>EPSG:2193</CRS>
+    <CRS>EPSG:27200</CRS>
+    <CRS>EPSG:900913</CRS>
+    <CRS>EPSG:3857</CRS>
+    <CRS>EPSG:4326</CRS>
+    <CRS>EPSG:3994</CRS>
+    <EX_GeographicBoundingBox>
+        <westBoundLongitude>164.843</westBoundLongitude>
+        <eastBoundLongitude>179.858</eastBoundLongitude>
+        <southBoundLatitude>-47.5944</southBoundLatitude>
+        <northBoundLatitude>-33.9467</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox CRS="EPSG:2193"
+                minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                resx="" resy="" />
+    <Attribution>
+        <Title></Title>
+    </Attribution>
+    <MinScaleDenominator>100</MinScaleDenominator>
+    <MaxScaleDenominator>1e+07</MaxScaleDenominator>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>topobasemap</Name>
+        <Title>All NZ Topographic Baselayers</Title>
+        <Abstract>Landcare Research NZ Topographic Baselayer</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=topobasemap"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=topobasemap&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>topobasemap_notext</Name>
+        <Title>NZ Topographic Baselayers No Text</Title>
+        <Abstract>Landcare Research NZ Topographic Baselayer No Text</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=topobasemap_notext"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=topobasemap&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>topobasemap_notext_grey</Name>
+        <Title>NZ Topographic Baselayers No Text Greyscale</Title>
+        <Abstract>Landcare Research NZ Topographic Baselayer No Text Greyscale</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=topobasemap_notext_grey"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=topobasemap&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>coastpoly</Name>
+        <Title>Topographic Coastline Polygons</Title>
+        <Abstract>The New Zealand coastline &amp; islands from the LINZ 1:50,000 NZTopo database. Coastline is based upon: Mean High Water Mark around North Island, South Island and Stewart Island. Area of dry or relatively dry land surrounded by water or low wetland. Original scale 1:50,000</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=coastpoly"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=coastpoly&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>urban</Name>
+        <Title>Urban Areas Group</Title>
+        <Abstract>Topographic urban areas group layer. Includes built up areas for small scale maps (1:250,000), residential areas, buildings, airports, runways and racetrack polygons sourced at a scale of 1:50,000.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=urban"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=urban&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>contours</Name>
+        <Title>Contours</Title>
+        <Abstract>20m contours layer from the LINZ 1:50,000 NZTopo database. A contour is an imaginary line that connects points of equal height value eg the elevation of the land surface above or below a vertical datum.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=contours"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=contours&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>water</Name>
+        <Title>Water features</Title>
+        <Abstract>Topographic water features group layer. Includes lakes, lagoons, ponds and rivers, streams and drains.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=water"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=water&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>transport</Name>
+        <Title>Transport Group</Title>
+        <Abstract>Topographic transport features group layer. Includes rail, all roads and highway shields.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=transport"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=transport&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="1">
+        <Name>text</Name>
+        <Title>Cartographic Text Group</Title>
+        <Abstract>Cartographic text group layer. Includes data from the LINZ 1:50,000 NZTopo database: cartographic text split into 2 datasets, one for large scale, one for medium scale; city &amp; placenames for small scale; road highway shields.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=text"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=text&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>eco_painted_relief</Name>
+        <Title>Landcover Terrain Map</Title>
+        <Abstract>This landcover terrain map was produced using in-house 15m resolution Digital Elevation Model data in combination with ECOSAT landcover data.</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=eco_painted_relief"/>
+        </MetadataURL>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="322" height="200">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetLegendGraphic&amp;LAYER=eco_painted_relief&amp;FORMAT=image/png"/>
+          </LegendURL>
+        </Style>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>copyright</Name>
+        <Title>Copyright Notice</Title>
+        <Abstract>Landcare Research Copyright Notice</Abstract>
+        <CRS>EPSG:2193</CRS>
+        <CRS>EPSG:27200</CRS>
+        <CRS>EPSG:900913</CRS>
+        <CRS>EPSG:3857</CRS>
+        <CRS>EPSG:4326</CRS>
+        <CRS>EPSG:3994</CRS>
+        <EX_GeographicBoundingBox>
+            <westBoundLongitude>164.843</westBoundLongitude>
+            <eastBoundLongitude>179.858</eastBoundLongitude>
+            <southBoundLatitude>-47.5944</southBoundLatitude>
+            <northBoundLatitude>-33.9467</northBoundLatitude>
+        </EX_GeographicBoundingBox>
+        <BoundingBox CRS="EPSG:2193"
+                    minx="4.72878e+06" miny="983516" maxx="6.22368e+06" maxy="2.11746e+06"
+                    resx="" resy="" />
+        <MetadataURL type="TC211">
+          <Format>text/xml</Format>
+          <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://maps.scinfo.org.nz/basemaps/wms?request=GetMetadata&amp;layer=copyright"/>
+        </MetadataURL>
+    </Layer>
+  </Layer>
+</Capability>
+</WMS_Capabilities>

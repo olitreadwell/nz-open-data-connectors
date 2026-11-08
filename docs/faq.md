@@ -4,7 +4,7 @@ Questions that come up about this repo.
 
 ## Do I need an API key?
 
-No. All sixteen adapters work keyless. Two accept an optional key from the
+No. All twenty-two adapters work keyless. Two accept an optional key from the
 environment to unlock more: `DIGITAL_NZ_API_KEY` raises the DigitalNZ rate
 limit and `LINZ_API_KEY` unlocks LINZ layer search. Keys are read server-side
 and are never accepted from API or CLI callers.
@@ -19,13 +19,14 @@ every key that arrives from an environment variable or a caller, so an empty
 The MIT licence here covers the code, not the data. Each publisher keeps its
 own terms. GeoNet content is Creative Commons Attribution 3.0 New Zealand.
 NZOR content is Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
-Zealand, so it is not for commercial use. data.govt.nz, MBIE open data and the
-Waka Kotahi open data hub carry a licence value per dataset, and DigitalNZ
+Zealand, so it is not for commercial use. data.govt.nz, MBIE open data, the
+Waka Kotahi, Christchurch City and Auckland Transport open data hubs, and the
+Whanganui GeoNode catalogue carry a licence value per dataset, and DigitalNZ
 records carry `rights`, `rights_url`, `copyright`, `publisher`, `creator`,
 `contributor` and `usage` values. ArcGIS Hub datasets carry `licenseInfo`,
 `accessInformation` and `license` values. Source field names follow the API:
-CKAN and DigitalNZ use snake_case, and ArcGIS Hub uses camelCase. Adapter
-output names use camelCase, such as `rights_url` becoming `rightsUrl`.
+CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase.
+Adapter output names use camelCase, such as `rights_url` becoming `rightsUrl`.
 `docs/CONNECTOR_DISCOVERY.md` lists the position for every source.
 
 Credit the publisher when you republish, not this library. The connectors fetch

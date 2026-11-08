@@ -124,6 +124,28 @@ describe('registry', () => {
         if (hostname === 'opendata-nzta.opendata.arcgis.com') {
           return jsonResponse(readFixtureJson('nzta-open-data-2026-10-05.json'));
         }
+        if (hostname === 'maps.scinfo.org.nz') {
+          return new Response(readFixtureText('lris-basemaps-wms-2026-11-08.xml'), {
+            status: 200,
+          });
+        }
+        if (hostname === 'geoserver.niwa.co.nz') {
+          return new Response(readFixtureText('niwa-rec-wms-2026-11-08.xml'), {
+            status: 200,
+          });
+        }
+        if (hostname === 'datafinder.stats.govt.nz') {
+          return jsonResponse(readFixtureJson('stats-nz-geographic-meshblock-2026-11-08.json'));
+        }
+        if (hostname === 'geonode.whanganui.govt.nz') {
+          return jsonResponse(readFixtureJson('whanganui-geonode-datasets-2026-11-08.json'));
+        }
+        if (hostname === 'opendata-christchurchcity.hub.arcgis.com') {
+          return jsonResponse(readFixtureJson('christchurch-open-data-2026-11-08.json'));
+        }
+        if (hostname === 'data-atgis.opendata.arcgis.com') {
+          return jsonResponse(readFixtureJson('auckland-transport-open-data-2026-11-08.json'));
+        }
         return new Response('unexpected url', { status: 404 });
       })
     );

@@ -1,3 +1,9 @@
 python/src/nzdata/sources.py
 packages/nz-sources/src/fixtures/infoshare-*.html
 packages/nz-sources/src/fixtures/mbie-open-data-*.json
+packages/nz-sources/src/fixtures/lris-basemaps-wms-*.xml
+packages/nz-sources/src/fixtures/niwa-rec-wms-*.xml
+packages/nz-sources/src/fixtures/stats-nz-geographic-*.json
+packages/nz-sources/src/fixtures/whanganui-geonode-*.json
+packages/nz-sources/src/fixtures/christchurch-open-data-*.json
+packages/nz-sources/src/fixtures/auckland-transport-open-data-*.json

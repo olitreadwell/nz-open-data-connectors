@@ -20,6 +20,32 @@ export type {
   ArcgisHubFetchOptions,
   ArcgisHubResult,
 } from './arcgisHub.js';
+/** Auckland Transport open data hub catalogue (DCAT 1.1). */
+export {
+  fetchAucklandTransportOpenDataCatalogue,
+  parseAucklandTransportOpenDataCatalogue,
+  aucklandTransportOpenDataAdapter,
+  AUCKLAND_TRANSPORT_OPEN_DATA_SOURCE_ID,
+} from './aucklandTransportOpenData.js';
+/** Auckland Transport open data types. */
+export type {
+  AucklandTransportOpenDataCatalogue,
+  AucklandTransportOpenDataDataset,
+  AucklandTransportOpenDataDistribution,
+} from './aucklandTransportOpenData.js';
+/** Christchurch City open data hub catalogue (DCAT 1.1). */
+export {
+  fetchChristchurchOpenDataCatalogue,
+  parseChristchurchOpenDataCatalogue,
+  christchurchOpenDataAdapter,
+  CHRISTCHURCH_OPEN_DATA_SOURCE_ID,
+} from './christchurchOpenData.js';
+/** Christchurch City open data types. */
+export type {
+  ChristchurchOpenDataCatalogue,
+  ChristchurchOpenDataDataset,
+  ChristchurchOpenDataDistribution,
+} from './christchurchOpenData.js';
 /** data.govt.nz dataset search. */
 export {
   searchDataGovtNzDatasets,
@@ -81,6 +107,13 @@ export type { LawaRiverQualitySite } from './lawa.js';
 export { searchLrisLayers, parseLrisLayers, lrisAdapter } from './lris.js';
 /** LRIS types. */
 export type { LrisLayer } from './lris.js';
+/** LRIS topographic basemaps WMS capabilities. */
+export {
+  fetchLrisBasemaps,
+  parseLrisBasemaps,
+  lrisBasemapsAdapter,
+  LRIS_BASEMAPS_SOURCE_ID,
+} from './lrisBasemaps.js';
 /** MBIE datasets in the national open data catalogue. */
 export {
   fetchMbieOpenDataDatasets,
@@ -99,6 +132,13 @@ export type {
 export { searchMfeLayers, parseMfeLayers, mfeAdapter } from './mfe.js';
 /** MfE types. */
 export type { MfeLayer } from './mfe.js';
+/** NIWA River Environment Classification WMS capabilities. */
+export {
+  fetchNiwaRecCapabilities,
+  parseNiwaRecCapabilities,
+  niwaRecAdapter,
+  NIWA_REC_SOURCE_ID,
+} from './niwaRec.js';
 /** NZOR (New Zealand Organisms Register) name search. */
 export { searchNzorNames, parseNzorNames, nzorAdapter } from './nzor.js';
 /** NZOR types. */
@@ -131,6 +171,37 @@ export {
 export { fetchTradeMeCategories, parseTradeMeCategories, tradeMeAdapter } from './tradeMe.js';
 /** Trade Me types. */
 export type { TradeMeCategory } from './tradeMe.js';
+/** Stats NZ Geographic Data Service layer search. */
+export {
+  searchStatsNzGeographicLayers,
+  fetchStatsNzGeographicLayers,
+  parseStatsNzGeographicLayers,
+  statsNzGeographicAdapter,
+  STATS_NZ_GEOGRAPHIC_SOURCE_ID,
+} from './statsNzGeographic.js';
+/** Stats NZ Geographic Data Service types. */
+export type { StatsNzGeographicLayer } from './statsNzGeographic.js';
+/** Whanganui District Council GeoNode dataset catalogue. */
+export {
+  fetchWhanganuiGeoNodeDatasets,
+  parseWhanganuiGeoNodeDatasets,
+  whanganuiGeospatialAdapter,
+  WHANGANUI_GEOSPATIAL_SOURCE_ID,
+} from './whanganuiGeospatial.js';
+/** Whanganui GeoNode types. */
+export type {
+  WhanganuiGeoNodeDataset,
+  WhanganuiGeoNodeExtent,
+  WhanganuiGeoNodeResult,
+} from './whanganuiGeospatial.js';
+/** Shared DCAT 1.1 catalogue parser. */
+export { parseDcatCatalogue, fetchDcatCatalogue } from './dcatCatalogue.js';
+/** Shared DCAT 1.1 catalogue types. */
+export type { DcatCatalogue, DcatDataset, DcatDistribution } from './dcatCatalogue.js';
+/** Shared OGC WMS capabilities parser. */
+export { parseWmsCapabilities } from './wmsCapabilities.js';
+/** Shared OGC WMS capabilities types. */
+export type { WmsCapabilities, WmsGeographicBounds, WmsLayer } from './wmsCapabilities.js';
 /** API key normalization shared by adapters, the API, and the CLI. */
 export { normalizeSourceApiKey } from './apiKey.js';
 /** The shared HTTP layer every adapter fetch goes through. */

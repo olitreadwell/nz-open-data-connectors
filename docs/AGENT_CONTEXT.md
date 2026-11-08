@@ -7,7 +7,7 @@ the full map.
 ## What this repo is
 
 TypeScript connectors for New Zealand public data, with Python and Ruby ports.
-One design, three languages. `packages/nz-sources` holds the 16 adapters,
+One design, three languages. `packages/nz-sources` holds the 22 adapters,
 `packages/stats-nz` reads the Aotearoa Data Explorer (ADE) API,
 `packages/api` exposes both over HTTP, and `packages/cli` exposes them as
 `nzdata`. npm workspaces, one package per concern.
@@ -15,7 +15,7 @@ One design, three languages. `packages/nz-sources` holds the 16 adapters,
 ## Current state
 
 - `main` is the integration branch. Pull requests target `main`.
-- Sixteen adapters, all keyless. DigitalNZ and LINZ accept an optional key
+- Twenty-two adapters, all keyless. DigitalNZ and LINZ accept an optional key
   from the environment to unlock more.
 - Every adapter fetches through `packages/nz-sources/src/http.ts` (`httpGet`
   and `httpPost`): one `User-Agent`, a 30 second timeout, and `retryable` set
@@ -23,8 +23,8 @@ One design, three languages. `packages/nz-sources` holds the 16 adapters,
 - Adapters live in `packages/nz-sources/src/*.ts` next to their tests, with
   committed fixtures in `packages/nz-sources/src/fixtures/`. Fixture filenames
   carry the capture date.
-- The Python and Ruby ports cover 8 of the 16 adapters plus the Stats NZ
-  client. Porting the other eight is separate work.
+- The Python and Ruby ports cover 8 of the 22 adapters plus the Stats NZ
+  client. Porting the other fourteen is separate work.
 - `npm run check`, the Python gate and `bundle exec rake check` (Ruby) are
   green.
 

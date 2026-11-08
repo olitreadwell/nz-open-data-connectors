@@ -1,5 +1,7 @@
 import { adeSearchAdapter } from './adeSearch.js';
 import { arcgisHubAdapter } from './arcgisHub.js';
+import { aucklandTransportOpenDataAdapter } from './aucklandTransportOpenData.js';
+import { christchurchOpenDataAdapter } from './christchurchOpenData.js';
 import { dataGovtDatastoreAdapter } from './dataGovtDatastore.js';
 import { dataGovtNzAdapter } from './dataGovtNz.js';
 import { digitalNzAdapter } from './digitalNz.js';
@@ -8,12 +10,16 @@ import { infoshareAdapter } from './infoshare.js';
 import { lawaAdapter } from './lawa.js';
 import { linzAdapter } from './linz.js';
 import { lrisAdapter } from './lris.js';
+import { lrisBasemapsAdapter } from './lrisBasemaps.js';
 import { mbieOpenDataAdapter } from './mbieOpenData.js';
 import { mfeAdapter } from './mfe.js';
+import { niwaRecAdapter } from './niwaRec.js';
 import { nzorAdapter } from './nzor.js';
 import { nztaAdapter } from './nzta.js';
 import { nztaOpenDataAdapter } from './nztaOpenData.js';
+import { statsNzGeographicAdapter } from './statsNzGeographic.js';
 import { tradeMeAdapter } from './tradeMe.js';
+import { whanganuiGeospatialAdapter } from './whanganuiGeospatial.js';
 import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from './types.js';
 
 /** Every NZ data source behind the uniform adapter interface. */
@@ -32,6 +38,12 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   mbieOpenDataAdapter,
   mfeAdapter,
   lrisAdapter,
+  lrisBasemapsAdapter,
+  niwaRecAdapter,
+  statsNzGeographicAdapter,
+  whanganuiGeospatialAdapter,
+  christchurchOpenDataAdapter,
+  aucklandTransportOpenDataAdapter,
   nztaAdapter,
   nztaOpenDataAdapter,
 ];

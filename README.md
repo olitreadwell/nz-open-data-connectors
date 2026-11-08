@@ -8,7 +8,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 16 NZ public data sources, with live probes and offline fixtures |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 22 NZ public data sources, with live probes and offline fixtures |
 | [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
 | [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
 | `@nz-open-data-connectors/connectors-api` | Private. HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
@@ -20,7 +20,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Sixteen source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
+Twenty-two source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
 keyless. Two accept an optional key from the environment to unlock more:
 DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
 
@@ -30,16 +30,19 @@ Creative Commons Attribution 3.0 New Zealand. Stats NZ content, including
 Infoshare, carries Creative Commons Attribution 4.0 International unless a page
 says otherwise. NZOR content carries Creative
 Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
-commercial use. The data.govt.nz catalogue, MBIE open data and the Waka Kotahi
-open data hub carry a licence value per dataset. DigitalNZ records carry
+commercial use. The data.govt.nz catalogue, MBIE open data, the Waka Kotahi,
+Christchurch City and Auckland Transport open data hubs, and the Whanganui
+GeoNode catalogue carry a licence value per dataset. DigitalNZ records carry
 `rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
 `usage` values. ArcGIS Hub datasets carry `licenseInfo`, `accessInformation`
-and `license` values. The `arcgis`, `data-govt-nz`, `digitalnz`, `mbie-open-data`
-and `nzta-open-data` adapters pass the source-supplied values through,
-including attribution fields where the source supplies them. Source field
-names follow the API: CKAN and DigitalNZ use snake_case, and ArcGIS Hub uses
-camelCase (`licenseInfo`). Adapter output names use camelCase: `license_id`
-becomes `licenseId`, and `rights_url` becomes `rightsUrl`.
+and `license` values. The `arcgis`, `auckland-transport-open-data`,
+`christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
+`nzta-open-data` and `whanganui-geospatial` adapters pass the source-supplied
+values through, including attribution fields where the source supplies them.
+Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case,
+and ArcGIS Hub uses camelCase (`licenseInfo`). Adapter output names use
+camelCase: `license_id` becomes `licenseId`, and `rights_url` becomes
+`rightsUrl`.
 For every other source, check the publisher's licence before you reuse the data:
 the connectors fetch it, they do not relicense it. `docs/CONNECTOR_DISCOVERY.md`
 lists where each source's terms live.
@@ -49,7 +52,7 @@ Every adapter also sends the same `User-Agent`
 seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
 5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
 shared `httpGet` and `httpPost` helpers in `packages/nz-sources/src/http.ts` do
-this for all sixteen adapters, so callers write nothing extra.
+this for all twenty-two adapters, so callers write nothing extra.
 
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
@@ -69,6 +72,12 @@ this for all sixteen adapters, so callers write nothing extra.
 | `mbie-open-data` | MBIE datasets in the national catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mbie-open-data` |
 | `nzta` | Waka Kotahi holiday journey hotspots | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta` |
 | `nzta-open-data` | Waka Kotahi open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzta-open-data` |
+| `lris-basemaps` | LRIS topographic basemaps (OGC WMS) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris-basemaps` |
+| `niwa-rec` | NIWA River Environment Classification (OGC WMS) | Yes | - | `npx tsx packages/cli/src/cli.ts probe niwa-rec` |
+| `stats-nz-geographic` | Stats NZ Geographic Data Service | Yes | - | `npx tsx packages/cli/src/cli.ts probe stats-nz-geographic` |
+| `whanganui-geospatial` | Whanganui District Council GeoNode | Yes | - | `npx tsx packages/cli/src/cli.ts probe whanganui-geospatial` |
+| `christchurch-open-data` | Christchurch City open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe christchurch-open-data` |
+| `auckland-transport-open-data` | Auckland Transport open GIS data (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe auckland-transport-open-data` |
 
 ### Added 2026-10-05
 
@@ -101,6 +110,16 @@ behind a browser challenge, so the adapter uses the national CKAN catalogue
 filtered to the MBIE organisation.
 
 The exact curl command and the licence notes are in
+`docs/CONNECTOR_DISCOVERY.md`.
+
+### Added 2026-11-08
+
+Six more keyless adapters were checked live on 2026-11-08. They cover two OGC
+WMS services, two ArcGIS Hub DCAT catalogues, the Stats NZ Geographic Data
+Service (Koordinates), and the Whanganui District Council GeoNode catalogue.
+Each keeps a committed fixture captured from the live response.
+
+The exact curl commands, response shapes and licence notes are in
 `docs/CONNECTOR_DISCOVERY.md`.
 
 ### Adapter examples
@@ -276,12 +295,15 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 PyPI or RubyGems yet, so install from the repo. The publish workflows exist and
 fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
-Both ports mirror part of the TypeScript surface: 8 of the 16 adapters, the same
+Both ports mirror part of the TypeScript surface: 8 of the 22 adapters, the same
 Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. The
-eight adapters the ports do not carry yet are `arcgis`, `infoshare`, `lawa`,
-`mbie-open-data`, `mfe`, `lris`, `nzta` and `nzta-open-data`. Each port has its own quality gates (`ruff` +
-`mypy` + coverage for Python, `rubocop` + coverage for Ruby) enforced in CI. See
-each directory's README for quickstarts and publishing steps.
+fourteen adapters the ports do not carry yet are `arcgis`,
+`auckland-transport-open-data`, `christchurch-open-data`, `infoshare`, `lawa`,
+`lris`, `lris-basemaps`, `mbie-open-data`, `mfe`, `niwa-rec`, `nzta`,
+`nzta-open-data`, `stats-nz-geographic` and `whanganui-geospatial`. Each port
+has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` +
+coverage for Ruby) enforced in CI. See each directory's README for quickstarts
+and publishing steps.
 
 ## Run the API in Docker
 

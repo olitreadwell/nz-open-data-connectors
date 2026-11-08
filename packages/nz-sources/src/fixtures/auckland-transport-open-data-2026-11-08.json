@@ -1,0 +1,3043 @@
+{
+  "@context": "https://project-open-data.cio.gov/v1.1/schema/catalog.jsonld",
+  "@type": "dcat:Catalog",
+  "conformsTo": "https://project-open-data.cio.gov/v1.1/schema",
+  "describedBy": "https://project-open-data.cio.gov/v1.1/schema/catalog.json",
+  "dataset": [
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::parkingservice",
+      "title": "ParkingService",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:45:19.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5813,-37.1098,175.4660,-36.2433",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::parkingservice"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::parking-meter",
+      "title": "Parking Meter",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:39:38.321Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6101,-36.9988,175.4660,-36.2433",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::parking-meter"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::car-parking",
+      "title": "Car Parking",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:39:38.414Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6351,-36.9946,174.9837,-36.3865",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::car-parking"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=2",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::taxi-parking",
+      "title": "Taxi Parking",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:39:38.508Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.7447,-36.8595,174.7700,-36.8405",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::taxi-parking"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=2"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=3",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-parking",
+      "title": "Bus Parking",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-11-07T12:01:48.889Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6152,-37.1094,174.9354,-36.3877",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-parking"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=3"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=4",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::parking-lease",
+      "title": "Parking Lease",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:39:38.854Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.7609,-36.9956,174.8746,-36.7860",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::parking-lease"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=4"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=4da9854830184c698dc38ca8d4a63927&sublayer=5",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::park-and-ride",
+      "title": "Park and Ride",
+      "description": "This service provide layers to show locations of individual types of parking facilities available to the public. For more information regarding each facility, please visit https://at.govt.nz/driving-parking/",
+      "keyword": ["Parking", "Public Transport", "Public", "Facility"],
+      "issued": "2018-10-16T02:44:44.000Z",
+      "modified": "2026-10-20T00:39:38.948Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5796,-37.0265,174.9906,-36.6151",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::park-and-ride"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingService/FeatureServer/5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/csv?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/shapefile?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/geojson?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/4da9854830184c698dc38ca8d4a63927/kml?layers=5"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=3549d3cc98e7480abb77f436e05a7799&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::fare-zones",
+      "title": "Fare Zones",
+      "description": "<p>This layer provides a geographic representation of the fare zones used by Auckland Transport to calculate public transport fares. The polygons depict the spatial extent of each fare zone and are intended to support mapping and visualisation of the fare zone system.</p><p>For information about fare zones and fare calculations, visit the <a target='_blank' href='https://at.govt.nz/bus-train-ferry/fares-and-discounts/bus-and-train-fares' rel='nofollow ugc noopener noreferrer'>Auckland Transport Bus and Train Fares page</a>.</p><p><strong>Update Cycle</strong>: Currently this is a static dataset, any changes are manually loaded when they occur.</p>",
+      "keyword": [
+        "Bus",
+        "Ferry",
+        "Planning",
+        "Public Transport",
+        "Train",
+        "zone",
+        "fare",
+        "farezones",
+        "farezone",
+        "zones",
+        "PT"
+      ],
+      "issued": "2026-09-11T04:07:32.000Z",
+      "modified": "2026-10-14T22:21:18.454Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "173.9067,-37.4097,175.8822,-35.6814",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::fare-zones"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/FareZones/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/kml?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/filegdb?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/featureCollection?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/excel?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/geoPackage?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/3549d3cc98e7480abb77f436e05a7799/sqlite?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=eeb0839fbd594c9e87189df5c84c2543&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::future-connect-integrated-network",
+      "title": "Future Connect Integrated Network",
+      "description": "<p>This open data is provided for reference. The primary and recommended way to view Future Connect, with additional Transport System Analysis and other insights (not shared as open data), is through the <a target='_blank' href='https://mahere.at.govt.nz/FutureConnect/' rel='nofollow ugc noopener noreferrer'>Future Connect Mapping Portal</a>.</p><h2>Description</h2><p>The <strong>Future Connect Integrated Network </strong>layer represents a long-term, multi-modal view of the region’s most important transport corridors and connections. Comprised of both the <strong>Current </strong>(existing) and <strong>First Decade</strong> (longer-term) views of Auckland’s transport network, it brings together the <strong>Strategic Networks</strong> for all transport modes — public transport, general traffic, freight, and cycling — into a single, cohesive spatial dataset. This layer also includes the lower order, <strong>Supporting Network</strong> links for all modes.</p><figure><table border='1'><tr><th>&nbsp;</th><th><strong>Strategic Networks</strong></th><th><strong>Supporting Networks</strong></th></tr><tbody><tr><td>Public Transport</td><td>Rapid Transit<br />Interim Rapid Transit<br />Frequent Transit<br />Other Strategic Corridors</td><td>Connector<br />Local<br />Peak<br />Rural Township</td></tr><tr><td>Cycle and Micromobility</td><td>Regional<br />Major<br />Connector</td><td>Local<br />Leisure<br />Sport</td></tr><tr><td>General Traffic</td><td>Motorway<br />Strategic<br />Primary<br />Secondary</td><td>Collector<br />Local</td></tr><tr><td>Freight</td><td>Rail<br />Level 1A<br />Level 1B<br />Level 2<br />Level 3</td><td>Access<br />Ferry</td></tr></tbody></table></figure><p><strong>Intended Use</strong></p><ul><li>Transport planning and prioritisation</li><li>Identifying key corridors for operational management</li><li>Supporting RLTP investment decisions</li><li>Land‑use and development integration</li></ul><p><strong>Limitations</strong></p><ul><li>Does <i>not</i> define or commit to specific projects.</li><li>Not a detailed engineering or operational dataset.</li><li>Represents strategic priorities at a regional scale.&nbsp;</li></ul><p>For more information, visit <a target='_blank' href='https://www.at.govt.nz/futureconnect' rel='nofollow ugc noopener noreferrer'>AT.govt.nz/FutureConnect</a>.</p>",
+      "keyword": ["Planning"],
+      "issued": "2026-06-24T00:16:35.000Z",
+      "modified": "2026-11-04T13:24:27.786Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.2593,-37.2876,175.4897,-36.1410",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::future-connect-integrated-network"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/FutureConnect_IntegratedNetwork/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/kml?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/filegdb?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/featureCollection?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/geoPackage?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/eeb0839fbd594c9e87189df5c84c2543/sqlite?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=75bbb3afce054ee9a2826fd89c18e4bf&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::cycle-facility-network",
+      "title": "Cycle Facility Network",
+      "description": "<p>The Cycle Facility Network Map&nbsp;<a target='_blank' href='https://data-atgis.opendata.arcgis.com/search?tags=Cycling' rel='nofollow ugc noopener noreferrer'>data</a>&nbsp;viewable and downloadable here, shows the location of cycle facilities of all types across Auckland. This is a comprehensive view of the current built network and consists of cycle facilities provided by Auckland Transport, NZTA and Auckland Council.</p><div>&nbsp;</div><div>This data feeds into the publicly available on the&nbsp;<a target='_blank' href='https://mahere.at.govt.nz/portal/apps/experiencebuilder/experience/?id=0547bd817663487f9c148da9da284933' rel='nofollow ugc noopener noreferrer'>Auckland Cycleway Map</a>. This map shows cycle routes across the city and is provided to help you plan your rides. The map highlights the different types of infrastructure on each of the routes and shows on-road cycles lanes, on-road protected cycle lanes, shared paths and quiet routes.</div><div>&nbsp;</div><div>Cycleways form part of our future strategic network called&nbsp;<a target='_blank' href='https://at.govt.nz/media/1987213/fc_cycle-and-micromobility-v1.pdf' rel='nofollow ugc noopener noreferrer'>The Cycle and Micromobility Strategic Network</a>, which is made up of the most important corridors that link to key destinations.&nbsp;</div><div>&nbsp;</div><div><p>More details about the future strategic cycling and micromobility network and how it links to other modes is available at&nbsp;<a target='_blank' href='https://at.govt.nz/about-us/transport-plans-strategies/future-connect-auckland-transports-network-plan' rel='nofollow ugc noopener noreferrer'>Future Connect- Auckland Transport's Network Plan</a>.<br />&nbsp;</p><div>&nbsp;</div></div>",
+      "keyword": ["Cycling", "Route", "Public Transport"],
+      "issued": "2017-11-07T19:13:00.000Z",
+      "modified": "2026-11-04T13:01:29.150Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5007,-37.2481,175.0587,-36.3204",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::cycle-facility-network"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/CyclingService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/75bbb3afce054ee9a2826fd89c18e4bf/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/75bbb3afce054ee9a2826fd89c18e4bf/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/75bbb3afce054ee9a2826fd89c18e4bf/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/75bbb3afce054ee9a2826fd89c18e4bf/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d5a4db7acb5a45a9a4f1bd08a3f0f0a6",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::busservice",
+      "title": "BusService",
+      "description": "Service provides layers for existing stops and scheduled routes for buses as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Route", "Stop", "Public Transport", "Bus", "TEST"],
+      "issued": "2016-12-08T04:27:01.000Z",
+      "modified": "2026-05-08T05:21:28.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4501,-37.8055,175.4511,-36.2767",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::busservice"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/BusService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d5a4db7acb5a45a9a4f1bd08a3f0f0a6&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-stop",
+      "title": "Bus Stop",
+      "description": "Service provides layers for existing stops and scheduled routes for buses as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Route", "Stop", "Public Transport", "Bus", "TEST"],
+      "issued": "2016-12-08T04:27:01.000Z",
+      "modified": "2026-11-04T13:02:31.782Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4524,-37.8055,175.4512,-36.2787",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-stop"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/BusService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/kml?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/filegdb?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/featureCollection?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/excel?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geoPackage?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/sqlite?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d5a4db7acb5a45a9a4f1bd08a3f0f0a6&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::school-bus-stop",
+      "title": "School Bus Stop",
+      "description": "Service provides layers for existing stops and scheduled routes for buses as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Route", "Stop", "Public Transport", "Bus", "TEST"],
+      "issued": "2016-12-08T04:27:01.000Z",
+      "modified": "2026-11-04T13:02:31.782Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4526,-37.8055,175.4512,-36.2787",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::school-bus-stop"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/BusService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/kml?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/filegdb?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/featureCollection?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/excel?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geoPackage?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/sqlite?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d5a4db7acb5a45a9a4f1bd08a3f0f0a6&sublayer=2",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-route",
+      "title": "Bus Route",
+      "description": "Service provides layers for existing stops and scheduled routes for buses as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Route", "Stop", "Public Transport", "Bus", "TEST"],
+      "issued": "2016-12-08T04:27:01.000Z",
+      "modified": "2026-11-04T13:02:31.183Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4501,-37.8055,175.2205,-36.2812",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bus-route"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/BusService/FeatureServer/2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/csv?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/shapefile?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geojson?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/kml?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/filegdb?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/featureCollection?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/excel?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geoPackage?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/sqlite?layers=2"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d5a4db7acb5a45a9a4f1bd08a3f0f0a6&sublayer=3",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::school-bus-route",
+      "title": "School Bus Route",
+      "description": "Service provides layers for existing stops and scheduled routes for buses as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Route", "Stop", "Public Transport", "Bus", "TEST"],
+      "issued": "2016-12-08T04:27:01.000Z",
+      "modified": "2026-11-04T13:02:31.183Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4501,-37.8055,175.2205,-36.2812",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::school-bus-route"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/BusService/FeatureServer/3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/csv?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/shapefile?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geojson?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/kml?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/filegdb?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/featureCollection?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/excel?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/geoPackage?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d5a4db7acb5a45a9a4f1bd08a3f0f0a6/sqlite?layers=3"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=c82756c875ff4e9fad0bc7a9f97ef7a8",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::trainservice",
+      "title": "TrainService",
+      "description": "Service provides layers for existing stops and scheduled routes for trains as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Train", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:10:41.000Z",
+      "modified": "2026-02-02T02:20:29.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4501,-37.8055,175.4511,-36.2767",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::trainservice"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrainService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=c82756c875ff4e9fad0bc7a9f97ef7a8&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::train-station",
+      "title": "Train Station",
+      "description": "Service provides layers for existing stops and scheduled routes for trains as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Train", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:10:41.000Z",
+      "modified": "2026-11-04T13:02:09.510Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5960,-37.8022,175.2369,-36.8364",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::train-station"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrainService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=c82756c875ff4e9fad0bc7a9f97ef7a8&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::train-route",
+      "title": "Train Route",
+      "description": "Service provides layers for existing stops and scheduled routes for trains as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Train", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:10:41.000Z",
+      "modified": "2026-11-04T13:02:06.243Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5959,-37.8022,175.2369,-36.8359",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::train-route"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrainService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/c82756c875ff4e9fad0bc7a9f97ef7a8/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d43c489e7027489b88bcdedffc3be6c6",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::roading-service",
+      "title": "Roading Service",
+      "description": "<p style='margin-left:0cm;'>For speed limit data, please see the <a target='_blank' href='https://opendata-nzta.opendata.arcgis.com/maps/aa376f1f2f3643bdac4d18855229239c' rel='nofollow ugc noopener noreferrer'>National Speed Limit Register</a> from Waka Kotahi NZTA.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p><p style='margin-left:0cm;'><strong>Spatial Coverage</strong>: Auckland Region</p>",
+      "keyword": [
+        "Auckland Transport",
+        "Open Data",
+        "Roading",
+        "Signs",
+        "Bridges",
+        "Controlled Interstections"
+      ],
+      "issued": "2018-04-19T00:20:52.000Z",
+      "modified": "2026-01-19T02:57:35.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "83.0000,-45.0268,-97.0000,45.0268",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::roading-service"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/RoadingService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d43c489e7027489b88bcdedffc3be6c6&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::signs",
+      "title": "Signs",
+      "description": "<p style='margin-left:0cm;'>For speed limit data, please see the <a target='_blank' href='https://opendata-nzta.opendata.arcgis.com/maps/aa376f1f2f3643bdac4d18855229239c' rel='nofollow ugc noopener noreferrer'>National Speed Limit Register</a> from Waka Kotahi NZTA.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p><p style='margin-left:0cm;'><strong>Spatial Coverage</strong>: Auckland Region</p>",
+      "keyword": [
+        "Auckland Transport",
+        "Open Data",
+        "Roading",
+        "Signs",
+        "Bridges",
+        "Controlled Interstections"
+      ],
+      "issued": "2018-04-19T00:20:52.000Z",
+      "modified": "2026-11-04T13:23:06.510Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.3277,-41.2318,175.5174,-36.1145",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::signs"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/RoadingService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d43c489e7027489b88bcdedffc3be6c6&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bridges",
+      "title": "Bridges",
+      "description": "<p style='margin-left:0cm;'>For speed limit data, please see the <a target='_blank' href='https://opendata-nzta.opendata.arcgis.com/maps/aa376f1f2f3643bdac4d18855229239c' rel='nofollow ugc noopener noreferrer'>National Speed Limit Register</a> from Waka Kotahi NZTA.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p><p style='margin-left:0cm;'><strong>Spatial Coverage</strong>: Auckland Region</p>",
+      "keyword": [
+        "Auckland Transport",
+        "Open Data",
+        "Roading",
+        "Signs",
+        "Bridges",
+        "Controlled Interstections"
+      ],
+      "issued": "2018-04-19T00:20:52.000Z",
+      "modified": "2026-11-04T13:23:01.353Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.2627,-37.2733,175.5008,-36.1356",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::bridges"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/RoadingService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d43c489e7027489b88bcdedffc3be6c6&sublayer=2",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::controlled-intersections",
+      "title": "Controlled Intersections",
+      "description": "<p style='margin-left:0cm;'>For speed limit data, please see the <a target='_blank' href='https://opendata-nzta.opendata.arcgis.com/maps/aa376f1f2f3643bdac4d18855229239c' rel='nofollow ugc noopener noreferrer'>National Speed Limit Register</a> from Waka Kotahi NZTA.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p><p style='margin-left:0cm;'><strong>Spatial Coverage</strong>: Auckland Region</p>",
+      "keyword": [
+        "Auckland Transport",
+        "Open Data",
+        "Roading",
+        "Signs",
+        "Bridges",
+        "Controlled Interstections"
+      ],
+      "issued": "2018-04-19T00:20:52.000Z",
+      "modified": "2026-11-04T13:23:08.072Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "-173.9093,-84.5677,174.9610,-36.3504",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::controlled-intersections"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/RoadingService/FeatureServer/2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/csv?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/shapefile?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/geojson?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/kml?layers=2"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=d43c489e7027489b88bcdedffc3be6c6&sublayer=3",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::road-centrelines",
+      "title": "Road Centrelines",
+      "description": "<p style='margin-left:0cm;'>For speed limit data, please see the <a target='_blank' href='https://opendata-nzta.opendata.arcgis.com/maps/aa376f1f2f3643bdac4d18855229239c' rel='nofollow ugc noopener noreferrer'>National Speed Limit Register</a> from Waka Kotahi NZTA.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p><p style='margin-left:0cm;'><strong>Spatial Coverage</strong>: Auckland Region</p>",
+      "keyword": [
+        "Auckland Transport",
+        "Open Data",
+        "Roading",
+        "Signs",
+        "Bridges",
+        "Controlled Interstections"
+      ],
+      "issued": "2018-04-19T00:20:52.000Z",
+      "modified": "2026-11-04T13:23:09.422Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.2481,-37.2878,175.5142,-35.9601",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::road-centrelines"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/RoadingService/FeatureServer/3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/csv?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/shapefile?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/geojson?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/d43c489e7027489b88bcdedffc3be6c6/kml?layers=3"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a204ffd92f7546e898402e064bda6609",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::trafficservice",
+      "title": "TrafficService",
+      "description": "<p>Please note that while all due care has been taken in the\npreparation and provision of this service, Auckland Transport (AT) does not\ngive any warranty that the information contained is accurate and accepts no\nliability whatsoever for any loss or damage arising from the use of the data.<br /></p>\n\n<p>Users of this data should apply and rely upon their own\nskill and judgement when using the information, and consider the consequences\narising from its use. </p>\n\n<span style='font-family:Calibri, sans-serif; font-size:11pt;'>This data should not be used in isolation from\nother sources of advice and information.</span>",
+      "keyword": ["Traffic", " Open Data"],
+      "issued": "2018-03-28T20:38:38.000Z",
+      "modified": "2025-11-24T00:53:58.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "176.6646,-74.2995,-150.7099,-3.7462",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::trafficservice"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrafficService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a204ffd92f7546e898402e064bda6609&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::average-daily-traffic-counts",
+      "title": "Average Daily Traffic Counts",
+      "description": "<p>Please note that while all due care has been taken in the\npreparation and provision of this service, Auckland Transport (AT) does not\ngive any warranty that the information contained is accurate and accepts no\nliability whatsoever for any loss or damage arising from the use of the data.<br /></p>\n\n<p>Users of this data should apply and rely upon their own\nskill and judgement when using the information, and consider the consequences\narising from its use. </p>\n\n<span style='font-family:Calibri, sans-serif; font-size:11pt;'>This data should not be used in isolation from\nother sources of advice and information.</span>",
+      "keyword": ["Traffic", " Open Data"],
+      "issued": "2018-03-28T20:38:38.000Z",
+      "modified": "2026-11-04T23:07:40.891Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.2586,-37.2827,175.5100,-36.1172",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::average-daily-traffic-counts"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrafficService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a204ffd92f7546e898402e064bda6609&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::traffic-management-levels",
+      "title": "Traffic Management Levels",
+      "description": "<p>Please note that while all due care has been taken in the\npreparation and provision of this service, Auckland Transport (AT) does not\ngive any warranty that the information contained is accurate and accepts no\nliability whatsoever for any loss or damage arising from the use of the data.<br /></p>\n\n<p>Users of this data should apply and rely upon their own\nskill and judgement when using the information, and consider the consequences\narising from its use. </p>\n\n<span style='font-family:Calibri, sans-serif; font-size:11pt;'>This data should not be used in isolation from\nother sources of advice and information.</span>",
+      "keyword": ["Traffic", " Open Data"],
+      "issued": "2018-03-28T20:38:38.000Z",
+      "modified": "2026-11-04T23:07:42.157Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.2481,-37.2878,175.5142,-35.9601",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::traffic-management-levels"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/TrafficService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a204ffd92f7546e898402e064bda6609/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=784538aefa9047d3b4862bfcf865eabd&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::athop-retailer",
+      "title": "ATHOP Retailer",
+      "description": "This dataset is published on the AT Mobile phone app and on a public ArcGIS webmap at <a href='https://experience.arcgis.com/experience/adec6887338b4eafa06fb2321ace0cbb?id=28198330322141bbb0ec5594640158f0' rel='nofollow ugc'>AT Hop Retailer Map (arcgis.com)</a>.<div>Data is refreshed nightly.</div>",
+      "keyword": [
+        "AT HOP",
+        "AT Metro",
+        "Topup",
+        "top-up",
+        "machine",
+        "retailer",
+        "buy card",
+        "hop card"
+      ],
+      "issued": "2020-09-23T20:55:09.000Z",
+      "modified": "2026-11-07T12:02:04.522Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4522,-37.7914,175.2830,-36.2937",
+      "license": "",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::athop-retailer"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ATHOP_Retailer/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/kml?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "File Geodatabase",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/filegdb?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Feature Collection",
+          "format": "TXT",
+          "mediaType": "text/plain",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/featureCollection?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Excel",
+          "format": "XLSX",
+          "mediaType": "application/vnd.ms-excel",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/excel?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoPackage",
+          "format": "GPKG",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/geoPackage?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "SQLite Geodatabase",
+          "format": "GDB",
+          "mediaType": "application/geopackage+sqlite3",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/784538aefa9047d3b4862bfcf865eabd/sqlite?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=e84fd237aa8849c99bc07e58dd471e90",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::ferryservice",
+      "title": "FerryService",
+      "description": "Service provides layers for existing stops and scheduled routes for ferries as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Ferry", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:20:01.000Z",
+      "modified": "2025-10-20T01:13:49.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4501,-37.8055,175.4511,-36.2767",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::ferryservice"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/FerryService/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=e84fd237aa8849c99bc07e58dd471e90&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::ferry-stop",
+      "title": "Ferry Stop",
+      "description": "Service provides layers for existing stops and scheduled routes for ferries as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Ferry", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:20:01.000Z",
+      "modified": "2026-11-04T13:02:20.124Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6473,-36.8952,175.0214,-36.6037",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::ferry-stop"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/FerryService/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=e84fd237aa8849c99bc07e58dd471e90&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::ferry-routes",
+      "title": "Ferry Routes",
+      "description": "Service provides layers for existing stops and scheduled routes for ferries as sourced from IVU GTFS data. IVU holds data relating to AT public transport operations only so does not necessarily reflect all stops across the Auckland region (e.g. train lines where AT do not run services such as Helensville to Wellsford do not appear in this dataset).",
+      "keyword": ["Ferry", "Stop", "Route", "Public Transport"],
+      "issued": "2016-12-08T04:20:01.000Z",
+      "modified": "2026-11-04T13:02:17.408Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6473,-36.8952,175.0218,-36.6037",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::ferry-routes"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/FerryService/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e84fd237aa8849c99bc07e58dd471e90/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=e283e6eac441485994afe02a416ca8fb&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::mooring-locations",
+      "title": "Mooring Locations",
+      "description": "Current map shows locations of moorings managed by Auckland Harbourmaster. All attribute and location information is pulled from moorings database sitting on Auckland Transport infrastructure. Mooring sites are located within Mooring Management Areas throughout the Auckland region. Auckland Transport (AT) grants an annual mooring licence to boat owners, allowing occupancy of a mooring (annual fees apply). There are 70 Mooring Management Areas (MMA) where mooring is permitted in the Auckland region. The Harbourmaster's office administers mooring areas to ensure that the space is used most effectively and the boats are suitably positioned within the areas.",
+      "keyword": ["Mooring", " Public", " Harbour", " HarbourMaster"],
+      "issued": "2016-12-08T05:06:19.000Z",
+      "modified": "2026-11-04T13:02:49.333Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6376,-36.9504,175.4841,-36.1367",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::mooring-locations"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/MooringLocations/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e283e6eac441485994afe02a416ca8fb/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e283e6eac441485994afe02a416ca8fb/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e283e6eac441485994afe02a416ca8fb/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/e283e6eac441485994afe02a416ca8fb/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=f7a0ea8116084c62873345df0089ea8e&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::transit-lanes",
+      "title": "Transit Lanes",
+      "description": "<p><strong>Purpose</strong>: This layer displays existing transit lanes represented as polylines on the Auckland road network. Each transit lane polyline contains attributes such as lane type, operating day+hour, and start+end street locations.</p><p>Please note the term of use.</p><p><strong>Source</strong>: Auckland Transport GIS</p><p><strong>Update Cycle</strong>: Scheduled weekly</p><p><strong>GIS Contact</strong>: AskGIS@at.govt.nz</p>",
+      "keyword": ["Bus", "Roading"],
+      "issued": "2019-03-27T00:33:59.000Z",
+      "modified": "2026-11-04T13:23:23.771Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6157,-37.0782,174.9167,-36.6197",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::transit-lanes"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OpenData_TransitLanes/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/f7a0ea8116084c62873345df0089ea8e/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/f7a0ea8116084c62873345df0089ea8e/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/f7a0ea8116084c62873345df0089ea8e/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/f7a0ea8116084c62873345df0089ea8e/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=dbe7e823362a495eb9d053e1514011f1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::at-park-zones",
+      "title": "AT Park Zones",
+      "description": "<div><strong>Purpose:</strong> This layer displays loading and paid parking zones used in the AT Park appliation. &nbsp;It also includes mobility parking facilities that are in Auckland Transport's Authority. &nbsp;Note that the mobility parking data provided here may differ from that displayed in AT Park and includes a more complete overview of AT's mobility parking across Auckland. &nbsp;</div><div>&nbsp;</div><div>You can also view mobility parking in AT's <a target='_blank' href='https://experience.arcgis.com/experience/1ce82a2489a44454bfc6cd2996c0586a' rel='nofollow ugc noopener noreferrer'>Mobility Parking map</a>.</div><div>&nbsp;</div><div><strong>Source:</strong> Auckland Transport GIS</div><div>&nbsp;</div><div><strong>Update Cycle:</strong>&nbsp;Scheduled daily</div><div>&nbsp;</div><div><strong>GIS Contact:</strong> AskGIS@at.govt.nz</div>",
+      "keyword": ["Open Data", "AT Park", "Parking"],
+      "issued": "2016-12-08T22:05:30.000Z",
+      "modified": "2025-08-12T20:03:56.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4356,-37.2557,175.0698,-36.2856",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::at-park-zones"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingZone/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=dbe7e823362a495eb9d053e1514011f1&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::loading-zones",
+      "title": "Loading Zones",
+      "description": "<div><strong>Purpose:</strong> This layer displays loading and paid parking zones used in the AT Park appliation. &nbsp;It also includes mobility parking facilities that are in Auckland Transport's Authority. &nbsp;Note that the mobility parking data provided here may differ from that displayed in AT Park and includes a more complete overview of AT's mobility parking across Auckland. &nbsp;</div><div>&nbsp;</div><div>You can also view mobility parking in AT's <a target='_blank' href='https://experience.arcgis.com/experience/1ce82a2489a44454bfc6cd2996c0586a' rel='nofollow ugc noopener noreferrer'>Mobility Parking map</a>.</div><div>&nbsp;</div><div><strong>Source:</strong> Auckland Transport GIS</div><div>&nbsp;</div><div><strong>Update Cycle:</strong>&nbsp;Scheduled daily</div><div>&nbsp;</div><div><strong>GIS Contact:</strong> AskGIS@at.govt.nz</div>",
+      "keyword": ["Open Data", "AT Park", "Parking"],
+      "issued": "2016-12-08T22:05:30.000Z",
+      "modified": "2026-11-07T12:00:38.563Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6820,-36.9090,174.8095,-36.8386",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::loading-zones"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingZone/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=dbe7e823362a495eb9d053e1514011f1&sublayer=2",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::mobility-zones",
+      "title": "Mobility Zones",
+      "description": "<div><strong>Purpose:</strong> This layer displays loading and paid parking zones used in the AT Park appliation. &nbsp;It also includes mobility parking facilities that are in Auckland Transport's Authority. &nbsp;Note that the mobility parking data provided here may differ from that displayed in AT Park and includes a more complete overview of AT's mobility parking across Auckland. &nbsp;</div><div>&nbsp;</div><div>You can also view mobility parking in AT's <a target='_blank' href='https://experience.arcgis.com/experience/1ce82a2489a44454bfc6cd2996c0586a' rel='nofollow ugc noopener noreferrer'>Mobility Parking map</a>.</div><div>&nbsp;</div><div><strong>Source:</strong> Auckland Transport GIS</div><div>&nbsp;</div><div><strong>Update Cycle:</strong>&nbsp;Scheduled daily</div><div>&nbsp;</div><div><strong>GIS Contact:</strong> AskGIS@at.govt.nz</div>",
+      "keyword": ["Open Data", "AT Park", "Parking"],
+      "issued": "2016-12-08T22:05:30.000Z",
+      "modified": "2026-11-07T12:00:39.300Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4356,-37.2557,175.0698,-36.2856",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::mobility-zones"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingZone/FeatureServer/2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/csv?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/shapefile?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/geojson?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/kml?layers=2"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=dbe7e823362a495eb9d053e1514011f1&sublayer=3",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::paid-parking-zones",
+      "title": "Paid Parking Zones",
+      "description": "<div><strong>Purpose:</strong> This layer displays loading and paid parking zones used in the AT Park appliation. &nbsp;It also includes mobility parking facilities that are in Auckland Transport's Authority. &nbsp;Note that the mobility parking data provided here may differ from that displayed in AT Park and includes a more complete overview of AT's mobility parking across Auckland. &nbsp;</div><div>&nbsp;</div><div>You can also view mobility parking in AT's <a target='_blank' href='https://experience.arcgis.com/experience/1ce82a2489a44454bfc6cd2996c0586a' rel='nofollow ugc noopener noreferrer'>Mobility Parking map</a>.</div><div>&nbsp;</div><div><strong>Source:</strong> Auckland Transport GIS</div><div>&nbsp;</div><div><strong>Update Cycle:</strong>&nbsp;Scheduled daily</div><div>&nbsp;</div><div><strong>GIS Contact:</strong> AskGIS@at.govt.nz</div>",
+      "keyword": ["Open Data", "AT Park", "Parking"],
+      "issued": "2016-12-08T22:05:30.000Z",
+      "modified": "2026-11-07T12:00:38.187Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6101,-36.9994,174.9969,-36.7154",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::paid-parking-zones"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/ParkingZone/FeatureServer/3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/csv?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/shapefile?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/geojson?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/dbe7e823362a495eb9d053e1514011f1/kml?layers=3"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=caf7e0554ec840c8b8da572df025c833&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::roadworks",
+      "title": "Roadworks",
+      "description": "<div><span style='box-sizing:border-box;'><div style='box-sizing:border-box;'><span style='box-sizing:border-box;'><b>Purpose</b>: </span><span style='box-sizing:border-box;'>This layer displays the location and extent of project sites lodged in the MyWorksites system, across the Auckland region. M</span>yWorksites is an online system for managing Corridor Access Requests (CARs) and Traffic Management Plans (TMPs)</div><div style='box-sizing:border-box;'><span style='box-sizing:border-box;'><br /></span></div><div style='box-sizing:border-box;'><span style='box-sizing:border-box;'><b>Source</b>:</span><span style='box-sizing:border-box;'><span style='box-sizing:border-box;'> The data</span></span><span style='box-sizing:border-box;'> is extracted using the MyWorksites API feed. It is refreshed on a daily basis by an FME Flow automation.</span><br /></div><div style='box-sizing:border-box;'><br /></div><div style='box-sizing:border-box;'><span style='box-sizing:border-box;'><b>Update Cycle</b>:</span><span style='box-sizing:border-box;'> </span><span style='box-sizing:border-box;'>Daily</span></div><div style='box-sizing:border-box;'><br /></div></span><span style='box-sizing:border-box;'><b>Disclaimer</b>: </span><span style='box-sizing:border-box;'>Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data. Users of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use. This data should not be used in isolation from other sources of advice and information.</span><br /></div>",
+      "keyword": ["road", "works", "myWorksite", "projects", "Roading", "myWorksites", "open data"],
+      "issued": "2017-03-29T02:34:59.000Z",
+      "modified": "2026-11-07T12:01:30.242Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "ATeamGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4429,-37.2699,175.2656,-36.1496",
+      "license": "",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::roadworks"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/PJ_Roadworks_MS/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/caf7e0554ec840c8b8da572df025c833/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/caf7e0554ec840c8b8da572df025c833/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/caf7e0554ec840c8b8da572df025c833/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/caf7e0554ec840c8b8da572df025c833/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=2ba102832e8b4d69a15e33e9a1c8d63a&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::at-infrastructure-projects",
+      "title": "AT Infrastructure Projects",
+      "description": "This data provides overview to AT's planned and asset management activities happening in Auckland Region. The data is sourced from Auckland Transport's operational systems and updates weekly.<div><br /></div><div><div>Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data. Users of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use. This data should not be used in isolation from other sources of advice and information.</div></div>",
+      "keyword": [
+        "Open Data",
+        "Auckland Transport",
+        "Public Projects",
+        "Auckland Transport Public Projects",
+        "Infrastructure",
+        "Renewals",
+        "Roading",
+        "Traffic"
+      ],
+      "issued": "2019-05-02T01:04:09.000Z",
+      "modified": "2026-11-04T13:29:43.749Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4163,-37.2661,175.1968,-36.1418",
+      "license": "",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::at-infrastructure-projects"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/PublicProjects/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/2ba102832e8b4d69a15e33e9a1c8d63a/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/2ba102832e8b4d69a15e33e9a1c8d63a/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/2ba102832e8b4d69a15e33e9a1c8d63a/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/2ba102832e8b4d69a15e33e9a1c8d63a/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/maps/ATgis::owodroutes",
+      "title": "OWODRoutes",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2019-11-12T21:13:25.000Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.3407,-37.2732,175.1494,-36.2470",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/maps/ATgis::owodroutes"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=0",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::overdimension-route",
+      "title": "Overdimension Route",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:50.724Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.4613,-37.2555,175.0255,-36.5281",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::overdimension-route"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=0"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=0"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=1",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::overweight-route",
+      "title": "Overweight Route",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:47.025Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5139,-37.2122,174.9686,-36.5270",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::overweight-route"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=1"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=1"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=2",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::hpmv-detour",
+      "title": "HPMV Detour",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:49.130Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5919,-37.2235,174.9835,-36.5259",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::hpmv-detour"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=2"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=2"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=3",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::50-max-restricted",
+      "title": "50 Max Restricted",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:52.025Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.3390,-37.1640,174.9058,-36.2513",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::50-max-restricted"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=3"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=3"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=4",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::height-restrictions",
+      "title": "Height Restrictions",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:51.552Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.5399,-37.2123,174.9590,-36.2654",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::height-restrictions"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=4"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=4"
+        }
+      ],
+      "theme": ["geospatial"]
+    },
+    {
+      "@type": "dcat:Dataset",
+      "identifier": "https://www.arcgis.com/home/item.html?id=a9ca449d672d49d0bda71352b5c6fa64&sublayer=5",
+      "landingPage": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::tunnel-restrictions",
+      "title": "Tunnel Restrictions",
+      "description": "This data is obtained from our Asset Inventory Database and is refreshed weekly.\n\nPlease note that while all due care has been taken in the preparation and provision of this service, Auckland Transport (AT) does not give any warranty that the information contained is accurate and accepts no liability whatsoever for any loss or damage arising from the use of the data.\n\nUsers of this data should apply and rely upon their own skill and judgement when using the information, and consider the consequences arising from its use.\n\nThis data should not be used in isolation from other sources of advice and information.",
+      "keyword": ["OWOD", "Open Data", "Freight Network", "Overweight", "Overdimension", "over"],
+      "issued": "2017-01-26T00:23:18.000Z",
+      "modified": "2026-11-04T13:01:45.289Z",
+      "publisher": {
+        "name": "Auckland Transport"
+      },
+      "contactPoint": {
+        "@type": "vcard:Contact",
+        "fn": "svcFME_ATGIS",
+        "hasEmail": "{{orgContactEmail}}"
+      },
+      "accessLevel": "public",
+      "spatial": "174.6874,-36.9042,174.8414,-36.5312",
+      "license": "https://creativecommons.org/licenses/by/4.0",
+      "distribution": [
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS Hub Dataset",
+          "format": "Web Page",
+          "mediaType": "text/html",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/datasets/ATgis::tunnel-restrictions"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "ArcGIS GeoService",
+          "format": "ArcGIS GeoServices REST API",
+          "mediaType": "application/json",
+          "accessURL": "https://services2.arcgis.com/JkPEgZJGxhSjYOo0/arcgis/rest/services/OWODRoutes/FeatureServer/5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "CSV",
+          "format": "CSV",
+          "mediaType": "text/csv",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/csv?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "Shapefile",
+          "format": "ZIP",
+          "mediaType": "application/zip",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/shapefile?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "GeoJSON",
+          "format": "GeoJSON",
+          "mediaType": "application/vnd.geo+json",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/geojson?layers=5"
+        },
+        {
+          "@type": "dcat:Distribution",
+          "title": "KML",
+          "format": "KML",
+          "mediaType": "application/vnd.google-earth.kml+xml",
+          "accessURL": "https://data-atgis.opendata.arcgis.com/api/download/v1/items/a9ca449d672d49d0bda71352b5c6fa64/kml?layers=5"
+        }
+      ],
+      "theme": ["geospatial"]
+    }
+  ]
+}

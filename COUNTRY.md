@@ -9,9 +9,10 @@ key from the environment to unlock more. Keys stay server-side.
 
 ## Adapters
 
-All sixteen were probed keyless from an Auckland connection. The first fourteen
-were checked on 2026-10-08, Infoshare on 2026-11-06, and MBIE open data on
-2026-11-07; all answered. Fixture dates are the capture dates.
+All twenty-two were probed keyless from an Auckland connection. The first
+fourteen were checked on 2026-10-08, Infoshare on 2026-11-06, MBIE open data on
+2026-11-07, and six more on 2026-11-08; all answered. Fixture dates are the
+capture dates.
 
 | Source | Adapter id | Status |
 | --- | --- | --- |
@@ -31,6 +32,12 @@ were checked on 2026-10-08, Infoshare on 2026-11-06, and MBIE open data on
 | LRIS land and soil layers | `lris` | Live, keyless |
 | Waka Kotahi holiday hotspots | `nzta` | Live, keyless; sends `Accept: application/json` |
 | Waka Kotahi open data hub | `nzta-open-data` | Live, keyless; DCAT 1.1 catalogue, fixture captured 2026-10-05 |
+| LRIS topographic basemaps | `lris-basemaps` | Live, keyless; OGC WMS capabilities |
+| NIWA River Environment Classification | `niwa-rec` | Live, keyless; OGC WMS capabilities |
+| Stats NZ Geographic Data Service | `stats-nz-geographic` | Live, keyless; layer search on datafinder |
+| Whanganui District Council GeoNode | `whanganui-geospatial` | Live, keyless; first 100 datasets |
+| Christchurch City open data | `christchurch-open-data` | Live, keyless; DCAT 1.1 catalogue |
+| Auckland Transport open GIS data | `auckland-transport-open-data` | Live, keyless; DCAT 1.1 catalogue |
 
 A key that is set but blank is treated as unset. An empty `LINZ_API_KEY` or
 `DIGITAL_NZ_API_KEY` is trimmed away at the boundary, so the request goes out
@@ -38,25 +45,28 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 
 ## Checklist
 
-- [x] Sixteen keyless adapters, each with a live fetch, a strict parse, and a
+- [x] Twenty-two keyless adapters, each with a live fetch, a strict parse, and a
       committed fixture
 - [x] Shared HTTP layer (`httpGet`, `httpPost`): one User-Agent, 30 second timeout,
       `retryable` on 429, 5xx and network failures
 - [x] HTTP API with an OpenAPI spec, Swagger UI, and a contract test
 - [x] CLI that prints JSON or CSV
 - [x] Dockerfile with a non-root user and a health check
-- [x] Python and Ruby ports for 8 of the 16 adapters
+- [x] Python and Ruby ports for 8 of the 22 adapters
 - [ ] Publish the ports to PyPI and RubyGems
-- [ ] Port the remaining eight adapters (`arcgis`, `infoshare`, `lawa`,
-      `mbie-open-data`, `mfe`, `lris`, `nzta`, `nzta-open-data`)
+- [ ] Port the remaining fourteen adapters (`arcgis`,
+      `auckland-transport-open-data`, `christchurch-open-data`, `infoshare`,
+      `lawa`, `lris`, `lris-basemaps`, `mbie-open-data`, `mfe`, `niwa-rec`,
+      `nzta`, `nzta-open-data`, `stats-nz-geographic`, `whanganui-geospatial`)
 - [x] Return source-supplied licence and attribution metadata per record:
-      `arcgis`, `data-govt-nz`, `digitalnz`, `mbie-open-data` and
-      `nzta-open-data`
-- [ ] Add licence and attribution metadata to the other eleven adapters:
+      `arcgis`, `auckland-transport-open-data`, `christchurch-open-data`,
+      `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nzta-open-data` and
+      `whanganui-geospatial`
+- [ ] Add licence and attribution metadata to the other fourteen adapters:
       `ade-search`, `data-govt-datastore`, `geonet`, `infoshare`, `lawa`,
-      `linz`, `lris`, `mfe`, `nzor`, `nzta` and `trademe`. Most publish terms
-      of use instead of a per-record licence, so each source needs its own
-      decision
+      `linz`, `lris`, `lris-basemaps`, `mfe`, `niwa-rec`, `nzor`,
+      `stats-nz-geographic`, `nzta` and `trademe`. Most publish terms of use
+      instead of a per-record licence, so each source needs its own decision
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, Koordinates,
       Auckland Transport
 

@@ -305,7 +305,7 @@ function statsNzFormat(value: unknown): StatsNzDataFormat | undefined {
 }
 
 /**
- * Builds the NZ MCP server: the 16 keyless NZ sources, plus the Stats NZ ADE
+ * Builds the NZ MCP server: the 22 keyless NZ sources, plus the Stats NZ ADE
  * catalogue, data, and codelist tools.
  *
  * @returns an MCP server ready to connect to a transport

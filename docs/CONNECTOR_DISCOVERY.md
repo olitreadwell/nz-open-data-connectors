@@ -242,6 +242,140 @@ present, `rights` is the only licence pointer the source supplies.
 - Not verified: behaviour from non-NZ IPs. The catalogue host is the same one
   that data.govt.nz uses, and the existing smoke test skips that host.
 
+## 2026-11-08 addition: six keyless adapters
+
+Six more keyless adapters were built and probed against the live services on
+2026-11-08. They are the LRIS topographic basemaps WMS, the NIWA River
+Environment Classification WMS, the Stats NZ Geographic Data Service, the
+Whanganui District Council GeoNode catalogue, and the Christchurch City and
+Auckland Transport ArcGIS Hub DCAT catalogues.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `lris-basemaps` | LRIS, Landcare Research | `https://maps.scinfo.org.nz/basemaps/wms?service=WMS&request=GetCapabilities` | `lris-basemaps-wms-2026-11-08.xml` |
+| `niwa-rec` | NIWA | `https://geoserver.niwa.co.nz/rec/wms?service=WMS&request=GetCapabilities` | `niwa-rec-wms-2026-11-08.xml` |
+| `stats-nz-geographic` | Stats NZ Geographic Data Service | `https://datafinder.stats.govt.nz/services/api/v1/layers?search=meshblock` | `stats-nz-geographic-meshblock-2026-11-08.json` |
+| `whanganui-geospatial` | Whanganui District Council | `https://geonode.whanganui.govt.nz/api/v2/datasets/?page_size=100` | `whanganui-geonode-datasets-2026-11-08.json` |
+| `christchurch-open-data` | Christchurch City Council | `https://opendata-christchurchcity.hub.arcgis.com/api/feed/dcat-us/1.1.json` | `christchurch-open-data-2026-11-08.json` |
+| `auckland-transport-open-data` | Auckland Transport | `https://data-atgis.opendata.arcgis.com/api/feed/dcat-us/1.1.json` | `auckland-transport-open-data-2026-11-08.json` |
+
+### Exact curl commands
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+# LRIS topographic basemaps WMS capabilities
+curl -sS -L -A "$UA" \
+  "https://maps.scinfo.org.nz/basemaps/wms?service=WMS&request=GetCapabilities" \
+  -o lris-basemaps-wms-2026-11-08.xml
+
+# NIWA River Environment Classification WMS capabilities
+curl -sS -L -A "$UA" \
+  "https://geoserver.niwa.co.nz/rec/wms?service=WMS&request=GetCapabilities" \
+  -o niwa-rec-wms-2026-11-08.xml
+
+# Stats NZ Geographic Data Service layer search
+curl -sS -L -A "$UA" \
+  "https://datafinder.stats.govt.nz/services/api/v1/layers?search=meshblock" \
+  -o stats-nz-geographic-meshblock-2026-11-08.json
+
+# Whanganui District Council GeoNode dataset list
+curl -sS -L -A "$UA" \
+  "https://geonode.whanganui.govt.nz/api/v2/datasets/?page_size=100" \
+  -o whanganui-geonode-datasets-2026-11-08.json
+
+# Christchurch City open data DCAT 1.1 catalogue
+curl -sS -L -A "$UA" \
+  "https://opendata-christchurchcity.hub.arcgis.com/api/feed/dcat-us/1.1.json" \
+  -o christchurch-open-data-2026-11-08.json
+
+# Auckland Transport open GIS DCAT 1.1 catalogue
+curl -sS -L -A "$UA" \
+  "https://data-atgis.opendata.arcgis.com/api/feed/dcat-us/1.1.json" \
+  -o auckland-transport-open-data-2026-11-08.json
+```
+
+### Live response evidence
+
+The same requests returned these responses from an Auckland connection on
+2026-11-08. Each body was saved as the committed fixture.
+
+| Adapter | HTTP status | Content type | Bytes |
+| --- | --- | --- | --- |
+| `lris-basemaps` | 200 | `text/xml; charset=UTF-8` | 23905 |
+| `niwa-rec` | 200 | `text/xml` | 224131 |
+| `stats-nz-geographic` | 200 | `application/json` | 63777 |
+| `whanganui-geospatial` | 200 | `application/json` | 1155925 |
+| `christchurch-open-data` | 200 | `application/json; charset=utf-8` | 1580589 |
+| `auckland-transport-open-data` | 200 | `application/json; charset=utf-8` | 136115 |
+
+### Shape notes
+
+- The two WMS adapters read a WMS 1.3.0 `GetCapabilities` document. They return
+  the service title and abstract plus a flat list of named layers. Each layer
+  carries its title, abstract, `queryable` flag, declared CRS list, and
+  `EX_GeographicBoundingBox`. CRS codes and bounds are not inherited from a
+  parent layer.
+- `lris-basemaps` returns 12 named layers. The first is `ext_basemap`, titled
+  "Landcare Research NZ Topographic Baselayer".
+- `niwa-rec` returns one named layer, `rivers`, titled "REC2 River network".
+  Its capabilities document has no service title or abstract.
+- `stats-nz-geographic` reads the Koordinates layer search API used by
+  datafinder. The response is a JSON array. The adapter keeps the layer id,
+  title, url, type, first and latest publication dates, featured date, services
+  url, public access level, capabilities, and permissions. The default live
+  probe searches for "meshblock" and returns 100 layers.
+- `whanganui-geospatial` reads GeoNode API v2. The response is one page with
+  `total`, `page`, `page_size`, and `datasets`. The adapter requests 100 rows,
+  reports the catalogue total (257), and keeps each dataset's key, name, title,
+  abstract, subtype, date, last updated date, detail and download urls,
+  workspace, licence identifier, extent, and owner username and email.
+- `christchurch-open-data` and `auckland-transport-open-data` read DCAT 1.1
+  catalogues. They share the strict parser introduced for `nzta-open-data`.
+  The feeds carry 478 and 45 datasets. Each dataset keeps identifier, title,
+  description, landing page, keywords, issued and modified dates, publisher,
+  contact, licence, themes, spatial value, and distributions. `theme` arrives
+  as a list or a string, and the parser normalizes both to a string list.
+
+### Licence
+
+- `lris-basemaps`: the WMS `Service` block declares `Fees: none` and an empty
+  `AccessConstraints` value. Check the LRIS terms before reuse.
+- `niwa-rec`: the WMS `Service` block declares `Fees: none` and
+  `AccessConstraints: none`. Check the NIWA terms before reuse.
+- `stats-nz-geographic`: Stats NZ content is Creative Commons Attribution 4.0
+  International unless the layer page says otherwise.
+- `whanganui-geospatial`: each dataset carries a `license.identifier`. On the
+  captured first page, most values are `not_specified` or empty. Check the
+  dataset page before reuse.
+- `christchurch-open-data`: most datasets point at CC BY 4.0. Some carry custom
+  council, Landcare, or Sentinel terms, and some have a blank licence value.
+  The adapter returns the raw `license` value.
+- `auckland-transport-open-data`: 42 of the 45 datasets point at CC BY 4.0.
+  Three have a blank licence value. The adapter returns the raw `license`
+  value.
+
+### Verification status
+
+- All six curl commands returned HTTP 200 from an Auckland connection on
+  2026-11-08. The fixtures are the same response bodies.
+- A live probe through the built package returned the following:
+  `lris-basemaps` OK, 12 layers, first `ext_basemap`; `niwa-rec` OK, 1 layer,
+  first `rivers`; `stats-nz-geographic` OK, 100 layers, first
+  "General Electorates 2025"; `whanganui-geospatial` OK, total 257, 100 rows,
+  first "Addresses DEPRECATED"; `christchurch-open-data` OK, 478 datasets;
+  `auckland-transport-open-data` OK, 45 datasets.
+- Node 26's built-in fetch negotiates HTTP/2 with the GeoNode host and the
+  stream closes with `NGHTTP2_PROTOCOL_ERROR`. The host answers HTTP/1.1
+  normally, so `whanganui-geospatial` tries the default fetch first and falls
+  back to an HTTP/1.1 fetch implementation through the shared `httpGet`
+  helper when the transport fails. The adapter probe succeeded after that
+  change. This is recorded because the same host may need the same treatment
+  in another runtime.
+- The unit tests use the committed fixtures only. They never hit the network.
+- Not verified: behaviour from non-NZ IPs, or whether the licence values are
+  stable over time.
+
 ## Licences and attribution
 
 The MIT licence in this repo covers the code, not the data. Every source keeps
@@ -249,9 +383,9 @@ its own terms, and the publisher's licence is the one that applies.
 
 The table uses source field names when it describes an API response, and the
 adapter's camelCase output name when it describes what this library returns.
-CKAN and DigitalNZ source fields use snake_case; ArcGIS Hub source fields use
-camelCase. For example, CKAN's `license_id` becomes `licenseId`, and DigitalNZ's
-`rights_url` becomes `rightsUrl`.
+CKAN, DigitalNZ and GeoNode source fields use snake_case; ArcGIS Hub source
+fields use camelCase. For example, CKAN's `license_id` becomes `licenseId`,
+and DigitalNZ's `rights_url` becomes `rightsUrl`.
 
 | Adapter | Publisher | Licence position |
 | --- | --- | --- |
@@ -271,15 +405,22 @@ camelCase. For example, CKAN's `license_id` becomes `licenseId`, and DigitalNZ's
 | `lris` | Landcare Research, on the Koordinates platform | Per layer |
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
+| `lris-basemaps` | Landcare Research, on the LRIS basemaps WMS | The WMS `Service` block declares `Fees: none` and an empty `AccessConstraints` value. Check the LRIS terms |
+| `niwa-rec` | NIWA, on the REC WMS | The WMS `Service` block declares `Fees: none` and `AccessConstraints: none`. Check the NIWA terms |
+| `stats-nz-geographic` | Stats NZ Geographic Data Service, on the Koordinates platform | Creative Commons Attribution 4.0 International unless the layer page says otherwise |
+| `whanganui-geospatial` | Whanganui District Council, on GeoNode | Per dataset. The GeoNode API returns `license.identifier`, and the adapter passes it through as `licenseIdentifier`. Most captured values are `not_specified` or empty |
+| `christchurch-open-data` | Christchurch City Council open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. Most datasets point at CC BY 4.0; some carry custom council, Landcare, or Sentinel terms, and some are blank |
+| `auckland-transport-open-data` | Auckland Transport open GIS data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. 42 of the 45 captured datasets point at CC BY 4.0; three are blank |
 
-Two things follow from the table. First, `arcgis`, `data-govt-nz`, `digitalnz`,
-`mbie-open-data` and `nzta-open-data` return the licence, rights or attribution
-metadata their source supplies. The other eleven adapters still need a
-per-source decision, because most publish terms of use instead of per-record
-metadata; a caller who needs to republish a dataset from one of them has to
-check the publisher. Those sources are the narrowed open item in `COUNTRY.md`.
-Second, NZOR is the one source here that rules out commercial use, so treat
-results from it accordingly.
+Two things follow from the table. First, `arcgis`,
+`auckland-transport-open-data`, `christchurch-open-data`, `data-govt-nz`,
+`digitalnz`, `mbie-open-data`, `nzta-open-data` and `whanganui-geospatial`
+return the licence, rights or attribution metadata their source supplies. The
+other fourteen adapters still need a per-source decision, because most publish
+terms of use instead of per-record metadata; a caller who needs to republish a
+dataset from one of them has to check the publisher. Those sources are the
+narrowed open item in `COUNTRY.md`. Second, NZOR is the one source here that
+rules out commercial use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
