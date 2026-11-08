@@ -35,11 +35,11 @@ Fixture dates are the capture dates.
 | LRIS topographic basemaps | `lris-basemaps` | Live, keyless; OGC WMS capabilities |
 | NIWA River Environment Classification | `niwa-rec` | Live, keyless; OGC WMS capabilities |
 | Stats NZ Geographic Data Service | `stats-nz-geographic` | Live, keyless; layer search on datafinder |
-| Whanganui District Council GeoNode | `whanganui-geospatial` | Live, keyless; first 100 datasets |
+| Whanganui District Council GeoNode | `whanganui-geospatial` | Live, keyless; first page of datasets |
 | Christchurch City open data | `christchurch-open-data` | Live, keyless; DCAT 1.1 catalogue |
 | Auckland Transport open GIS data | `auckland-transport-open-data` | Live, keyless; DCAT 1.1 catalogue |
-| Canterbury Maps open data | `canterbury-maps` | Live, keyless; DCAT 1.1 catalogue, 480 datasets |
-| Wellington City open data | `wellington-city-open-data` | Live, keyless; DCAT 1.1 catalogue, 481 datasets |
+| Canterbury Maps open data | `canterbury-maps` | Live, keyless; DCAT 1.1 catalogue |
+| Wellington City open data | `wellington-city-open-data` | Live, keyless; DCAT 1.1 catalogue |
 | Electricity Authority datasets | `electricity-authority` | Live, keyless; first page of the public Azure Blob container listing |
 | NZPAM Geodata Catalogue | `nzpam-geodata` | Live, keyless; 13 public ArcGIS REST services |
 
@@ -49,16 +49,16 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
 
 ## Checklist
 
-- [x] Twenty-six keyless adapters, each with a live fetch, a strict parse, and a
+- [x] Keyless adapters, each with a live fetch, a strict parse, and a
       committed fixture
 - [x] Shared HTTP layer (`httpGet`, `httpPost`): one User-Agent, 30 second timeout,
       `retryable` on 429, 5xx and network failures
 - [x] HTTP API with an OpenAPI spec, Swagger UI, and a contract test
 - [x] CLI that prints JSON or CSV
 - [x] Dockerfile with a non-root user and a health check
-- [x] Python and Ruby ports for 8 of the 26 adapters
+- [x] Python and Ruby ports for part of the adapter set
 - [ ] Publish the ports to PyPI and RubyGems
-- [ ] Port the remaining eighteen adapters (`arcgis`,
+- [ ] Port the remaining adapters (`arcgis`,
       `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
       `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
       `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`,
@@ -69,7 +69,7 @@ keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
       `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
       `nzta-open-data`, `wellington-city-open-data` and
       `whanganui-geospatial`
-- [ ] Add licence and attribution metadata to the other sixteen adapters:
+- [ ] Add licence and attribution metadata to the other adapters:
       `ade-search`, `data-govt-datastore`, `electricity-authority`, `geonet`,
       `infoshare`, `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`, `niwa-rec`,
       `nzpam-geodata`, `nzor`, `stats-nz-geographic`, `nzta` and `trademe`.

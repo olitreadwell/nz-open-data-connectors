@@ -1,11 +1,11 @@
 # @nz-open-data-connectors/nz-sources
 
-Uniform TypeScript adapters for 26 New Zealand public data sources. Node.js and TypeScript users call them directly.
+Uniform TypeScript adapters for New Zealand public data sources. Node.js and TypeScript users call them directly.
 
 ## What this package does
 
 - Gives every adapter the same shape: a live fetch, a strict parse, and a committed fixture for tests.
-- Ships 26 adapters. Every one works without an API key.
+- Ships one adapter per supported source. Every one works without an API key.
 - Accepts an optional key for DigitalNZ and LINZ.
 - Runs its tests offline against real fixture snapshots.
 
@@ -69,7 +69,7 @@ for (const probe of probes) {
 - The NZOR hosts have failed the TLS handshake since 2026-09-21. The adapter stays for its committed fixture.
 - Infoshare returns the first 20 table matches per search. The adapter does not follow its ASP.NET pagination, so use the total count to decide whether to narrow the query.
 - The WMS adapters return service metadata and named layers. They do not request map tiles.
-- Whanganui GeoNode returns the first 100 datasets and reports the catalogue total. The adapter does not follow its pagination.
+- Whanganui GeoNode returns the first page of datasets and reports the catalogue total. The adapter does not follow its pagination.
 - Whanganui GeoNode falls back to HTTP/1.1 when Node's built-in fetch closes the HTTP/2 stream. The shared `httpGet` timeout and error mapping still apply.
 - Canterbury Maps and Wellington City read DCAT 1.1 feeds. Three Wellington City dataset titles arrive as JSON numbers, and the shared DCAT parser normalizes them to strings.
 - Electricity Authority returns the first page of its public Azure Blob container listing, with `nextMarker` for the next page. The live response carried 3,941 objects.

@@ -7,7 +7,7 @@ the full map.
 ## What this repo is
 
 TypeScript connectors for New Zealand public data, with Python and Ruby ports.
-One design, three languages. `packages/nz-sources` holds the 26 adapters,
+One design, three languages. `packages/nz-sources` holds the adapters,
 `packages/stats-nz` reads the Aotearoa Data Explorer (ADE) API,
 `packages/api` exposes both over HTTP, and `packages/cli` exposes them as
 `nzdata`. npm workspaces, one package per concern.
@@ -15,7 +15,7 @@ One design, three languages. `packages/nz-sources` holds the 26 adapters,
 ## Current state
 
 - `main` is the integration branch. Pull requests target `main`.
-- Twenty-six adapters, all keyless. DigitalNZ and LINZ accept an optional key
+- All adapters are keyless. DigitalNZ and LINZ accept an optional key
   from the environment to unlock more.
 - Every adapter fetches through `packages/nz-sources/src/http.ts` (`httpGet`
   and `httpPost`): one `User-Agent`, a 30 second timeout, and `retryable` set
@@ -23,8 +23,8 @@ One design, three languages. `packages/nz-sources` holds the 26 adapters,
 - Adapters live in `packages/nz-sources/src/*.ts` next to their tests, with
   committed fixtures in `packages/nz-sources/src/fixtures/`. Fixture filenames
   carry the capture date.
-- The Python and Ruby ports cover 8 of the 26 adapters plus the Stats NZ
-  client. Porting the other eighteen is separate work.
+- The Python and Ruby ports cover a subset of the adapters plus the Stats NZ
+  client. Porting the others is separate work.
 - `npm run check`, the Python gate and `bundle exec rake check` (Ruby) are
   green.
 
@@ -78,11 +78,11 @@ pytest, ruff and mypy.
    `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
    `nzta-open-data`, `wellington-city-open-data` and `whanganui-geospatial`
    adapters pass source-supplied licence or rights metadata through, with the
-   attribution fields the source supplies. The other sixteen adapters still
+   attribution fields the source supplies. The other adapters still
    need a per-source decision, because most publish terms of use instead of
    per-record metadata. The licence position per source is in
    `docs/CONNECTOR_DISCOVERY.md`.
-3. Port the eighteen missing adapters to Python and Ruby (`arcgis`,
+3. Port the missing adapters to Python and Ruby (`arcgis`,
    `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
    `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
    `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`,

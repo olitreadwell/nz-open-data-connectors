@@ -2,7 +2,7 @@
   "name": "@nz-open-data-connectors/nz-sources",
   "version": "0.1.4",
   "license": "MIT",
-  "description": "Keyless-first TypeScript clients for 26 New Zealand public data sources, with live probes and offline fixtures.",
+  "description": "Keyless-first TypeScript clients for New Zealand public data sources, with live probes and offline fixtures.",
   "keywords": [
     "new-zealand",
     "open-data",

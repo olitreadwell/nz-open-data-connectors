@@ -15,7 +15,7 @@ One design, three languages.
 - `python/` - a Python port of the same design (package name `nzdata`).
 - `ruby/` - a Ruby port of the same design (gem name `nzdata`).
 
-The ports cover 8 of the 22 adapters, so a new source lands in TypeScript
+The ports cover a subset of the adapters, so a new source lands in TypeScript
 first and in the ports only when someone ports it. A fix to a shared adapter
 lands in every language that carries that adapter. See `docs/ARCHITECTURE.md`
 for the full map and `docs/GLOSSARY.md` for terms.

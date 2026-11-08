@@ -8,7 +8,7 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 | Package | What it is |
 | ------- | ---------- |
-| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for 26 NZ public data sources, with live probes and offline fixtures |
+| [`@nz-open-data-connectors/nz-sources`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-sources) | Uniform adapters for NZ public data sources, with live probes and offline fixtures |
 | [`@nz-open-data-connectors/stats-nz`](https://www.npmjs.com/package/@nz-open-data-connectors/stats-nz) | Client for the Aotearoa Data Explorer (ADE) API: dataflow catalogue, data pulls, codelists, and CSV parsing |
 | [`@nz-open-data-connectors/nz-mcp`](https://www.npmjs.com/package/@nz-open-data-connectors/nz-mcp) | MCP server that exposes the connectors to Claude, ChatGPT, and other MCP clients |
 | `@nz-open-data-connectors/connectors-api` | Private. HTTP wrapper with an OpenAPI spec and Swagger UI, so any language can call the connectors over HTTP |
@@ -20,9 +20,9 @@ Keyless-first: every connector works without an API key. Optional keys unlock mo
 
 ## Connectors
 
-Twenty-six source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
-keyless. Two accept an optional key from the environment to unlock more:
-DigitalNZ with `DIGITAL_NZ_API_KEY` and LINZ with `LINZ_API_KEY`.
+Source adapters, all in `@nz-open-data-connectors/nz-sources`. Every one works
+keyless. DigitalNZ and LINZ accept an optional key from the environment to
+unlock more: `DIGITAL_NZ_API_KEY` and `LINZ_API_KEY`.
 
 The data is not ours, and each publisher keeps its own terms. GeoNet content
 is copyright Earth Sciences New Zealand (formerly GNS Science) and carries
@@ -54,7 +54,7 @@ Every adapter also sends the same `User-Agent`
 seconds for a response, and marks rate-limited (HTTP 429), server-error (HTTP
 5xx) and network failures as `retryable` on the thrown `NzSourceApiError`. The
 shared `httpGet` and `httpPost` helpers in `packages/nz-sources/src/http.ts` do
-this for all twenty-six adapters, so callers write nothing extra.
+this for every adapter, so callers write nothing extra.
 
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
@@ -91,8 +91,8 @@ One more keyless adapter, checked live on 2026-10-05 and covered by a committed
 fixture:
 
 - `nzta-open-data` reads the Waka Kotahi (NZTA) open data hub catalogue from
-  its DCAT 1.1 feed: 36 datasets, each with publisher, contact, themes, and a
-  per-dataset `license` value.
+  its DCAT 1.1 feed, with publisher, contact, themes, and a per-dataset
+  `license` value.
 
 The exact curl command and the licence notes are in
 `docs/CONNECTOR_DISCOVERY.md`.
@@ -109,9 +109,9 @@ The session flow and licence note are in `docs/CONNECTOR_DISCOVERY.md`.
 ### Added 2026-11-07
 
 `mbie-open-data` reads the Ministry of Business, Innovation and Employment
-datasets in the data.govt.nz catalogue: 34 datasets with their notes,
-downloadable resources, a licence value or rights link per dataset, and the
-source `author` and `organization` attribution. The MBIE open data page is
+datasets in the data.govt.nz catalogue, with their notes, downloadable
+resources, a licence value or rights link per dataset, and the source `author`
+and `organization` attribution. The MBIE open data page is
 behind a browser challenge, so the adapter uses the national CKAN catalogue
 filtered to the MBIE organisation.
 
@@ -306,9 +306,9 @@ Unit tests use committed fixture snapshots pulled from the live APIs, so they ru
 PyPI or RubyGems yet, so install from the repo. The publish workflows exist and
 fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
-Both ports mirror part of the TypeScript surface: 8 of the 26 adapters, the same
-Stats NZ client, the same fixture-based tests, and opt-in live smoke tests. The
-eighteen adapters the ports do not carry yet are `arcgis`,
+Both ports mirror part of the TypeScript surface: a subset of the adapters, the
+same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests.
+The adapters the ports do not carry yet are `arcgis`,
 `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
 `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
 `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`, `nzta-open-data`,

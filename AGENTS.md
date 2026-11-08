@@ -13,7 +13,7 @@ for the plain-language map, `docs/GLOSSARY.md` for terms.
 
 ## Repo map
 
-- `packages/nz-sources` - 26 adapters, one per NZ data source, plus a shared
+- `packages/nz-sources` - one adapter per NZ data source, plus a shared
   HTTP helper (`src/http.ts`) and committed fixtures (`src/fixtures/`)
 - `packages/stats-nz` - Aotearoa Data Explorer (ADE) client
 - `packages/api` - HTTP wrapper (Hono), OpenAPI spec, Swagger UI
