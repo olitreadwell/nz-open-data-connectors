@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Connectors: add keyless adapters for Auckland Transport, Canterbury Maps,
+  Christchurch open data, the Electricity Authority, LRIS basemaps, and MBIE
+  open data.
+- Connectors: add keyless adapters for NIWA REC, NZPAM geodata, Stats NZ
+  geographic data, Wellington City open data, and Whanganui geospatial data.
 - Python and Ruby ports: match TypeScript redirect credential handling and CSV and SDMX parsing.
 - MCP: add named tools for every registered source, probe only requested ids, reject unknown ids, and read the server version from package.json.
 
