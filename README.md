@@ -33,13 +33,16 @@ Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
 commercial use. The data.govt.nz catalogue, MBIE open data, the Waka Kotahi,
 Canterbury Maps, Wellington City, Christchurch City and Auckland Transport open
 data hubs, and the Whanganui GeoNode catalogue carry a licence value per
-dataset. DigitalNZ records carry
+dataset. DigitalNZ records, including New Zealand Gazette notices, carry
 `rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
 `usage` values. ArcGIS Hub datasets carry `licenseInfo`, `accessInformation`
-and `license` values. The `arcgis`, `auckland-transport-open-data`,
-`canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`,
-`mbie-open-data`, `nzta-open-data`, `wellington-city-open-data` and
-`whanganui-geospatial` adapters pass the source-supplied values through,
+and `license` values. Auckland Museum source records carry `copyright` and
+`dc_contributor` values, but the adapter returns only the first `copyright`
+value, so check the record page for the full rights and credit. The `arcgis`,
+`auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
+`data-govt-nz`, `digitalnz`, `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
+`wellington-city-open-data` and `whanganui-geospatial` adapters pass the
+source-supplied values through,
 including attribution fields where the source supplies them.
 Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case,
 and ArcGIS Hub uses camelCase (`licenseInfo`). Adapter output names use
@@ -59,16 +62,20 @@ this for every adapter, so callers write nothing extra.
 | id | Source | Keyless? | Key env var | Example command |
 | --- | --- | --- | --- | --- |
 | `geonet` | GeoNet (Earth Sciences New Zealand) | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet` |
+| `geonet-felt-rapid` | GeoNet felt rapid reports | Yes | - | `npx tsx packages/cli/src/cli.ts probe geonet-felt-rapid` |
 | `data-govt-nz` | data.govt.nz catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-nz` |
 | `data-govt-datastore` | data.govt.nz datastore (MSD benefits) | Yes | - | `npx tsx packages/cli/src/cli.ts probe data-govt-datastore` |
 | `ade-search` | Aotearoa Data Explorer search index | Yes | - | `npx tsx packages/cli/src/cli.ts probe ade-search` |
 | `infoshare` | Stats NZ Infoshare table catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe infoshare` |
 | `digitalnz` | DigitalNZ (National Library) | Yes | `DIGITAL_NZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe digitalnz` |
+| `nz-gazette` | New Zealand Gazette through DigitalNZ | Yes | - | `npx tsx packages/cli/src/cli.ts probe nz-gazette` |
 | `trademe` | Trade Me categories | Yes | - | `npx tsx packages/cli/src/cli.ts probe trademe` |
 | `nzor` | NZ Organisms Register | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzor` |
 | `linz` | LINZ Data Service catalogue | Yes | `LINZ_API_KEY` | `npx tsx packages/cli/src/cli.ts probe linz` |
 | `arcgis` | ArcGIS Hub open data (Auckland, Wellington, Canterbury, NZTA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe arcgis` |
+| `auckland-museum` | Auckland Museum collections online | Yes | - | `npx tsx packages/cli/src/cli.ts probe auckland-museum` |
 | `lawa` | LAWA river quality monitoring sites | Yes | - | `npx tsx packages/cli/src/cli.ts probe lawa` |
+| `charities-register` | Charities Register (DIA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe charities-register` |
 | `mfe` | MfE Data Service layer catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mfe` |
 | `lris` | LRIS land and soil layer search (Landcare Research) | Yes | - | `npx tsx packages/cli/src/cli.ts probe lris` |
 | `mbie-open-data` | MBIE datasets in the national catalogue | Yes | - | `npx tsx packages/cli/src/cli.ts probe mbie-open-data` |
@@ -83,6 +90,7 @@ this for every adapter, so callers write nothing extra.
 | `canterbury-maps` | Canterbury Maps open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe canterbury-maps` |
 | `wellington-city-open-data` | Wellington City open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe wellington-city-open-data` |
 | `electricity-authority` | Electricity Authority downloadable datasets | Yes | - | `npx tsx packages/cli/src/cli.ts probe electricity-authority` |
+| `ev-roam` | EV Roam charging stations (NZTA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe ev-roam` |
 | `nzpam-geodata` | NZPAM Geodata Catalogue public ArcGIS services | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzpam-geodata` |
 
 ### Added 2026-10-05
@@ -308,11 +316,13 @@ fire on `python-v*` and `ruby-v*` tags when a maintainer cuts a release.
 
 Both ports mirror part of the TypeScript surface: a subset of the adapters, the
 same Stats NZ client, the same fixture-based tests, and opt-in live smoke tests.
-The adapters the ports do not carry yet are `arcgis`,
-`auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
-`electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
-`mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`, `nzta-open-data`,
-`stats-nz-geographic`, `wellington-city-open-data` and `whanganui-geospatial`.
+The adapters the ports do not carry yet are `arcgis`, `auckland-museum`,
+`auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
+`christchurch-open-data`, `electricity-authority`, `ev-roam`,
+`geonet-felt-rapid`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
+`mbie-open-data`, `mfe`, `niwa-rec`, `nz-gazette`, `nzpam-geodata`, `nzta`,
+`nzta-open-data`, `stats-nz-geographic`, `wellington-city-open-data` and
+`whanganui-geospatial`.
 Each port
 has its own quality gates (`ruff` + `mypy` + coverage for Python, `rubocop` +
 coverage for Ruby) enforced in CI. See each directory's README for quickstarts

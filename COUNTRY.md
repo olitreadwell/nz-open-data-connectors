@@ -9,10 +9,10 @@ key from the environment to unlock more. Keys stay server-side.
 
 ## Adapters
 
-All thirty-one were probed keyless from an Auckland connection. The first
-fourteen were checked on 2026-10-08, Infoshare on 2026-11-06, MBIE open data on
-2026-11-07, ten more on 2026-11-08, and five more on 2026-11-16; all answered.
-Fixture dates are the capture dates.
+All thirty-one were probed keyless from an Auckland connection. Fourteen were
+checked on 2026-10-08, Infoshare on 2026-11-06, MBIE open data on 2026-11-07,
+ten more on 2026-11-08, and five more on 2026-11-16; all answered. Fixture
+dates are the capture dates.
 
 | Source | Adapter id | Status |
 | --- | --- | --- |
@@ -80,23 +80,25 @@ credentials exist.
 - [x] Dockerfile with a non-root user and a health check
 - [x] Python and Ruby ports for part of the adapter set
 - [ ] Publish the ports to PyPI and RubyGems
-- [ ] Port the remaining adapters (`arcgis`,
-      `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
-      `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
-      `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`,
-      `nzta-open-data`, `stats-nz-geographic`, `wellington-city-open-data`,
-      `whanganui-geospatial`)
+- [ ] Port the remaining adapters (`arcgis`, `auckland-museum`,
+      `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
+      `christchurch-open-data`, `electricity-authority`, `ev-roam`,
+      `geonet-felt-rapid`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
+      `mbie-open-data`, `mfe`, `niwa-rec`, `nz-gazette`, `nzpam-geodata`,
+      `nzta`, `nzta-open-data`, `stats-nz-geographic`,
+      `wellington-city-open-data`, `whanganui-geospatial`)
 - [x] Return source-supplied licence and attribution metadata per record:
       `arcgis`, `auckland-transport-open-data`, `canterbury-maps`,
       `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
-      `nzta-open-data`, `wellington-city-open-data` and
+      `nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and
       `whanganui-geospatial`
-- [ ] Add licence and attribution metadata to the other adapters:
-      `ade-search`, `data-govt-datastore`, `electricity-authority`, `geonet`,
-      `infoshare`, `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`, `niwa-rec`,
-      `nzpam-geodata`, `nzor`, `stats-nz-geographic`, `nzta` and `trademe`.
-      Most publish terms of use instead of a per-record licence, so each source
-      needs its own decision
+- [ ] Complete licence and attribution metadata for the other adapters:
+      `ade-search`, `auckland-museum`, `charities-register`,
+      `data-govt-datastore`, `electricity-authority`, `ev-roam`, `geonet`,
+      `geonet-felt-rapid`, `infoshare`, `lawa`, `linz`, `lris`, `lris-basemaps`,
+      `mfe`, `niwa-rec`, `nzpam-geodata`, `nzor`, `stats-nz-geographic`,
+      `nzta` and `trademe`. Most publish terms of use or only partial
+      per-record metadata, so each source needs its own decision
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 

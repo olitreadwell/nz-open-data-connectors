@@ -48,7 +48,7 @@ After a global install, the command is `nzdata`.
 ## Data sources and licences
 
 - This CLI reads the same sources as `@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz`.
-- The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ, Trade Me, NZOR, LINZ, ArcGIS Hub portals, LAWA, MfE, Landcare Research LRIS, and Waka Kotahi (NZTA).
+- The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ and the New Zealand Gazette, Trade Me, NZOR, LINZ, ArcGIS Hub portals, Auckland Museum, LAWA, Charities Register, MfE, Landcare Research LRIS, and Waka Kotahi (NZTA), including EV Roam.
 - The source URLs are in the `nz-sources` README.
 - The data is not covered by the package licence. Each publisher sets the licence for its own data. Check the source page before you reuse a dataset.
 

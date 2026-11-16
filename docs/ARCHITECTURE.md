@@ -12,11 +12,13 @@ One design, three languages.
 - Ruby: a port of the same design (`ruby/`, gem name `nzdata`).
 
 The ports carry a subset of the TypeScript adapters, plus the same Stats NZ
-client. The other adapters (`arcgis`, `auckland-transport-open-data`,
-`canterbury-maps`, `christchurch-open-data`, `electricity-authority`,
-`infoshare`, `lawa`, `lris`, `lris-basemaps`, `mbie-open-data`, `mfe`,
-`niwa-rec`, `nzpam-geodata`, `nzta`, `nzta-open-data`, `stats-nz-geographic`,
-`wellington-city-open-data`, `whanganui-geospatial`) are TypeScript only.
+client. The other adapters (`arcgis`, `auckland-museum`,
+`auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
+`christchurch-open-data`, `electricity-authority`, `ev-roam`,
+`geonet-felt-rapid`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
+`mbie-open-data`, `mfe`, `niwa-rec`, `nz-gazette`, `nzpam-geodata`, `nzta`,
+`nzta-open-data`, `stats-nz-geographic`, `wellington-city-open-data`,
+`whanganui-geospatial`) are TypeScript only.
 Porting them is separate work, so a new adapter lands in TypeScript first and
 in the ports only when someone ports it.
 
