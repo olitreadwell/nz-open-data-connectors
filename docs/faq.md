@@ -22,11 +22,15 @@ NZOR content is Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
 Zealand, so it is not for commercial use. data.govt.nz, MBIE open data, the
 Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland
 Transport open data hubs, and the Whanganui GeoNode catalogue carry a licence
-value per dataset, and DigitalNZ
-records carry `rights`, `rights_url`, `copyright`, `publisher`, `creator`,
-`contributor` and `usage` values. ArcGIS Hub datasets carry `licenseInfo`,
-`accessInformation` and `license` values. Source field names follow the API:
-CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase.
+value per dataset. Charities Register data is CC BY 3.0 NZ and EV Roam data is
+CC BY 4.0. DigitalNZ records, including New Zealand Gazette notices, carry
+`rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
+`usage` values. Auckland Museum source records carry `copyright` and
+`dc_contributor`, but the adapter returns only the first `copyright` value;
+check the record page for the full rights and credit. ArcGIS Hub datasets carry
+`licenseInfo`, `accessInformation` and `license` values. Source field names
+follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses
+camelCase.
 Adapter output names use camelCase, such as `rights_url` becoming `rightsUrl`.
 `docs/CONNECTOR_DISCOVERY.md` lists the position for every source.
 

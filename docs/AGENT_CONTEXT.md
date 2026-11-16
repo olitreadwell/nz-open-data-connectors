@@ -74,12 +74,13 @@ pytest, ruff and mypy.
 1. Publish the ports. `nzdata` is free on PyPI and RubyGems, and the publish
    workflows fire on `python-v*` and `ruby-v*` tags. Trusted publishing has to
    be enabled on PyPI before the first tag.
-2. The `arcgis`, `auckland-museum`, `auckland-transport-open-data`,
-   `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`,
-   `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
-   `wellington-city-open-data` and `whanganui-geospatial` adapters pass
-   source-supplied licence or rights metadata through, with the attribution
-   fields the source supplies. The other adapters still
+2. The `arcgis`, `auckland-transport-open-data`, `canterbury-maps`,
+   `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
+   `nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and
+   `whanganui-geospatial` adapters pass source-supplied licence or rights
+   metadata through, with the attribution fields the source supplies. The
+   `auckland-museum` adapter is partial: it returns only the first `copyright`
+   value and drops `dc_contributor` attribution. The other adapters still
    need a per-source decision, because most publish terms of use instead of
    per-record metadata. The licence position per source is in
    `docs/CONNECTOR_DISCOVERY.md`.

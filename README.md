@@ -33,10 +33,12 @@ Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, so it is not for
 commercial use. The data.govt.nz catalogue, MBIE open data, the Waka Kotahi,
 Canterbury Maps, Wellington City, Christchurch City and Auckland Transport open
 data hubs, and the Whanganui GeoNode catalogue carry a licence value per
-dataset. DigitalNZ records carry
+dataset. DigitalNZ records, including New Zealand Gazette notices, carry
 `rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
 `usage` values. ArcGIS Hub datasets carry `licenseInfo`, `accessInformation`
-and `license` values. The `arcgis`, `auckland-museum`,
+and `license` values. Auckland Museum source records carry `copyright` and
+`dc_contributor` values, but the adapter returns only the first `copyright`
+value, so check the record page for the full rights and credit. The `arcgis`,
 `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
 `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
 `wellington-city-open-data` and `whanganui-geospatial` adapters pass the
