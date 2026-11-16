@@ -35,16 +35,20 @@ for (const probe of probes) {
 | id | Source | Auth | What it does |
 | --- | --- | --- | --- |
 | `geonet` | GeoNet (GNS Science) | none | Recent felt earthquakes. |
+| `geonet-felt-rapid` | GeoNet felt rapid reports | none | Latest reported shaking points and MMI totals. |
 | `data-govt-nz` | data.govt.nz catalogue | none | Dataset search. |
 | `data-govt-datastore` | data.govt.nz datastore | none | Row pulls, defaulting to national MSD benefit data. |
 | `ade-search` | Aotearoa Data Explorer (ADE) search index | none | Table ID and title search. |
 | `infoshare` | Stats NZ Infoshare | none | Table search with folder path and last-updated date. |
 | `digitalnz` | DigitalNZ (National Library) | none | Record and media search. |
+| `nz-gazette` | New Zealand Gazette through DigitalNZ | none | Latest Gazette notices, newest first. |
 | `trademe` | Trade Me | none | The public category tree. |
 | `nzor` | New Zealand Organisms Register (NZOR) | none | Organism name search. |
 | `linz` | LINZ Data Service | none | Layer search for property titles, parcels, and boundaries. |
 | `arcgis` | ArcGIS Hub portals | none | Collection list and dataset search. |
+| `auckland-museum` | Auckland Museum collections online | none | Collection record search. |
 | `lawa` | Land, Air, Water Aotearoa (LAWA) | none | River quality monitoring sites. |
+| `charities-register` | Charities Register (DIA) | none | Organisation name search through the OData API. |
 | `mfe` | Ministry for the Environment (MfE) Data Service | none | Layer search for water, land, and climate data. |
 | `lris` | Landcare Research LRIS | none | Layer search for soil, land cover, and ecosystems. |
 | `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE) | none | MBIE datasets and downloadable files in the national catalogue. |
@@ -59,6 +63,7 @@ for (const probe of probes) {
 | `canterbury-maps` | Canterbury Maps open data hub | none | The hub's DCAT 1.1 catalogue. |
 | `wellington-city-open-data` | Wellington City open data hub | none | The hub's DCAT 1.1 catalogue. |
 | `electricity-authority` | Electricity Authority downloadable datasets | none | First page of the public Azure Blob container listing. |
+| `ev-roam` | EV Roam charging stations (NZTA) | none | Public EV charging station search. |
 | `nzpam-geodata` | NZPAM Geodata Catalogue | none | Public ArcGIS REST services for petroleum and minerals geodata. |
 
 ## Notes and limits
@@ -84,16 +89,20 @@ Each adapter reads one publisher. The table lists the source URL.
 | id | Source URL |
 | --- | --- |
 | `geonet` | `https://api.geonet.org.nz/quake` |
+| `geonet-felt-rapid` | `https://api.geonet.org.nz/intensity?type=reported` |
 | `data-govt-nz` | `https://catalogue.data.govt.nz/api/3/action/package_search` |
 | `data-govt-datastore` | `https://catalogue.data.govt.nz/api/3/action/datastore_search` |
 | `ade-search` | `https://explore.data.stats.govt.nz/sfs/api/search` |
 | `infoshare` | `https://infoshare.stats.govt.nz/SearchPage.aspx` |
 | `digitalnz` | `https://api.digitalnz.org/v3/records.json` |
+| `nz-gazette` | `https://api.digitalnz.org/v3/records.json` |
 | `trademe` | `https://api.trademe.co.nz/v1/Categories.json` |
 | `nzor` | `https://data.nzor.org.nz/names` |
 | `linz` | `https://data.linz.govt.nz/services/api/v1/layers` |
 | `arcgis` | `https://data-aucklandcouncil.opendata.arcgis.com/api/search/v1/collections` |
+| `auckland-museum` | `https://api.aucklandmuseum.com/search/collectionsonline/_search` |
 | `lawa` | `https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites` |
+| `charities-register` | `https://www.odata.charities.govt.nz/Organisations` |
 | `mfe` | `https://data.mfe.govt.nz/services/api/v1/layers` |
 | `lris` | `https://lris.scinfo.org.nz/services/api/v1/layers` |
 | `mbie-open-data` | `https://catalogue.data.govt.nz/api/3/action/package_search?fq=organization:ministry-of-business-innovation-and-employment` |
@@ -108,9 +117,10 @@ Each adapter reads one publisher. The table lists the source URL.
 | `canterbury-maps` | `https://opendata.canterburymaps.govt.nz/api/feed/dcat-us/1.1.json` |
 | `wellington-city-open-data` | `https://data-wcc.opendata.arcgis.com/api/feed/dcat-us/1.1.json` |
 | `electricity-authority` | `https://emidatasets.blob.core.windows.net/publicdata?restype=container&comp=list` |
+| `ev-roam` | `https://services.arcgis.com/CXBb7LAjgIIdcsPt/arcgis/rest/services/EV_Roam_charging_stations/FeatureServer/0/query` |
 | `nzpam-geodata` | `https://gis.nzpam.govt.nz/server/rest/services/Public?f=pjson` |
 
-The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare and the Geographic Data Service, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The `arcgis`, `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nzta-open-data`, `wellington-city-open-data` and `whanganui-geospatial` adapters return the source-supplied licence or rights metadata: `licenseInfo`, `accessInformation` and `license` for ArcGIS Hub datasets; `license` for the Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds; `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` for data.govt.nz; `rights`, `rightsUrl`, `copyright`, `publisher`, `contentPartner`, `creator`, `contributor` and `usage` for DigitalNZ records; `licenseId`, `licenseTitle`, `licenseUrl`, `author`, `organization` and `rights` for MBIE; `license` for the Waka Kotahi DCAT feed; and `licenseIdentifier` for Whanganui GeoNode datasets. Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; the values vary, so check each one. The Electricity Authority copyright statement licenses its material for reuse under CC BY 4.0 unless an item says otherwise; the dataset listing itself has no licence field. The NZPAM ArcGIS REST response has no licence field; check the publisher's terms. The LRIS basemaps and NIWA REC WMS services declare `Fees: none` and their own access constraints; check the publisher's terms. These terms were checked on 2026-11-08. Check the source page before you reuse any dataset.
+The data is not covered by the package licence. Each publisher sets the licence for its own data. Stats NZ content, including Infoshare and the Geographic Data Service, is licensed under Creative Commons Attribution 4.0 International (CC BY 4.0) unless a page says otherwise. The `arcgis`, `auckland-museum`, `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`, `nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and `whanganui-geospatial` adapters return the source-supplied licence or rights metadata: `licenseInfo`, `accessInformation` and `license` for ArcGIS Hub datasets; `copyright` for Auckland Museum records; `license` for the Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds; `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` for data.govt.nz; `rights`, `rightsUrl`, `copyright`, `publisher`, `contentPartner`, `creator`, `contributor` and `usage` for DigitalNZ records, including New Zealand Gazette notices; `licenseId`, `licenseTitle`, `licenseUrl`, `author`, `organization` and `rights` for MBIE; `license` for the Waka Kotahi DCAT feed; and `licenseIdentifier` for Whanganui GeoNode datasets. Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; the values vary, so check each one. The Electricity Authority copyright statement licenses its material for reuse under CC BY 4.0 unless an item says otherwise; the dataset listing itself has no licence field. The NZPAM ArcGIS REST response has no licence field; check the publisher's terms. The LRIS basemaps and NIWA REC WMS services declare `Fees: none` and their own access constraints; check the publisher's terms. These terms were checked on 2026-11-08. Check the source page before you reuse any dataset.
 
 ## Package licence
 

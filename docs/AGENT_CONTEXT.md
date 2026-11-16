@@ -74,18 +74,20 @@ pytest, ruff and mypy.
 1. Publish the ports. `nzdata` is free on PyPI and RubyGems, and the publish
    workflows fire on `python-v*` and `ruby-v*` tags. Trusted publishing has to
    be enabled on PyPI before the first tag.
-2. The `arcgis`, `auckland-transport-open-data`, `canterbury-maps`,
-   `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
-   `nzta-open-data`, `wellington-city-open-data` and `whanganui-geospatial`
-   adapters pass source-supplied licence or rights metadata through, with the
-   attribution fields the source supplies. The other adapters still
+2. The `arcgis`, `auckland-museum`, `auckland-transport-open-data`,
+   `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`,
+   `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
+   `wellington-city-open-data` and `whanganui-geospatial` adapters pass
+   source-supplied licence or rights metadata through, with the attribution
+   fields the source supplies. The other adapters still
    need a per-source decision, because most publish terms of use instead of
    per-record metadata. The licence position per source is in
    `docs/CONNECTOR_DISCOVERY.md`.
-3. Port the missing adapters to Python and Ruby (`arcgis`,
-   `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
-   `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
-   `mbie-open-data`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta`,
+3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
+   `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
+   `christchurch-open-data`, `electricity-authority`, `ev-roam`,
+   `geonet-felt-rapid`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
+   `mbie-open-data`, `mfe`, `niwa-rec`, `nz-gazette`, `nzpam-geodata`, `nzta`,
    `nzta-open-data`, `stats-nz-geographic`, `wellington-city-open-data`,
    `whanganui-geospatial`).
 4. Keyed connector backlog, each needing an API key before a live check:
