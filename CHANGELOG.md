@@ -1,10 +1,15 @@
 # Changelog
 
-## Unreleased
+## 0.2.0 (2026-11-16)
 
 - Connectors: add keyless adapters for the Charities Register OData search,
   Auckland Museum collections search, EV Roam charging stations, GeoNet felt
   rapid reports, and New Zealand Gazette notices through DigitalNZ.
+- MCP: depend on `nz-sources` 0.2.0 so `fetch_source` can reach the new
+  adapters.
+
+## Unreleased
+
 - Connectors: add keyless adapters for Auckland Transport, Canterbury Maps,
   Christchurch open data, the Electricity Authority, LRIS basemaps, and MBIE
   open data.
