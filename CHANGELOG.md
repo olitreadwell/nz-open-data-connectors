@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Connectors: add keyless adapters for the Charities Register OData search,
+  Auckland Museum collections search, EV Roam charging stations, GeoNet felt
+  rapid reports, and New Zealand Gazette notices through DigitalNZ.
 - Connectors: add keyless adapters for Auckland Transport, Canterbury Maps,
   Christchurch open data, the Electricity Authority, LRIS basemaps, and MBIE
   open data.

@@ -10,3 +10,7 @@ packages/nz-sources/src/fixtures/auckland-transport-open-data-*.json
 packages/nz-sources/src/fixtures/canterbury-maps-*.json
 packages/nz-sources/src/fixtures/wellington-city-open-data-*.json
 packages/nz-sources/src/fixtures/electricity-authority-datasets-*.xml
+packages/nz-sources/src/fixtures/auckland-museum-*.json
+packages/nz-sources/src/fixtures/ev-roam-*.json
+packages/nz-sources/src/fixtures/nz-gazette-*.json
+docs/CONNECTOR_DISCOVERY.md

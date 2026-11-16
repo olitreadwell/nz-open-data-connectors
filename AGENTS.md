@@ -64,7 +64,7 @@ Ruby changes run their own gates.
   `dataset` in one place and `flow` in another)
 - Register a new adapter in `packages/nz-sources/src/registry.ts` and export
   it from `packages/nz-sources/src/index.ts` in the same change
-- A new adapter lands in TypeScript first. The ports cover 8 of the 26
+- A new adapter lands in TypeScript first. The ports cover 8 of the 31
   adapters; the eighteen TypeScript-only ones are `arcgis`,
   `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
   `electricity-authority`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,

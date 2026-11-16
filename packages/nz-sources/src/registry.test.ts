@@ -73,6 +73,9 @@ describe('registry', () => {
             { status: 200, headers: { 'set-cookie': 'ASP.NET_SessionId=test; path=/' } }
           );
         }
+        if (hostname === 'api.geonet.org.nz' && url.includes('/intensity')) {
+          return jsonResponse(readFixtureJson('geonet-felt-rapid-2026-11-16.json'));
+        }
         if (hostname === 'api.geonet.org.nz') {
           return jsonResponse(readFixtureJson('geonet-quakes-mmi3.json'));
         }
@@ -88,8 +91,20 @@ describe('registry', () => {
         if (hostname === 'catalogue.data.govt.nz') {
           return jsonResponse(readFixtureJson('data-govt-nz-search-sheep.json'));
         }
+        if (hostname === 'api.digitalnz.org' && url.includes('New+Zealand+Gazette')) {
+          return jsonResponse(readFixtureJson('nz-gazette-2026-11-16.json'));
+        }
         if (hostname === 'api.digitalnz.org') {
           return jsonResponse(readFixtureJson('digitalnz-search-sheep.json'));
+        }
+        if (hostname === 'www.odata.charities.govt.nz') {
+          return jsonResponse(readFixtureJson('charities-register-red-cross-2026-11-16.json'));
+        }
+        if (hostname === 'api.aucklandmuseum.com') {
+          return jsonResponse(readFixtureJson('auckland-museum-ice-axe-2026-11-16.json'));
+        }
+        if (hostname === 'services.arcgis.com') {
+          return jsonResponse(readFixtureJson('ev-roam-charging-stations-2026-11-16.json'));
         }
         if (hostname === 'api.trademe.co.nz') {
           return jsonResponse(readFixtureJson('trademe-categories.json'));

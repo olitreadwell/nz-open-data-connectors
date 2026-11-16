@@ -1,0 +1,2365 @@
+{
+  "took": 1092,
+  "timed_out": false,
+  "_shards": { "total": 5, "successful": 5, "skipped": 0, "failed": 0 },
+  "hits": {
+    "total": { "value": 10000, "relation": "gte" },
+    "max_score": 29.095331,
+    "hits": [
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/humanhistory/object/671988",
+        "_score": 29.095331,
+        "_source": {
+          "copyright": ["© Auckland Museum CC BY"],
+          "notes": [
+            "This is the ice axe used by Sir Edmund Hillary during his ascent of Everest, in 1953. \"A few more whacks of the ice axe, a few weary steps, and we were on the summit of Everest (Ed Hillary, High Adventure, p208)\n\nThis French Simond Chamonix ice axe acquired by Sir Edmund in 1951, and was used by him on the final ascent with Tensing Norgay, on 29 May 1953. An image on the Simond website shows Claudius Simond and Sir Edmund Hillary together at Chamonix."
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/40092",
+                  "http://api.aucklandmuseum.com/id/person/40093"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/40092",
+                  "http://api.aucklandmuseum.com/id/person/40093",
+                  "http://api.aucklandmuseum.com/id/person/8473",
+                  "https://www.wikidata.org/wiki/Q33817",
+                  "http://dbpedia.org/page/Edmund_Hillary",
+                  "http://api.aucklandmuseum.com/id/person/p/1"
+                ],
+                "referred": [
+                  "http://api.aucklandmuseum.com/id/person/8473",
+                  "https://www.wikidata.org/wiki/Q33817",
+                  "http://dbpedia.org/page/Edmund_Hillary",
+                  "http://api.aucklandmuseum.com/id/person/p/1"
+                ]
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "displayLocation": ["North west stairs"],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Ice axe used by Sir Edmund Hillary on first ascent of Everest, 29 May 1953\nmarkings: Claudius Simond / CHAMONIX MONT BLANC"
+          ],
+          "type": "ecrm:E22_Man-Made_Object",
+          "content": [
+            "Ice axe used by Sir Edmund Hillary on first ascent of Everest, 29 May 1953\nmarkings: Claudius Simond / CHAMONIX MONT BLANC"
+          ],
+          "acquisitionStatement": [],
+          "recordScore": 70,
+          "responsibility": [],
+          "dc_contributor": ["Simond, Claudius", "Simond Chamonix"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": ["Europe", "France", "Chamonix"] },
+            "associated": { "_all": ["Mt Everest", "Asia", "Nepal"] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": ["Mt Everest", "France", "Asia", "Europe", "Chamonix", "Nepal"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [
+              "Chenhall Nomenclature 09 Recreational Artifacts Sports Equipment Gear, Climbing Axe, Ice Climbing"
+            ],
+            "Primary Title": ["axe, ice"],
+            "Other Title": ["Sir Edmund Hillary", "Chamonix Mont Blanc ice axe"],
+            "_all_suggest": {
+              "input": [
+                "Chenhall Nomenclature 09 Recreational Artifacts Sports Equipment Gear, Climbing Axe, Ice Climbing",
+                "Axe, Ice Climbing",
+                "axe, ice"
+              ],
+              "contexts": { "type_context": "ecrm:E22_Man-Made_Object" }
+            },
+            "Maori Name": [],
+            "Classification Value": ["Axe, Ice Climbing"],
+            "_all": [
+              "Chenhall Nomenclature 09 Recreational Artifacts Sports Equipment Gear, Climbing Axe, Ice Climbing",
+              "Axe, Ice Climbing",
+              "axe, ice"
+            ]
+          },
+          "keyword": [],
+          "department": ["Social History", "History"],
+          "dc_identifier": ["15194", "IL2002.7.82", "2008.30.1"],
+          "process": [],
+          "period": {
+            "made": [
+              {
+                "exact": "2008-07-02T00:00:00.000Z",
+                "end": "1956-07-01T00:00:00.000Z",
+                "text": "Circa 1951",
+                "begin": "1946-07-02T00:00:00.000Z"
+              }
+            ],
+            "associated": [
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1953-01-01T00:00:00.000Z"
+              }
+            ],
+            "published": [],
+            "accession": [
+              {
+                "end": "2008-07-02T00:00:00.000Z",
+                "text": "02 Jul 2008",
+                "begin": "2008-07-02T00:00:00.000Z"
+              }
+            ],
+            "acquired": [
+              {
+                "end": "2008-07-01T00:00:00.000Z",
+                "text": "01 Jul 2008",
+                "begin": "2008-07-01T00:00:00.000Z"
+              }
+            ],
+            "time_period": [],
+            "_all": [
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1953-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1953-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1951",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "1951-12-31T00:00:00.000Z",
+                "text": "1953",
+                "begin": "1951-01-01T00:00:00.000Z"
+              },
+              {
+                "end": "2008-07-02T00:00:00.000Z",
+                "text": "02 Jul 2008",
+                "begin": "2008-07-02T00:00:00.000Z"
+              },
+              {
+                "exact": "2008-07-02T00:00:00.000Z",
+                "end": "1956-07-01T00:00:00.000Z",
+                "text": "Circa 1951",
+                "begin": "1946-07-02T00:00:00.000Z"
+              },
+              {
+                "end": "2008-07-01T00:00:00.000Z",
+                "text": "01 Jul 2008",
+                "begin": "2008-07-01T00:00:00.000Z"
+              }
+            ]
+          },
+          "subjectStatus": [],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/v/232518",
+          "dc_date": ["Circa 1951", "01 Jul 2008"],
+          "typeStatus": [],
+          "collection": [],
+          "classification": [
+            {
+              "object": [
+                {
+                  "Primary Term": "Chenhall Nomenclature",
+                  "Category": "Chenhall Nomenclature",
+                  "Secondary Term": "Chenhall Nomenclature",
+                  "Nomenclature": "Chenhall Nomenclature",
+                  "Classification": "Chenhall Nomenclature",
+                  "_all": [
+                    "Axe, Ice Climbing",
+                    "Gear, Climbing",
+                    "Sports Equipment",
+                    "09 Recreational Artifacts",
+                    "Chenhall Nomenclature",
+                    "Axe, Ice Climbing",
+                    "Gear, Climbing",
+                    "Sports Equipment",
+                    "09 Recreational Artifacts",
+                    "Chenhall Nomenclature",
+                    "Axe, Ice Climbing",
+                    "Gear, Climbing",
+                    "Sports Equipment",
+                    "09 Recreational Artifacts",
+                    "Chenhall Nomenclature",
+                    "Axe, Ice Climbing",
+                    "Gear, Climbing",
+                    "Sports Equipment",
+                    "09 Recreational Artifacts",
+                    "Chenhall Nomenclature",
+                    "Axe, Ice Climbing",
+                    "Gear, Climbing",
+                    "Sports Equipment",
+                    "09 Recreational Artifacts",
+                    "Chenhall Nomenclature"
+                  ]
+                }
+              ]
+            },
+            {
+              "material": [
+                {
+                  "Level 2": "Aat Materials",
+                  "Level 6": "Aat Materials",
+                  "_all": [
+                    "Wood",
+                    "Botanical (arch)",
+                    "Archaeology",
+                    "Aat Materials",
+                    "Wood",
+                    "Botanical (arch)",
+                    "Archaeology",
+                    "Aat Materials"
+                  ]
+                },
+                {
+                  "Level 10": "Aat Materials",
+                  "Level 3": "Aat Materials",
+                  "Level 2": "Aat Materials",
+                  "Level 5": "Aat Materials",
+                  "Level 4": "Aat Materials",
+                  "Level 7": "Aat Materials",
+                  "Level 6": "Aat Materials",
+                  "Level 9": "Aat Materials",
+                  "Level 8": "Aat Materials",
+                  "_all": [
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials",
+                    "Steel",
+                    "Iron Alloy",
+                    "<iron And Iron Alloy>",
+                    "<metal By Composition Or Origin>",
+                    "Metal",
+                    "<metal And Metal Products>",
+                    "Inorganic Material",
+                    "<materials By Composition>",
+                    "Aat Materials"
+                  ]
+                }
+              ]
+            },
+            {
+              "place": [
+                {
+                  "Nation": "Natural History Foreign Region List",
+                  "Continent Or Ocean": "Natural History Foreign Region List",
+                  "_all": [
+                    "Mt Everest",
+                    "Nepal",
+                    "Asia",
+                    "Natural History Foreign Region List",
+                    "Mt Everest",
+                    "Nepal",
+                    "Asia",
+                    "Natural History Foreign Region List"
+                  ]
+                }
+              ]
+            }
+          ],
+          "subjectCategory": ["mountain climbing/recreation"],
+          "lastModifiedOn": ["2026-10-29T21:12:26.361Z"],
+          "tags": {
+            "official": ["Adventure", "mount everest first ascent", "Ahau - Tamaki Stories"],
+            "user": [],
+            "_all": ["Adventure", "mount everest first ascent", "Ahau - Tamaki Stories"]
+          },
+          "dc_place": ["Mt Everest", "France", "Asia", "Europe", "Chamonix", "Nepal"],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": [
+            "Chenhall Nomenclature 09 Recreational Artifacts Sports Equipment Gear, Climbing Axe, Ice Climbing",
+            "Axe, Ice Climbing",
+            "axe, ice"
+          ],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/topic/660",
+        "_score": 26.407854,
+        "_source": {
+          "dc_identifier": ["EX485"],
+          "dc_title": ["Hillary's Axe"],
+          "subject": [],
+          "dc_type": ["Exhibition History"],
+          "details": [
+            {
+              "refersToObject": "http://api.aucklandmuseum.com/id/null/999225",
+              "refersToImage": "http://api.aucklandmuseum.com/id/media/v/unknown",
+              "type": "am:TopicDetail",
+              "title": "Museum Archive"
+            }
+          ],
+          "dc_description": [
+            "Display of the ice axe used by Sir Edmund Hillary on his first ascent of Everest 1953. Display held to commemorate the first anniversary of Sir Edmund Hillary's death."
+          ],
+          "type": "am:Topic"
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/catalogq40/88825",
+        "_score": 24.322052,
+        "_source": {
+          "copyright": ["All rights reserved"],
+          "notes": [
+            "Cover image: Ice axe purchased by Edmund Hillary in 1951 European Ash handle, with forged steel head and spike. Lady June Hillary donated the ice axe to Auckland War Memorial Museum",
+            "First published 4 June 2015.",
+            "Webpage available to view on Auckland War Memorial Museum website (accessed 18/10/2017)",
+            "Claudius Simond, France.",
+            "A topic page by Greg Meylan, published on the Auckland War Memorial Museum website."
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/d08b625034d570aa487fd1fdaf6a6036fe9c61cd",
+                  "http://api.aucklandmuseum.com/id/person/p/5713b09ef306c57f7b0ef884d53a6250f3f1ea08",
+                  "http://api.aucklandmuseum.com/id/person/p/d96687403a7e7702270fae49c0a929d88b676f28"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/d08b625034d570aa487fd1fdaf6a6036fe9c61cd",
+                  "http://api.aucklandmuseum.com/id/person/p/5713b09ef306c57f7b0ef884d53a6250f3f1ea08",
+                  "http://api.aucklandmuseum.com/id/person/p/d96687403a7e7702270fae49c0a929d88b676f28"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": ["Digital"],
+          "geoSubject": [
+            "Tenzing Norkey, 1914-1986",
+            "Auckland War Memorial Museum--Collections",
+            "Mountaineering--Everest, Mount (China and Nepal)--History",
+            "Hillary, Edmund, 1919-2008",
+            "Hillary, Edmund, 1919-2008--Diaries",
+            "Everest, Mount (China and Nepal)",
+            "Mountaineering expeditions--Everest, Mount (China and Nepal)"
+          ],
+          "language": [],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [],
+          "acquisitionStatement": [],
+          "recordScore": 25,
+          "responsibility": ["Greg Meylan"],
+          "dc_contributor": [
+            "Auckland War Memorial Museum - Tamaki Paenga Hira",
+            "Auckland War Memorial Museum, issuing body",
+            "Meylan, Greg, author"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["Auckland"] },
+            "published": { "_all": ["Auckland"] },
+            "acquired": { "_all": [] },
+            "_all": ["Auckland"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["Hillary and Norgay first to climb Mount Everest"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["Hillary and Norgay first to climb Mount Everest"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["Hillary and Norgay first to climb Mount Everest"]
+          },
+          "keyword": ["Auckland in the world", "Auckland and its people", "History"],
+          "department": ["publication"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2017-10-18T22:30:59.000Z" }],
+            "associated": [],
+            "published": [{ "text": "2015" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2017-10-18T22:30:59.000Z" }, { "text": "2015" }]
+          },
+          "subjectStatus": [
+            "Tenzing Norkey, 1914-1986",
+            "Auckland War Memorial Museum--Collections",
+            "Mountaineering--Everest, Mount (China and Nepal)--History",
+            "Hillary, Edmund, 1919-2008",
+            "Hillary, Edmund, 1919-2008--Diaries",
+            "Everest, Mount (China and Nepal)",
+            "Mountaineering expeditions--Everest, Mount (China and Nepal)"
+          ],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/6e2289a0546882c8fdcc718b0528421f3abfef54",
+          "typeStatus": [],
+          "collection": [],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T22:53:01.315Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": ["Auckland"],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["Hillary and Norgay first to climb Mount Everest"],
+          "location": ["Online Resource"],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/manuscriptsandarchives/16253",
+        "_score": 22.440943,
+        "_source": {
+          "copyright": ["Open", "All rights reserved"],
+          "notes": ["Tamaki gallery"],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0768b368622a7d4effd679a6ae68c21990bd2c47"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0768b368622a7d4effd679a6ae68c21990bd2c47"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": [
+                  "http://api.aucklandmuseum.com/id/library/manuscriptsandarchives/16132"
+                ],
+                "_all": ["http://api.aucklandmuseum.com/id/library/manuscriptsandarchives/16132"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Display of the ice axe used by Sir Edmund Hillary on his first ascent of Everest 1953. Display held to commemorate the first anniversary of Sir Edmund Hillary's death. \nExhibition dates: 11 January - 15 February 2009.\n Folder includes correspondence and acquisition proposal."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Display of the ice axe used by Sir Edmund Hillary on his first ascent of Everest 1953. Display held to commemorate the first anniversary of Sir Edmund Hillary's death. \nExhibition dates: 11 January - 15 February 2009.\n Folder includes correspondence and acquisition proposal."
+          ],
+          "acquisitionStatement": [],
+          "recordScore": 15,
+          "responsibility": [],
+          "dc_contributor": ["Auckland War Memorial Museum"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["Hillary's Axe [Exhibition, Auckland Museum]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["Hillary's Axe [Exhibition, Auckland Museum]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["Hillary's Axe [Exhibition, Auckland Museum]"]
+          },
+          "keyword": ["Everest", "Mountaineer"],
+          "department": ["manuscripts and archives"],
+          "dc_identifier": ["MUS-2019-22-30-1"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-05-12T02:42:56.000Z" }],
+            "associated": [],
+            "published": [{ "text": "2009" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-05-12T02:42:56.000Z" }, { "text": "2009" }]
+          },
+          "subjectStatus": [
+            "Auckland War Memorial Museum",
+            "Auckland War Memorial Museum--Exhibitions",
+            "Hillary, Edmund, 1919-2008--Exhibitions"
+          ],
+          "geopos": [],
+          "typeStatus": [],
+          "collection": [],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T23:53:53.087Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": [],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["Hillary's Axe [Exhibition, Auckland Museum]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/247320",
+        "_score": 21.561409,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [
+            "Label on verso: \"SHERPA HOSPITAL EXPEDITION. LEADER: SIR EDMUND HILLARY. Sir Edmund Hillary and Peter amongst the ice pinnacle at the foot of Mt. Everest. TO KATHMANDU, NEPAL, VIA CALCUTTA\""
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": ["Nepal--Pictorial works", "Hillary, Edmund, 1919-2008"],
+          "language": [],
+          "dc_description": ["Black and white print"],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Black and white print"],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["Nepal"] },
+            "published": { "_all": ["Nepal"] },
+            "acquired": { "_all": [] },
+            "_all": ["Nepal"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": [
+              "Sir Edmund Hillary and Peter amongst the ice pinnacle at the foot of Mt. Everest."
+            ],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": [
+                "Sir Edmund Hillary and Peter amongst the ice pinnacle at the foot of Mt. Everest."
+              ],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": [
+              "Sir Edmund Hillary and Peter amongst the ice pinnacle at the foot of Mt. Everest."
+            ]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P7-F5-064"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-06-09T23:24:26.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [{ "text": "ca. 1967" }],
+            "_all": [{ "text": "ca. 1967" }, { "exact": "2021-06-09T23:24:26.000Z" }]
+          },
+          "subjectStatus": ["Nepal--Pictorial works", "Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/a356d9b3aeda02b013db6adda073fbf0f7d7482f",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T02:15:44.556Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": ["Nepal"],
+          "unit": ["EH Box 10"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": [
+            "Sir Edmund Hillary and Peter amongst the ice pinnacle at the foot of Mt. Everest."
+          ],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/250033",
+        "_score": 21.251934,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [
+            "Handwritten in blue ink on verso: \"Album 21 Hall Cupboard 1971\". Stamp on verso: \"WARNING - COPYRIGHT The reproduction rights of this photograph are strictly reserved by: Wilson & Horton Ltd, Magazine Division, P.O. Box 3 2, Auckland, New Zealand.\""
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [],
+                "classified": [],
+                "collected": [],
+                "_all": [],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": ["Black and white print"],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Black and white print"],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund Hillary posing in the mountains with his ice axe]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary posing in the mountains with his ice axe]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary posing in the mountains with his ice axe]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P11-F6-023"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-06-18T03:17:01.000Z" }],
+            "associated": [],
+            "published": [{ "text": "1971" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-06-18T03:17:01.000Z" }, { "text": "1971" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008", "Mountaineering"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/9465734162fb599cc29f7059f24f6f331fc7a54a",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T02:26:16.174Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 15"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary posing in the mountains with his ice axe]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/249715",
+        "_score": 20.51577,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [],
+                "classified": [],
+                "collected": [],
+                "_all": [],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [
+            "Nepal--Pictorial works",
+            "Hillary, Edmund, 1919-2008",
+            "Hillary, Edmund, 1919-2008--Family life"
+          ],
+          "language": [],
+          "dc_description": ["Black And white print"],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Black And white print"],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["Nepal"] },
+            "published": { "_all": ["Nepal"] },
+            "acquired": { "_all": [] },
+            "_all": ["Nepal"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund Hillary and Peter Hillary on ice]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary and Peter Hillary on ice]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary and Peter Hillary on ice]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P10-F7-069"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-06-18T02:54:35.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [{ "text": "ca. 1960s" }],
+            "_all": [{ "exact": "2021-06-18T02:54:35.000Z" }, { "text": "ca. 1960s" }]
+          },
+          "subjectStatus": [
+            "Nepal--Pictorial works",
+            "Hillary, Edmund, 1919-2008",
+            "Hillary, Edmund, 1919-2008--Family life"
+          ],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/3200e3a879653e58a9dc6b9dfd0e6712bb7a3144",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T02:19:33.102Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": ["Nepal"],
+          "unit": ["EH Box 14"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary and Peter Hillary on ice]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/humanhistory/object/11605",
+        "_score": 19.141354,
+        "_source": {
+          "copyright": ["© Auckland Museum CC BY"],
+          "notes": [
+            "possibly associated with Sir Edmund Hillary - list relating to Canterbury Museum loan includes an ice pick; this has not been located at Canterbury Museum and this is the only ice pick in the Auckland Museum collection"
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": ["http://api.aucklandmuseum.com/id/person/34856"],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/34856",
+                  "http://api.aucklandmuseum.com/id/person/8473"
+                ],
+                "referred": ["http://api.aucklandmuseum.com/id/person/8473"]
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "ice axe; unused; in original wrapping paper\n.1: pick: long wooden handle; metal spike mounted to end; metal pick head with serrated edge spike to one side and flat end to other side\n.2: brown paper wrapper in two pieces; torn and crumpled\nmarkings: manufacturer's marks stamped into metal head: \"L.KOST & CO. BASEL / PRIMA / H2476 /A 4-1/2"
+          ],
+          "type": "ecrm:E22_Man-Made_Object",
+          "content": [
+            "ice axe; unused; in original wrapping paper\n.1: pick: long wooden handle; metal spike mounted to end; metal pick head with serrated edge spike to one side and flat end to other side\n.2: brown paper wrapper in two pieces; torn and crumpled\nmarkings: manufacturer's marks stamped into metal head: \"L.KOST & CO. BASEL / PRIMA / H2476 /A 4-1/2"
+          ],
+          "acquisitionStatement": [],
+          "recordScore": 50,
+          "responsibility": [],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["ice pick"],
+            "Other Title": ["ice axe", "Prima"],
+            "_all_suggest": {
+              "input": ["ice pick"],
+              "contexts": { "type_context": "ecrm:E22_Man-Made_Object" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["ice pick"]
+          },
+          "keyword": [],
+          "department": ["Social History", "History"],
+          "dc_identifier": ["1994X1.678"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "1997-05-21T00:00:00.000Z", "text": "Unknown" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [{ "text": "Unknown" }],
+            "time_period": [],
+            "_all": [
+              { "exact": "1997-05-21T00:00:00.000Z", "text": "Unknown" },
+              { "text": "Unknown" }
+            ]
+          },
+          "subjectStatus": [],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/v/65100",
+          "dc_date": ["Unknown"],
+          "typeStatus": [],
+          "collection": [],
+          "classification": [{ "object": [] }, { "material": [] }, { "place": [] }],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T23:11:54.476Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": [],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["ice pick"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/241237",
+        "_score": 18.658218,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P1-F6-005"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-06T20:26:22.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-04-06T20:26:22.000Z" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/016da8175ee7fc64377409209371c06bc9926fa7",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:12:40.119Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 1"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/241224",
+        "_score": 18.425833,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": ["Waikato (N.Z.)", "Hillary, Edmund, 1919-2008", "University of Waikato"],
+          "language": [],
+          "dc_description": [
+            "Formal photograph of Lady June Hillary and Sir Edmund Hillary. Sir Edmund Hillary is dressed in academic regalia."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Formal photograph of Lady June Hillary and Sir Edmund Hillary. Sir Edmund Hillary is dressed in academic regalia."
+          ],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["Waikato (N.Z.)"] },
+            "published": { "_all": ["Waikato (N.Z.)"] },
+            "acquired": { "_all": [] },
+            "_all": ["Waikato (N.Z.)"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": [
+              "[Portrait of Sir Edmund Hillary and Lady June Hillary, at the University of Waikato.]"
+            ],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": [
+                "[Portrait of Sir Edmund Hillary and Lady June Hillary, at the University of Waikato.]"
+              ],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": [
+              "[Portrait of Sir Edmund Hillary and Lady June Hillary, at the University of Waikato.]"
+            ]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P1-F2-002"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-06T20:26:19.000Z" }],
+            "associated": [],
+            "published": [{ "text": "20/10/2006" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "text": "20/10/2006" }, { "exact": "2021-04-06T20:26:19.000Z" }]
+          },
+          "subjectStatus": [
+            "Waikato (N.Z.)",
+            "Hillary, Edmund, 1919-2008",
+            "University of Waikato"
+          ],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/f120880468848a5c3fd077564c8e61e2dbd4d22d",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:03:50.401Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": ["Waikato (N.Z.)"],
+          "unit": ["EH Box 1"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": [
+            "[Portrait of Sir Edmund Hillary and Lady June Hillary, at the University of Waikato.]"
+          ],
+          "location": [],
+          "isInLibrary": false,
+          "support": ["Fibre based paper"]
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/241236",
+        "_score": 18.408825,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P1-F6-004"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-06T20:26:22.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-04-06T20:26:22.000Z" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/2c7e41b97061abbd32f38991e917d95b9cc8705a",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:05:31.897Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 1"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/241234",
+        "_score": 18.1918,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Colour photograph of Sir Edmund Hillary and June Hillary with academic staff of a university. Both June and Edmund Hillary are holding large bouquets and Edmund Hillary wears a yellow sash."
+          ],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P1-F6-002"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-06T20:26:22.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-04-06T20:26:22.000Z" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/cffebfa17ff264b1b47627620f9856c46bc60412",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:16:02.400Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 1"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary and Lady Hillary presented with bouquets]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/242414",
+        "_score": 18.040207,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": ["Colour photograph"],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Colour photograph"],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Edmund and Peter Hillary looking at ice shelf]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Edmund and Peter Hillary looking at ice shelf]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Edmund and Peter Hillary looking at ice shelf]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P5-F11-018"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-08T02:24:27.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [{ "text": "ca. 1960s" }],
+            "_all": [{ "exact": "2021-04-08T02:24:27.000Z" }, { "text": "ca. 1960s" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/04218ccd5bc13858a61f87a4cbe6393d165ee2f2",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:04:07.890Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 8"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Edmund and Peter Hillary looking at ice shelf]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/242192",
+        "_score": 17.830215,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": ["8c' sticker on verso]", "['E24"],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "Colour photograph depicting Sir Edmund Hillary and Lady June Hillary."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Colour photograph depicting Sir Edmund Hillary and Lady June Hillary."],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund and Lady June Hillary]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund and Lady June Hillary]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund and Lady June Hillary]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P5-F7-051"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-08T02:23:32.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-04-08T02:23:32.000Z" }]
+          },
+          "subjectStatus": ["Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/34925eef101cd26fcf984b7cc624d361fc230a44",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:04:13.480Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 7"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund and Lady June Hillary]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/242044",
+        "_score": 17.745663,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [
+            "these are photos of photos",
+            "All good.'",
+            "EPH negative",
+            "1/3 frames in 35mm colour neg strip. Reads 'colour",
+            "1960-2000"
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": ["Colour negative depicting Sir Edmund Hillary and wife June Hillary"],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": ["Colour negative depicting Sir Edmund Hillary and wife June Hillary"],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["[Sir Edmund and Lady June Hillary]"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund and Lady June Hillary]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund and Lady June Hillary]"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P5-F5-002"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-08T02:22:54.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2021-04-08T02:22:54.000Z" }]
+          },
+          "subjectStatus": [
+            "Hillary, Edmund, 1919-2008",
+            "Hillary, Edmund, 1919-2008--Family life"
+          ],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/bc044479482b0d1d9dfe9568f1d462c9d40c708f",
+          "typeStatus": [],
+          "dc_format": ["Negative"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2022-07-18T00:07:10.312Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": [],
+          "unit": ["EH Box 7"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund and Lady June Hillary]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/catalogq40/11796",
+        "_score": 17.34818,
+        "_source": {
+          "copyright": ["All rights reserved"],
+          "notes": ["Includes index.", "Cover subtitle: His autobiography."],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/fa99d081fb3f3c4a2b044ac97c0fd4bfc6ad3e92",
+                  "http://api.aucklandmuseum.com/id/person/p/4972bf546551c1f9ec59b74093abac04bba9db2e"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/fa99d081fb3f3c4a2b044ac97c0fd4bfc6ad3e92",
+                  "http://api.aucklandmuseum.com/id/person/p/4972bf546551c1f9ec59b74093abac04bba9db2e"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": ["Publication"],
+          "geoSubject": [],
+          "language": [],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [],
+          "acquisitionStatement": [],
+          "recordScore": 10,
+          "responsibility": ["by Edmund Hillary"],
+          "dc_contributor": ["Hodder and Stoughton", "Hillary, Edmund, 1919-2008, author"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["London ; Auckland ; Sydney ; Toronto"] },
+            "published": { "_all": ["London ; Auckland ; Sydney ; Toronto"] },
+            "acquired": { "_all": [] },
+            "_all": ["London ; Auckland ; Sydney ; Toronto"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["Nothing venture, nothing win"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["Nothing venture, nothing win"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["Nothing venture, nothing win"]
+          },
+          "keyword": [],
+          "department": ["publication"],
+          "dc_identifier": ["GV199.92 .H55 HIL"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2014-01-30T17:10:35.000Z" }],
+            "associated": [],
+            "published": [{ "text": "1975" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "text": "1975" }, { "exact": "2014-01-30T17:10:35.000Z" }]
+          },
+          "subjectStatus": [
+            "Hillary, Edmund, 1919-2008",
+            "Mountaineering",
+            "Mountaineering--Himalaya Mountains",
+            "Mountaineers--New Zealand--Biography"
+          ],
+          "geopos": [],
+          "typeStatus": [],
+          "collection": [],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T21:22:46.653Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": ["London ; Auckland ; Sydney ; Toronto"],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["Nothing venture, nothing win"],
+          "location": ["Reading Room"],
+          "isInLibrary": true,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/catalogq40/23226",
+        "_score": 17.34818,
+        "_source": {
+          "copyright": ["All rights reserved"],
+          "notes": [
+            "Originally published: London: Doubleday, 1999.",
+            "\"50th anniversary of the conquest of Everest.\"--Cover.",
+            "Includes index."
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/b0c9960298bf7302d50d9d9b4a808dd9c2119a6f",
+                  "http://api.aucklandmuseum.com/id/person/p/aaa6569aad06a0a18ff253bda84243bcab7e791c"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/aaa6569aad06a0a18ff253bda84243bcab7e791c",
+                  "http://api.aucklandmuseum.com/id/person/p/b0c9960298bf7302d50d9d9b4a808dd9c2119a6f"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": ["Publication"],
+          "geoSubject": [],
+          "language": [],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [],
+          "acquisitionStatement": [],
+          "recordScore": 10,
+          "responsibility": ["Sir Edmund Hillary"],
+          "dc_contributor": ["Hillary, Edmund, 1919-2008", "Corgi"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["London"] },
+            "published": { "_all": ["London"] },
+            "acquired": { "_all": [] },
+            "_all": ["London"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["View from the summit"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["View from the summit"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["View from the summit"]
+          },
+          "keyword": [],
+          "department": ["publication"],
+          "dc_identifier": ["GV199.92.H55 HIL"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2014-01-30T20:36:07.000Z" }],
+            "associated": [],
+            "published": [{ "text": "2003" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "text": "2003" }, { "exact": "2014-01-30T20:36:07.000Z" }]
+          },
+          "subjectStatus": [
+            "Explorers--New Zealand--Biography",
+            "Hillary, Edmund, 1919-2008",
+            "Mountaineering",
+            "Mountaineers--New Zealand--Biography"
+          ],
+          "geopos": [],
+          "typeStatus": [],
+          "collection": [],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T21:27:20.296Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": ["London"],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["View from the summit"],
+          "location": ["Reading Room"],
+          "isInLibrary": true,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/30101",
+        "_score": 17.235327,
+        "_source": {
+          "copyright": ["No known copyright restrictions", "Open"],
+          "notes": [
+            "These photographs were gifted to Ngaire Morgan's aunt, Carrie Fitzgerald of Palmerston North, who captioned and stamped the photographs on the reverse. Later they were given to Ngaire Morgan.",
+            "George Bourne was born in Whanganui. In c1902 he started working for the 'Weekly News' as one of their photographic artists and travelled throughout New Zealand for the next twenty years in that capacity. He is well known for his series portraying the Maori prophet, Rua Kenana and his newly built community at Maungapohatu in 1908. He pioneered  aerial photography through his friends the Walsh brothers and is also known for his comic photo montages.",
+            "Stamped on verso \"G. Fitzgerald\""
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/cd245a047badc6cb4d1d063ece031547a1596adb"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/cd245a047badc6cb4d1d063ece031547a1596adb"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/71636"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/71636"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": [],
+          "language": [],
+          "dc_description": [
+            "A large outcrop of glacial ice with figure of a man standing in the foreground with ice axe and ropes."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "A large outcrop of glacial ice with figure of a man standing in the foreground with ice axe and ropes."
+          ],
+          "acquisitionStatement": [],
+          "recordScore": 30,
+          "responsibility": [],
+          "dc_contributor": ["Bourne, George, 1875-1924, photographer"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": [] },
+            "published": { "_all": [] },
+            "acquired": { "_all": [] },
+            "_all": []
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["Terminal face of Franz Josef glacier"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["Terminal face of Franz Josef glacier"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["Terminal face of Franz Josef glacier"]
+          },
+          "keyword": [],
+          "department": ["photography"],
+          "dc_identifier": ["PH-1976-6-211"],
+          "process": ["Gelatin silver print"],
+          "period": {
+            "made": [{ "exact": "2014-03-17T19:59:56.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [{ "text": "1910s" }, { "text": "1920s" }],
+            "_all": [
+              { "text": "1910s" },
+              { "text": "1920s" },
+              { "exact": "2014-03-17T19:59:56.000Z" }
+            ]
+          },
+          "subjectStatus": ["Photography--New Zealand", "Franz Josef Glacier (N.Z.)"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/36cde816e944ce5b9a104bb7b3e2d4456a8b08e9",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Bourne, George"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-02T00:26:24.677Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": [],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["Terminal face of Franz Josef glacier"],
+          "location": [],
+          "isInLibrary": false,
+          "support": ["Paper"]
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/photography/241229",
+        "_score": 17.054596,
+        "_source": {
+          "copyright": [
+            "Closed - digital copy only available",
+            "Digital copy available",
+            "All rights reserved"
+          ],
+          "notes": [],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/0f03eb56718d57d638eb8dcc34cd435e2f3a06ca"
+                ],
+                "referred": []
+              }
+            },
+            {
+              "object": {
+                "childOf": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "_all": ["http://api.aucklandmuseum.com/id/library/photography/66029"],
+                "referred": []
+              }
+            }
+          ],
+          "documentType": [],
+          "geoSubject": ["New Zealand", "Hillary, Edmund, 1919-2008"],
+          "language": [],
+          "dc_description": [
+            "Colour photograph of Sir Edmund Hillary and an unidentified woman unveiling a plaque at the Sir Edmund Hillary Outdoor Pursuits Centre."
+          ],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [
+            "Colour photograph of Sir Edmund Hillary and an unidentified woman unveiling a plaque at the Sir Edmund Hillary Outdoor Pursuits Centre."
+          ],
+          "acquisitionStatement": ["Estate of Sir Edmund Hillary, 2008"],
+          "recordScore": 25,
+          "responsibility": [],
+          "dc_contributor": [
+            "Unknown, Photographer",
+            " Unknown, photographer",
+            "Unknown, photographer",
+            "unknown, photographer"
+          ],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["New Zealand"] },
+            "published": { "_all": ["New Zealand"] },
+            "acquired": { "_all": [] },
+            "_all": ["New Zealand"]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": [
+              "[Sir Edmund Hillary unveiling a plaque at the Outdoor Pursuits Centre]"
+            ],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["[Sir Edmund Hillary unveiling a plaque at the Outdoor Pursuits Centre]"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["[Sir Edmund Hillary unveiling a plaque at the Outdoor Pursuits Centre]"]
+          },
+          "keyword": ["Sir Edmund Hillary Outdoor Pursuits Centre of New Zealand"],
+          "department": ["photography"],
+          "dc_identifier": ["PH-2010-4-P1-F3-005"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2021-04-06T20:26:21.000Z" }],
+            "associated": [],
+            "published": [],
+            "accession": [],
+            "acquired": [],
+            "time_period": [{ "text": "ca. 2000" }],
+            "_all": [{ "exact": "2021-04-06T20:26:21.000Z" }, { "text": "ca. 2000" }]
+          },
+          "subjectStatus": ["New Zealand", "Hillary, Edmund, 1919-2008"],
+          "geopos": [],
+          "primaryRepresentation": "http://api.aucklandmuseum.com/id/media/p/34d6a41ac5539211feec4090d8a39eda88420261",
+          "typeStatus": [],
+          "dc_format": ["Print"],
+          "collection": ["Sir Edmund Hillary Archive"],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T23:57:55.570Z"],
+          "tags": { "official": ["Edmund Hillary"], "user": [], "_all": ["Edmund Hillary"] },
+          "dc_place": ["New Zealand"],
+          "unit": ["EH Box 1"],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["[Sir Edmund Hillary unveiling a plaque at the Outdoor Pursuits Centre]"],
+          "location": [],
+          "isInLibrary": false,
+          "support": []
+        }
+      },
+      {
+        "_index": "collectionsonline-2022-05-04-1",
+        "_type": "_doc",
+        "_id": "http://api.aucklandmuseum.com/id/library/catalogq40/40163",
+        "_score": 16.93786,
+        "_source": {
+          "copyright": ["All rights reserved"],
+          "notes": [
+            "Suggested level: primary, intermediate, junior secondary.",
+            "Includes bibliographical references (inside back cover)."
+          ],
+          "references": [
+            {
+              "person": {
+                "secondary_maker": [],
+                "primary_maker": [
+                  "http://api.aucklandmuseum.com/id/person/p/d8d5dba12885c596fcd6df340171dd76f16c88d6",
+                  "http://api.aucklandmuseum.com/id/person/p/534b6546c7363fced1c5c24c423b07c77b54eb21"
+                ],
+                "classified": [],
+                "collected": [],
+                "_all": [
+                  "http://api.aucklandmuseum.com/id/person/p/d8d5dba12885c596fcd6df340171dd76f16c88d6",
+                  "http://api.aucklandmuseum.com/id/person/p/534b6546c7363fced1c5c24c423b07c77b54eb21"
+                ],
+                "referred": []
+              }
+            },
+            { "object": { "childOf": [], "_all": [], "referred": [] } }
+          ],
+          "documentType": ["Publication"],
+          "geoSubject": [],
+          "language": [],
+          "type": "ecrm:E84_Information_Carrier",
+          "content": [],
+          "acquisitionStatement": [],
+          "recordScore": 15,
+          "responsibility": [
+            "Kevin Boon ; illustrated from the collections of the Alexander Turnbull Library"
+          ],
+          "dc_contributor": ["Nelson Price Milburn", "Boon, Kevin"],
+          "isTaonga": false,
+          "place": {
+            "found": { "_all": [] },
+            "made": { "_all": [] },
+            "associated": { "_all": [] },
+            "captured": { "_all": ["Petone, N.Z."] },
+            "published": { "_all": ["Petone, N.Z."] },
+            "acquired": { "_all": [] },
+            "_all": ["Petone, N.Z."]
+          },
+          "appellation": {
+            "Common Name": [],
+            "Classification Display Value": [],
+            "Primary Title": ["Edmund Hillary"],
+            "Other Title": [],
+            "_all_suggest": {
+              "input": ["Edmund Hillary"],
+              "contexts": { "type_context": "ecrm:E84_Information_Carrier" }
+            },
+            "Maori Name": [],
+            "Classification Value": [],
+            "_all": ["Edmund Hillary"]
+          },
+          "keyword": [],
+          "department": ["publication"],
+          "dc_identifier": ["GV199.92.H55 BOO"],
+          "process": [],
+          "period": {
+            "made": [{ "exact": "2014-01-31T02:02:09.000Z" }],
+            "associated": [],
+            "published": [{ "text": "1991" }],
+            "accession": [],
+            "acquired": [],
+            "time_period": [],
+            "_all": [{ "exact": "2014-01-31T02:02:09.000Z" }, { "text": "1991" }]
+          },
+          "subjectStatus": [
+            "Hillary, Edmund, 1919-2008--Juvenile literature",
+            "Mountaineers--New Zealand--Biography--Juvenile literature"
+          ],
+          "geopos": [],
+          "typeStatus": [],
+          "collection": [],
+          "subjectCategory": [],
+          "lastModifiedOn": ["2025-11-01T21:38:42.446Z"],
+          "tags": { "official": [], "user": [], "_all": [] },
+          "dc_place": ["Petone, N.Z."],
+          "unit": [],
+          "culturalOrigin": [],
+          "isSensitive": false,
+          "series": [],
+          "dc_title": ["Edmund Hillary"],
+          "location": ["Reading Room", "Pamphlet Collection"],
+          "isInLibrary": true,
+          "support": []
+        }
+      }
+    ]
+  }
+}

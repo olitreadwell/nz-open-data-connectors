@@ -9,20 +9,22 @@ key from the environment to unlock more. Keys stay server-side.
 
 ## Adapters
 
-All twenty-six were probed keyless from an Auckland connection. The first
+All thirty-one were probed keyless from an Auckland connection. The first
 fourteen were checked on 2026-10-08, Infoshare on 2026-11-06, MBIE open data on
-2026-11-07, six more on 2026-11-08, and four more on 2026-11-08; all answered.
+2026-11-07, ten more on 2026-11-08, and five more on 2026-11-16; all answered.
 Fixture dates are the capture dates.
 
 | Source | Adapter id | Status |
 | --- | --- | --- |
 | GeoNet (Earth Sciences New Zealand) | `geonet` | Live, keyless |
+| GeoNet felt rapid reports | `geonet-felt-rapid` | Live, keyless; latest reported shaking points and MMI totals |
 | data.govt.nz catalogue | `data-govt-nz` | Live, keyless |
 | data.govt.nz datastore (MSD benefits) | `data-govt-datastore` | Live, keyless |
 | MBIE open data | `mbie-open-data` | Live, keyless; MBIE datasets in the national catalogue |
 | Aotearoa Data Explorer search | `ade-search` | Live, keyless |
 | Stats NZ Infoshare | `infoshare` | Live, keyless; HTML table search |
 | DigitalNZ (National Library) | `digitalnz` | Live, keyless; optional `DIGITAL_NZ_API_KEY` raises the rate limit |
+| New Zealand Gazette | `nz-gazette` | Live, keyless; DigitalNZ collection, newest first |
 | Trade Me categories | `trademe` | Live, keyless |
 | NZ Organisms Register | `nzor` | Live, keyless; licence is CC BY-NC-SA 3.0 NZ, so not for commercial use |
 | LINZ Data Service | `linz` | Live, keyless; optional `LINZ_API_KEY` |
@@ -42,10 +44,30 @@ Fixture dates are the capture dates.
 | Wellington City open data | `wellington-city-open-data` | Live, keyless; DCAT 1.1 catalogue |
 | Electricity Authority datasets | `electricity-authority` | Live, keyless; first page of the public Azure Blob container listing |
 | NZPAM Geodata Catalogue | `nzpam-geodata` | Live, keyless; 13 public ArcGIS REST services |
+| Auckland Museum collections | `auckland-museum` | Live, keyless; Elasticsearch collection search |
+| Charities Register (DIA) | `charities-register` | Live, keyless; OData organisation name search |
+| EV Roam charging stations (NZTA) | `ev-roam` | Live, keyless; ArcGIS FeatureServer, 639 stations |
 
 A key that is set but blank is treated as unset. An empty `LINZ_API_KEY` or
 `DIGITAL_NZ_API_KEY` is trimmed away at the boundary, so the request goes out
 keyless instead of sending `api_key=` and collecting a 403 from DigitalNZ.
+
+## Keyed sources
+
+These catalogue APIs need a key, subscription, or account. They are not in the
+public keyless adapter set. The private connector set can add them once the
+credentials exist.
+
+| Source | What it needs | Catalogue entry |
+| --- | --- | --- |
+| DOC Developer Portal | API key or subscription | `https://api.doc.govt.nz/` |
+| MSD API Developer Portal | API key or subscription | `https://api.msd.govt.nz/` |
+| Te Papa Collections API | Registration | `https://data.tepapa.govt.nz/docs/register.html` |
+| ACC Developer Resource Centre | API key or subscription | `https://developer.acc.co.nz/` |
+| MBIE business APIs (NZBN, Companies, Insolvency, PPSR, IPONZ, Market Rent) | API key through the MBIE portal | `https://portal.api.business.govt.nz/` |
+| Auckland Transport API | Subscription key | `https://api.at.govt.nz/` |
+| Inland Revenue developer guides | Account or key | `https://www.ird.govt.nz/digital-service-providers/guides-and-docs` |
+| RealMe Developer | Integration account | `https://developers.realme.govt.nz/how-realme-works` |
 
 ## Checklist
 
@@ -97,6 +119,9 @@ Checked during the 2026-08-25 and 2026-11-08 discovery passes. See
 | NIWA `api.niwa.co.nz` | needs a key |
 | NIWA DataHub | CKAN paths return 404; the canonical shop host does not resolve |
 | New Zealand Legislation API | needs an API key from the Parliamentary Counsel Office |
+| Government consultation listing API | `https://www.govt.nz/api/v2/consultation/list` returns HTTP 500 for public requests; catalogue page still lists it |
+| Government A-Z directory API | `https://www.govt.nz/api/v2/organisation/list` returns HTTP 500 for public requests; catalogue page still lists it |
+| NZTA driver licence holders | ArcGIS FeatureServer now answers `Token Required`; keep the dataset/CSV route instead |
 
 See `docs/ARCHITECTURE.md` for the design and
 `docs/CONNECTOR_DISCOVERY.md` for what has been checked live.

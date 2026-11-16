@@ -1,0 +1,445 @@
+{
+  "d": {
+    "results": [
+      {
+        "__metadata": {
+          "id": "https://www.odata.charities.govt.nz/Organisations(39075)",
+          "uri": "https://www.odata.charities.govt.nz/Organisations(39075)",
+          "type": "Charities_ODATAModel.Organisations"
+        },
+        "Activities": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Activities"
+          }
+        },
+        "Beneficiaries": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Beneficiaries"
+          }
+        },
+        "Groups": {
+          "__deferred": { "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Groups" }
+        },
+        "Officers": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Officers"
+          }
+        },
+        "Sectors": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Sectors"
+          }
+        },
+        "Activities1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Activities1"
+          }
+        },
+        "AreaOfOperations": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/AreaOfOperations"
+          }
+        },
+        "AreaOfOperations1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/AreaOfOperations1"
+          }
+        },
+        "Beneficiaries1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Beneficiaries1"
+          }
+        },
+        "Sectors1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/Sectors1"
+          }
+        },
+        "SourceOfFunds": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/SourceOfFunds"
+          }
+        },
+        "AnnualReturn": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(39075)/AnnualReturn"
+          }
+        },
+        "OrganisationId": 39075,
+        "AccountId": "282cdef7-4b96-dc11-8026-0015c5f3da29",
+        "Name": "New Zealand Red Cross Foundation",
+        "CharityRegistrationNumber": "CC22820",
+        "WebSiteURL": "https://www.redcross.org.nz/",
+        "EMailAddress1": "wayne.morgan@redcross.org.nz",
+        "Telephone1": "+64 275635902",
+        "Telephone2": null,
+        "TelephoneDay": null,
+        "Fax": null,
+        "PostalAddressCity": "Wellington",
+        "PostalAddressCountry": null,
+        "PostalAddressLine1": "PO Box 12185",
+        "PostalAddressLine2": "Thorndon",
+        "PostalAddressPostcode": "6144",
+        "PostalAddressSuburb": " ",
+        "StreetAddressCity": "Wellington",
+        "StreetAddressCountry": null,
+        "StreetAddressLine1": "RED CROSS HOUSE",
+        "StreetAddressLine2": "69 Molesworth Street",
+        "StreetAddressPostcode": "6011",
+        "StreetAddressSuburb": "Thorndon",
+        "CharityEmailAddress": "wayne.morgan@redcross.org.nz",
+        "CompaniesOfficeNumber": "210770",
+        "DateRegistered": "2008-04-09T00:00:00Z",
+        "DeregistrationDate": null,
+        "EndOfYearDayofMonth": 30,
+        "EndOfYearMonth": 6,
+        "EstablishedByParliamentAct": null,
+        "ExcemptionComment": "This charity has been granted an exemption from filing an annual return by 31 December 2008 under Section 43 of the Charities Act 2005. The first annual return is due by 31 December 2009.",
+        "IsIncorporated": null,
+        "MaoriTrustBoard": false,
+        "MaoriTrustApproved": null,
+        "MaraeFunds": null,
+        "MaraeReservation": null,
+        "Notices": null,
+        "OnLandUnderTeTureWhenuaMaoriAct": null,
+        "OrganisationalType": "0",
+        "PercentageSpentOverseas": 0,
+        "RegistrationStatus": "Registered",
+        "SocietyInstitution": null,
+        "TrusteesTrust": "A to D, and 1",
+        "Exemptions": null,
+        "AnnualReturnDueDate": "2018-12-30T00:00:00Z",
+        "AnnualReturnExtensionDate": null,
+        "GroupType": 4,
+        "GroupId": null,
+        "MainActivityId": 7,
+        "MainBeneficiaryId": null,
+        "MainSectorId": 8,
+        "OtherNames": null,
+        "ModifiedOn": "2026-07-27T09:14:58Z",
+        "NZBNNumber": "9429042708872",
+        "DeregistrationReasons": null,
+        "CharitablePurpose": "The Foundation was established in 1978 to hold and invest funds on behalf of New Zealand Red Cross Incorporated. The primary objective of the Foundation is to provide a source of sustainable funding for, and support the work of the New Zealand Red Cross.",
+        "EntityStructure": "The Foundation is a charity incorporated under the Charitable Trusts Act 1957 and registered under the Charities Act 2005. It is managed by a Board of Trustees.",
+        "FacebookName": null,
+        "TwitterName": null,
+        "SocialNetworkName": null,
+        "ControlledByName": "New Zealand Red Cross Incorporated",
+        "DeregistrationReasonNew": null,
+        "OverseasOperationAfrica": null,
+        "OverseasOperationAntarctica": null,
+        "OverseasOperationAsia": null,
+        "OrganisationReceivesDonationsKoha": true,
+        "EthnicCharity": false,
+        "OverseasOperationEurope": null,
+        "OrganisationGeneratesFundsGrantsDonationsToOthers": null,
+        "KaupapaMaoriCharityAffiliationWithIwiAndOrHapu": null,
+        "KaupapaMaoriCharity": false,
+        "KaupapaMaoriCharityMarae": null,
+        "OverseasOperationNorthAmerica": null,
+        "OverseasOperationOceania": null,
+        "OperateOverseas": null,
+        "OtherLegalStructure": null,
+        "KaupapaMaoriCharityOwnership": null,
+        "PasifikaCharity": false,
+        "PurposeToGiveGrantsAndDonations": true,
+        "OverseasOperationSouthAmerica": null,
+        "KaupapaMaoriCharityFocusesOnOutcomesForMaori": null,
+        "LegalStructure": "Charitable Trusts incorporated under the Charitable Trusts Act"
+      },
+      {
+        "__metadata": {
+          "id": "https://www.odata.charities.govt.nz/Organisations(56377)",
+          "uri": "https://www.odata.charities.govt.nz/Organisations(56377)",
+          "type": "Charities_ODATAModel.Organisations"
+        },
+        "Activities": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Activities"
+          }
+        },
+        "Beneficiaries": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Beneficiaries"
+          }
+        },
+        "Groups": {
+          "__deferred": { "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Groups" }
+        },
+        "Officers": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Officers"
+          }
+        },
+        "Sectors": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Sectors"
+          }
+        },
+        "Activities1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Activities1"
+          }
+        },
+        "AreaOfOperations": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/AreaOfOperations"
+          }
+        },
+        "AreaOfOperations1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/AreaOfOperations1"
+          }
+        },
+        "Beneficiaries1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Beneficiaries1"
+          }
+        },
+        "Sectors1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/Sectors1"
+          }
+        },
+        "SourceOfFunds": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/SourceOfFunds"
+          }
+        },
+        "AnnualReturn": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(56377)/AnnualReturn"
+          }
+        },
+        "OrganisationId": 56377,
+        "AccountId": "d8130711-d58c-dc11-98a0-0015c5f3da29",
+        "Name": "New Zealand Red Cross Incorporated",
+        "CharityRegistrationNumber": "CC21860",
+        "WebSiteURL": "http://www.redcross.org.nz",
+        "EMailAddress1": "jane.derbyshire@redcross.org.nz",
+        "Telephone1": "64 4 471 8250",
+        "Telephone2": null,
+        "TelephoneDay": null,
+        "Fax": "64 4 471 8251",
+        "PostalAddressCity": "Wellington",
+        "PostalAddressCountry": null,
+        "PostalAddressLine1": "PO Box 12140",
+        "PostalAddressLine2": "Thorndon",
+        "PostalAddressPostcode": "6144",
+        "PostalAddressSuburb": " ",
+        "StreetAddressCity": "Wellington",
+        "StreetAddressCountry": null,
+        "StreetAddressLine1": "69 Molesworth Street",
+        "StreetAddressLine2": " ",
+        "StreetAddressPostcode": "6011",
+        "StreetAddressSuburb": "Thorndon",
+        "CharityEmailAddress": "communications@redcross.org.nz",
+        "CompaniesOfficeNumber": "215640",
+        "DateRegistered": "2008-03-16T00:00:00Z",
+        "DeregistrationDate": null,
+        "EndOfYearDayofMonth": 30,
+        "EndOfYearMonth": 6,
+        "EstablishedByParliamentAct": null,
+        "ExcemptionComment": "This charity has been granted an exemption from filing an annual return by 31/12/2008 under Section 43 of the Charities Act 2005. The first annual return is due by 31/12/2009.",
+        "IsIncorporated": null,
+        "MaoriTrustBoard": null,
+        "MaoriTrustApproved": null,
+        "MaraeFunds": null,
+        "MaraeReservation": null,
+        "Notices": null,
+        "OnLandUnderTeTureWhenuaMaoriAct": null,
+        "OrganisationalType": "1",
+        "PercentageSpentOverseas": 13,
+        "RegistrationStatus": "Registered",
+        "SocietyInstitution": "1.6.1 - 1.6.9, 1.16.1 - 1.16.2",
+        "TrusteesTrust": null,
+        "Exemptions": null,
+        "AnnualReturnDueDate": "2018-12-30T00:00:00Z",
+        "AnnualReturnExtensionDate": null,
+        "GroupType": 4,
+        "GroupId": null,
+        "MainActivityId": null,
+        "MainBeneficiaryId": null,
+        "MainSectorId": 8,
+        "OtherNames": null,
+        "ModifiedOn": "2025-12-21T20:28:55Z",
+        "NZBNNumber": "9429041910016",
+        "DeregistrationReasons": null,
+        "CharitablePurpose": "New Zealand Red Cross' mission is to improve the lives of vulnerable people by mobilizing the power of humanity and enhancing community resilience.\r\nWe aim to achieve our mission through the delivery of our three core services pillars - Migration, International and Emergency Management - and through other community services.",
+        "EntityStructure": "Members make up our local Branches and groups, who also join to form Area Councils.  Area Councils have representatives at National Council where the National Board is elected to governs our organisation. Members of the National Board are elected or co-opted to provide leadership, to determine and ensure the implementation of the strategic and financial goals of NZRC. \r\nAlong with governance, the National Board also appoints our Secretary General overseeing the entire operation.",
+        "FacebookName": null,
+        "TwitterName": null,
+        "SocialNetworkName": null,
+        "ControlledByName": null,
+        "DeregistrationReasonNew": null,
+        "OverseasOperationAfrica": null,
+        "OverseasOperationAntarctica": null,
+        "OverseasOperationAsia": null,
+        "OrganisationReceivesDonationsKoha": true,
+        "EthnicCharity": true,
+        "OverseasOperationEurope": null,
+        "OrganisationGeneratesFundsGrantsDonationsToOthers": null,
+        "KaupapaMaoriCharityAffiliationWithIwiAndOrHapu": null,
+        "KaupapaMaoriCharity": false,
+        "KaupapaMaoriCharityMarae": null,
+        "OverseasOperationNorthAmerica": null,
+        "OverseasOperationOceania": null,
+        "OperateOverseas": null,
+        "OtherLegalStructure": null,
+        "KaupapaMaoriCharityOwnership": null,
+        "PasifikaCharity": false,
+        "PurposeToGiveGrantsAndDonations": false,
+        "OverseasOperationSouthAmerica": null,
+        "KaupapaMaoriCharityFocusesOnOutcomesForMaori": null,
+        "LegalStructure": "Incorporated Society"
+      },
+      {
+        "__metadata": {
+          "id": "https://www.odata.charities.govt.nz/Organisations(62043)",
+          "uri": "https://www.odata.charities.govt.nz/Organisations(62043)",
+          "type": "Charities_ODATAModel.Organisations"
+        },
+        "Activities": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Activities"
+          }
+        },
+        "Beneficiaries": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Beneficiaries"
+          }
+        },
+        "Groups": {
+          "__deferred": { "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Groups" }
+        },
+        "Officers": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Officers"
+          }
+        },
+        "Sectors": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Sectors"
+          }
+        },
+        "Activities1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Activities1"
+          }
+        },
+        "AreaOfOperations": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/AreaOfOperations"
+          }
+        },
+        "AreaOfOperations1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/AreaOfOperations1"
+          }
+        },
+        "Beneficiaries1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Beneficiaries1"
+          }
+        },
+        "Sectors1": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/Sectors1"
+          }
+        },
+        "SourceOfFunds": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/SourceOfFunds"
+          }
+        },
+        "AnnualReturn": {
+          "__deferred": {
+            "uri": "https://www.odata.charities.govt.nz/Organisations(62043)/AnnualReturn"
+          }
+        },
+        "OrganisationId": 62043,
+        "AccountId": "cb88518a-2857-dd11-9c42-0015c5f3da29",
+        "Name": "Stratford Red Cross",
+        "CharityRegistrationNumber": "CC38772",
+        "WebSiteURL": null,
+        "EMailAddress1": null,
+        "Telephone1": "06 765 5927",
+        "Telephone2": null,
+        "TelephoneDay": null,
+        "Fax": "06 765 5927",
+        "PostalAddressCity": "Stratford",
+        "PostalAddressCountry": null,
+        "PostalAddressLine1": "C/- MRS J NEILD  181 Climie Road",
+        "PostalAddressLine2": "RD 21",
+        "PostalAddressPostcode": "4391",
+        "PostalAddressSuburb": null,
+        "StreetAddressCity": "Stratford",
+        "StreetAddressCountry": null,
+        "StreetAddressLine1": "C/- MRS J NEILD  181 Climie Road",
+        "StreetAddressLine2": "RD 21",
+        "StreetAddressPostcode": "4391",
+        "StreetAddressSuburb": null,
+        "CharityEmailAddress": null,
+        "CompaniesOfficeNumber": null,
+        "DateRegistered": "2008-06-30T00:00:00Z",
+        "DeregistrationDate": "2010-08-10T00:00:00Z",
+        "EndOfYearDayofMonth": 30,
+        "EndOfYearMonth": 6,
+        "EstablishedByParliamentAct": null,
+        "ExcemptionComment": "This charity has been granted an exemption from filing an annual return by 31 December 2008 under Section 43 of the Charities Act 2005. The first annual return is due by 31 December 2009.",
+        "IsIncorporated": null,
+        "MaoriTrustBoard": null,
+        "MaoriTrustApproved": null,
+        "MaraeFunds": null,
+        "MaraeReservation": null,
+        "Notices": null,
+        "OnLandUnderTeTureWhenuaMaoriAct": null,
+        "OrganisationalType": "1",
+        "PercentageSpentOverseas": 40,
+        "RegistrationStatus": "Deregistered",
+        "SocietyInstitution": "Emergency within local areas with Disaster / Care / and social services",
+        "TrusteesTrust": null,
+        "Exemptions": null,
+        "AnnualReturnDueDate": "2009-12-30T00:00:00Z",
+        "AnnualReturnExtensionDate": null,
+        "GroupType": 4,
+        "GroupId": null,
+        "MainActivityId": 9,
+        "MainBeneficiaryId": 6,
+        "MainSectorId": 11,
+        "OtherNames": "New Zealand Red Cross Society Stratford Branch",
+        "ModifiedOn": "2018-01-09T02:56:29Z",
+        "NZBNNumber": null,
+        "DeregistrationReasons": "This entity was removed from the Charities Register because it failed to file Annual Returns as required by section 42 of the Charities Act.",
+        "CharitablePurpose": null,
+        "EntityStructure": null,
+        "FacebookName": null,
+        "TwitterName": null,
+        "SocialNetworkName": null,
+        "ControlledByName": null,
+        "DeregistrationReasonNew": null,
+        "OverseasOperationAfrica": null,
+        "OverseasOperationAntarctica": null,
+        "OverseasOperationAsia": null,
+        "OrganisationReceivesDonationsKoha": null,
+        "EthnicCharity": null,
+        "OverseasOperationEurope": null,
+        "OrganisationGeneratesFundsGrantsDonationsToOthers": null,
+        "KaupapaMaoriCharityAffiliationWithIwiAndOrHapu": null,
+        "KaupapaMaoriCharity": null,
+        "KaupapaMaoriCharityMarae": null,
+        "OverseasOperationNorthAmerica": null,
+        "OverseasOperationOceania": null,
+        "OperateOverseas": null,
+        "OtherLegalStructure": null,
+        "KaupapaMaoriCharityOwnership": null,
+        "PasifikaCharity": null,
+        "PurposeToGiveGrantsAndDonations": null,
+        "OverseasOperationSouthAmerica": null,
+        "KaupapaMaoriCharityFocusesOnOutcomesForMaori": null,
+        "LegalStructure": null
+      }
+    ],
+    "__count": "3"
+  }
+}

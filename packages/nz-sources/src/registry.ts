@@ -1,13 +1,17 @@
 import { adeSearchAdapter } from './adeSearch.js';
 import { arcgisHubAdapter } from './arcgisHub.js';
+import { aucklandMuseumAdapter } from './aucklandMuseum.js';
 import { aucklandTransportOpenDataAdapter } from './aucklandTransportOpenData.js';
 import { canterburyMapsAdapter } from './canterburyMaps.js';
+import { charitiesRegisterAdapter } from './charitiesRegister.js';
 import { christchurchOpenDataAdapter } from './christchurchOpenData.js';
 import { dataGovtDatastoreAdapter } from './dataGovtDatastore.js';
 import { dataGovtNzAdapter } from './dataGovtNz.js';
 import { digitalNzAdapter } from './digitalNz.js';
 import { electricityAuthorityAdapter } from './electricityAuthority.js';
+import { evRoamAdapter } from './evRoam.js';
 import { geonetAdapter } from './geonet.js';
+import { geonetFeltRapidAdapter } from './geonetFeltRapid.js';
 import { infoshareAdapter } from './infoshare.js';
 import { lawaAdapter } from './lawa.js';
 import { linzAdapter } from './linz.js';
@@ -20,6 +24,7 @@ import { nzorAdapter } from './nzor.js';
 import { nzpamGeodataAdapter } from './nzpamGeodata.js';
 import { nztaAdapter } from './nzta.js';
 import { nztaOpenDataAdapter } from './nztaOpenData.js';
+import { nzGazetteAdapter } from './nzGazette.js';
 import { statsNzGeographicAdapter } from './statsNzGeographic.js';
 import { tradeMeAdapter } from './tradeMe.js';
 import { wellingtonCityOpenDataAdapter } from './wellingtonCityOpenData.js';
@@ -29,16 +34,20 @@ import type { NzDataAdapter, NzFetchOptions, NzSourceProbe } from './types.js';
 /** Every NZ data source behind the uniform adapter interface. */
 export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   geonetAdapter,
+  geonetFeltRapidAdapter,
   dataGovtNzAdapter,
   dataGovtDatastoreAdapter,
   adeSearchAdapter,
   infoshareAdapter,
   digitalNzAdapter,
+  nzGazetteAdapter,
   tradeMeAdapter,
   nzorAdapter,
   linzAdapter,
   arcgisHubAdapter,
+  aucklandMuseumAdapter,
   lawaAdapter,
+  charitiesRegisterAdapter,
   mbieOpenDataAdapter,
   mfeAdapter,
   lrisAdapter,
@@ -53,6 +62,7 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   canterburyMapsAdapter,
   wellingtonCityOpenDataAdapter,
   electricityAuthorityAdapter,
+  evRoamAdapter,
   nzpamGeodataAdapter,
 ];
 

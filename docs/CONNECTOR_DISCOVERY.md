@@ -530,3 +530,94 @@ commercial use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
+
+## 2026-11-16 addition: five keyless catalogue APIs
+
+These adapters cover entries from the Government API catalogue that answer
+without a key. Fixtures are dated captures from the exact curl commands below.
+
+| Adapter | Source | Endpoint | Fixture |
+| --- | --- | --- | --- |
+| `charities-register` | Charities Register Open Data (DIA) | `https://www.odata.charities.govt.nz/Organisations` | `charities-register-red-cross-2026-11-16.json` |
+| `auckland-museum` | Auckland Museum collections online | `https://api.aucklandmuseum.com/search/collectionsonline/_search` | `auckland-museum-ice-axe-2026-11-16.json` |
+| `ev-roam` | EV Roam charging stations (NZTA) | `https://services.arcgis.com/CXBb7LAjgIIdcsPt/arcgis/rest/services/EV_Roam_charging_stations/FeatureServer/0/query` | `ev-roam-charging-stations-2026-11-16.json` |
+| `geonet-felt-rapid` | GeoNet felt rapid reports | `https://api.geonet.org.nz/intensity?type=reported` | `geonet-felt-rapid-2026-11-16.json` |
+| `nz-gazette` | New Zealand Gazette through DigitalNZ | `https://api.digitalnz.org/v3/records.json` | `nz-gazette-2026-11-16.json` |
+
+### Exact curl commands (captured 2026-11-16)
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+# Charities Register name search, OData v2 verbose JSON.
+curl -sS -L -A "$UA" -H 'Accept: application/json' --get \
+  'https://www.odata.charities.govt.nz/Organisations' \
+  --data-urlencode "\$filter=substringof('red cross',Name)" \
+  --data-urlencode '$top=20' \
+  --data-urlencode '$inlinecount=allpages' \
+  -o charities-register-red-cross-2026-11-16.json
+
+# Auckland Museum collections online, Elasticsearch response shape.
+curl -sS -L -A "$UA" -H 'Accept: application/json' \
+  'https://api.aucklandmuseum.com/search/collectionsonline/_search?q=ice%20axe%20edmund%20hillary&size=20' \
+  -o auckland-museum-ice-axe-2026-11-16.json
+
+# EV Roam public charging stations, WGS84 geometry.
+curl -sS -L -A "$UA" \
+  'https://services.arcgis.com/CXBb7LAjgIIdcsPt/arcgis/rest/services/EV_Roam_charging_stations/FeatureServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=json' \
+  -o ev-roam-charging-stations-2026-11-16.json
+
+# GeoNet felt rapid reports.
+curl -sS -L -A "$UA" \
+  'https://api.geonet.org.nz/intensity?type=reported' \
+  -o geonet-felt-rapid-2026-11-16.json
+
+# New Zealand Gazette notices, newest first through DigitalNZ.
+curl -sS -L -A "$UA" \
+  'https://api.digitalnz.org/v3/records.json?per_page=20&and%5Bprimary_collection%5D%5B%5D=New%20Zealand%20Gazette&sort=date' \
+  -o nz-gazette-2026-11-16.json
+```
+
+### Shape notes
+
+- Charities Register answers OData v2. Without `$inlinecount`, `d` is a row
+  array. With it, `d` is `{ results, __count }`. The parser accepts both.
+- Auckland Museum answers an Elasticsearch search body. It needs HTTPS even
+  though the documentation still shows HTTP. The v2 API removed API keys.
+  `hits.total` can be a number or `{ value }`; both are accepted.
+- EV Roam answers an ArcGIS FeatureServer query with 639 features. Boolean
+  fields arrive as the strings `True` and `False`. Geometry is requested in
+  WGS84 (`outSR=4326`).
+- GeoNet felt rapid returns a GeoJSON FeatureCollection with `count` and
+  `count_mmi` totals plus one point per reported shaking location.
+- DigitalNZ v3 answers keyless. The Gazette collection filter is
+  `and[primary_collection][]=New Zealand Gazette`; `sort=date` returns newest
+  notices first. A DigitalNZ key only raises the rate limit.
+
+### Licence and verification
+
+- Charities Register Open Data: CC BY 3.0 NZ.
+- Auckland Museum collections data: museum terms, with `CC BY` on records that
+  carry it; check the record's `copyright` field.
+- EV Roam: CC BY 4.0.
+- GeoNet felt rapid: GeoNet terms, check with GNS Science before reuse.
+- New Zealand Gazette through DigitalNZ: check the DigitalNZ record rights.
+
+All five endpoints returned HTTP 200 from an Auckland connection on
+2026-11-16. Unit tests use the committed fixtures only and never hit the
+network.
+
+### Catalogue entries checked but not added
+
+| Entry | Response |
+| --- | --- |
+| Government consultation listing API | `https://www.govt.nz/api/v2/consultation/list` returns HTTP 500 HTML through the public gateway |
+| Government A-Z directory API | `https://www.govt.nz/api/v2/organisation/list` returns HTTP 500 HTML through the public gateway |
+| Driver licence holders dataset and API | ArcGIS FeatureServer answers `{"error":{"code":499,"message":"Token Required"}}`; the CSV and GeoJSON downloads still work |
+| TMS daily traffic counts API | FeatureServer answers, but the layer has 9,174,210 rows; a full pull needs pagination |
+| API New Zealand Schools | HTTP 403 to non-browser clients |
+| Te Papa Collections API | registration required |
+| DOC Developer Portal | API key or subscription required |
+| MSD API Developer Portal | API key or subscription required |
+| ACC Developer Resource Centre | keyed provider APIs, not a general open dataset |
+| Tertiary Education Commission developer portal | DNS does not resolve |

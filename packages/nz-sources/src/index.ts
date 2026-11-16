@@ -20,6 +20,15 @@ export type {
   ArcgisHubFetchOptions,
   ArcgisHubResult,
 } from './arcgisHub.js';
+/** Auckland Museum collections online search (keyless). */
+export {
+  searchAucklandMuseumRecords,
+  parseAucklandMuseumRecords,
+  aucklandMuseumAdapter,
+  AUCKLAND_MUSEUM_SOURCE_ID,
+} from './aucklandMuseum.js';
+/** Auckland Museum record types. */
+export type { AucklandMuseumRecord, AucklandMuseumSearchResult } from './aucklandMuseum.js';
 /** Auckland Transport open data hub catalogue (DCAT 1.1). */
 export {
   fetchAucklandTransportOpenDataCatalogue,
@@ -46,6 +55,15 @@ export type {
   CanterburyMapsDataset,
   CanterburyMapsDistribution,
 } from './canterburyMaps.js';
+/** Charities Register organisation name search (keyless). */
+export {
+  searchCharitiesRegister,
+  parseCharitiesRegister,
+  charitiesRegisterAdapter,
+  CHARITIES_REGISTER_SOURCE_ID,
+} from './charitiesRegister.js';
+/** Charities Register types. */
+export type { CharityOrganisation, CharitiesSearchResult } from './charitiesRegister.js';
 /** Christchurch City open data hub catalogue (DCAT 1.1). */
 export {
   fetchChristchurchOpenDataCatalogue,
@@ -99,6 +117,15 @@ export type {
   ElectricityAuthorityDatasetListing,
   ElectricityAuthorityDatasetObject,
 } from './electricityAuthority.js';
+/** EV Roam public charging stations from NZTA (keyless). */
+export {
+  fetchEvRoamChargingStations,
+  parseEvRoamChargingStations,
+  evRoamAdapter,
+  EV_ROAM_SOURCE_ID,
+} from './evRoam.js';
+/** EV Roam charging station types. */
+export type { EvRoamChargingStation, EvRoamResult } from './evRoam.js';
 /** Errors shared by every source adapter. */
 export { NzSourceApiError, NzSourceError, NzSourceParseError } from './errors.js';
 /** API error detail type. */
@@ -112,6 +139,15 @@ export {
 } from './geonet.js';
 /** GeoNet types. */
 export type { GeoNetQuake, GeoNetQuakeSummary } from './geonet.js';
+/** GeoNet felt rapid reports (keyless). */
+export {
+  fetchGeoNetFeltRapid,
+  parseGeoNetFeltRapid,
+  geonetFeltRapidAdapter,
+  GEONET_FELT_RAPID_SOURCE_ID,
+} from './geonetFeltRapid.js';
+/** GeoNet felt rapid report types. */
+export type { GeoNetFeltRapidPoint, GeoNetFeltRapidResult } from './geonetFeltRapid.js';
 /** Stats NZ Infoshare table catalogue search. */
 export {
   searchInfoshareTables,
@@ -194,6 +230,10 @@ export type {
   NztaOpenDataDataset,
   NztaOpenDataDistribution,
 } from './nztaOpenData.js';
+/** New Zealand Gazette notices through DigitalNZ (keyless). */
+export { fetchNzGazetteNotices, nzGazetteAdapter, NZ_GAZETTE_SOURCE_ID } from './nzGazette.js';
+/** New Zealand Gazette search options. */
+export type { NzGazetteSearchOptions } from './nzGazette.js';
 /** The uniform adapter registry and probe helpers. */
 export {
   NZ_DATA_SOURCES,

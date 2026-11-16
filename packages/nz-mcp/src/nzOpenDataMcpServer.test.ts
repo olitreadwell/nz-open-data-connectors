@@ -2,6 +2,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
+import { NZ_DATA_SOURCES } from '@nz-open-data-connectors/nz-sources';
 
 import { createNzOpenDataMcpServer } from './nzOpenDataMcpServer.js';
 
@@ -88,7 +89,7 @@ describe('createNzOpenDataMcpServer', () => {
     const result = await client.callTool({ name: 'list_sources', arguments: {} });
 
     const sources = JSON.parse(firstText(result)) as { id: string }[];
-    expect(sources.length).toBe(26);
+    expect(sources.length).toBe(NZ_DATA_SOURCES.length);
     expect(sources.every((source) => source.id.length > 0)).toBe(true);
   });
 
