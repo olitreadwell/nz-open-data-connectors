@@ -15,6 +15,8 @@
   open data.
 - Connectors: add keyless adapters for NIWA REC, NZPAM geodata, Stats NZ
   geographic data, Wellington City open data, and Whanganui geospatial data.
+- Connectors: add a keyless Environment Canterbury open data adapter for the
+  portal catalogue and its dataset JSON exports.
 - Python and Ruby ports: match TypeScript redirect credential handling and CSV and SDMX parsing.
 - MCP: add named tools for every registered source, probe only requested ids, reject unknown ids, and read the server version from package.json.
 

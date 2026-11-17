@@ -49,7 +49,7 @@ curl -sS -L -A "$UA" -H "Accept: application/json" \
 | LRIS `lris.scinfo.org.nz` (Landcare Research) | LIVE | Koordinates platform. `/services/api/v1/layers?search=...` works keyless. |
 | Waka Kotahi `journeys.nzta.govt.nz` | LIVE | `/api/hotspots` returns JSON only with `Accept: application/json` header; otherwise 400 "API only accepts JSON requests". Holiday journey hotspots as GeoJSON. |
 | Horizons `data.horizons.govt.nz` | BLOCKED | Redirects to ArcGIS Hub portal HTML; no keyless JSON API found. |
-| ECan `data.ecan.govt.nz` | BLOCKED | 403 on ArcGIS REST services. |
+| ECan `data.ecan.govt.nz` | LIVE | Portal HTML catalogue at `/Catalogue/Search`, 60 datasets over 6 pages. `/data/<id>/JSON` returns keyless rows. The ArcGIS REST path at the portal host still answers 403; the GIS server is separate. |
 | Waikato `data.waikatoregion.govt.nz` | BLOCKED | Connection timeout. |
 | HBRC `data.hbrc.govt.nz` | BLOCKED | 404 on ArcGIS REST services. |
 | Environment Southland `data.es.govt.nz` | BLOCKED | 404 on ArcGIS REST services. |
@@ -376,6 +376,33 @@ The same requests returned these responses from an Auckland connection on
 - Not verified: behaviour from non-NZ IPs, or whether the licence values are
   stable over time.
 
+## 2026-11-18 addition: Environment Canterbury open data
+
+`environment-canterbury-open-data` reads the Environment Canterbury open data
+portal. The portal has no JSON catalogue endpoint, so the adapter reads the
+server-rendered catalogue page and each dataset rollup.
+
+| Item | Value |
+| --- | --- |
+| Catalogue | `https://data.ecan.govt.nz/Catalogue/Search?page=<n>` |
+| Dataset rows | `https://data.ecan.govt.nz/data/<methodId>/JSON` |
+| Fixtures | `environment-canterbury-open-data-catalogue-2026-11-18.html`, `environment-canterbury-open-data-air-quality-sites-2026-11-18.json` |
+
+- The catalogue reports 60 datasets, 10 per page, across 6 pages. The adapter
+  returns the first page and the full total. `fetchEcanDatasetCatalogue`
+  follows every page and drops duplicate method ids.
+- The data export needs no agreement cookie or key. Dataset `23` ("Air quality
+  sites monitored") returns 18 rows. Datasets that need parameters, such as
+  `171` and `98`, answer HTTP 500 without them.
+- Retired datasets such as `60` and `91` answer HTTP 200 with
+  `{"data":{"item":{"Msg":"This data service has become out of date..."}}}`.
+  The row parser rejects that shape.
+- The portal states that all data is CC BY 4.0 unless a dataset says otherwise,
+  and asks for Environment Canterbury attribution. The catalogue carries no
+  per-dataset licence field.
+- Not verified: whether the HTML catalogue markup stays stable, or whether any
+  dataset overrides the portal-wide CC BY 4.0 statement.
+
 ## 2026-11-08 addition: four keyless adapters (batch 2)
 
 Four more keyless adapters were built and probed against the live services on
@@ -521,6 +548,7 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `electricity-authority` | Electricity Authority | The container listing has no per-object licence. The Authority's copyright statement says its copyright material is licensed for reuse under CC BY 4.0 unless indicated otherwise, checked 2026-11-08 |
 | `ev-roam` | EV Roam charging stations (NZTA) | CC BY 4.0, per `catalogue.data.govt.nz/dataset/ev-roam-charging-stations3`, checked 2026-11-17 |
 | `nzpam-geodata` | New Zealand Petroleum and Minerals (NZPAM) | The public ArcGIS REST response carries no licence field. Check the NZPAM terms |
+| `environment-canterbury-open-data` | Environment Canterbury | The portal states that all data is CC BY 4.0 unless a dataset says otherwise, and asks for Environment Canterbury attribution. The catalogue carries no per-dataset licence field, checked 2026-11-18 |
 
 Two things follow from the table. First, `arcgis`,
 `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,

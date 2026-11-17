@@ -167,6 +167,12 @@ describe('registry', () => {
         if (hostname === 'data-wcc.opendata.arcgis.com') {
           return jsonResponse(readFixtureJson('wellington-city-open-data-2026-11-08.json'));
         }
+        if (hostname === 'data.ecan.govt.nz') {
+          return new Response(
+            readFixtureText('environment-canterbury-open-data-catalogue-2026-11-18.html'),
+            { status: 200, headers: { 'content-type': 'text/html' } }
+          );
+        }
         if (hostname === 'emidatasets.blob.core.windows.net') {
           return new Response(readFixtureText('electricity-authority-datasets-2026-11-08.xml'), {
             status: 200,

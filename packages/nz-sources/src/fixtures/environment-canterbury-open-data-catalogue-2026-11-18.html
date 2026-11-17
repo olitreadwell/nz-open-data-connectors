@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Data Sets - ECan Open Data Portal</title>
+    <meta lang="en" name="coverage" content="New Zealand, Canterbury" xml:lang="en" />
+    <meta lang="en" name="mandates" content="local govt, regional" xml:lang="en" />
+    <meta lang="en" name="language" content="en-NZ" xml:lang="en" />
+    <link rel="shortcut icon" href="/ecan-favicon.ico" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:regular,bold,extrabold" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/Content/Site.css" />
+    <script type="text/javascript" src="/Scripts/jquery-1.9.1.min.js"></script>
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-P6VB31QE9X"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-P6VB31QE9X');
+</script>
+
+
+
+    <script type = 'text/javascript' >
+        var appInsights=window.appInsights||function(config)
+        {
+            function r(config){ t[config] = function(){ var i = arguments; t.queue.push(function(){ t[config].apply(t, i)})} }
+            var t = { config:config},u=document,e=window,o='script',s=u.createElement(o),i,f;for(s.src=config.url||'//az416426.vo.msecnd.net/scripts/a/ai.0.js',u.getElementsByTagName(o)[0].parentNode.appendChild(s),t.cookie=u.cookie,t.queue=[],i=['Event','Exception','Metric','PageView','Trace','Ajax'];i.length;)r('track'+i.pop());return r('setAuthenticatedUserContext'),r('clearAuthenticatedUserContext'),config.disableExceptionTracking||(i='onerror',r('_'+i),f=e[i],e[i]=function(config, r, u, e, o) { var s = f && f(config, r, u, e, o); return s !== !0 && t['_' + i](config, r, u, e, o),s}),t
+        }({
+            instrumentationKey:'3bb4d564-937b-4e87-83a3-b64a389e4189'
+        });
+        
+        window.appInsights=appInsights;
+        appInsights.trackPageView();
+    </script>
+</head>
+
+<body>
+<div id="beta"></div>
+<div id="header">
+    <div id="data-logo"><a href="//ecan.govt.nz"><span class="inner"><img alt="Open Data Portal" src="/Content/Images/logo.png" /></span></a></div>
+    <div class="pull-right">
+        
+        <a class="datacat-navlink" href="//ecan.govt.nz/info/contact/">
+            <i class="fa fa-envelope" aria-hidden="true"></i>
+        </a>
+    </div>
+</div>
+    <nav id="nav">
+        <div class="pull-left">
+            <ul>
+                <li><a href="/">Open Data Portal</a></li>
+                
+    <li>&gt;</li>
+    <li><a href="/Catalogue/Search">Data Sets</a></li>
+
+            </ul>
+        </div>
+    </nav>
+<div id="wrapper" class="clearfix"> <a name="maincontent" id="maincontent"></a>
+  <div class="inner">
+    <div id="nav-wrapper" class="clearfix">
+                   
+
+
+
+<div id="Search">
+
+<h2>Data Sets</h2>
+<p>Browse our data sets by collection either alphabetically or using our search functionality. Current formats available are <a href="http://en.wikipedia.org/wiki/Comma-separated_values">csv</a>, <a href="http://en.wikipedia.org/wiki/JSON">json</a> and <a href="http://en.wikipedia.org/wiki/xml">xml</a>. <a href="http://en.wikipedia.org/wiki/Shapefile">Shp</a> file format will be available in the future.</p>
+
+<div id="SearchCriteria">
+    <h3>Search</h3>
+    <form action="/Catalogue/Search" id="SearchBox" method="get">    <div id="search-box">
+        <label for="Query">Keywords:</label>
+        <input id="Query" name="Query" type="text" value="" />
+        <label for="CollectionId">Collection:</label>
+        <select data-val="true" data-val-number="The field CollectionId must be a number." data-val-required="The CollectionId field is required." id="CollectionId" name="CollectionId"><option selected="selected" value="0"></option>
+<option value="4">Air</option>
+<option value="7">GIS</option>
+<option value="6">Harbours</option>
+<option value="8">NRRP</option>
+<option value="9">Rainfall</option>
+<option value="1">RMA Authorisations</option>
+<option value="5">Transport</option>
+<option value="2">Water</option>
+</select>
+        <input id="search-submit" type="submit" value="Search" />
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("SearchBox").submit(function () {
+            window.location = '/Catalogue/Search?collectionId=' + $('#CollectionId').val() + '&query=' + encodeURIComponent($('#Query').val());
+            return false;
+        });
+    });
+</script>
+</div>
+
+<div id="SearchResultsWrapper">
+<h3>Results</h3>
+    <div id="SearchResults">
+    <div class='pagination'><span class='paginationLeft'>Showing 1 - 10 of 60 </span><span class='paginationRight'>first | prev | <a href="/Catalogue/Search?page=2">next</a> | <a href="/Catalogue/Search?page=6">last</a></span></div>
+<div class="rollup"><div class="rollup-inner">
+    <h3><a href="/Catalogue/Method?MethodId=171">Air contaminants for a monitored site (hourly)</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves contaminant data relating to an air quality site that is monitored.<p></div>
+    <div class="keywords">Air, Air Quality, Data Pipeline</div>
+</div></div><div class="rollup"><div class="rollup-inner-alt">
+    <h3><a href="/Catalogue/Method?MethodId=180">Air quality all stations and monitor channels</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves station information and monitor channel information for the station and monitor type passed in. All params are optional.</p><p>Schema is available from <a href='http://webservices.ecan.govt.nz/NewAirMonForMet/Service.svc/help'>here</a></p><p>NOTE: Use this to get the list of valid StationCode and MonitorTypeCode values to pass into the 'All xxx' API calls</p></div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner">
+    <h3><a href="/Catalogue/Method?MethodId=29">Air quality data for a monitored site (10 minute)</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves data relating to an air quality site that is monitored.</p><p>Note: {SiteNo} in the interface URI needs to have a valid site no. Obtain these from the service which list sites that are monitored.</p></div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner-alt">
+    <h3><a href="/Catalogue/Method?MethodId=98">Air quality data for a monitored site (daily)</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves data relating to an air quality site that is monitored.</p><p>Note: {SiteNo} in the interface URI needs to have a valid site no. Obtain these from the service which list sites that are monitored</p></div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner">
+    <h3><a href="/Catalogue/Method?MethodId=94">Air quality data for a monitored site (hourly)</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves data relating to an air quality site that is monitored.</p><p>Note: {SiteNo} in the interface URI needs to have a valid site no. Obtain these from the service which list sites that are monitored</p></div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner-alt">
+    <h3><a href="/Catalogue/Method?MethodId=181">Air quality PM10 exceedance by air shed</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description">Air High Pollution Nights for PM10 by Air Shed</div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner">
+    <h3><a href="/Catalogue/Method?MethodId=61">Air quality PM10 exceedance by site</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Displays air quality high pollution nights in the airsheds. The same data can be found <a href='http://ecan.govt.nz/SERVICES/ONLINE-SERVICES/MONITORING/AIR-POLLUTION/Pages/high-pollution-nights.aspx'>on this page.</a></div>
+    <div class="keywords">Air</div>
+</div></div><div class="rollup"><div class="rollup-inner-alt">
+    <h3><a href="/Catalogue/Method?MethodId=182">Air quality PM2.5 exceedance by air shed</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description">Air High Pollution Nights for PM2.5 by Air Shed</div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner">
+    <h3><a href="/Catalogue/Method?MethodId=23">Air quality sites monitored</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Retrieves sites that monitor air quality data.</p></div>
+    <div class="keywords">Air, Air Quality</div>
+</div></div><div class="rollup"><div class="rollup-inner-alt">
+    <h3><a href="/Catalogue/Method?MethodId=151">Associated permits</a></h3>
+    <div class="formats">
+        <p>Formats</p>
+        <div class="format csv">CSV</div>
+        <div class="format xml">XML</div>
+        <div class="format json">JSON</div>
+        <div class="format jsonp">JSONP</div>
+    </div>
+    <div class="description"><p>Associated permits and consents for a consent number.</p></div>
+    <div class="keywords">Water, Water Use, Associated Permits, Permits, Associated Consents, Consents</div>
+</div></div>
+    <div class='pagination'><span class='paginationLeft'>Showing 1 - 10 of 60 </span><span class='paginationRight'>first | prev | <a href="/Catalogue/Search?page=2">next</a> | <a href="/Catalogue/Search?page=6">last</a></span></div>
+    </div>
+</div>
+
+</div>
+    </div>
+    <div id="CreativeCommons">
+        <a rel="license" href="//creativecommons.org/licenses/by/4.0/"><img alt="Creative Commons License" style="border-width:0" src="//licensebuttons.net/l/by/4.0/80x15.png" /></a>
+        <br />All data unless specifically stated is licensed under a <a rel="license" href="//creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+    </div>
+  </div>
+</div>
+<div id="footer" class="clearfix">
+  <div class="inner">
+    <ul>
+        <li class="copyright">
+            <p>
+
+                Environment Canterbury © 2026
+            </p>
+        </li>
+        <li>
+            <a href="//ecan.govt.nz/info/accessibility/" accesskey="0">What is an accessible website?</a>
+        </li>
+        <li>
+            <a href="//ecan.govt.nz/info/privacy/">Privacy</a>
+        </li>
+        <li>
+            <a href="//ecan.govt.nz/info/privacy/" accesskey="9">Contact</a>
+        </li>
+        <li>
+            <a href="//ecan.govt.nz/info/copyright/">Copyright Information</a>
+        </li>
+        <li>
+            <a class="nzgovt pullRight" href="//www.govt.nz/">
+                <span class="sr-only">New Zealand Government website</span>
+            </a>
+        </li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

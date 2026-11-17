@@ -9,6 +9,7 @@ import { dataGovtDatastoreAdapter } from './dataGovtDatastore.js';
 import { dataGovtNzAdapter } from './dataGovtNz.js';
 import { digitalNzAdapter } from './digitalNz.js';
 import { electricityAuthorityAdapter } from './electricityAuthority.js';
+import { environmentCanterburyOpenDataAdapter } from './environmentCanterburyOpenData.js';
 import { evRoamAdapter } from './evRoam.js';
 import { geonetAdapter } from './geonet.js';
 import { geonetFeltRapidAdapter } from './geonetFeltRapid.js';
@@ -61,6 +62,7 @@ export const NZ_DATA_SOURCES: NzDataAdapter<unknown>[] = [
   nztaOpenDataAdapter,
   canterburyMapsAdapter,
   wellingtonCityOpenDataAdapter,
+  environmentCanterburyOpenDataAdapter,
   electricityAuthorityAdapter,
   evRoamAdapter,
   nzpamGeodataAdapter,

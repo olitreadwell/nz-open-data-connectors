@@ -50,6 +50,9 @@ The data is not ours. Each publisher keeps its own terms. The short version:
 - **DigitalNZ**, including New Zealand Gazette notices: records carry `rights`,
   `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and `usage`
   values.
+- **Environment Canterbury open data**: Creative Commons Attribution 4.0
+  International unless a dataset says otherwise. Attribute Environment
+  Canterbury as the source.
 - **ArcGIS Hub**: datasets carry `licenseInfo`, `accessInformation` and
   `license` values.
 - **Auckland Museum**: records carry `copyright` and `dc_contributor` values.
@@ -115,6 +118,7 @@ nothing extra.
 | `auckland-transport-open-data` | Auckland Transport open GIS data (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe auckland-transport-open-data` |
 | `canterbury-maps` | Canterbury Maps open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe canterbury-maps` |
 | `wellington-city-open-data` | Wellington City open data hub (DCAT 1.1) | Yes | - | `npx tsx packages/cli/src/cli.ts probe wellington-city-open-data` |
+| `environment-canterbury-open-data` | Environment Canterbury open data portal | Yes | - | `npx tsx packages/cli/src/cli.ts probe environment-canterbury-open-data` |
 | `electricity-authority` | Electricity Authority downloadable datasets | Yes | - | `npx tsx packages/cli/src/cli.ts probe electricity-authority` |
 | `ev-roam` | EV Roam charging stations (NZTA) | Yes | - | `npx tsx packages/cli/src/cli.ts probe ev-roam` |
 | `nzpam-geodata` | NZPAM Geodata Catalogue public ArcGIS services | Yes | - | `npx tsx packages/cli/src/cli.ts probe nzpam-geodata` |

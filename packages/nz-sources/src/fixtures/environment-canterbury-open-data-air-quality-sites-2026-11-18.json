@@ -1,0 +1,149 @@
+{
+  "data": {
+    "item": [
+      {
+        "SiteNo": "7",
+        "SiteName": "Ashburton",
+        "LongName": "Ashburton - Ashburton",
+        "City": "Ashburton",
+        "AirShed": "Ashburton",
+        "LatestDateTime": "2025-11-04T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "91",
+        "SiteName": "Ashburton 2",
+        "LongName": "Ashburton - Ashburton 2",
+        "City": "Ashburton",
+        "AirShed": "Ashburton",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "1",
+        "SiteName": "St Albans",
+        "LongName": "Christchurch - St Albans",
+        "City": "Christchurch",
+        "AirShed": "Christchurch",
+        "LatestDateTime": "2020-11-17T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "2",
+        "SiteName": "Riccarton Road",
+        "LongName": "Christchurch - Riccarton Road",
+        "City": "Christchurch",
+        "AirShed": "Christchurch",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "3",
+        "SiteName": "Woolston",
+        "LongName": "Christchurch - Woolston",
+        "City": "Christchurch",
+        "AirShed": "Christchurch",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "36",
+        "SiteName": "Burnside",
+        "LongName": "Christchurch - Burnside",
+        "City": "Christchurch",
+        "AirShed": "Christchurch",
+        "LatestDateTime": "2010-12-31T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "87",
+        "SiteName": "St Albans EP",
+        "LongName": "Christchurch - St Albans EP",
+        "City": "Christchurch",
+        "AirShed": "Christchurch",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "90",
+        "SiteName": "Riccarton Benzene",
+        "LongName": "Christchurch - Riccarton Benzene",
+        "City": "Christchurch",
+        "AirShed": "Christchurch"
+      },
+      {
+        "SiteNo": "9",
+        "SiteName": "Geraldine",
+        "LongName": "Geraldine - Geraldine",
+        "City": "Geraldine",
+        "AirShed": "Geraldine",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "4",
+        "SiteName": "Kaiapoi",
+        "LongName": "Kaiapoi - Kaiapoi",
+        "City": "Kaiapoi",
+        "AirShed": "Kaiapoi",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "6",
+        "SiteName": "Lincoln",
+        "LongName": "Lincoln - Lincoln",
+        "City": "Lincoln",
+        "AirShed": "Lincoln",
+        "LatestDateTime": "2010-04-20T00:00:00+12:00"
+      },
+      {
+        "SiteNo": "5",
+        "SiteName": "Rangiora",
+        "LongName": "Rangiora - Rangiora",
+        "City": "Rangiora",
+        "AirShed": "Rangiora",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "10",
+        "SiteName": "Timaru Anzac Square",
+        "LongName": "Timaru - Timaru Anzac Square",
+        "City": "Timaru",
+        "AirShed": "Timaru",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "54",
+        "SiteName": "Timaru Grey Rd",
+        "LongName": "Timaru - Timaru Grey Rd",
+        "City": "Timaru",
+        "AirShed": "Timaru",
+        "LatestDateTime": "2006-04-03T00:00:00+12:00"
+      },
+      {
+        "SiteNo": "12",
+        "SiteName": "Waimate Stadium",
+        "LongName": "Waimate - Waimate Stadium",
+        "City": "Waimate",
+        "AirShed": "Waimate",
+        "LatestDateTime": "2015-08-13T00:00:00+12:00"
+      },
+      {
+        "SiteNo": "64",
+        "SiteName": "Waimate Kennedy",
+        "LongName": "Waimate - Waimate Kennedy",
+        "City": "Waimate",
+        "AirShed": "Waimate",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "11",
+        "SiteName": "Washdyke Flat Road",
+        "LongName": "Washdyke - Washdyke Flat Road",
+        "City": "Washdyke",
+        "AirShed": "Washdyke",
+        "LatestDateTime": "2019-01-31T00:00:00+13:00"
+      },
+      {
+        "SiteNo": "77",
+        "SiteName": "Washdyke Alpine",
+        "LongName": "Washdyke - Washdyke Alpine",
+        "City": "Washdyke",
+        "AirShed": "Washdyke",
+        "LatestDateTime": "2026-11-16T00:00:00+13:00"
+      }
+    ]
+  }
+}

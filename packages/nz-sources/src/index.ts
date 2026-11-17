@@ -117,6 +117,24 @@ export type {
   ElectricityAuthorityDatasetListing,
   ElectricityAuthorityDatasetObject,
 } from './electricityAuthority.js';
+/** Environment Canterbury open data portal catalogue (keyless). */
+export {
+  fetchEcanCataloguePage,
+  fetchEcanDatasetCatalogue,
+  fetchEcanDatasetRows,
+  parseEcanCataloguePage,
+  parseEcanDatasetRows,
+  environmentCanterburyOpenDataAdapter,
+  ENVIRONMENT_CANTERBURY_OPEN_DATA_SOURCE_ID,
+  ECAN_OPEN_DATA_PORTAL_URL,
+} from './environmentCanterburyOpenData.js';
+/** Environment Canterbury open data types. */
+export type {
+  EcanCataloguePage,
+  EcanDataset,
+  EcanDatasetCatalogue,
+  EcanDatasetRow,
+} from './environmentCanterburyOpenData.js';
 /** EV Roam public charging stations from NZTA (keyless). */
 export {
   fetchEvRoamChargingStations,

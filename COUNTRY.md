@@ -9,9 +9,10 @@ key from the environment to unlock more. Keys stay server-side.
 
 ## Adapters
 
-All thirty-one were probed keyless from an Auckland connection. Fourteen were
+All thirty-two were probed keyless from an Auckland connection. Fourteen were
 checked on 2026-10-08, Infoshare on 2026-11-06, MBIE open data on 2026-11-07,
-ten more on 2026-11-08, and five more on 2026-11-16; all answered. Fixture
+ten more on 2026-11-08, five more on 2026-11-16, and Environment Canterbury on
+2026-11-18; all answered. Fixture
 dates are the capture dates.
 
 | Source | Adapter id | Status |
@@ -42,6 +43,7 @@ dates are the capture dates.
 | Auckland Transport open GIS data | `auckland-transport-open-data` | Live, keyless; DCAT 1.1 catalogue |
 | Canterbury Maps open data | `canterbury-maps` | Live, keyless; DCAT 1.1 catalogue |
 | Wellington City open data | `wellington-city-open-data` | Live, keyless; DCAT 1.1 catalogue |
+| Environment Canterbury open data | `environment-canterbury-open-data` | Live, keyless; first catalogue page, with the full total |
 | Electricity Authority datasets | `electricity-authority` | Live, keyless; first page of the public Azure Blob container listing |
 | NZPAM Geodata Catalogue | `nzpam-geodata` | Live, keyless; 13 public ArcGIS REST services |
 | Auckland Museum collections | `auckland-museum` | Live, keyless; Elasticsearch collection search |
@@ -82,7 +84,8 @@ credentials exist.
 - [ ] Publish the ports to PyPI and RubyGems
 - [ ] Port the remaining adapters (`arcgis`, `auckland-museum`,
       `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
-      `christchurch-open-data`, `electricity-authority`, `ev-roam`,
+      `christchurch-open-data`, `electricity-authority`,
+      `environment-canterbury-open-data`, `ev-roam`,
       `geonet-felt-rapid`, `infoshare`, `lawa`, `lris`, `lris-basemaps`,
       `mbie-open-data`, `mfe`, `niwa-rec`, `nz-gazette`, `nzpam-geodata`,
       `nzta`, `nzta-open-data`, `stats-nz-geographic`,
@@ -94,7 +97,8 @@ credentials exist.
       `whanganui-geospatial`
 - [ ] Complete licence and attribution metadata for the other adapters:
       `ade-search`, `auckland-museum`, `charities-register`,
-      `data-govt-datastore`, `electricity-authority`, `ev-roam`, `geonet`,
+      `data-govt-datastore`, `electricity-authority`,
+      `environment-canterbury-open-data`, `ev-roam`, `geonet`,
       `geonet-felt-rapid`, `infoshare`, `lawa`, `linz`, `lris`, `lris-basemaps`,
       `mfe`, `niwa-rec`, `nzpam-geodata`, `nzor`, `stats-nz-geographic`,
       `nzta` and `trademe`. Most publish terms of use or only partial
@@ -115,7 +119,7 @@ Checked during the 2026-08-25 and 2026-11-08 discovery passes. See
 | incidents.fireandemergency.nz | dead |
 | api.rbnz.govt.nz | 403, needs a key |
 | data.doc.govt.nz | dead |
-| Regional council hubs (Horizons, ECan, Waikato, HBRC, Environment Southland, Marlborough, West Coast) | blocked: 403, timeouts, or bad certificates |
+| Regional council hubs (Horizons, Waikato, HBRC, Environment Southland, Marlborough, West Coast) | blocked: 403, timeouts, or bad certificates |
 | Former council hub hosts (Auckland Council, BOPRC, NRC, GDC, TRC, Tasman) | DNS does not resolve |
 | MetService | no keyless JSON endpoint found |
 | NIWA `api.niwa.co.nz` | needs a key |
