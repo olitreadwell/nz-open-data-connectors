@@ -25,6 +25,12 @@ export interface WmsCapabilities {
   version: string;
   serviceTitle: string;
   serviceAbstract: string;
+  /** Fees statement declared by the service, or an empty string. */
+  fees: string;
+  /** Access constraints declared by the service, or an empty string. */
+  accessConstraints: string;
+  /** Contact organisation the service names, or an empty string. */
+  contactOrganization: string;
   layers: WmsLayer[];
 }
 
@@ -118,6 +124,10 @@ export function parseWmsCapabilities(payload: string, source: string): WmsCapabi
   if (!isRecord(capability)) {
     throw new NzSourceParseError(source, 'missing WMS Capability element');
   }
+  const contactInformation = isRecord(service.ContactInformation) ? service.ContactInformation : {};
+  const contactPersonPrimary = isRecord(contactInformation.ContactPersonPrimary)
+    ? contactInformation.ContactPersonPrimary
+    : {};
   const rootLayer = capability.Layer;
   if (!isRecord(rootLayer)) {
     throw new NzSourceParseError(source, 'missing WMS Capability/Layer element');
@@ -148,6 +158,9 @@ export function parseWmsCapabilities(payload: string, source: string): WmsCapabi
     version,
     serviceTitle: readString(service.Title),
     serviceAbstract: readString(service.Abstract),
+    fees: readString(service.Fees),
+    accessConstraints: readString(service.AccessConstraints),
+    contactOrganization: readString(contactPersonPrimary.ContactOrganization),
     layers,
   };
 }

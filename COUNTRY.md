@@ -91,18 +91,25 @@ credentials exist.
       `nzta`, `nzta-open-data`, `stats-nz-geographic`,
       `wellington-city-open-data`, `whanganui-geospatial`)
 - [x] Return source-supplied licence and attribution metadata per record:
-      `arcgis`, `auckland-transport-open-data`, `canterbury-maps`,
-      `christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
-      `nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and
-      `whanganui-geospatial`
-- [ ] Complete licence and attribution metadata for the other adapters:
-      `ade-search`, `auckland-museum`, `charities-register`,
-      `data-govt-datastore`, `electricity-authority`,
-      `environment-canterbury-open-data`, `ev-roam`, `geonet`,
-      `geonet-felt-rapid`, `infoshare`, `lawa`, `linz`, `lris`, `lris-basemaps`,
-      `mfe`, `niwa-rec`, `nzpam-geodata`, `nzor`, `stats-nz-geographic`,
-      `nzta` and `trademe`. Most publish terms of use or only partial
-      per-record metadata, so each source needs its own decision
+      `arcgis`, `auckland-museum`, `auckland-transport-open-data`,
+      `canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`,
+      `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
+      `wellington-city-open-data` and `whanganui-geospatial`
+- [x] Return source-supplied service and page rights metadata where the
+      source has no per-record field: `environment-canterbury-open-data`
+      (CC BY 4.0 link, licence statement and copyright notice),
+      `lris-basemaps` and `niwa-rec` (fees, access constraints and contact
+      organisation from the WMS service block)
+- [ ] Add adapter-level licence metadata for sources that publish a
+      source-wide licence but no licence field in the API payload:
+      `charities-register`, `electricity-authority`, `ev-roam`, `geonet`,
+      `geonet-felt-rapid`, `infoshare`, `nzor` and `stats-nz-geographic`.
+      The licence belongs on the adapter, not each record, because the
+      response carries no licence value
+- [ ] Decide whether to expose publisher terms for `ade-search`,
+      `data-govt-datastore`, `lawa`, `linz`, `lris`, `mfe`, `nzpam-geodata`,
+      `nzta` and `trademe`. These publish terms of use or per-item terms, not
+      a reusable licence value in the response
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 

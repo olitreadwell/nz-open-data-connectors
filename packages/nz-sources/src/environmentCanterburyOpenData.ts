@@ -33,6 +33,12 @@ export interface EcanCataloguePage {
   pageSize: number;
   total: number;
   lastPage: number;
+  /** Licence URL declared by the portal, or an empty string. */
+  licenseUrl: string;
+  /** Licence statement declared by the portal, or an empty string. */
+  licenseText: string;
+  /** Copyright notice in the portal footer, or an empty string. */
+  copyrightNotice: string;
   datasets: EcanDataset[];
 }
 
@@ -65,6 +71,12 @@ const FORMAT_PATTERN = /class="format [^"]*">([^<]+)<\/div>/g;
 const DESCRIPTION_PATTERN = /class="description">([\s\S]*?)<\/div>/;
 
 const KEYWORDS_PATTERN = /class="keywords">([\s\S]*?)<\/div>/;
+
+const CREATIVE_COMMONS_BLOCK_PATTERN = /<div id="CreativeCommons">([\s\S]*?)<\/div>/;
+
+const LICENSE_URL_PATTERN = /<a rel="license" href="([^"]+)"/;
+
+const COPYRIGHT_NOTICE_PATTERN = /<li class="copyright">([\s\S]*?)<\/li>/;
 
 /**
  * Decodes the small set of HTML entities the portal emits and strips tags.
@@ -100,6 +112,31 @@ function splitKeywords(value: string): string[] {
 }
 
 /**
+ * Converts a protocol-relative licence URL to HTTPS and leaves other URLs alone.
+ *
+ * @param value - URL attribute from the portal HTML.
+ * @returns An absolute or unchanged URL.
+ */
+function readAbsoluteUrl(value: string): string {
+  const trimmed = value.trim();
+  return trimmed.startsWith('//') ? `https:${trimmed}` : trimmed;
+}
+
+/**
+ * Reads the licence statement from the Creative Commons block.
+ *
+ * @param block - HTML inside the Creative Commons block.
+ * @returns The statement with tags removed and punctuation tidied.
+ */
+function readLicenseText(block: string): string {
+  const afterBreak = block
+    .split(/<br\s*\/?>/i)
+    .slice(1)
+    .join(' ');
+  return cleanHtmlText(afterBreak).replace(/\s+([.,])/g, '$1');
+}
+
+/**
  * Parses one Environment Canterbury catalogue page into dataset records.
  *
  * The portal renders server-side HTML with no JSON catalogue endpoint, so
@@ -132,6 +169,9 @@ export function parseEcanCataloguePage(payload: unknown): EcanCataloguePage {
   const pageSize = total === 0 ? 0 : last - first + 1;
   const page = pageSize === 0 ? 1 : Math.floor((first - 1) / pageSize) + 1;
   const lastPage = pageSize === 0 ? 0 : Math.ceil(total / pageSize);
+  const creativeCommonsBlock = CREATIVE_COMMONS_BLOCK_PATTERN.exec(payload)?.[1] ?? '';
+  const licenseUrlMatch = LICENSE_URL_PATTERN.exec(creativeCommonsBlock);
+  const copyrightNoticeMatch = COPYRIGHT_NOTICE_PATTERN.exec(payload);
 
   const datasets: EcanDataset[] = [];
   for (const match of payload.matchAll(ROLLUP_PATTERN)) {
@@ -159,7 +199,17 @@ export function parseEcanCataloguePage(payload: unknown): EcanCataloguePage {
       'result count was positive but no datasets were found'
     );
   }
-  return { page, pageSize, total, lastPage, datasets };
+  return {
+    page,
+    pageSize,
+    total,
+    lastPage,
+    licenseUrl: licenseUrlMatch === null ? '' : readAbsoluteUrl(licenseUrlMatch[1] ?? ''),
+    licenseText: readLicenseText(creativeCommonsBlock),
+    copyrightNotice:
+      copyrightNoticeMatch === null ? '' : cleanHtmlText(copyrightNoticeMatch[1] ?? ''),
+    datasets,
+  };
 }
 
 /**
