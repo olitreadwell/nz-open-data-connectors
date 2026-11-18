@@ -16,7 +16,12 @@ export interface AucklandMuseumRecord {
   type: string;
   departments: string[];
   identifiers: string[];
+  /** First copyright statement, kept for callers of the original field. */
   copyright: string;
+  /** Every copyright or rights statement the record carries. */
+  copyrightStatements: string[];
+  /** Source contributors, including authors and issuing bodies. */
+  contributors: string[];
   primaryRepresentation: string | null;
   lastModified: string | null;
 }
@@ -35,6 +40,16 @@ const AUCKLAND_MUSEUM_SOURCE_SCHEMA = z
     department: z.array(z.string()).optional().default([]),
     dc_identifier: z.array(z.string()).optional().default([]),
     copyright: z.array(z.string()).optional().default([]),
+    dc_contributor: z
+      .union([z.array(z.string()), z.string()])
+      .nullable()
+      .optional()
+      .transform((value) => {
+        if (value === null || value === undefined) {
+          return [];
+        }
+        return Array.isArray(value) ? value : [value];
+      }),
     primaryRepresentation: z.string().nullable().optional(),
     lastModifiedOn: z.array(z.string()).optional().default([]),
     appellation: z
@@ -68,6 +83,8 @@ function toRecord(hit: z.infer<typeof AUCKLAND_MUSEUM_HIT_SCHEMA>): AucklandMuse
     departments: source.department,
     identifiers: source.dc_identifier,
     copyright: source.copyright[0] ?? '',
+    copyrightStatements: source.copyright,
+    contributors: source.dc_contributor,
     primaryRepresentation: source.primaryRepresentation ?? null,
     lastModified: source.lastModifiedOn[0] ?? null,
   };

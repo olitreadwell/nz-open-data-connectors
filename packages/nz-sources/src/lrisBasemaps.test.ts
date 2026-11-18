@@ -20,6 +20,9 @@ describe('parseLrisBasemaps', () => {
     const capabilities = parseLrisBasemaps(FIXTURE);
     expect(capabilities.version).toBe('1.3.0');
     expect(capabilities.serviceTitle).toBe('Landcare Research NZ Topographic Baselayer');
+    expect(capabilities.fees).toBe('none');
+    expect(capabilities.accessConstraints).toBe('');
+    expect(capabilities.contactOrganization).toBe('Landcare Research New Zealand Limited');
     expect(capabilities.layers).toHaveLength(12);
   });
 

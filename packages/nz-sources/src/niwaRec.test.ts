@@ -18,6 +18,9 @@ describe('parseNiwaRecCapabilities', () => {
   it('parses the NIWA REC WMS capabilities fixture', () => {
     const capabilities = parseNiwaRecCapabilities(FIXTURE);
     expect(capabilities.version).toBe('1.3.0');
+    expect(capabilities.fees).toBe('none');
+    expect(capabilities.accessConstraints).toBe('none');
+    expect(capabilities.contactOrganization).toBe('NIWA IT Systems Development');
     expect(capabilities.layers).toHaveLength(1);
   });
 

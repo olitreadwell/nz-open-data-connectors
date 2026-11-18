@@ -312,8 +312,9 @@ The same requests returned these responses from an Auckland connection on
 ### Shape notes
 
 - The two WMS adapters read a WMS 1.3.0 `GetCapabilities` document. They return
-  the service title and abstract plus a flat list of named layers. Each layer
-  carries its title, abstract, `queryable` flag, declared CRS list, and
+  the service title, abstract, fees, access constraints and contact
+  organisation plus a flat list of named layers. Each layer carries its title,
+  abstract, `queryable` flag, declared CRS list, and
   `EX_GeographicBoundingBox`. CRS codes and bounds are not inherited from a
   parent layer.
 - `lris-basemaps` returns 12 named layers. The first is `ext_basemap`, titled
@@ -339,10 +340,15 @@ The same requests returned these responses from an Auckland connection on
 
 ### Licence
 
-- `lris-basemaps`: the WMS `Service` block declares `Fees: none` and an empty
-  `AccessConstraints` value. Check the LRIS terms before reuse.
-- `niwa-rec`: the WMS `Service` block declares `Fees: none` and
-  `AccessConstraints: none`. Check the NIWA terms before reuse.
+- `lris-basemaps`: the WMS `Service` block declares `Fees: none`, an empty
+  `AccessConstraints` value, and Landcare Research New Zealand Limited as the
+  contact organisation. The adapter returns them as `fees`,
+  `accessConstraints` and `contactOrganization`. Check the LRIS terms before
+  reuse.
+- `niwa-rec`: the WMS `Service` block declares `Fees: none`,
+  `AccessConstraints: none`, and NIWA IT Systems Development as the contact
+  organisation. The adapter returns them as `fees`, `accessConstraints` and
+  `contactOrganization`. Check the NIWA terms before reuse.
 - `stats-nz-geographic`: Stats NZ content is Creative Commons Attribution 4.0
   International unless the layer page says otherwise.
 - `whanganui-geospatial`: each dataset carries a `license.identifier`. On the
@@ -398,8 +404,10 @@ server-rendered catalogue page and each dataset rollup.
   `{"data":{"item":{"Msg":"This data service has become out of date..."}}}`.
   The row parser rejects that shape.
 - The portal states that all data is CC BY 4.0 unless a dataset says otherwise,
-  and asks for Environment Canterbury attribution. The catalogue carries no
-  per-dataset licence field.
+  and asks for Environment Canterbury attribution. The catalogue page carries
+  the licence link, licence statement and copyright notice, and the adapter
+  returns them as `licenseUrl`, `licenseText` and `copyrightNotice`. It carries
+  no per-dataset licence field.
 - Not verified: whether the HTML catalogue markup stays stable, or whether any
   dataset overrides the portal-wide CC BY 4.0 statement.
 
@@ -530,15 +538,15 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand, verified on `nzor.org.nz/data-quality-and-use` on 2026-10-08. Not for commercial use |
 | `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
 | `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset. Dataset items carry `licenseInfo`, `accessInformation` and `license`, and the adapter returns all three |
-| `auckland-museum` | Auckland Museum collections online | Museum terms, with CC BY on records that carry it. Source records carry `copyright` and `dc_contributor`, but the adapter returns only the first `copyright` value and drops the contributor attribution. Check the record page for the full terms and credit |
+| `auckland-museum` | Auckland Museum collections online | Museum terms, with CC BY on records that carry it. Source records carry `copyright` and `dc_contributor`; the adapter returns every copyright statement as `copyrightStatements`, every contributor as `contributors`, and the first statement as `copyright`. Check the record page for the full terms and credit |
 | `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Check the LAWA terms of use |
 | `charities-register` | Charities Register Open Data (DIA) | CC BY 3.0 NZ, per `catalogue.data.govt.nz/dataset/charities-register-open-data`, checked 2026-11-17 |
 | `mfe` | Ministry for the Environment, on the Koordinates platform | Per layer |
 | `lris` | Landcare Research, on the Koordinates platform | Per layer |
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
-| `lris-basemaps` | Landcare Research, on the LRIS basemaps WMS | The WMS `Service` block declares `Fees: none` and an empty `AccessConstraints` value. Check the LRIS terms |
-| `niwa-rec` | NIWA, on the REC WMS | The WMS `Service` block declares `Fees: none` and `AccessConstraints: none`. Check the NIWA terms |
+| `lris-basemaps` | Landcare Research, on the LRIS basemaps WMS | The WMS `Service` block declares `Fees: none`, an empty `AccessConstraints` value, and Landcare Research New Zealand Limited as the contact organisation. The adapter returns `fees`, `accessConstraints` and `contactOrganization`. Check the LRIS terms |
+| `niwa-rec` | NIWA, on the REC WMS | The WMS `Service` block declares `Fees: none`, `AccessConstraints: none`, and NIWA IT Systems Development as the contact organisation. The adapter returns `fees`, `accessConstraints` and `contactOrganization`. Check the NIWA terms |
 | `stats-nz-geographic` | Stats NZ Geographic Data Service, on the Koordinates platform | Creative Commons Attribution 4.0 International unless the layer page says otherwise |
 | `whanganui-geospatial` | Whanganui District Council, on GeoNode | Per dataset. The GeoNode API returns `license.identifier`, and the adapter passes it through as `licenseIdentifier`. Most captured values are `not_specified` or empty |
 | `christchurch-open-data` | Christchurch City Council open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through. Most datasets point at CC BY 4.0; some carry custom council, Landcare, or Sentinel terms, and some are blank |
@@ -548,18 +556,21 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `electricity-authority` | Electricity Authority | The container listing has no per-object licence. The Authority's copyright statement says its copyright material is licensed for reuse under CC BY 4.0 unless indicated otherwise, checked 2026-11-08 |
 | `ev-roam` | EV Roam charging stations (NZTA) | CC BY 4.0, per `catalogue.data.govt.nz/dataset/ev-roam-charging-stations3`, checked 2026-11-17 |
 | `nzpam-geodata` | New Zealand Petroleum and Minerals (NZPAM) | The public ArcGIS REST response carries no licence field. Check the NZPAM terms |
-| `environment-canterbury-open-data` | Environment Canterbury | The portal states that all data is CC BY 4.0 unless a dataset says otherwise, and asks for Environment Canterbury attribution. The catalogue carries no per-dataset licence field, checked 2026-11-18 |
+| `environment-canterbury-open-data` | Environment Canterbury | The portal states that all data is CC BY 4.0 unless a dataset says otherwise, and asks for Environment Canterbury attribution. The catalogue page carries a CC BY 4.0 link, licence statement and copyright notice, returned as `licenseUrl`, `licenseText` and `copyrightNotice`. It carries no per-dataset licence field, checked 2026-11-18 |
 
-Two things follow from the table. First, `arcgis`,
+Two things follow from the table. First, `arcgis`, `auckland-museum`,
 `auckland-transport-open-data`, `canterbury-maps`, `christchurch-open-data`,
-`data-govt-nz`, `digitalnz`, `mbie-open-data`, `nz-gazette`, `nzta-open-data`,
+`data-govt-nz`, `digitalnz`, `environment-canterbury-open-data`,
+`lris-basemaps`, `mbie-open-data`, `niwa-rec`, `nz-gazette`, `nzta-open-data`,
 `wellington-city-open-data` and `whanganui-geospatial` return the licence,
-rights or attribution metadata their source supplies. The other twenty
-adapters still need a per-source decision, because most publish terms of use
-or only partial per-record metadata; a caller who needs to republish a dataset
-from one of them has to check the publisher. Those sources are the narrowed
-open item in `COUNTRY.md`. Second, NZOR is the one source here that rules out
-commercial use, so treat results from it accordingly.
+rights or attribution metadata their source supplies. The other seventeen
+adapters still need a per-source decision, because they publish terms of use,
+an unconditional source-wide licence outside the payload, a default licence
+that a page can override, or only per-item terms; a caller who needs to
+republish a dataset from one of them has to check the publisher. The
+remaining licence decisions are split into three narrowed open items in
+`COUNTRY.md`. Second, NZOR is the one source here that rules out commercial
+use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
@@ -633,8 +644,8 @@ curl -sS -L -A "$UA" \
   `catalogue.data.govt.nz/dataset/charities-register-open-data`, checked
   2026-11-17.
 - Auckland Museum collections data: museum terms, with `CC BY` on records that
-  carry it. The adapter returns only the first `copyright` value and drops
-  `dc_contributor`; check the record page for the full terms and credit.
+  carry it. The adapter returns every copyright statement and contributor;
+  check the record page for the full terms and credit.
 - EV Roam: CC BY 4.0, per
   `catalogue.data.govt.nz/dataset/ev-roam-charging-stations3`, checked
   2026-11-17.

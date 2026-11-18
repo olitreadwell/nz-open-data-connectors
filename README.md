@@ -52,15 +52,23 @@ The data is not ours. Each publisher keeps its own terms. The short version:
   values.
 - **Environment Canterbury open data**: Creative Commons Attribution 4.0
   International unless a dataset says otherwise. Attribute Environment
-  Canterbury as the source.
+  Canterbury as the source. The catalogue page carries the licence link,
+  licence statement and copyright notice, and the adapter returns them as
+  `licenseUrl`, `licenseText` and `copyrightNotice`.
 - **ArcGIS Hub**: datasets carry `licenseInfo`, `accessInformation` and
   `license` values.
 - **Auckland Museum**: records carry `copyright` and `dc_contributor` values.
-  The adapter returns only the first `copyright` value, so check the record page
-  for the full rights and credit.
+  The adapter returns every copyright statement as `copyrightStatements`,
+  every contributor as `contributors`, and the first statement as `copyright`.
+  Check the record page for the full terms and credit.
+- **LRIS basemaps and NIWA REC**: the WMS service block declares fees, access
+  constraints and a contact organisation. The adapters return them as `fees`,
+  `accessConstraints` and `contactOrganization`. These values describe service
+  access, not a reuse licence, so check the LRIS and NIWA terms.
 
-For every other source, check the publisher's licence before you reuse the
-data. The connectors fetch data. They do not relicense it.
+Unless this list gives a reuse licence for the source, check the publisher's
+licence before you reuse the data. The connectors fetch data. They do not
+relicense it.
 `docs/CONNECTOR_DISCOVERY.md` lists where each source's terms live.
 
 ## Field names
@@ -70,9 +78,10 @@ snake_case. ArcGIS Hub uses camelCase (`licenseInfo`). Adapter output names use
 camelCase, so `license_id` becomes `licenseId` and `rights_url` becomes
 `rightsUrl`.
 
-The `arcgis`, `auckland-transport-open-data`, `canterbury-maps`,
-`christchurch-open-data`, `data-govt-nz`, `digitalnz`, `mbie-open-data`,
-`nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and
+The `arcgis`, `auckland-museum`, `auckland-transport-open-data`,
+`canterbury-maps`, `christchurch-open-data`, `data-govt-nz`, `digitalnz`,
+`environment-canterbury-open-data`, `lris-basemaps`, `mbie-open-data`,
+`niwa-rec`, `nz-gazette`, `nzta-open-data`, `wellington-city-open-data` and
 `whanganui-geospatial` adapters pass the source values through. That includes
 attribution fields where the source supplies them.
 

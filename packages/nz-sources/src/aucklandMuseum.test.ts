@@ -40,6 +40,18 @@ describe('parseAucklandMuseumRecords', () => {
     );
   });
 
+  it('keeps every copyright statement and contributor', () => {
+    const result = parseAucklandMuseumRecords(FIXTURE);
+    const axe = result.records[0];
+    expect(axe?.copyrightStatements).toEqual(['© Auckland Museum CC BY']);
+    expect(axe?.contributors).toEqual(['Simond, Claudius', 'Simond Chamonix']);
+    const manuscript = result.records.find((record) =>
+      record.id.endsWith('/library/manuscriptsandarchives/16253')
+    );
+    expect(manuscript?.copyrightStatements).toEqual(['Open', 'All rights reserved']);
+    expect(manuscript?.contributors).toEqual(['Auckland War Memorial Museum']);
+  });
+
   it('accepts a numeric total from an older Elasticsearch response', () => {
     const numericTotal = {
       hits: {
@@ -64,6 +76,43 @@ describe('parseAucklandMuseumRecords', () => {
     expect(result.total).toBe(1);
     expect(result.records[0]?.title).toBe('Example');
     expect(result.records[0]?.description).toBe('A description');
+    expect(result.records[0]?.copyrightStatements).toEqual([]);
+    expect(result.records[0]?.contributors).toEqual([]);
+  });
+
+  it('accepts a scalar or null dc_contributor value', () => {
+    const scalarContributor = {
+      hits: {
+        total: 1,
+        hits: [
+          {
+            _id: 'record-2',
+            _source: {
+              dc_title: ['Example'],
+              dc_contributor: 'Simond, Claudius',
+            },
+          },
+        ],
+      },
+    };
+    const nullContributor = {
+      hits: {
+        total: 1,
+        hits: [
+          {
+            _id: 'record-3',
+            _source: {
+              dc_title: ['Example'],
+              dc_contributor: null,
+            },
+          },
+        ],
+      },
+    };
+    expect(parseAucklandMuseumRecords(scalarContributor).records[0]?.contributors).toEqual([
+      'Simond, Claudius',
+    ]);
+    expect(parseAucklandMuseumRecords(nullContributor).records[0]?.contributors).toEqual([]);
   });
 
   it('rejects a payload without the hits envelope', () => {

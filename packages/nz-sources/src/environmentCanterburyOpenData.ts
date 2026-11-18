@@ -33,10 +33,22 @@ export interface EcanCataloguePage {
   pageSize: number;
   total: number;
   lastPage: number;
+  /** Licence URL declared by the portal, or an empty string. */
+  licenseUrl: string;
+  /** Licence statement declared by the portal, or an empty string. */
+  licenseText: string;
+  /** Copyright notice in the portal footer, or an empty string. */
+  copyrightNotice: string;
   datasets: EcanDataset[];
 }
 
-/** The full Environment Canterbury catalogue, gathered across its pages. */
+/**
+ * The full Environment Canterbury catalogue, gathered across its pages.
+ *
+ * The portal licence and copyright fields are page-level. This result carries
+ * the total and datasets only; call `fetchEcanCataloguePage(1)` for those
+ * fields.
+ */
 export interface EcanDatasetCatalogue {
   total: number;
   datasets: EcanDataset[];
@@ -65,6 +77,9 @@ const FORMAT_PATTERN = /class="format [^"]*">([^<]+)<\/div>/g;
 const DESCRIPTION_PATTERN = /class="description">([\s\S]*?)<\/div>/;
 
 const KEYWORDS_PATTERN = /class="keywords">([\s\S]*?)<\/div>/;
+
+const COPYRIGHT_NOTICE_PATTERN =
+  /<li\b[^>]*\bclass\s*=\s*["'][^"']*\bcopyright\b[^"']*["'][^>]*>([\s\S]*?)<\/li>/i;
 
 /**
  * Decodes the small set of HTML entities the portal emits and strips tags.
@@ -100,13 +115,107 @@ function splitKeywords(value: string): string[] {
 }
 
 /**
+ * Converts a protocol-relative licence URL to HTTPS and leaves other URLs alone.
+ *
+ * @param value - URL attribute from the portal HTML.
+ * @returns An absolute or unchanged URL.
+ */
+function readAbsoluteUrl(value: string): string {
+  const trimmed = value.trim();
+  return trimmed.startsWith('//') ? `https:${trimmed}` : trimmed;
+}
+
+/**
+ * Reads the licence statement from the Creative Commons block.
+ *
+ * @param block - HTML inside the Creative Commons block.
+ * @returns The statement with tags removed and punctuation tidied.
+ */
+function readLicenseText(block: string): string {
+  return cleanHtmlText(block).replace(/\s+([.,])/g, '$1');
+}
+
+/**
+ * Reads the inner HTML of a `<div>` by id, counting nested divs.
+ *
+ * The portal can wrap the block in other elements, so the first closing
+ * `</div>` is not always the block's own closing tag.
+ *
+ * @param html - Catalogue page HTML.
+ * @param id - Id of the opening div.
+ * @returns Inner HTML, or an empty string when the div is absent or unclosed.
+ */
+function readDivInnerHtml(html: string, id: string): string {
+  const openPattern = new RegExp(`<div\\b[^>]*\\bid\\s*=\\s*["']${id}["'][^>]*>`, 'i');
+  const open = openPattern.exec(html);
+  if (open === null) {
+    return '';
+  }
+  const start = open.index + open[0].length;
+  const tagPattern = /<div\b[^>]*>|<\/div>/gi;
+  tagPattern.lastIndex = start;
+  let depth = 1;
+  for (let match = tagPattern.exec(html); match !== null; match = tagPattern.exec(html)) {
+    if (/^<\/div/i.test(match[0])) {
+      depth -= 1;
+      if (depth === 0) {
+        return html.slice(start, match.index);
+      }
+    } else {
+      depth += 1;
+    }
+  }
+  return '';
+}
+
+/**
+ * Reads the attributes of one HTML tag.
+ *
+ * @param tag - Opening tag, such as `<a href="..." rel="license">`.
+ * @returns Attribute names and values, with quotes removed.
+ */
+function readAttributes(tag: string): Record<string, string> {
+  const attributes: Record<string, string> = {};
+  const pattern = /([^\s=/>]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+  for (const match of tag.matchAll(pattern)) {
+    const name = (match[1] ?? '').toLowerCase();
+    if (name === '' || name === 'a') {
+      continue;
+    }
+    attributes[name] = match[2] ?? match[3] ?? match[4] ?? '';
+  }
+  return attributes;
+}
+
+/**
+ * Reads the first licence URL from an anchor that declares a licence relation.
+ *
+ * Attribute order and quote style vary, so the parser reads the attributes
+ * rather than matching one exact string.
+ *
+ * @param block - HTML inside the Creative Commons block.
+ * @returns The href value, or an empty string when no licence anchor exists.
+ */
+function readLicenseUrl(block: string): string {
+  for (const match of block.matchAll(/<a\b[^>]*>/gi)) {
+    const attributes = readAttributes(match[0]);
+    const relations = (attributes.rel ?? '').split(/\s+/);
+    if (relations.includes('license') && (attributes.href ?? '').length > 0) {
+      return attributes.href ?? '';
+    }
+  }
+  return '';
+}
+
+/**
  * Parses one Environment Canterbury catalogue page into dataset records.
  *
  * The portal renders server-side HTML with no JSON catalogue endpoint, so
  * this reads the result count and each dataset rollup.
  *
  * @param payload - Raw HTML from `https://data.ecan.govt.nz/Catalogue/Search`.
- * @returns The page number, page size, catalogue total and dataset rows.
+ * @returns The page number, page size, catalogue total, licence fields and
+ *   dataset rows.
  * @throws {NzSourceParseError} When the payload is not a catalogue results page.
  */
 export function parseEcanCataloguePage(payload: unknown): EcanCataloguePage {
@@ -132,6 +241,8 @@ export function parseEcanCataloguePage(payload: unknown): EcanCataloguePage {
   const pageSize = total === 0 ? 0 : last - first + 1;
   const page = pageSize === 0 ? 1 : Math.floor((first - 1) / pageSize) + 1;
   const lastPage = pageSize === 0 ? 0 : Math.ceil(total / pageSize);
+  const creativeCommonsBlock = readDivInnerHtml(payload, 'CreativeCommons');
+  const copyrightNoticeMatch = COPYRIGHT_NOTICE_PATTERN.exec(payload);
 
   const datasets: EcanDataset[] = [];
   for (const match of payload.matchAll(ROLLUP_PATTERN)) {
@@ -159,7 +270,17 @@ export function parseEcanCataloguePage(payload: unknown): EcanCataloguePage {
       'result count was positive but no datasets were found'
     );
   }
-  return { page, pageSize, total, lastPage, datasets };
+  return {
+    page,
+    pageSize,
+    total,
+    lastPage,
+    licenseUrl: readAbsoluteUrl(readLicenseUrl(creativeCommonsBlock)),
+    licenseText: readLicenseText(creativeCommonsBlock),
+    copyrightNotice:
+      copyrightNoticeMatch === null ? '' : cleanHtmlText(copyrightNoticeMatch[1] ?? ''),
+    datasets,
+  };
 }
 
 /**
