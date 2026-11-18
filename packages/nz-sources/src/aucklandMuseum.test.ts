@@ -80,6 +80,41 @@ describe('parseAucklandMuseumRecords', () => {
     expect(result.records[0]?.contributors).toEqual([]);
   });
 
+  it('accepts a scalar or null dc_contributor value', () => {
+    const scalarContributor = {
+      hits: {
+        total: 1,
+        hits: [
+          {
+            _id: 'record-2',
+            _source: {
+              dc_title: ['Example'],
+              dc_contributor: 'Simond, Claudius',
+            },
+          },
+        ],
+      },
+    };
+    const nullContributor = {
+      hits: {
+        total: 1,
+        hits: [
+          {
+            _id: 'record-3',
+            _source: {
+              dc_title: ['Example'],
+              dc_contributor: null,
+            },
+          },
+        ],
+      },
+    };
+    expect(parseAucklandMuseumRecords(scalarContributor).records[0]?.contributors).toEqual([
+      'Simond, Claudius',
+    ]);
+    expect(parseAucklandMuseumRecords(nullContributor).records[0]?.contributors).toEqual([]);
+  });
+
   it('rejects a payload without the hits envelope', () => {
     expect(() => parseAucklandMuseumRecords({ records: [] })).toThrow(NzSourceParseError);
   });

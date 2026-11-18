@@ -100,12 +100,16 @@ credentials exist.
       (CC BY 4.0 link, licence statement and copyright notice),
       `lris-basemaps` and `niwa-rec` (fees, access constraints and contact
       organisation from the WMS service block)
-- [ ] Add adapter-level licence metadata for sources that publish a
-      source-wide licence but no licence field in the API payload:
-      `charities-register`, `electricity-authority`, `ev-roam`, `geonet`,
-      `geonet-felt-rapid`, `infoshare`, `nzor` and `stats-nz-geographic`.
-      The licence belongs on the adapter, not each record, because the
-      response carries no licence value
+- [ ] Add adapter-level licence metadata for sources that publish one
+      unconditional source-wide licence but no licence field in the API
+      payload: `charities-register`, `ev-roam`, `geonet`,
+      `geonet-felt-rapid` and `nzor`. The licence belongs on the adapter,
+      not each record, because the response carries no licence value
+- [ ] Decide how to represent a default licence that the source can override
+      per page: `electricity-authority`, `infoshare` and
+      `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"
+      or "unless indicated otherwise". A static adapter-level value cannot
+      carry that exception
 - [ ] Decide whether to expose publisher terms for `ade-search`,
       `data-govt-datastore`, `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`,
       `niwa-rec`, `nzpam-geodata`, `nzta` and `trademe`. These publish terms

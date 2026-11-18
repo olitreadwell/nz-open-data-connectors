@@ -40,7 +40,16 @@ const AUCKLAND_MUSEUM_SOURCE_SCHEMA = z
     department: z.array(z.string()).optional().default([]),
     dc_identifier: z.array(z.string()).optional().default([]),
     copyright: z.array(z.string()).optional().default([]),
-    dc_contributor: z.array(z.string()).optional().default([]),
+    dc_contributor: z
+      .union([z.array(z.string()), z.string()])
+      .nullable()
+      .optional()
+      .transform((value) => {
+        if (value === null || value === undefined) {
+          return [];
+        }
+        return Array.isArray(value) ? value : [value];
+      }),
     primaryRepresentation: z.string().nullable().optional(),
     lastModifiedOn: z.array(z.string()).optional().default([]),
     appellation: z

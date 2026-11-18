@@ -60,12 +60,15 @@ The data is not ours. Each publisher keeps its own terms. The short version:
 - **Auckland Museum**: records carry `copyright` and `dc_contributor` values.
   The adapter returns every copyright statement as `copyrightStatements`,
   every contributor as `contributors`, and the first statement as `copyright`.
+  Check the record page for the full terms and credit.
 - **LRIS basemaps and NIWA REC**: the WMS service block declares fees, access
   constraints and a contact organisation. The adapters return them as `fees`,
-  `accessConstraints` and `contactOrganization`.
+  `accessConstraints` and `contactOrganization`. These values describe service
+  access, not a reuse licence, so check the LRIS and NIWA terms.
 
-For every other source, check the publisher's licence before you reuse the
-data. The connectors fetch data. They do not relicense it.
+Unless this list gives a reuse licence for the source, check the publisher's
+licence before you reuse the data. The connectors fetch data. They do not
+relicense it.
 `docs/CONNECTOR_DISCOVERY.md` lists where each source's terms live.
 
 ## Field names

@@ -62,6 +62,25 @@ describe('parseEcanCataloguePage', () => {
     );
   });
 
+  it('reads licence metadata when markup uses other attribute orders and quotes', () => {
+    const html = CATALOGUE_HTML.replace(
+      '<div id="CreativeCommons">',
+      "<div class='portal-block' id='CreativeCommons'>"
+    )
+      .replace(
+        '<a rel="license" href="//creativecommons.org/licenses/by/4.0/"><img',
+        "<a href='//creativecommons.org/licenses/by/4.0/' rel='license'><img"
+      )
+      .replace('<li class="copyright">', "<li class='footer-item copyright'>")
+      .replace('<br />All data', '<div></div><br />All data');
+    const page = parseEcanCataloguePage(html);
+    expect(page.licenseUrl).toBe('https://creativecommons.org/licenses/by/4.0/');
+    expect(page.licenseText).toBe(
+      'All data unless specifically stated is licensed under a Creative Commons Attribution 4.0 International License.'
+    );
+    expect(page.copyrightNotice).toBe('Environment Canterbury © 2026');
+  });
+
   it('returns empty licence fields when the page omits them', () => {
     const html = CATALOGUE_HTML.replace(/<div id="CreativeCommons">[\s\S]*?<\/div>/, '').replace(
       /<li class="copyright">[\s\S]*?<\/li>/,

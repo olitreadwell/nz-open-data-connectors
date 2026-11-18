@@ -565,11 +565,12 @@ Two things follow from the table. First, `arcgis`, `auckland-museum`,
 `wellington-city-open-data` and `whanganui-geospatial` return the licence,
 rights or attribution metadata their source supplies. The other seventeen
 adapters still need a per-source decision, because they publish terms of use,
-a source-wide licence outside the payload, or only per-item terms; a caller
-who needs to republish a dataset from one of them has to check the publisher.
-Those sources are split into two narrowed open items in `COUNTRY.md`. Second,
-NZOR is the one source here that rules out commercial use, so treat results
-from it accordingly.
+an unconditional source-wide licence outside the payload, a default licence
+that a page can override, or only per-item terms; a caller who needs to
+republish a dataset from one of them has to check the publisher. The
+remaining licence decisions are split into three narrowed open items in
+`COUNTRY.md`. Second, NZOR is the one source here that rules out commercial
+use, so treat results from it accordingly.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
