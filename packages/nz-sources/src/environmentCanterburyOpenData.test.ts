@@ -54,6 +54,14 @@ describe('parseEcanCataloguePage', () => {
     expect(page.copyrightNotice).toBe('Environment Canterbury © 2026');
   });
 
+  it('keeps the licence statement when the Creative Commons block has no line break', () => {
+    const html = CATALOGUE_HTML.replace('<br />', '');
+    const page = parseEcanCataloguePage(html);
+    expect(page.licenseText).toBe(
+      'All data unless specifically stated is licensed under a Creative Commons Attribution 4.0 International License.'
+    );
+  });
+
   it('returns empty licence fields when the page omits them', () => {
     const html = CATALOGUE_HTML.replace(/<div id="CreativeCommons">[\s\S]*?<\/div>/, '').replace(
       /<li class="copyright">[\s\S]*?<\/li>/,

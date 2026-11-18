@@ -42,7 +42,13 @@ export interface EcanCataloguePage {
   datasets: EcanDataset[];
 }
 
-/** The full Environment Canterbury catalogue, gathered across its pages. */
+/**
+ * The full Environment Canterbury catalogue, gathered across its pages.
+ *
+ * The portal licence and copyright fields are page-level. This result carries
+ * the total and datasets only; call `fetchEcanCataloguePage(1)` for those
+ * fields.
+ */
 export interface EcanDatasetCatalogue {
   total: number;
   datasets: EcanDataset[];
@@ -129,11 +135,7 @@ function readAbsoluteUrl(value: string): string {
  * @returns The statement with tags removed and punctuation tidied.
  */
 function readLicenseText(block: string): string {
-  const afterBreak = block
-    .split(/<br\s*\/?>/i)
-    .slice(1)
-    .join(' ');
-  return cleanHtmlText(afterBreak).replace(/\s+([.,])/g, '$1');
+  return cleanHtmlText(block).replace(/\s+([.,])/g, '$1');
 }
 
 /**

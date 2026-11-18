@@ -78,7 +78,7 @@ for (const probe of probes) {
 - Whanganui GeoNode returns the first page of datasets and reports the catalogue total. The adapter does not follow its pagination.
 - Whanganui GeoNode falls back to HTTP/1.1 when Node's built-in fetch closes the HTTP/2 stream. The shared `httpGet` timeout and error mapping still apply.
 - Canterbury Maps and Wellington City read DCAT 1.1 feeds. Three Wellington City dataset titles arrive as JSON numbers, and the shared DCAT parser normalizes them to strings.
-- Environment Canterbury returns 10 datasets per catalogue page and reports the full total. The adapter returns the first page with the portal licence and copyright fields; `fetchEcanDatasetCatalogue` follows all six pages. `fetchEcanDatasetRows` reads one dataset's JSON export, and rejects the retired-dataset message instead of returning a fake row.
+- Environment Canterbury returns 10 datasets per catalogue page and reports the full total. The adapter returns the first page with the portal licence and copyright fields; `fetchEcanDatasetCatalogue` follows all six pages but returns datasets and total only, so call `fetchEcanCataloguePage(1)` for those fields. `fetchEcanDatasetRows` reads one dataset's JSON export, and rejects the retired-dataset message instead of returning a fake row.
 - Electricity Authority returns the first page of its public Azure Blob container listing, with `nextMarker` for the next page. The live response carried 3,941 objects.
 - NZPAM Geodata reads the public ArcGIS REST folder. The live response listed 13 services; the Utilities and Internal folders return `Token Required` and are not requested.
 - Fixtures in `src/fixtures/` are real API snapshots, dated in their filenames.

@@ -107,9 +107,11 @@ credentials exist.
       The licence belongs on the adapter, not each record, because the
       response carries no licence value
 - [ ] Decide whether to expose publisher terms for `ade-search`,
-      `data-govt-datastore`, `lawa`, `linz`, `lris`, `mfe`, `nzpam-geodata`,
-      `nzta` and `trademe`. These publish terms of use or per-item terms, not
-      a reusable licence value in the response
+      `data-govt-datastore`, `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`,
+      `niwa-rec`, `nzpam-geodata`, `nzta` and `trademe`. These publish terms
+      of use or per-item terms, not a reusable licence value in the response.
+      The LRIS and NIWA WMS service blocks supply access metadata but no
+      licence, so their publisher terms remain open
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 
