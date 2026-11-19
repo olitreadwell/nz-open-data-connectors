@@ -29,7 +29,7 @@ After a global install, the command is `nzdata`.
 
 | Command | What it does |
 | --- | --- |
-| `nzdata sources` | List every data source adapter. |
+| `nzdata sources` | List every data source adapter, including `licence` metadata when the source publishes one. |
 | `nzdata probe <id>` | Live probe one source. For example, `linz`. |
 | `nzdata media --query <q> [--type <type>]` | Search DigitalNZ media. |
 | `nzdata catalogue` | List every Stats NZ dataflow. |
@@ -50,6 +50,9 @@ After a global install, the command is `nzdata`.
 - This CLI reads the same sources as `@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz`.
 - The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ and the New Zealand Gazette, Trade Me, NZOR, LINZ, ArcGIS Hub portals, Auckland Museum, LAWA, Charities Register, MBIE, MfE, Landcare Research LRIS, Waka Kotahi (NZTA) including EV Roam, NIWA, NZPAM, Whanganui District Council, Christchurch City Council, Auckland Transport, Canterbury Maps, Wellington City Council, the Electricity Authority and Environment Canterbury.
 - The source URLs are in the `nz-sources` README.
+- `nzdata sources` returns `licence.title`, `licence.url` and
+  `licence.attribution` for adapters whose source publishes one unconditional
+  source-wide licence and no licence field in its API payload.
 - The data is not covered by the package licence. Each publisher sets the licence for its own data. Check the source page before you reuse a dataset.
 
 ## Package licence

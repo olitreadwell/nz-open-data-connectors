@@ -133,6 +133,11 @@ export const charitiesRegisterAdapter: NzDataAdapter<CharitiesSearchResult> = {
   name: 'Charities Register (DIA)',
   auth: 'none',
   description: 'Search New Zealand registered charities by name through the open OData API.',
+  licence: {
+    title: 'Creative Commons Attribution 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+    attribution: 'Charities Register Open Data (DIA)',
+  },
   fetchLive: (options) => searchCharitiesRegister('red cross', options?.fetchImpl),
   parse: parseCharitiesRegister,
   loadFixture: () =>

@@ -23,7 +23,11 @@ Zealand, so it is not for commercial use. data.govt.nz, MBIE open data, the
 Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland
 Transport open data hubs, and the Whanganui GeoNode catalogue carry a licence
 value per dataset. Charities Register data is CC BY 3.0 NZ and EV Roam data is
-CC BY 4.0. DigitalNZ records, including New Zealand Gazette notices, carry
+CC BY 4.0. GeoNet, including the felt rapid adapter, NZOR, Charities Register
+and EV Roam publish one source-wide licence and no licence field in the
+payload. The source list returns `licence.title`, `licence.url` and
+`licence.attribution` for those five adapters. DigitalNZ records, including
+New Zealand Gazette notices, carry
 `rights`, `rights_url`, `copyright`, `publisher`, `creator`, `contributor` and
 `usage` values. Auckland Museum source records carry `copyright` and
 `dc_contributor`; the adapter returns every value as `copyrightStatements` and

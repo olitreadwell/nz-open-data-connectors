@@ -151,6 +151,11 @@ export const evRoamAdapter: NzDataAdapter<EvRoamResult> = {
   name: 'EV Roam charging stations (NZTA)',
   auth: 'none',
   description: 'Public electric vehicle charging station locations and connector details.',
+  licence: {
+    title: 'Creative Commons Attribution 4.0 International',
+    url: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Waka Kotahi NZ Transport Agency',
+  },
   fetchLive: (options) => fetchEvRoamChargingStations(options?.fetchImpl),
   parse: parseEvRoamChargingStations,
   loadFixture: () =>

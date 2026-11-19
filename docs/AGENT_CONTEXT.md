@@ -80,11 +80,13 @@ pytest, ruff and mypy.
    `niwa-rec`, `nz-gazette`, `nzta-open-data`,
    `wellington-city-open-data` and `whanganui-geospatial` adapters pass
    source-supplied licence, rights or access metadata through, with the
-   attribution fields the source supplies. The remaining open items are split:
-   add adapter-level licence metadata only where the source publishes one
-   unconditional source-wide licence and the payload has no licence field,
-   decide how to represent a default licence that a page can override, and
-   decide whether to expose publisher terms for the adapters that only link to
+   attribution fields the source supplies. `charities-register`, `ev-roam`,
+   `geonet`, `geonet-felt-rapid` and `nzor` publish one unconditional
+   source-wide licence and no licence field in the payload, so they expose
+   `licence.title`, `licence.url` and `licence.attribution` at adapter level.
+   The API, CLI and MCP source lists include the same value. The remaining
+   open items are how to represent a default licence that a page can override,
+   and whether to expose publisher terms for the adapters that only link to
    terms of use. The licence position per source is in
    `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,

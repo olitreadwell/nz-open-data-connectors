@@ -320,6 +320,7 @@ export function createNzOpenDataMcpServer(): McpServer {
         name: source.name,
         auth: source.auth,
         description: source.description,
+        ...(source.licence === undefined ? {} : { licence: source.licence }),
       })),
     probeSources: async (ids) => {
       const probes = await probeAllNzDataSources(ids === undefined ? {} : { ids });

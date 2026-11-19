@@ -1,5 +1,6 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
+import type { NzSourceLicence } from '@nz-open-data-connectors/nz-sources';
 import { z, type ZodRawShape } from 'zod';
 
 /** One source in the registry, in the shape a model needs to pick from. */
@@ -8,6 +9,7 @@ export interface SourceSummary {
   name: string;
   auth: string;
   description: string;
+  licence?: NzSourceLicence;
 }
 
 /** Outcome of one live probe against a source. */

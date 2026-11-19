@@ -314,4 +314,10 @@ export { httpGet, httpPost, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
 /** Shared HTTP layer types. */
 export type { HttpGetOptions, HttpPostOptions } from './http.js';
 /** Shared adapter contract types. */
-export type { NzDataAdapter, NzFetchOptions, NzSourceAuth, NzSourceProbe } from './types.js';
+export type {
+  NzDataAdapter,
+  NzFetchOptions,
+  NzSourceAuth,
+  NzSourceLicence,
+  NzSourceProbe,
+} from './types.js';

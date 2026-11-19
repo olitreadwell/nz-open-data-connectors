@@ -38,7 +38,7 @@ Add the server to a project's `.mcp.json`:
 
 | Tool | What it does |
 | --- | --- |
-| `list_sources` | Every source, with the id the other tools take. |
+| `list_sources` | Every source, with the id the other tools take and `licence` metadata when the source publishes one. |
 | `probe_sources` | Live fetch against each requested source, so you know a number is real and not a stale fixture. |
 | `fetch_source` | One source through its adapter. |
 | `nz_felt_earthquakes` | Recent felt earthquakes from GeoNet, by minimum intensity. |
@@ -73,6 +73,9 @@ Add the server to a project's `.mcp.json`:
 - This server reads the same sources as `@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz`.
 - The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ and the New Zealand Gazette, Trade Me, NZOR, LINZ, ArcGIS Hub portals, Auckland Museum, LAWA, Charities Register, MBIE, MfE, Landcare Research LRIS, Waka Kotahi (NZTA) including EV Roam, NIWA, NZPAM, Whanganui District Council, Christchurch City Council, Auckland Transport, Canterbury Maps, Wellington City Council, the Electricity Authority and Environment Canterbury.
 - The source URLs are in the `nz-sources` README.
+- `list_sources` returns `licence.title`, `licence.url` and
+  `licence.attribution` for adapters whose source publishes one unconditional
+  source-wide licence and no licence field in its API payload.
 - The data is not covered by the package licence. Each publisher sets the licence for its own data. Check the source page before you reuse a dataset.
 
 ## Package licence

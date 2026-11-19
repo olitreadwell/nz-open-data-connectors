@@ -108,6 +108,7 @@ export async function runCli(
         name: source.name,
         auth: source.auth,
         description: source.description,
+        ...(source.licence === undefined ? {} : { licence: source.licence }),
       }));
       output.writeOut(JSON.stringify(sources, null, 2));
       return 0;

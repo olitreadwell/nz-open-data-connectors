@@ -117,6 +117,22 @@ describe('createConnectorsApp', () => {
     }
   });
 
+  it('returns adapter-level licence metadata where the source publishes one', async () => {
+    const app = createTestApp();
+    const res = await app.request('/api/sources');
+    const sources = (await res.json()) as Array<{
+      id: string;
+      licence?: { title: string; url: string; attribution: string };
+    }>;
+    const geonet = sources.find((source) => source.id === 'geonet');
+    expect(geonet?.licence).toEqual({
+      title: 'Creative Commons Attribution 3.0 New Zealand',
+      url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+      attribution: 'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand',
+    });
+    expect(sources.find((source) => source.id === 'data-govt-nz')?.licence).toBeUndefined();
+  });
+
   it('probes a known source', async () => {
     const app = createTestApp();
     const res = await app.request('/api/sources/linz/probe');

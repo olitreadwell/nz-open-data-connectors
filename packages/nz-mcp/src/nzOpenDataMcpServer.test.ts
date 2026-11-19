@@ -93,6 +93,22 @@ describe('createNzOpenDataMcpServer', () => {
     expect(sources.every((source) => source.id.length > 0)).toBe(true);
   });
 
+  it('includes adapter-level licence metadata where the source publishes one', async () => {
+    const client = await connectClient(createNzOpenDataMcpServer());
+
+    const result = await client.callTool({ name: 'list_sources', arguments: {} });
+
+    const sources = JSON.parse(firstText(result)) as Array<{
+      id: string;
+      licence?: { title: string; url: string; attribution: string };
+    }>;
+    expect(sources.find((source) => source.id === 'charities-register')?.licence).toEqual({
+      title: 'Creative Commons Attribution 3.0 New Zealand',
+      url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+      attribution: 'Charities Register Open Data (DIA)',
+    });
+  });
+
   it('names a source that is not in the registry', async () => {
     const client = await connectClient(createNzOpenDataMcpServer());
 

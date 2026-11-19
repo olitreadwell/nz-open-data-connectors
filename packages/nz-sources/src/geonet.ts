@@ -112,6 +112,11 @@ export const geonetAdapter: NzDataAdapter<GeoNetQuake[]> = {
   name: 'GeoNet (GNS Science)',
   auth: 'none',
   description: 'Recent felt earthquakes (MMI >= 3) as GeoJSON.',
+  licence: {
+    title: 'Creative Commons Attribution 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+    attribution: 'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand',
+  },
   fetchLive: (options) => fetchGeoNetFeltQuakes(3, options?.fetchImpl),
   parse: parseGeoNetQuakes,
   loadFixture: () => parseGeoNetQuakes(readFixtureJson('geonet-quakes-mmi3.json')),

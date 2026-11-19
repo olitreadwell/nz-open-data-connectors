@@ -109,6 +109,21 @@ describe('runCli', () => {
     expect(sources.length).toBeGreaterThanOrEqual(8);
   });
 
+  it('includes adapter-level licence metadata where the source publishes one', async () => {
+    const { out, output } = createCapture();
+    const exitCode = await runCli(['sources'], output, createDeps());
+    expect(exitCode).toBe(0);
+    const sources = JSON.parse(out.join('\n')) as Array<{
+      id: string;
+      licence?: { title: string; url: string; attribution: string };
+    }>;
+    expect(sources.find((source) => source.id === 'nzor')?.licence).toEqual({
+      title: 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand',
+      url: 'https://creativecommons.org/licenses/by-nc-sa/3.0/nz/',
+      attribution: 'NZOR, the New Zealand Organisms Register',
+    });
+  });
+
   it('probes a known source', async () => {
     const { out, output } = createCapture();
     const exitCode = await runCli(['probe', 'linz'], output, createDeps());

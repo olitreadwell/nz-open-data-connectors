@@ -7,6 +7,13 @@ export interface NzFetchOptions {
   fetchImpl?: typeof globalThis.fetch;
 }
 
+/** Licence and attribution metadata for a source-wide licence. */
+export interface NzSourceLicence {
+  title: string;
+  url: string;
+  attribution: string;
+}
+
 /**
  * One NZ data source behind a uniform interface: live fetch, strict parse,
  * and a committed fixture for tests. A live fetch never falls back to it.
@@ -16,6 +23,7 @@ export interface NzDataAdapter<T> {
   readonly name: string;
   readonly auth: NzSourceAuth;
   readonly description: string;
+  readonly licence?: NzSourceLicence;
   fetchLive(options?: NzFetchOptions): Promise<T>;
   parse(payload: unknown): T;
   loadFixture(): T;

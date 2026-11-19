@@ -44,6 +44,10 @@ The data is not ours. Each publisher keeps its own terms. The short version:
   International, unless a page says otherwise.
 - **NZOR**: Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New
   Zealand. This one is not for commercial use.
+- **Charities Register, EV Roam, GeoNet and NZOR**: each publishes one
+  source-wide licence and no licence field in the API payload. The source
+  list returns `licence.title`, `licence.url` and `licence.attribution` for
+  `charities-register`, `ev-roam`, `geonet`, `geonet-felt-rapid` and `nzor`.
 - **data.govt.nz, MBIE open data, Waka Kotahi, Canterbury Maps, Wellington
   City, Christchurch City, Auckland Transport and Whanganui GeoNode**: each
   dataset carries its own licence value. Read the value on the dataset page.
