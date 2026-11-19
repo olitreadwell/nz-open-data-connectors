@@ -100,14 +100,18 @@ credentials exist.
       (CC BY 4.0 link, licence statement and copyright notice),
       `lris-basemaps` and `niwa-rec` (fees, access constraints and contact
       organisation from the WMS service block)
-- [x] Add adapter-level licence metadata for sources that publish one
+- [x] Add adapter-level licence metadata in TypeScript for sources that publish one
       unconditional source-wide licence but no licence field in the API
       payload: `charities-register`, `ev-roam`, `geonet`,
-      `geonet-felt-rapid` and `nzor`. Each adapter now exposes
-      `licence.title`, `licence.url` and `licence.attribution`, and the API,
+      `geonet-felt-rapid` and `nzor`. Each TypeScript adapter exposes
+      `license.title`, `license.url` and `license.attribution`, and the API,
       CLI and MCP source lists include the same value. The licence stays on
       the adapter, not each record, because the response carries no licence
       value
+- [ ] Port adapter-level licence metadata to Python and Ruby for `geonet` and
+      `nzor`, the two licensed adapters those ports already carry. Their
+      `NzDataAdapter` and `Adapter` types have no `license` field, so the
+      ported source lists cannot return it yet
 - [ ] Decide how to represent a default licence that the source can override
       per page: `electricity-authority`, `infoshare` and
       `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"

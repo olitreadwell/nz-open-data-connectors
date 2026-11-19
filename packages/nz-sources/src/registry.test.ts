@@ -5,6 +5,34 @@ import { getNzDataSource, probeAllNzDataSources, probeNzDataSource } from './reg
 import { NZ_DATA_SOURCES } from './registry.js';
 import type { NzDataAdapter } from './types.js';
 
+const SOURCE_LICENSES = {
+  'charities-register': {
+    title: 'Creative Commons Attribution 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+    attribution: 'Charities Register Open Data (DIA)',
+  },
+  'ev-roam': {
+    title: 'Creative Commons Attribution 4.0 International',
+    url: 'https://creativecommons.org/licenses/by/4.0/',
+    attribution: 'Waka Kotahi NZ Transport Agency',
+  },
+  geonet: {
+    title: 'Creative Commons Attribution 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+    attribution: 'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand',
+  },
+  'geonet-felt-rapid': {
+    title: 'Creative Commons Attribution 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by/3.0/nz/',
+    attribution: 'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand',
+  },
+  nzor: {
+    title: 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand',
+    url: 'https://creativecommons.org/licenses/by-nc-sa/3.0/nz/',
+    attribution: 'NZOR, the New Zealand Organisms Register',
+  },
+} as const;
+
 function jsonResponse(payload: unknown): Response {
   return new Response(JSON.stringify(payload), { status: 200 });
 }
@@ -22,6 +50,20 @@ afterEach(() => {
 });
 
 describe('registry', () => {
+  it('sets licence metadata on exactly the adapters that publish a source-wide licence', () => {
+    const licensedIds = NZ_DATA_SOURCES.filter((source) => source.license !== undefined)
+      .map((source) => source.id)
+      .sort();
+    expect(licensedIds).toEqual(Object.keys(SOURCE_LICENSES).sort());
+
+    for (const [id, expected] of Object.entries(SOURCE_LICENSES)) {
+      const adapter = NZ_DATA_SOURCES.find((source) => source.id === id);
+      expect(adapter, `missing adapter ${id}`).toBeDefined();
+      expect(adapter?.license).toEqual(expected);
+      expect(Object.isFrozen(adapter?.license)).toBe(true);
+    }
+  });
+
   it('looks up a source adapter by id', () => {
     expect(getNzDataSource('geonet')?.name).toContain('GeoNet');
     expect(getNzDataSource('does-not-exist')).toBeUndefined();

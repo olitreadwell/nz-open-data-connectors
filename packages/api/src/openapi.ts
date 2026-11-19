@@ -37,9 +37,22 @@ export const OPEN_API_DOCUMENT = {
     },
     '/api/sources': {
       get: {
-        summary: 'List every data source adapter',
+        summary: 'List every data source adapter with optional licence metadata',
+        description:
+          'Returns every adapter in the registry. Adapters with a source-wide ' +
+          'licence include `license` with `title`, `url` and `attribution`.',
         responses: {
-          '200': { description: 'Adapter list' },
+          '200': {
+            description: 'Adapter list with optional `license` metadata',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: { $ref: '#/components/schemas/NzSource' },
+                },
+              },
+            },
+          },
           '429': { description: 'Rate limit exceeded' },
         },
       },
@@ -137,6 +150,34 @@ export const OPEN_API_DOCUMENT = {
           '400': { description: 'Missing or invalid codelistId' },
           '401': { description: 'Subscription key required' },
           '429': { description: 'Rate limit exceeded' },
+        },
+      },
+    },
+  },
+  components: {
+    schemas: {
+      NzSourceLicense: {
+        type: 'object',
+        description: 'Licence and attribution metadata for a source-wide licence.',
+        required: ['title', 'url', 'attribution'],
+        additionalProperties: false,
+        properties: {
+          title: { type: 'string', minLength: 1 },
+          url: { type: 'string', format: 'uri' },
+          attribution: { type: 'string', minLength: 1 },
+        },
+      },
+      NzSource: {
+        type: 'object',
+        description: 'One registered data source adapter.',
+        required: ['id', 'name', 'auth', 'description'],
+        additionalProperties: false,
+        properties: {
+          id: { type: 'string', minLength: 1 },
+          name: { type: 'string', minLength: 1 },
+          auth: { type: 'string', enum: ['none', 'key', 'account'] },
+          description: { type: 'string', minLength: 1 },
+          license: { $ref: '#/components/schemas/NzSourceLicense' },
         },
       },
     },

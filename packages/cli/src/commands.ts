@@ -29,7 +29,8 @@ export interface CliDependencies {
 export const HELP_TEXT = `nzdata - NZ open data connectors
 
 Usage:
-  nzdata sources                          List every data source adapter
+  nzdata sources                          List every data source adapter,
+                                          with licence metadata when known
   nzdata probe <id>                       Live probe one source (e.g. linz)
   nzdata media --query <q> [--type <type>]
                                           Search DigitalNZ media (images,
@@ -108,7 +109,7 @@ export async function runCli(
         name: source.name,
         auth: source.auth,
         description: source.description,
-        ...(source.licence === undefined ? {} : { licence: source.licence }),
+        ...(source.license === undefined ? {} : { license: source.license }),
       }));
       output.writeOut(JSON.stringify(sources, null, 2));
       return 0;

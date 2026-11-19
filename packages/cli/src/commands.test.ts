@@ -115,9 +115,9 @@ describe('runCli', () => {
     expect(exitCode).toBe(0);
     const sources = JSON.parse(out.join('\n')) as Array<{
       id: string;
-      licence?: { title: string; url: string; attribution: string };
+      license?: { title: string; url: string; attribution: string };
     }>;
-    expect(sources.find((source) => source.id === 'nzor')?.licence).toEqual({
+    expect(sources.find((source) => source.id === 'nzor')?.license).toEqual({
       title: 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand',
       url: 'https://creativecommons.org/licenses/by-nc-sa/3.0/nz/',
       attribution: 'NZOR, the New Zealand Organisms Register',

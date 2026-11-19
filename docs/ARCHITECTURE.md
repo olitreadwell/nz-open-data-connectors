@@ -36,9 +36,10 @@ in the ports only when someone ports it.
 
 ## How a request flows
 
-Every adapter speaks one interface (`NzDataAdapter`). It knows how to:
+Every TypeScript adapter speaks one interface (`NzDataAdapter`). It knows
+how to:
 1. describe itself (`id`, `name`, `auth`, `description`, and an optional
-   source-wide `licence` with `title`, `url` and `attribution`)
+   source-wide `license` with `title`, `url` and `attribution`)
 2. fetch live data
 3. parse the response into plain objects
 

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { NzSourceParseError } from './errors.js';
 import { readFixtureJson } from './fixtures.js';
 import { httpGet } from './http.js';
-import type { NzDataAdapter } from './types.js';
+import { createSourceLicense, type NzDataAdapter } from './types.js';
 
 /** Registry id for the GeoNet felt rapid reporting adapter. */
 export const GEONET_FELT_RAPID_SOURCE_ID = 'geonet-felt-rapid';
@@ -95,11 +95,11 @@ export const geonetFeltRapidAdapter: NzDataAdapter<GeoNetFeltRapidResult> = {
   name: 'GeoNet felt rapid reports',
   auth: 'none',
   description: 'Reported shaking locations and Modified Mercalli intensity totals.',
-  licence: {
+  license: createSourceLicense({
     title: 'Creative Commons Attribution 3.0 New Zealand',
     url: 'https://creativecommons.org/licenses/by/3.0/nz/',
     attribution: 'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand',
-  },
+  }),
   fetchLive: (options) => fetchGeoNetFeltRapid(options?.fetchImpl),
   parse: parseGeoNetFeltRapid,
   loadFixture: () => parseGeoNetFeltRapid(readFixtureJson('geonet-felt-rapid-2026-11-16.json')),

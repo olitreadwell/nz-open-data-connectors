@@ -33,7 +33,7 @@ export function createSourcesRoutes(options: SourcesRouteOptions = {}): Hono {
       name: source.name,
       auth: source.auth,
       description: source.description,
-      ...(source.licence === undefined ? {} : { licence: source.licence }),
+      ...(source.license === undefined ? {} : { license: source.license }),
     }));
     return c.json(sources);
   });

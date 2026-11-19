@@ -100,9 +100,9 @@ describe('createNzOpenDataMcpServer', () => {
 
     const sources = JSON.parse(firstText(result)) as Array<{
       id: string;
-      licence?: { title: string; url: string; attribution: string };
+      license?: { title: string; url: string; attribution: string };
     }>;
-    expect(sources.find((source) => source.id === 'charities-register')?.licence).toEqual({
+    expect(sources.find((source) => source.id === 'charities-register')?.license).toEqual({
       title: 'Creative Commons Attribution 3.0 New Zealand',
       url: 'https://creativecommons.org/licenses/by/3.0/nz/',
       attribution: 'Charities Register Open Data (DIA)',

@@ -318,6 +318,6 @@ export type {
   NzDataAdapter,
   NzFetchOptions,
   NzSourceAuth,
-  NzSourceLicence,
+  NzSourceLicense,
   NzSourceProbe,
 } from './types.js';

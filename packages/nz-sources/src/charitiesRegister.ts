@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { NzSourceParseError } from './errors.js';
 import { readFixtureJson } from './fixtures.js';
 import { httpGet } from './http.js';
-import type { NzDataAdapter } from './types.js';
+import { createSourceLicense, type NzDataAdapter } from './types.js';
 
 /** Registry id for the Charities Register Open Data adapter. */
 export const CHARITIES_REGISTER_SOURCE_ID = 'charities-register';
@@ -133,11 +133,11 @@ export const charitiesRegisterAdapter: NzDataAdapter<CharitiesSearchResult> = {
   name: 'Charities Register (DIA)',
   auth: 'none',
   description: 'Search New Zealand registered charities by name through the open OData API.',
-  licence: {
+  license: createSourceLicense({
     title: 'Creative Commons Attribution 3.0 New Zealand',
     url: 'https://creativecommons.org/licenses/by/3.0/nz/',
     attribution: 'Charities Register Open Data (DIA)',
-  },
+  }),
   fetchLive: (options) => searchCharitiesRegister('red cross', options?.fetchImpl),
   parse: parseCharitiesRegister,
   loadFixture: () =>

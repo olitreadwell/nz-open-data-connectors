@@ -8,10 +8,30 @@ export interface NzFetchOptions {
 }
 
 /** Licence and attribution metadata for a source-wide licence. */
-export interface NzSourceLicence {
-  title: string;
-  url: string;
-  attribution: string;
+export interface NzSourceLicense {
+  readonly title: string;
+  readonly url: string;
+  readonly attribution: string;
+}
+
+/**
+ * Validates and freezes source-wide licence metadata.
+ *
+ * @param license - The title, URL and attribution to expose with the adapter.
+ * @returns A frozen licence object.
+ * @throws When a field is not a non-empty string.
+ */
+export function createSourceLicense(license: NzSourceLicense): NzSourceLicense {
+  for (const field of ['title', 'url', 'attribution'] as const) {
+    if (typeof license[field] !== 'string' || license[field].trim().length === 0) {
+      throw new Error(`Source license ${field} must be a non-empty string`);
+    }
+  }
+  return Object.freeze({
+    title: license.title,
+    url: license.url,
+    attribution: license.attribution,
+  });
 }
 
 /**
@@ -23,7 +43,7 @@ export interface NzDataAdapter<T> {
   readonly name: string;
   readonly auth: NzSourceAuth;
   readonly description: string;
-  readonly licence?: NzSourceLicence;
+  readonly license?: NzSourceLicense;
   fetchLive(options?: NzFetchOptions): Promise<T>;
   parse(payload: unknown): T;
   loadFixture(): T;

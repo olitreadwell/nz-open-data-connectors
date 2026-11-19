@@ -70,4 +70,18 @@ describe('OpenAPI contract', () => {
       expect.arrayContaining(['200', '400', '401', '429'])
     );
   });
+
+  it('documents source-level licence metadata in the source list response', () => {
+    const sources = OPEN_API_DOCUMENT.paths['/api/sources'].get.responses['200'];
+    expect(sources.description).toContain('license');
+    expect(sources.content['application/json'].schema.items.$ref).toBe(
+      '#/components/schemas/NzSource'
+    );
+
+    const license = OPEN_API_DOCUMENT.components.schemas.NzSourceLicense;
+    expect(license.required).toEqual(['title', 'url', 'attribution']);
+    expect(license.properties.title.minLength).toBe(1);
+    expect(license.properties.url.format).toBe('uri');
+    expect(license.properties.attribution.minLength).toBe(1);
+  });
 });

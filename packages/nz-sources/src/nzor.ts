@@ -3,7 +3,7 @@ import { XMLParser } from 'fast-xml-parser';
 import { NzSourceParseError } from './errors.js';
 import { httpGet } from './http.js';
 import { readFixtureText } from './fixtures.js';
-import type { NzDataAdapter } from './types.js';
+import { createSourceLicense, type NzDataAdapter } from './types.js';
 
 /** One name in the NZ Organisms Register. */
 export interface NzorName {
@@ -68,11 +68,11 @@ export const nzorAdapter: NzDataAdapter<NzorSearchResult> = {
   name: 'NZ Organisms Register',
   auth: 'none',
   description: 'Search 170,000+ scientific and vernacular organism names.',
-  licence: {
+  license: createSourceLicense({
     title: 'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand',
     url: 'https://creativecommons.org/licenses/by-nc-sa/3.0/nz/',
     attribution: 'NZOR, the New Zealand Organisms Register',
-  },
+  }),
   fetchLive: (options) => searchNzorNames('kiwi', options?.fetchImpl),
   parse: (payload) => parseNzorNames(String(payload)),
   loadFixture: () => parseNzorNames(readFixtureText('nzor-names-kiwi.xml')),

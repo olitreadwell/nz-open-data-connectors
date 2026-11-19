@@ -1,7 +1,13 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
-import type { NzSourceLicence } from '@nz-open-data-connectors/nz-sources';
 import { z, type ZodRawShape } from 'zod';
+
+/** Licence and attribution metadata for a source-wide licence. */
+export interface SourceLicense {
+  readonly title: string;
+  readonly url: string;
+  readonly attribution: string;
+}
 
 /** One source in the registry, in the shape a model needs to pick from. */
 export interface SourceSummary {
@@ -9,7 +15,7 @@ export interface SourceSummary {
   name: string;
   auth: string;
   description: string;
-  licence?: NzSourceLicence;
+  license?: SourceLicense;
 }
 
 /** Outcome of one live probe against a source. */
@@ -122,7 +128,7 @@ export function createSourceMcpServer(config: SourceMcpConfig): McpServer {
     {
       title: 'List data sources',
       description:
-        "Lists every source in this country's open data connector library, with the id to pass to the other tools, whether it needs a key, and what it returns.",
+        "Lists every source in this country's open data connector library, with the id to pass to the other tools, whether it needs a key, what it returns, and source-wide licence metadata when the source publishes one.",
       inputSchema: {},
     },
     () => toTextResult(config.listSources())

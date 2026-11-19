@@ -35,7 +35,7 @@ curl 'http://localhost:8787/api/sources'
 | GET | `/metrics` | Request counts in Prometheus format. |
 | GET | `/openapi.json` | OpenAPI 3.1 spec. |
 | GET | `/docs` | Swagger UI. |
-| GET | `/api/sources` | List every adapter, including `licence` metadata when the source publishes one. |
+| GET | `/api/sources` | List every adapter, including `license` metadata when the source publishes one. |
 | GET | `/api/sources/:id/probe` | Live probe one source. |
 | GET | `/api/digitalnz/media?q=kiwi&type=images` | DigitalNZ media search. |
 | GET | `/api/stats-nz/catalogue` | Every ADE dataflow. |
@@ -58,8 +58,8 @@ curl 'http://localhost:8787/api/sources'
 - This API reads the same sources as `@nz-open-data-connectors/nz-sources` and `@nz-open-data-connectors/stats-nz`.
 - The publishers are GeoNet, data.govt.nz, Stats NZ, DigitalNZ and the New Zealand Gazette, Trade Me, NZOR, LINZ, ArcGIS Hub portals, Auckland Museum, LAWA, Charities Register, MBIE, MfE, Landcare Research LRIS, Waka Kotahi (NZTA) including EV Roam, NIWA, NZPAM, Whanganui District Council, Christchurch City Council, Auckland Transport, Canterbury Maps, Wellington City Council, the Electricity Authority and Environment Canterbury.
 - The source URLs are in the `nz-sources` README.
-- `/api/sources` returns `licence.title`, `licence.url` and
-  `licence.attribution` for adapters whose source publishes one unconditional
+- `/api/sources` returns `license.title`, `license.url` and
+  `license.attribution` for adapters whose source publishes one unconditional
   source-wide licence and no licence field in its API payload.
 - The data is not covered by the package licence. Each publisher sets the licence for its own data. Check the source page before you reuse a dataset.
 
