@@ -18,8 +18,8 @@ export interface NzSourceLicense {
  * Validates and freezes source-wide licence metadata.
  *
  * @param license - The title, URL and attribution to expose with the adapter.
- * @returns A frozen licence object.
- * @throws When a field is not a non-empty string.
+ * @returns A frozen licence object with trimmed fields.
+ * @throws When a field is blank or the URL is not an absolute HTTP(S) URL.
  */
 export function createSourceLicense(license: NzSourceLicense): NzSourceLicense {
   for (const field of ['title', 'url', 'attribution'] as const) {
@@ -27,10 +27,24 @@ export function createSourceLicense(license: NzSourceLicense): NzSourceLicense {
       throw new Error(`Source license ${field} must be a non-empty string`);
     }
   }
+
+  const title = license.title.trim();
+  const url = license.url.trim();
+  const attribution = license.attribution.trim();
+  let parsedUrl: URL;
+  try {
+    parsedUrl = new URL(url);
+  } catch {
+    throw new Error('Source license url must be an absolute HTTP(S) URL');
+  }
+  if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+    throw new Error('Source license url must be an absolute HTTP(S) URL');
+  }
+
   return Object.freeze({
-    title: license.title,
-    url: license.url,
-    attribution: license.attribution,
+    title,
+    url,
+    attribution,
   });
 }
 

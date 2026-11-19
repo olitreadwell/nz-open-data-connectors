@@ -313,6 +313,8 @@ export { normalizeSourceApiKey } from './apiKey.js';
 export { httpGet, httpPost, USER_AGENT, DEFAULT_TIMEOUT_MS } from './http.js';
 /** Shared HTTP layer types. */
 export type { HttpGetOptions, HttpPostOptions } from './http.js';
+/** Validates and freezes source-wide licence metadata. */
+export { createSourceLicense } from './types.js';
 /** Shared adapter contract types. */
 export type {
   NzDataAdapter,

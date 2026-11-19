@@ -27,7 +27,7 @@ dates are the capture dates.
 | DigitalNZ (National Library) | `digitalnz` | Live, keyless; optional `DIGITAL_NZ_API_KEY` raises the rate limit |
 | New Zealand Gazette | `nz-gazette` | Live, keyless; DigitalNZ collection, newest first |
 | Trade Me categories | `trademe` | Live, keyless |
-| NZ Organisms Register | `nzor` | Live, keyless; licence is CC BY-NC-SA 3.0 NZ, so not for commercial use |
+| NZ Organisms Register | `nzor` | Fixture-backed, keyless; the hosts have failed TLS since 2026-09-21; licence is CC BY-NC-SA 3.0 NZ, so not for commercial use |
 | LINZ Data Service | `linz` | Live, keyless; optional `LINZ_API_KEY` |
 | ArcGIS Hub open data | `arcgis` | Live, keyless; Auckland Council is the default host |
 | LAWA river quality sites | `lawa` | Live, keyless |
@@ -109,9 +109,11 @@ credentials exist.
       the adapter, not each record, because the response carries no licence
       value
 - [ ] Port adapter-level licence metadata to Python and Ruby for `geonet` and
-      `nzor`, the two licensed adapters those ports already carry. Their
-      `NzDataAdapter` and `Adapter` types have no `license` field, so the
-      ported source lists cannot return it yet
+      `nzor`. Both ports already carry those adapters, and both have a
+      source-wide licence. The ports also return per-record `data-govt-nz`
+      licence fields, but their `NzDataAdapter` and `Adapter` types have no
+      `license` field, so the source lists cannot return this source-wide
+      metadata yet
 - [ ] Decide how to represent a default licence that the source can override
       per page: `electricity-authority`, `infoshare` and
       `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"

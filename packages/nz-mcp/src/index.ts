@@ -3,6 +3,7 @@ export {
   type SourceMcpConfig,
   type SourceProbeResult,
   type SourceQueryTool,
+  type SourceLicense,
   type SourceSummary,
 } from './createSourceMcpServer.js';
 export {

@@ -10,6 +10,13 @@
 
 ## Unreleased
 
+- Connectors: expose source-wide `license` metadata for Charities Register,
+  EV Roam, GeoNet, GeoNet felt rapid reports and NZOR. The API, CLI and MCP
+  source lists include it. `nz-sources` is 0.3.0.
+- API: document the optional `license` object on `/api/sources` in the
+  OpenAPI schema, including its absolute HTTP(S) URL.
+- CLI and MCP: include `license` in `nzdata sources` and `list_sources`.
+  `connectors-cli` and `nz-mcp` are 0.2.0.
 - Connectors: add keyless adapters for Auckland Transport, Canterbury Maps,
   Christchurch open data, the Electricity Authority, LRIS basemaps, and MBIE
   open data.
