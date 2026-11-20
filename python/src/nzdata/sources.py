@@ -26,6 +26,15 @@ DEFAULT_TIMEOUT_MS = 30_000
 USER_AGENT = "nz-open-data-connectors (Language=Python)"
 
 
+@dataclass(frozen=True)
+class NzSourceLicense:
+    """Source-wide licence metadata for an adapter."""
+
+    title: str
+    url: str
+    attribution: str
+
+
 @dataclass
 class NzDataAdapter:
     """One NZ data source behind a uniform interface."""
@@ -37,6 +46,7 @@ class NzDataAdapter:
     fetch_live: Callable[[Optional[str]], Any]
     parse: Callable[[Any], Any]
     load_fixture: Callable[[], Any]
+    license: Optional[NzSourceLicense] = None
 
 
 @dataclass
@@ -611,6 +621,13 @@ geonet_adapter = NzDataAdapter(
     fetch_live=lambda _api_key: fetch_geonet_felt_quakes(3),
     parse=parse_geonet_quakes,
     load_fixture=lambda: parse_geonet_quakes(read_fixture_json("geonet-quakes-mmi3.json")),
+    license=NzSourceLicense(
+        title="Creative Commons Attribution 3.0 New Zealand",
+        url="https://creativecommons.org/licenses/by/3.0/nz/",
+        attribution=(
+            "GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand"
+        ),
+    ),
 )
 
 
@@ -687,6 +704,11 @@ nzor_adapter = NzDataAdapter(
     fetch_live=lambda _api_key: search_nzor_names("kiwi"),
     parse=lambda payload: parse_nzor_names(str(payload)),
     load_fixture=lambda: parse_nzor_names(read_fixture_text("nzor-names-kiwi.xml")),
+    license=NzSourceLicense(
+        title="Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand",
+        url="https://creativecommons.org/licenses/by-nc-sa/3.0/nz/",
+        attribution="NZOR, the New Zealand Organisms Register",
+    ),
 )
 
 

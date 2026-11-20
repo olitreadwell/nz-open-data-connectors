@@ -41,6 +41,9 @@ rows = client.get_data('AGR_AGR_003')       # keyless for AGR_* tables
 | `nzor` | NZ Organisms Register | none | Species name search |
 | `linz` | LINZ Data Service | key | Layer search (key optional) |
 
+The `geonet` and `nzor` adapters also expose `license.title`, `license.url` and
+`license.attribution` for their source-wide licences.
+
 ## Check
 
 ```sh

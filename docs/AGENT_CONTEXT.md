@@ -85,12 +85,11 @@ pytest, ruff and mypy.
    source-wide licence and no licence field in the payload, so their
    TypeScript adapters expose `license.title`, `license.url` and
    `license.attribution` at adapter level. The API, CLI and MCP source lists
-   include the same value. The remaining open items are how to represent a
-   default licence that a page can override, whether to expose publisher terms
-   for the adapters that only link to terms of use, and how to port the field
-   to the Python and Ruby `geonet` and `nzor` adapters. The licence position
-   per source is in
-   `docs/CONNECTOR_DISCOVERY.md`.
+   include the same value, and the Python and Ruby ports expose it for `geonet`
+   and `nzor`. The remaining open items are how to represent a default licence
+   that a page can override, and whether to expose publisher terms for the
+   adapters that only link to terms of use. The licence position per source is
+   in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
    `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
    `christchurch-open-data`, `electricity-authority`, `ev-roam`,

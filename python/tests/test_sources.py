@@ -65,6 +65,25 @@ def test_get_nz_data_source_finds_and_misses():
     assert get_nz_data_source("not-a-source") is None
 
 
+def test_registry_exposes_source_wide_licence_for_geonet_and_nzor():
+    geonet = get_nz_data_source("geonet")
+    nzor = get_nz_data_source("nzor")
+
+    assert geonet is not None
+    assert nzor is not None
+    assert geonet.license.title == "Creative Commons Attribution 3.0 New Zealand"
+    assert geonet.license.url == "https://creativecommons.org/licenses/by/3.0/nz/"
+    assert (
+        geonet.license.attribution
+        == "GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand"
+    )
+    assert nzor.license.title == (
+        "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand"
+    )
+    assert nzor.license.url == "https://creativecommons.org/licenses/by-nc-sa/3.0/nz/"
+    assert nzor.license.attribution == "NZOR, the New Zealand Organisms Register"
+
+
 def test_every_adapter_loads_its_fixture():
     for source in NZ_DATA_SOURCES:
         data = source.load_fixture()

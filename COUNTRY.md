@@ -108,12 +108,10 @@ credentials exist.
       CLI and MCP source lists include the same value. The licence stays on
       the adapter, not each record, because the response carries no licence
       value
-- [ ] Port adapter-level licence metadata to Python and Ruby for `geonet` and
-      `nzor`. Both ports already carry those adapters, and both have a
-      source-wide licence. The ports also return per-record `data-govt-nz`
-      licence fields, but their `NzDataAdapter` and `Adapter` types have no
-      `license` field, so the source lists cannot return this source-wide
-      metadata yet
+- [x] Port adapter-level licence metadata to Python and Ruby for `geonet` and
+      `nzor`. Both ports now expose `license.title`, `license.url` and
+      `license.attribution` on their `NzDataAdapter` and `Adapter` types, and
+      both `NZ_DATA_SOURCES` lists return the same values as TypeScript
 - [ ] Decide how to represent a default licence that the source can override
       per page: `electricity-authority`, `infoshare` and
       `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"
