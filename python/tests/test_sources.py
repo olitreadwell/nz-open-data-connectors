@@ -100,7 +100,20 @@ def test_nz_source_license_rejects_blank_fields():
             NzSourceLicense(**invalid)
 
 
-@pytest.mark.parametrize("url", ["not-a-url", "/relative", "ftp://example.com/licence"])
+@pytest.mark.parametrize(
+    "url",
+    [
+        "not-a-url",
+        "/relative",
+        "ftp://example.com/licence",
+        "http://",
+        "http://?x",
+        "http://:80",
+        "http://@",
+        "https://example.com:bad",
+        "https://example.com:99999",
+    ],
+)
 def test_nz_source_license_rejects_non_http_urls(url):
     with pytest.raises(ValueError, match=r"Source license url must be an absolute HTTP\(S\) URL"):
         NzSourceLicense("Title", url, "Attribution")

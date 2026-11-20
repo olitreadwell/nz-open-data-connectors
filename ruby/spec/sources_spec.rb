@@ -40,6 +40,10 @@ describe Nzdata do
 
       _(license.frozen?).must_equal true
       _(-> { license.title = 'changed' }).must_raise FrozenError
+      _(license.title.frozen?).must_equal true
+      _(license.url.frozen?).must_equal true
+      _(license.attribution.frozen?).must_equal true
+      _(-> { license.title << ' changed' }).must_raise FrozenError
     end
 
     it 'rejects blank licence fields' do
@@ -55,7 +59,17 @@ describe Nzdata do
     end
 
     it 'rejects a licence URL that is not absolute HTTP(S)' do
-      ['not-a-url', '/relative', 'ftp://example.com/licence'].each do |url|
+      [
+        'not-a-url',
+        '/relative',
+        'ftp://example.com/licence',
+        'http://',
+        'http://?x',
+        'http://:80',
+        'http://@',
+        'https://example.com:bad',
+        'https://example.com:99999'
+      ].each do |url|
         _(-> { Nzdata::SourceLicense.new('Title', url, 'Attribution') }).must_raise ArgumentError
       end
     end

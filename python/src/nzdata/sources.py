@@ -40,8 +40,17 @@ class NzSourceLicense:
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"Source license {field_name} must be a non-empty string")
 
-        parsed_url = urllib.parse.urlparse(self.url.strip())
-        if parsed_url.scheme not in ("http", "https") or not parsed_url.netloc:
+        try:
+            parsed_url = urllib.parse.urlparse(self.url.strip())
+            port = parsed_url.port
+        except ValueError as exc:
+            raise ValueError("Source license url must be an absolute HTTP(S) URL") from exc
+
+        if (
+            parsed_url.scheme not in ("http", "https")
+            or not parsed_url.hostname
+            or (port is not None and not 0 <= port <= 65535)
+        ):
             raise ValueError("Source license url must be an absolute HTTP(S) URL")
 
         object.__setattr__(self, "title", self.title.strip())

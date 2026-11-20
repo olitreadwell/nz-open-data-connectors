@@ -20,13 +20,13 @@ module Nzdata
         raise ArgumentError, "Source license #{field} must be a non-empty string"
       end
 
-      value.strip
+      value.strip.freeze
     end
 
     def validate_url(value)
       url = validate_text(value, 'url')
       uri = URI.parse(url)
-      unless uri.is_a?(URI::HTTP) && !uri.host.nil?
+      unless uri.is_a?(URI::HTTP) && !uri.host.to_s.empty? && (0..65_535).cover?(uri.port)
         raise ArgumentError, 'Source license url must be an absolute HTTP(S) URL'
       end
 
