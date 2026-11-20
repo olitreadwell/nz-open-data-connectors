@@ -35,6 +35,44 @@ describe Nzdata do
       _(nzor.license.attribution).must_equal 'NZOR, the New Zealand Organisms Register'
     end
 
+    it 'freezes source-wide licences' do
+      license = Nzdata.get_nz_data_source('geonet').license
+
+      _(license.frozen?).must_equal true
+      _(-> { license.title = 'changed' }).must_raise FrozenError
+    end
+
+    it 'rejects blank licence fields' do
+      cases = [
+        ['  ', 'https://example.com', 'Attribution'],
+        ['Title', '  ', 'Attribution'],
+        ['Title', 'https://example.com', '  ']
+      ]
+
+      cases.each do |title, url, attribution|
+        _(-> { Nzdata::SourceLicense.new(title, url, attribution) }).must_raise ArgumentError
+      end
+    end
+
+    it 'rejects a licence URL that is not absolute HTTP(S)' do
+      ['not-a-url', '/relative', 'ftp://example.com/licence'].each do |url|
+        _(-> { Nzdata::SourceLicense.new('Title', url, 'Attribution') }).must_raise ArgumentError
+      end
+    end
+
+    it 'trims padded licence fields' do
+      license = Nzdata::SourceLicense.new(
+        '  Creative Commons Attribution 3.0 New Zealand  ',
+        '  https://creativecommons.org/licenses/by/3.0/nz/  ',
+        '  GeoNet  '
+      )
+
+      _(license.title).must_equal 'Creative Commons Attribution 3.0 New Zealand'
+      _(license.url).must_equal 'https://creativecommons.org/licenses/by/3.0/nz/'
+      _(license.attribution).must_equal 'GeoNet'
+      _(license.frozen?).must_equal true
+    end
+
     it 'loads a fixture for every adapter' do
       Nzdata::NZ_DATA_SOURCES.each do |source|
         _(source.load_fixture.call).wont_be_nil

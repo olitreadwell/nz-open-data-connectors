@@ -26,11 +26,11 @@ value per dataset. Charities Register data is CC BY 3.0 NZ and EV Roam data is
 CC BY 4.0. GeoNet, including the felt rapid adapter, NZOR, Charities Register
 and EV Roam publish one source-wide licence and no licence field in the
 payload. The TypeScript source list returns `license.title`, `license.url` and
-`license.attribution` for those five adapters. The Python and Ruby ports return
-the same fields for `geonet` and `nzor`. DigitalNZ records, including New
-Zealand Gazette notices, carry `rights`, `rights_url`, `copyright`, `publisher`,
-`creator`, `contributor` and `usage` values. Auckland Museum source records
-carry `copyright` and
+`license.attribution` for those five adapters. The Python and Ruby ports expose
+the same fields on the `geonet` and `nzor` adapters. DigitalNZ records,
+including New Zealand Gazette notices, carry `rights`, `rights_url`, `copyright`,
+`publisher`, `creator`, `contributor` and `usage` values. Auckland Museum
+source records carry `copyright` and
 `dc_contributor`; the adapter returns every value as `copyrightStatements` and
 `contributors`, plus the first statement as `copyright`. The Environment
 Canterbury catalogue page carries a CC BY 4.0 link, licence statement and

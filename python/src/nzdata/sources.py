@@ -34,6 +34,20 @@ class NzSourceLicense:
     url: str
     attribution: str
 
+    def __post_init__(self) -> None:
+        for field_name in ("title", "url", "attribution"):
+            value = getattr(self, field_name)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(f"Source license {field_name} must be a non-empty string")
+
+        parsed_url = urllib.parse.urlparse(self.url.strip())
+        if parsed_url.scheme not in ("http", "https") or not parsed_url.netloc:
+            raise ValueError("Source license url must be an absolute HTTP(S) URL")
+
+        object.__setattr__(self, "title", self.title.strip())
+        object.__setattr__(self, "url", self.url.strip())
+        object.__setattr__(self, "attribution", self.attribution.strip())
+
 
 @dataclass
 class NzDataAdapter:

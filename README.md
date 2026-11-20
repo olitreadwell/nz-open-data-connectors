@@ -48,8 +48,8 @@ The data is not ours. Each publisher keeps its own terms. The short version:
   source-wide licence and no licence field in the API payload. The TypeScript
   source list returns `license.title`, `license.url` and `license.attribution`
   for `charities-register`, `ev-roam`, `geonet`, `geonet-felt-rapid` and
-  `nzor`. The Python and Ruby ports carry `geonet` and `nzor` and return the
-  same three fields.
+  `nzor`. The Python and Ruby ports carry `geonet` and `nzor` and expose the
+  same three fields on their adapters.
 - **data.govt.nz, MBIE open data, Waka Kotahi, Canterbury Maps, Wellington
   City, Christchurch City, Auckland Transport and Whanganui GeoNode**: each
   dataset carries its own licence value. Read the value on the dataset page.

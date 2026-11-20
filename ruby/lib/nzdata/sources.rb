@@ -8,9 +8,9 @@ require 'uri'
 
 require_relative 'http_defaults'
 require_relative 'metadata_fields'
+require_relative 'source_license'
 
 module Nzdata
-  SourceLicense = Struct.new(:title, :url, :attribution)
   Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture,
                        :license)
   Probe = Struct.new(:id, :name, :auth, :ok, :status, :sample)

@@ -111,7 +111,8 @@ credentials exist.
 - [x] Port adapter-level licence metadata to Python and Ruby for `geonet` and
       `nzor`. Both ports now expose `license.title`, `license.url` and
       `license.attribution` on their `NzDataAdapter` and `Adapter` types, and
-      both `NZ_DATA_SOURCES` lists return the same values as TypeScript
+      both `NZ_DATA_SOURCES` lists expose the same values on their adapters as
+      TypeScript
 - [ ] Decide how to represent a default licence that the source can override
       per page: `electricity-authority`, `infoshare` and
       `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"
