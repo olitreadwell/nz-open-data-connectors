@@ -8,9 +8,11 @@ require 'uri'
 
 require_relative 'http_defaults'
 require_relative 'metadata_fields'
+require_relative 'source_license'
 
 module Nzdata
-  Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture)
+  Adapter = Struct.new(:id, :name, :auth, :description, :fetch_live, :parse, :load_fixture,
+                       :license)
   Probe = Struct.new(:id, :name, :auth, :ok, :status, :sample)
 
   AdeDataflow = Struct.new(:dataflow_id, :version, :agency_id, :name, :dimensions)
@@ -323,7 +325,12 @@ module Nzdata
     'Recent felt earthquakes (MMI >= 3) as GeoJSON.',
     ->(_api_key) { fetch_geonet_felt_quakes(3) },
     ->(payload) { parse_geonet_quakes(payload) },
-    -> { parse_geonet_quakes(read_fixture_json('geonet-quakes-mmi3.json')) }
+    -> { parse_geonet_quakes(read_fixture_json('geonet-quakes-mmi3.json')) },
+    SourceLicense.new(
+      'Creative Commons Attribution 3.0 New Zealand',
+      'https://creativecommons.org/licenses/by/3.0/nz/',
+      'GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand'
+    )
   )
 
   # --- LINZ --------------------------------------------------------------
@@ -393,7 +400,12 @@ module Nzdata
     'Search 170,000+ scientific and vernacular organism names.',
     ->(_api_key) { search_nzor_names('kiwi') },
     ->(payload) { parse_nzor_names(payload.to_s) },
-    -> { parse_nzor_names(read_fixture_text('nzor-names-kiwi.xml')) }
+    -> { parse_nzor_names(read_fixture_text('nzor-names-kiwi.xml')) },
+    SourceLicense.new(
+      'Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand',
+      'https://creativecommons.org/licenses/by-nc-sa/3.0/nz/',
+      'NZOR, the New Zealand Organisms Register'
+    )
   )
 
   # --- Trade Me ----------------------------------------------------------

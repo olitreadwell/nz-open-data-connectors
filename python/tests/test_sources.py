@@ -1,6 +1,7 @@
 """Unit tests for the NZ data source adapters. Fixtures only, no network."""
 
 import json
+from dataclasses import FrozenInstanceError
 from importlib.resources import files
 
 import pytest
@@ -17,6 +18,7 @@ from nzdata.sources import (
     DataGovtNzDataset,
     DataGovtNzSearchResult,
     NzDataAdapter,
+    NzSourceLicense,
     parse_ade_search_results,
     parse_data_govt_datastore_rows,
     parse_data_govt_nz_datasets,
@@ -63,6 +65,83 @@ def test_registry_lists_eight_sources():
 def test_get_nz_data_source_finds_and_misses():
     assert get_nz_data_source("linz") is not None
     assert get_nz_data_source("not-a-source") is None
+
+
+def test_registry_exposes_source_wide_licence_for_geonet_and_nzor():
+    geonet = get_nz_data_source("geonet")
+    nzor = get_nz_data_source("nzor")
+
+    assert geonet is not None
+    assert nzor is not None
+    assert geonet.license.title == "Creative Commons Attribution 3.0 New Zealand"
+    assert geonet.license.url == "https://creativecommons.org/licenses/by/3.0/nz/"
+    assert (
+        geonet.license.attribution
+        == "GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand"
+    )
+    assert nzor.license.title == (
+        "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand"
+    )
+    assert nzor.license.url == "https://creativecommons.org/licenses/by-nc-sa/3.0/nz/"
+    assert nzor.license.attribution == "NZOR, the New Zealand Organisms Register"
+
+
+def test_nz_source_license_rejects_blank_fields():
+    values = {
+        "title": "Creative Commons Attribution 3.0 New Zealand",
+        "url": "https://creativecommons.org/licenses/by/3.0/nz/",
+        "attribution": "GeoNet",
+    }
+
+    for field in ("title", "url", "attribution"):
+        invalid = dict(values)
+        invalid[field] = "  "
+        with pytest.raises(ValueError, match=f"Source license {field} must be a non-empty string"):
+            NzSourceLicense(**invalid)
+
+
+@pytest.mark.parametrize(
+    "url",
+    [
+        "not-a-url",
+        "/relative",
+        "ftp://example.com/licence",
+        "http://",
+        "http://?x",
+        "http://:80",
+        "http://@",
+        "https://example.com:bad",
+        "https://example.com:99999",
+    ],
+)
+def test_nz_source_license_rejects_non_http_urls(url):
+    with pytest.raises(ValueError, match=r"Source license url must be an absolute HTTP\(S\) URL"):
+        NzSourceLicense("Title", url, "Attribution")
+
+
+def test_nz_source_license_trims_padded_fields():
+    license = NzSourceLicense(
+        "  Creative Commons Attribution 3.0 New Zealand  ",
+        "  https://creativecommons.org/licenses/by/3.0/nz/  ",
+        "  GeoNet  ",
+    )
+
+    assert license == NzSourceLicense(
+        "Creative Commons Attribution 3.0 New Zealand",
+        "https://creativecommons.org/licenses/by/3.0/nz/",
+        "GeoNet",
+    )
+
+
+def test_nz_source_license_is_immutable():
+    license = NzSourceLicense(
+        "Creative Commons Attribution 3.0 New Zealand",
+        "https://creativecommons.org/licenses/by/3.0/nz/",
+        "GeoNet",
+    )
+
+    with pytest.raises(FrozenInstanceError):
+        license.title = "changed"
 
 
 def test_every_adapter_loads_its_fixture():

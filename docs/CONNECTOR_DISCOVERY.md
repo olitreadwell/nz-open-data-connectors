@@ -525,7 +525,7 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 
 | Adapter | Publisher | Licence position |
 | --- | --- | --- |
-| `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08. Returned in the TypeScript adapter's `license` metadata |
+| `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08. Returned in the TypeScript, Python and Ruby adapters' `license` metadata |
 | `geonet-felt-rapid` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-11-17. Returned in the TypeScript adapter's `license` metadata |
 | `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title`, `license_url`, `author` and `organization.title` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` as the publisher |
 | `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
@@ -535,7 +535,7 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url`, `copyright`, `content_partner`, `publisher`, `creator`, `contributor` and `usage`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns `rights`, `rightsUrl`, `copyright`, `publisher`, `creator`, `contributor` and `usage`, plus `contentPartner` as attribution. When `display_content_partner` is empty, `contentPartner` falls back to `content_partner`, then `publisher` |
 | `nz-gazette` | New Zealand Gazette through DigitalNZ | Each Gazette record carries the DigitalNZ rights fields. Read them before reuse |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
-| `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand. Not for commercial use. Returned in the TypeScript adapter's `license` metadata. The adapter remains fixture-backed because the hosts have failed TLS since 2026-09-21, so the licence has not been rechecked live since that date |
+| `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand. Not for commercial use. Returned in the TypeScript, Python and Ruby adapters' `license` metadata. The adapter remains fixture-backed because the hosts have failed TLS since 2026-09-21, so the licence has not been rechecked live since that date |
 | `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
 | `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset. Dataset items carry `licenseInfo`, `accessInformation` and `license`, and the adapter returns all three |
 | `auckland-museum` | Auckland Museum collections online | Museum terms, with CC BY on records that carry it. Source records carry `copyright` and `dc_contributor`; the adapter returns every copyright statement as `copyrightStatements`, every contributor as `contributors`, and the first statement as `copyright`. Check the record page for the full terms and credit |
@@ -568,15 +568,14 @@ rights or attribution metadata their source supplies. Second,
 publish one unconditional source-wide licence and carry no licence field in
 the payload, so their TypeScript adapters expose `license.title`, `license.url`
 and `license.attribution`. The API, CLI and MCP source lists include the same
-value. The Python and Ruby ports do not expose this field yet. Third, NZOR is
-the one source here that rules out commercial use, so treat results from it
-accordingly.
+value. The Python and Ruby ports expose the same fields for `geonet` and
+`nzor`. Third, NZOR is the one source here that rules out commercial use, so
+treat results from it accordingly.
 
-The remaining licence decisions are split into three narrowed open items in
+The remaining licence decisions are split into two narrowed open items in
 `COUNTRY.md`: how to represent a default licence that a page can override,
-whether to expose publisher terms for the adapters that only link to terms of
-use, and how to port this field to the Python and Ruby `geonet` and `nzor`
-adapters. A caller who needs to republish a dataset from an adapter whose
+and whether to expose publisher terms for the adapters that only link to
+terms of use. A caller who needs to republish a dataset from an adapter whose
 terms remain open has to check the publisher.
 
 When you republish, credit the publisher, not this library. The connectors
