@@ -530,7 +530,7 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title`, `license_url`, `author` and `organization.title` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` as the publisher |
 | `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
 | `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title`, `license_url`, `rights`, `author` and `organization.title`, and the adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `rights`, `author` and `organization`. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank. For rows where `license_url` is null and `rights` is present, `rights` is the only licence pointer |
-| `ade-search` | Stats NZ, Aotearoa Data Explorer | Check the Stats NZ terms for the table you pull |
+| `ade-search` | Stats NZ, Aotearoa Data Explorer | Per table. The search response carries no licence or terms field, and the adapter returns `dataflowId` so you can open the table. Decided on 2026-11-26 not to add publisher terms to the search result: the search index is not the data, and the terms belong to the table. Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
 | `digitalnz` | DigitalNZ (National Library), plus each contributing partner | Each record carries `rights`, `rights_url`, `copyright`, `content_partner`, `publisher`, `creator`, `contributor` and `usage`. Read them before reuse: they range from Creative Commons to all rights reserved. The adapter returns `rights`, `rightsUrl`, `copyright`, `publisher`, `creator`, `contributor` and `usage`, plus `contentPartner` as attribution. When `display_content_partner` is empty, `contentPartner` falls back to `content_partner`, then `publisher` |
 | `nz-gazette` | New Zealand Gazette through DigitalNZ | Each Gazette record carries the DigitalNZ rights fields. Read them before reuse |
@@ -572,14 +572,33 @@ value. The Python and Ruby ports expose the same fields for `geonet` and
 `nzor`. Third, NZOR is the one source here that rules out commercial use, so
 treat results from it accordingly.
 
-The remaining licence decisions are split into two narrowed open items in
+The remaining licence decisions are recorded as narrowed open items in
 `COUNTRY.md`: how to represent a default licence that a page can override,
-and whether to expose publisher terms for the adapters that only link to
-terms of use. A caller who needs to republish a dataset from an adapter whose
-terms remain open has to check the publisher.
+and whether to expose publisher terms for the remaining adapters that only
+link to terms of use. `ade-search` is decided: its search response carries no
+terms field, so the adapter returns the table ID and the caller checks the
+Stats NZ terms for that table. A caller who needs to republish a dataset from
+an adapter whose terms remain open has to check the publisher.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
+
+### `ade-search` publisher terms
+
+Decided on 2026-11-26 not to add publisher terms to the `ade-search` result.
+The live search response carried `numFound`, `start`, `dataflows`, `facets`
+and `highlighting`. Each dataflow carried `dataflowId`, `version`,
+`agencyId`, `name`, `dimensions`, `indexationDate`, `lastUpdated`, `id` and
+`datasourceId`, plus one array per dimension. No licence or terms field was
+present. The terms belong to the table, not the search index, and the adapter
+returns `dataflowId` so a caller can open the table page.
+
+```sh
+UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+
+curl -sS -L -A "$UA" \
+  "https://explore.data.stats.govt.nz/sfs/api/search?tenant=public&q=median%20annual%20earnings&limit=1"
+```
 
 ## 2026-11-16 addition: five keyless catalogue APIs
 

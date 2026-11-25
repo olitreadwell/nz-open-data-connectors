@@ -118,12 +118,18 @@ credentials exist.
       `stats-nz-geographic` publish CC BY 4.0 "unless a page says otherwise"
       or "unless indicated otherwise". A static adapter-level value cannot
       carry that exception
-- [ ] Decide whether to expose publisher terms for `ade-search`,
-      `data-govt-datastore`, `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`,
-      `niwa-rec`, `nzpam-geodata`, `nzta` and `trademe`. These publish terms
-      of use or per-item terms, not a reusable licence value in the response.
-      The LRIS and NIWA WMS service blocks supply access metadata but no
-      licence, so their publisher terms remain open
+- [x] Decided not to expose publisher terms from `ade-search`. The live
+      search response on 2026-11-26 carried only `numFound`, `start`,
+      `dataflows`, `facets` and `highlighting`; each dataflow carried table
+      metadata and no licence or terms field. The terms belong to the table,
+      not the search index, and the adapter returns `dataflowId` so a caller
+      can open the table. See `docs/CONNECTOR_DISCOVERY.md`.
+- [ ] Decide whether to expose publisher terms for `data-govt-datastore`,
+      `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`, `niwa-rec`,
+      `nzpam-geodata`, `nzta` and `trademe`. These publish terms of use or
+      per-item terms, not a reusable licence value in the response. The LRIS
+      and NIWA WMS service blocks supply access metadata but no licence, so
+      their publisher terms remain open
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 

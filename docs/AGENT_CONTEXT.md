@@ -88,8 +88,10 @@ pytest, ruff and mypy.
    include the same value, and the Python and Ruby ports expose it for `geonet`
    and `nzor`. The remaining open items are how to represent a default licence
    that a page can override, and whether to expose publisher terms for the
-   adapters that only link to terms of use. The licence position per source is
-   in `docs/CONNECTOR_DISCOVERY.md`.
+   remaining adapters that only link to terms of use. `ade-search` is decided:
+   its search response carries no terms field, so the adapter returns the
+   table ID and the caller checks Stats NZ's terms for that table. The licence
+   position per source is in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
    `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
    `christchurch-open-data`, `electricity-authority`, `ev-roam`,
