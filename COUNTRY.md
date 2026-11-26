@@ -130,10 +130,13 @@ credentials exist.
       dataset: `resource_show` returns `package_id` and no licence, and
       `package_show` on that package returns `license_id`, `license_title`
       and `license_url`. Reaching it from a resource ID takes two extra API
-      calls, and the adapter accepts any resource ID, so a fixed
-      adapter-level licence would be wrong. The adapter returns `resourceId`
-      so a caller can open the resource page. See
-      `docs/CONNECTOR_DISCOVERY.md`.
+      calls. The registered adapter fetches one fixed resource, but the
+      TypeScript `fetchDataGovtDatastoreRows` helper and the MCP
+      `nz_datastore_rows` tool accept any resource ID, so a fixed
+      adapter-level licence would only describe the default resource. The
+      TypeScript adapter returns `resourceId`, and the Python and Ruby
+      adapters return `resource_id`, so a caller can open the resource page.
+      See `docs/CONNECTOR_DISCOVERY.md`.
 - [ ] Decide whether to expose publisher terms for `lawa`, `linz`, `lris`,
       `lris-basemaps`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta` and
       `trademe`. These publish terms of use or per-item terms, not a reusable
