@@ -90,8 +90,11 @@ pytest, ruff and mypy.
    that a page can override, and whether to expose publisher terms for the
    remaining adapters that only link to terms of use. `ade-search` is decided:
    its search response carries no terms field, so the adapter returns the
-   table ID and the caller checks Stats NZ's terms for that table. The licence
-   position per source is in `docs/CONNECTOR_DISCOVERY.md`.
+   table ID and the caller checks Stats NZ's terms for that table.
+   `data-govt-datastore` is also decided: its row response carries no licence
+   field, and the dataset licence takes two extra catalogue calls to reach, so
+   the adapter returns the resource ID and the caller opens the resource page.
+   The licence position per source is in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
    `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,
    `christchurch-open-data`, `electricity-authority`, `ev-roam`,

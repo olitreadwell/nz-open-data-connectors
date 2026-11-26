@@ -124,12 +124,22 @@ credentials exist.
       metadata and no licence or terms field. The terms belong to the table,
       not the search index, and the adapter returns `dataflowId` so a caller
       can open the table. See `docs/CONNECTOR_DISCOVERY.md`.
-- [ ] Decide whether to expose publisher terms for `data-govt-datastore`,
-      `lawa`, `linz`, `lris`, `lris-basemaps`, `mfe`, `niwa-rec`,
-      `nzpam-geodata`, `nzta` and `trademe`. These publish terms of use or
-      per-item terms, not a reusable licence value in the response. The LRIS
-      and NIWA WMS service blocks supply access metadata but no licence, so
-      their publisher terms remain open
+- [x] Decided not to expose publisher terms from `data-govt-datastore`. The
+      live `datastore_search` response on 2026-11-27 carried rows, fields and
+      paging data, with no licence field. The licence belongs to the parent
+      dataset: `resource_show` returns `package_id` and no licence, and
+      `package_show` on that package returns `license_id`, `license_title`
+      and `license_url`. Reaching it from a resource ID takes two extra API
+      calls, and the adapter accepts any resource ID, so a fixed
+      adapter-level licence would be wrong. The adapter returns `resourceId`
+      so a caller can open the resource page. See
+      `docs/CONNECTOR_DISCOVERY.md`.
+- [ ] Decide whether to expose publisher terms for `lawa`, `linz`, `lris`,
+      `lris-basemaps`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta` and
+      `trademe`. These publish terms of use or per-item terms, not a reusable
+      licence value in the response. The LRIS and NIWA WMS service blocks
+      supply access metadata but no licence, so their publisher terms remain
+      open
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 

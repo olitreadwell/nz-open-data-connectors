@@ -528,7 +528,7 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `geonet` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-10-08. Returned in the TypeScript, Python and Ruby adapters' `license` metadata |
 | `geonet-felt-rapid` | GeoNet, a collaboration between NHC Toka Tū Ake and Earth Sciences New Zealand | Creative Commons Attribution 3.0 New Zealand, verified on `geonet.org.nz/about` on 2026-11-17. Returned in the TypeScript adapter's `license` metadata |
 | `data-govt-nz` | data.govt.nz, per dataset | The CKAN API returns `license_id`, `license_title`, `license_url`, `author` and `organization.title` per dataset, and the committed fixture carries both CC-BY-4.0 and CC-BY-NZ-3.0. The adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `author` and `organization` as the publisher |
-| `data-govt-datastore` | data.govt.nz, per resource | The datastore response carries rows, not dataset licence fields. Open the resource page for the dataset licence |
+| `data-govt-datastore` | data.govt.nz, per resource | Decided on 2026-11-27 not to return a licence from the row response. `datastore_search` carries rows, fields and paging data, with no licence field. The licence sits on the parent dataset: `resource_show` returns `package_id` and `package_show` returns `license_id`, `license_title` and `license_url`. The adapter returns `resourceId`, so open the resource page for the dataset licence |
 | `mbie-open-data` | Ministry of Business, Innovation and Employment (MBIE), via data.govt.nz | Per dataset. The CKAN response carries `license_id`, `license_title`, `license_url`, `rights`, `author` and `organization.title`, and the adapter returns `licenseId`, `licenseTitle`, `licenseUrl`, `rights`, `author` and `organization`. Most datasets are CC-BY-4.0 or CC-BY-NZ-3.0; a few are "other" or blank. For rows where `license_url` is null and `rights` is present, `rights` is the only licence pointer |
 | `ade-search` | Stats NZ, Aotearoa Data Explorer | Per table. The search response carries no licence or terms field, and the adapter returns `dataflowId` so you can open the table. Decided on 2026-11-26 not to add publisher terms to the search result: the search index is not the data, and the terms belong to the table. Check the Stats NZ terms for the table you pull |
 | `infoshare` | Stats NZ, Infoshare | Creative Commons Attribution 4.0 International unless the table page says otherwise, verified on `stats.govt.nz/about-us/copyright` on 2026-11-06 |
@@ -575,10 +575,12 @@ treat results from it accordingly.
 The remaining licence decisions are recorded as narrowed open items in
 `COUNTRY.md`: how to represent a default licence that a page can override,
 and whether to expose publisher terms for the remaining adapters that only
-link to terms of use. `ade-search` is decided: its search response carries no
-terms field, so the adapter returns the table ID and the caller checks the
-Stats NZ terms for that table. A caller who needs to republish a dataset from
-an adapter whose terms remain open has to check the publisher.
+link to terms of use. `ade-search` and `data-govt-datastore` are decided: the
+search response carries no terms field, and the datastore response carries
+rows while the dataset licence needs two extra catalogue calls. In both cases
+the adapter returns an ID so the caller can open the source page. A caller who
+needs to republish a dataset from an adapter whose terms remain open has to
+check the publisher.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
@@ -598,6 +600,32 @@ UA="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, l
 
 curl -sS -L -A "$UA" \
   "https://explore.data.stats.govt.nz/sfs/api/search?tenant=public&q=median%20annual%20earnings&limit=1"
+```
+
+### `data-govt-datastore` publisher terms
+
+Decided on 2026-11-27 not to add a licence to the `data-govt-datastore`
+result. The live `datastore_search` response carried `resource_id`, `total`,
+`records`, `fields`, `_links` and paging counters. It carried no licence or
+terms field. The licence belongs to the parent dataset, not the row response.
+For the default resource, `resource_show` returned `package_id` and no licence
+field, and `package_show` on that package returned `license_id: CC-BY-4.0`,
+`license_title`, `license_url` and an empty `rights` value.
+
+Reaching the licence from a resource ID takes two extra API calls. The adapter
+accepts any resource ID, so a fixed adapter-level licence would be wrong. The
+adapter returns `resourceId`, and a caller who needs to republish can open the
+resource page for the dataset licence.
+
+```sh
+curl -sS \
+  "https://catalogue.data.govt.nz/api/3/action/datastore_search?resource_id=9144a616-9ab1-4475-972b-ac42c1f891b7&limit=1"
+
+curl -sS \
+  "https://catalogue.data.govt.nz/api/3/action/resource_show?id=9144a616-9ab1-4475-972b-ac42c1f891b7"
+
+curl -sS \
+  "https://catalogue.data.govt.nz/api/3/action/package_show?id=b6c3a3c2-3fb4-48bb-a0cc-46406c8ef64c"
 ```
 
 ## 2026-11-16 addition: five keyless catalogue APIs

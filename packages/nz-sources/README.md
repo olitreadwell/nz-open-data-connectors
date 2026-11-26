@@ -143,6 +143,11 @@ field in the API payload. Each TypeScript adapter exposes `license.title`,
 include the same value. The Python and Ruby ports expose the same fields for
 `geonet` and `nzor`.
 
+The `data-govt-datastore` response carries rows and no licence field. Its
+licence sits on the parent dataset, which takes two extra catalogue calls to
+reach, so the adapter returns `resourceId` and you open the resource page for
+the dataset licence.
+
 Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; the values vary, so check each one. The Electricity Authority copyright statement licenses its material for reuse under CC BY 4.0 unless an item says otherwise; the dataset listing itself has no licence field. The NZPAM ArcGIS REST response has no licence field; check the publisher's terms. The Environment Canterbury open data portal states that all data is licensed under Creative Commons Attribution 4.0 International unless a dataset says otherwise, and asks users to attribute Environment Canterbury as the source. The catalogue page carries a CC BY 4.0 link and statement and a copyright notice, but no per-dataset licence field. These terms were checked on 2026-11-08, except the Auckland Museum and New Zealand Gazette terms, which were checked on 2026-11-16, the Charities Register, EV Roam and GeoNet felt rapid terms, which were checked on 2026-11-17, and the Environment Canterbury terms, which were checked on 2026-11-18. Check the source page before you reuse any dataset.
 
 ## Package licence
