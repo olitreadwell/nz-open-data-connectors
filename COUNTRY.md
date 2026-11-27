@@ -139,17 +139,19 @@ credentials exist.
       See `docs/CONNECTOR_DISCOVERY.md`.
 - [x] Decided not to expose publisher terms from `lawa`, `linz` or `lris`.
       The live LAWA map-service response on 2026-11-28 carried site fields and
-      no licence or terms field. Its terms page allows non-commercial reuse
-      unless a dataset says CC BY 4.0, and warns that some datasets have no
-      explicit licence and may have restrictions, so a static adapter-level
-      licence would be wrong. The LINZ and LRIS layer search responses on the
-      same date carried no licence field. Each layer's detail response carries
-      `license`, but reaching it takes one extra API call per layer and the
-      licence varies by layer. The live LAWA rows returned relative
+      no licence or terms field. Its terms page allows personal, educational
+      and non-commercial use with acknowledgement unless a dataset says
+      CC BY 4.0, and warns that some datasets have no explicit licence and may
+      have restrictions, so a static adapter-level licence would be wrong. The
+      LINZ and LRIS layer search responses on the same date carried no licence
+      field. The two sampled layer detail responses carried `license`, but
+      reaching it takes one extra API call per layer and the licence varies by
+      layer. The live LAWA rows returned relative
       monitoring-site paths, not terms pages, so a caller must resolve them
       against `https://www.lawa.org.nz` and check the LAWA terms separately.
-      LRIS returns a layer URL. LINZ returns `url` when present, but the field
-      is optional and defaults to an empty string. See
+      LRIS returns a layer URL. The LINZ adapter tolerates a missing `url` and
+      returns an empty string, but `id` can still address the layer detail
+      endpoint. See
       `docs/CONNECTOR_DISCOVERY.md`.
 - [ ] Decide whether to expose publisher terms for `lris-basemaps`, `mfe`,
       `niwa-rec`, `nzpam-geodata`, `nzta` and `trademe`. These publish terms

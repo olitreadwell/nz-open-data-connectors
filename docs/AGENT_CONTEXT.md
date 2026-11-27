@@ -99,8 +99,9 @@ pytest, ruff and mypy.
    explicit licence. The LINZ and LRIS search responses carry no licence field
    and each layer's licence takes one extra detail call. The live LAWA rows
    returned relative monitoring-site paths, not terms pages. LRIS returns a
-   layer URL. LINZ returns `url` when present, but the field is optional and
-   defaults to an empty string. The terms page is
+   layer URL. The LINZ adapter tolerates a missing `url` and returns an empty
+   string, but `id` can still address the layer detail endpoint. The terms
+   page is
    <https://www.lawa.org.nz/terms>.
    The licence position per source is in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
