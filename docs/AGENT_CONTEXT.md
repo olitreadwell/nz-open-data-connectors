@@ -94,6 +94,15 @@ pytest, ruff and mypy.
    `data-govt-datastore` is also decided: its row response carries no licence
    field, and the dataset licence takes two extra catalogue calls to reach, so
    the adapter returns the resource ID and the caller opens the resource page.
+   `lawa`, `linz` and `lris` are also decided: the LAWA response carries no
+   licence field, and its terms vary by dataset, including datasets with no
+   explicit licence. The LINZ and LRIS search responses carry no licence field
+   and each layer's licence takes one extra detail call. The live LAWA rows
+   returned relative monitoring-site paths, not terms pages. LRIS returns a
+   layer URL. The LINZ adapter tolerates a missing `url` and returns an empty
+   string, but `id` can still address the layer detail endpoint. The terms
+   page is
+   <https://www.lawa.org.nz/terms>.
    The licence position per source is in `docs/CONNECTOR_DISCOVERY.md`.
 3. Port the missing adapters to Python and Ruby (`arcgis`, `auckland-museum`,
    `auckland-transport-open-data`, `canterbury-maps`, `charities-register`,

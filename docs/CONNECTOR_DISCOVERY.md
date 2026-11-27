@@ -536,13 +536,13 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `nz-gazette` | New Zealand Gazette through DigitalNZ | Each Gazette record carries the DigitalNZ rights fields. Read them before reuse |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand. Not for commercial use. Returned in the TypeScript, Python and Ruby adapters' `license` metadata. The adapter remains fixture-backed because the hosts have failed TLS since 2026-09-21, so the licence has not been rechecked live since that date |
-| `linz` | Toitū Te Whenua LINZ Data Service | Per layer. The layer search endpoint returns id, title and url only, so open the layer page for its licence |
+| `linz` | Toitū Te Whenua LINZ Data Service | Decided on 2026-11-28 not to add a licence to the search result. The live layer search response carried `id`, `url`, `type`, `title`, dates, `services`, `thumbnail_url`, `public_access` and user permissions, with no licence field. The sampled NZ Property Boundaries layer detail response carried `license` with `id`, `title`, `type`, `jurisdiction`, `version`, `url`, `url_html` and `url_fulltext`; that layer was CC BY 4.0. Reaching it takes one extra call per layer, and the licence varies by layer. The adapter returns `url` when present. The adapter also tolerates a missing `url` and defaults it to an empty string; the 100-row live check returned `url` on every row. The `id` is always present, so a caller can still build `https://data.linz.govt.nz/services/api/v1/layers/<id>/` for the layer detail and its `license`, or follow `url_html` when `url` is present |
 | `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset. Dataset items carry `licenseInfo`, `accessInformation` and `license`, and the adapter returns all three |
 | `auckland-museum` | Auckland Museum collections online | Museum terms, with CC BY on records that carry it. Source records carry `copyright` and `dc_contributor`; the adapter returns every copyright statement as `copyrightStatements`, every contributor as `contributors`, and the first statement as `copyright`. Check the record page for the full terms and credit |
-| `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Check the LAWA terms of use |
+| `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Decided on 2026-11-28 not to add a static licence. The live `RiverQualitySites` response carried site fields and no licence or terms field. The LAWA terms page permits personal, educational and non-commercial use with acknowledgement, says a dataset may carry CC BY 4.0 instead, and warns that some datasets have no explicit licence and may have restrictions, so the licence varies by dataset. The adapter returns the raw `Url` value, which was a relative monitoring-site path such as `/explore-data/...`, not the terms page. Resolve it against `https://www.lawa.org.nz` and check the LAWA terms separately |
 | `charities-register` | Charities Register Open Data (DIA) | CC BY 3.0 NZ, per `catalogue.data.govt.nz/dataset/charities-register-open-data`, checked 2026-11-17. Returned in the TypeScript adapter's `license` metadata |
 | `mfe` | Ministry for the Environment, on the Koordinates platform | Per layer |
-| `lris` | Landcare Research, on the Koordinates platform | Per layer |
+| `lris` | Landcare Research, on the Koordinates platform | Decided on 2026-11-28 not to add a licence to the search result. The live layer search response carried `id`, `url`, `type`, `title`, dates, `services`, `thumbnail_url`, `public_access` and user permissions, with no licence field. The sampled S-map Soil Classification layer detail response carried `license` with `id`, `title`, `type`, `jurisdiction`, `version`, `url`, `url_html` and `url_fulltext`; that layer was CC BY-NC-ND 4.0. Reaching it takes one extra call per layer, and the licence varies by layer. The adapter returns `url` and `publicAccess`, so open the layer detail or its `url_html` page for the licence |
 | `nzta` | Waka Kotahi NZ Transport Agency | Check the Waka Kotahi terms of use |
 | `nzta-open-data` | Waka Kotahi open data hub | Per dataset. The DCAT feed carries a `license` value and the adapter passes it through; the first dataset is CC BY 4.0 and others carry custom terms |
 | `lris-basemaps` | Landcare Research, on the LRIS basemaps WMS | The WMS `Service` block declares `Fees: none`, an empty `AccessConstraints` value, and Landcare Research New Zealand Limited as the contact organisation. The adapter returns `fees`, `accessConstraints` and `contactOrganization`. Check the LRIS terms |
@@ -575,10 +575,12 @@ treat results from it accordingly.
 The remaining licence decisions are recorded as narrowed open items in
 `COUNTRY.md`: how to represent a default licence that a page can override,
 and whether to expose publisher terms for the remaining adapters that only
-link to terms of use. `ade-search` and `data-govt-datastore` are decided: the
-search response carries no terms field, and the datastore response carries
-rows while the dataset licence needs two extra catalogue calls. In both cases
-the adapter returns an ID so the caller can open the source page. A caller who
+link to terms of use. `ade-search`, `data-govt-datastore`, `lawa`, `linz` and
+`lris` are decided: the search and datastore responses carry no terms field,
+the LAWA terms vary by dataset and include datasets with no explicit licence,
+and the LINZ and LRIS licence takes one extra layer call. The adapters return
+an ID or URL. The LINZ adapter tolerates a missing `url` by returning an empty
+string, but `id` can still address the layer detail endpoint. A caller who
 needs to republish a dataset from an adapter whose terms remain open has to
 check the publisher.
 
@@ -629,6 +631,56 @@ curl -sS \
 
 curl -sS \
   "https://catalogue.data.govt.nz/api/3/action/package_show?id=b6c3a3c2-3fb4-48bb-a0cc-46406c8ef64c"
+```
+
+### `lawa`, `linz` and `lris` publisher terms
+
+Decided on 2026-11-28 not to add a static licence or terms value to these
+adapters, and not to add a per-layer licence to the two layer searches.
+
+The live `RiverQualitySites` response carried 1,632 rows and 24 fields, such as
+`Id`, `Name`, `Url`, `Code`, `Latitude` and `Longitude`. It carried no licence
+or terms field. The LAWA terms page says that content may be used for
+personal, educational or non-commercial purposes with acknowledgement, that a
+dataset licensed under CC BY 4.0 may be used for any purpose, and that some
+datasets have no explicit licence and may have restrictions. A static LAWA
+licence would therefore be wrong. The adapter returns the raw `Url` value,
+which in the live response was a relative monitoring-site path such as
+`/explore-data/...`, not the terms page. Resolve it against
+`https://www.lawa.org.nz`. The terms page is <https://www.lawa.org.nz/terms>.
+
+The live LINZ and LRIS layer search responses each carried 100 rows with
+`id`, `url`, `type`, `title`, `first_published_at`, `published_at`,
+`featured_at`, `services`, `thumbnail_url`, `public_access`,
+`user_capabilities` and `user_permissions`. Neither response carried a licence
+field. The two sampled layer detail responses, NZ Property Boundaries and S-map
+Soil Classification, each carried a `license` object with `id`, `title`,
+`type`, `jurisdiction`, `version`, `url`, `url_html` and `url_fulltext`. The
+first was CC BY 4.0 and the second was CC BY-NC-ND 4.0, so the licence varies
+by layer. Reaching it takes one extra call per search result. The LRIS adapter
+requires `url` in its search response. The LINZ adapter treats `url` as
+optional and defaults it to an empty string, so a result can parse without a
+URL; the 100-row live check returned `url` on every row. When present, the URL
+is the layer detail endpoint, so a caller can read `license` or follow
+`url_html` to the human page. The `id` is always present, so a caller can also
+build the detail path as
+`https://data.linz.govt.nz/services/api/v1/layers/<id>/`.
+
+```sh
+curl -sS -L -A "$UA" \
+  "https://www.lawa.org.nz/umbraco/api/mapservice/RiverQualitySites"
+
+curl -sS -L -A "$UA" \
+  "https://data.linz.govt.nz/services/api/v1/layers?search=property"
+
+curl -sS -L -A "$UA" \
+  "https://data.linz.govt.nz/services/api/v1/layers/122657/"
+
+curl -sS -L -A "$UA" \
+  "https://lris.scinfo.org.nz/services/api/v1/layers?search=soil"
+
+curl -sS -L -A "$UA" \
+  "https://lris.scinfo.org.nz/services/api/v1/layers/125060/"
 ```
 
 ## 2026-11-16 addition: five keyless catalogue APIs
