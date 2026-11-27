@@ -137,12 +137,22 @@ credentials exist.
       TypeScript adapter returns `resourceId`, and the Python and Ruby
       adapters return `resource_id`, so a caller can open the resource page.
       See `docs/CONNECTOR_DISCOVERY.md`.
-- [ ] Decide whether to expose publisher terms for `lawa`, `linz`, `lris`,
-      `lris-basemaps`, `mfe`, `niwa-rec`, `nzpam-geodata`, `nzta` and
-      `trademe`. These publish terms of use or per-item terms, not a reusable
-      licence value in the response. The LRIS and NIWA WMS service blocks
-      supply access metadata but no licence, so their publisher terms remain
-      open
+- [x] Decided not to expose publisher terms from `lawa`, `linz` or `lris`.
+      The live LAWA map-service response on 2026-11-28 carried site fields and
+      no licence or terms field. Its terms page allows non-commercial reuse
+      unless a dataset says CC BY 4.0, so a static adapter-level licence would
+      be wrong. The LINZ and LRIS layer search responses on the same date
+      carried no licence field. Each layer's detail response carries `license`,
+      but reaching it takes one extra API call per layer and the licence varies
+      by layer. The adapters return `url`, so a caller can open the layer. See
+      `docs/CONNECTOR_DISCOVERY.md`.
+- [ ] Decide whether to expose publisher terms for `lris-basemaps`, `mfe`,
+      `niwa-rec`, `nzpam-geodata`, `nzta` and `trademe`. These publish terms
+      of use or per-item terms, not a reusable licence value in the response.
+      `mfe` shares the Koordinates layer-search shape with `lris` but its
+      detail licence has not been checked. The LRIS and NIWA WMS service
+      blocks supply access metadata but no licence, so their publisher terms
+      remain open
 - [ ] Keyed adapters: NZBN / Companies Office, NIWA, RBNZ, NZ Legislation,
       Koordinates, Auckland Transport
 
