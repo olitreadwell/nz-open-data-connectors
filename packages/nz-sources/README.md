@@ -148,12 +148,20 @@ licence sits on the parent dataset, which takes two extra catalogue calls to
 reach, so the adapter returns `resourceId` and you open the resource page for
 the dataset licence.
 
-The `lawa` response carries no licence or terms field, and the LAWA terms page
-permits non-commercial reuse unless a dataset says CC BY 4.0. The `linz` and
-`lris` layer search responses carry no licence field. Each layer's detail
-response carries `license`, but reaching it takes one extra call per layer.
-All three adapters return a URL so you can open the source page and check the
-terms for the dataset you use.
+The `lawa` response carries no licence or terms field. Its terms page permits
+non-commercial reuse, says a dataset may carry CC BY 4.0 instead, and warns
+that some datasets have no explicit licence and may have restrictions. The
+`lawa` adapter returns the raw `Url` value. Every non-background row in the
+live response used a relative monitoring-site path such as
+`/explore-data/...`, and that page is not the terms page. Resolve the path
+against <https://www.lawa.org.nz> and check
+<https://www.lawa.org.nz/terms> separately. The `linz` and `lris` layer search
+responses carry no licence field. Each layer's detail response carries
+`license`, but reaching it takes one extra call per layer. LRIS requires `url`
+in its search response. LINZ allows it to be missing, in which case the
+adapter returns an empty string and there is no licence path in that result.
+When present, the URL is the layer detail endpoint. Check the terms for the
+dataset you use.
 
 Source field names follow the API: CKAN, DigitalNZ and GeoNode use snake_case, and ArcGIS Hub uses camelCase. Adapter output names use camelCase. Most MBIE datasets carry CC BY 4.0 or CC BY-NZ 3.0; some carry other or no licence metadata. The Waka Kotahi, Canterbury Maps, Wellington City, Christchurch City and Auckland Transport DCAT feeds carry a licence value per dataset; the values vary, so check each one. The Electricity Authority copyright statement licenses its material for reuse under CC BY 4.0 unless an item says otherwise; the dataset listing itself has no licence field. The NZPAM ArcGIS REST response has no licence field; check the publisher's terms. The Environment Canterbury open data portal states that all data is licensed under Creative Commons Attribution 4.0 International unless a dataset says otherwise, and asks users to attribute Environment Canterbury as the source. The catalogue page carries a CC BY 4.0 link and statement and a copyright notice, but no per-dataset licence field. These terms were checked on 2026-11-08, except the Auckland Museum and New Zealand Gazette terms, which were checked on 2026-11-16, the Charities Register, EV Roam and GeoNet felt rapid terms, which were checked on 2026-11-17, and the Environment Canterbury terms, which were checked on 2026-11-18. Check the source page before you reuse any dataset.
 

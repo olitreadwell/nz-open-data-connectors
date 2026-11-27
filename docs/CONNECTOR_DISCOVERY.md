@@ -536,10 +536,10 @@ and DigitalNZ's `rights_url` becomes `rightsUrl`.
 | `nz-gazette` | New Zealand Gazette through DigitalNZ | Each Gazette record carries the DigitalNZ rights fields. Read them before reuse |
 | `trademe` | Trade Me | Check the Trade Me API terms of use |
 | `nzor` | NZOR, the New Zealand Organisms Register | Creative Commons Attribution-NonCommercial-ShareAlike 3.0 New Zealand. Not for commercial use. Returned in the TypeScript, Python and Ruby adapters' `license` metadata. The adapter remains fixture-backed because the hosts have failed TLS since 2026-09-21, so the licence has not been rechecked live since that date |
-| `linz` | Toitū Te Whenua LINZ Data Service | Decided on 2026-11-28 not to add a licence to the search result. The live layer search response carried `id`, `url`, `type`, `title`, dates, `services`, `thumbnail_url`, `public_access` and user permissions, with no licence field. The layer detail response carries `license` with `id`, `title`, `type`, `version`, `url`, `url_html` and `url_fulltext`; the sample NZ Property Boundaries layer was CC BY 4.0. Reaching it takes one extra call per layer, and the licence varies by layer. The adapter returns `url`, so open the layer detail or its `url_html` page for the licence |
+| `linz` | Toitū Te Whenua LINZ Data Service | Decided on 2026-11-28 not to add a licence to the search result. The live layer search response carried `id`, `url`, `type`, `title`, dates, `services`, `thumbnail_url`, `public_access` and user permissions, with no licence field. The layer detail response carries `license` with `id`, `title`, `type`, `version`, `url`, `url_html` and `url_fulltext`; the sample NZ Property Boundaries layer was CC BY 4.0. Reaching it takes one extra call per layer, and the licence varies by layer. The adapter returns `url` when present. LINZ allows `url` to be missing, and the adapter then returns an empty string, so that result has no licence path. When present, open the layer detail or its `url_html` page for the licence |
 | `arcgis` | The portal owner: Auckland Council (default), Wellington City Council, Canterbury Maps, or Waka Kotahi | Per portal and per dataset. Dataset items carry `licenseInfo`, `accessInformation` and `license`, and the adapter returns all three |
 | `auckland-museum` | Auckland Museum collections online | Museum terms, with CC BY on records that carry it. Source records carry `copyright` and `dc_contributor`; the adapter returns every copyright statement as `copyrightStatements`, every contributor as `contributors`, and the first statement as `copyright`. Check the record page for the full terms and credit |
-| `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Decided on 2026-11-28 not to add a static licence. The live `RiverQualitySites` response carried site fields and no licence or terms field. The LAWA terms page permits personal, educational and non-commercial use, and says a dataset may carry CC BY 4.0 instead, so the licence varies by dataset. The adapter returns `url`, so open the site page. Check the LAWA terms |
+| `lawa` | LAWA, on behalf of participating regional councils and Crown agencies | Decided on 2026-11-28 not to add a static licence. The live `RiverQualitySites` response carried site fields and no licence or terms field. The LAWA terms page permits personal, educational and non-commercial use, says a dataset may carry CC BY 4.0 instead, and warns that some datasets have no explicit licence and may have restrictions, so the licence varies by dataset. The adapter returns the raw `Url` value, which was a relative monitoring-site path such as `/explore-data/...`, not the terms page. Resolve it against `https://www.lawa.org.nz` and check the LAWA terms separately |
 | `charities-register` | Charities Register Open Data (DIA) | CC BY 3.0 NZ, per `catalogue.data.govt.nz/dataset/charities-register-open-data`, checked 2026-11-17. Returned in the TypeScript adapter's `license` metadata |
 | `mfe` | Ministry for the Environment, on the Koordinates platform | Per layer |
 | `lris` | Landcare Research, on the Koordinates platform | Decided on 2026-11-28 not to add a licence to the search result. The live layer search response carried `id`, `url`, `type`, `title`, dates, `services`, `thumbnail_url`, `public_access` and user permissions, with no licence field. The layer detail response carries `license` with `id`, `title`, `type`, `version`, `url`, `url_html` and `url_fulltext`; the sample S-map Soil Classification layer was CC BY-NC-ND 4.0. Reaching it takes one extra call per layer, and the licence varies by layer. The adapter returns `url` and `publicAccess`, so open the layer detail or its `url_html` page for the licence |
@@ -577,10 +577,11 @@ The remaining licence decisions are recorded as narrowed open items in
 and whether to expose publisher terms for the remaining adapters that only
 link to terms of use. `ade-search`, `data-govt-datastore`, `lawa`, `linz` and
 `lris` are decided: the search and datastore responses carry no terms field,
-the LAWA terms are site-wide, and the LINZ and LRIS licence takes one extra
-layer call. In each case the adapter returns an ID or URL so the caller can
-open the source page. A caller who needs to republish a dataset from an
-adapter whose terms remain open has to check the publisher.
+the LAWA terms vary by dataset and include datasets with no explicit licence,
+and the LINZ and LRIS licence takes one extra layer call. The adapters return
+an ID or URL, and LINZ may return an empty URL when the search response omits
+`url`. A caller who needs to republish a dataset from an adapter whose terms
+remain open has to check the publisher.
 
 When you republish, credit the publisher, not this library. The connectors
 fetch and shape the data; they add nothing to it.
@@ -641,9 +642,11 @@ The live `RiverQualitySites` response carried 1,632 rows and 24 fields, such as
 or terms field. The LAWA terms page says that content may be used for
 personal, educational or non-commercial purposes with acknowledgement, that a
 dataset licensed under CC BY 4.0 may be used for any purpose, and that some
-datasets have no explicit licence. A static LAWA licence would therefore be
-wrong. The adapter returns `url`, and the site terms page is
-<https://www.lawa.org.nz/terms>.
+datasets have no explicit licence and may have restrictions. A static LAWA
+licence would therefore be wrong. The adapter returns the raw `Url` value,
+which in the live response was a relative monitoring-site path such as
+`/explore-data/...`, not the terms page. Resolve it against
+`https://www.lawa.org.nz`. The terms page is <https://www.lawa.org.nz/terms>.
 
 The live LINZ and LRIS layer search responses each carried 100 rows with
 `id`, `url`, `type`, `title`, `first_published_at`, `published_at`,
@@ -653,9 +656,11 @@ field. The layer detail response carries a `license` object with `id`, `title`,
 `type`, `jurisdiction`, `version`, `url`, `url_html` and `url_fulltext`.
 The sample NZ Property Boundaries layer was CC BY 4.0, and the sample S-map
 Soil Classification layer was CC BY-NC-ND 4.0, so the licence varies by layer.
-Reaching it takes one extra call per search result. Both adapters return
-`url`, which is the layer detail endpoint, so a caller can read `license` or
-follow `url_html` to the human page.
+Reaching it takes one extra call per search result. LRIS requires `url` in its
+search response. LINZ treats `url` as optional and defaults it to an empty
+string, so a result can parse with no usable licence path. When present, the
+URL is the layer detail endpoint, so a caller can read `license` or follow
+`url_html` to the human page.
 
 ```sh
 curl -sS -L -A "$UA" \
